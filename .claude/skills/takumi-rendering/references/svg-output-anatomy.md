@@ -27,7 +27,7 @@ What to know about each part:
 | Feature | Why it matters |
 |---|---|
 | **Flat, paint-ordered root children.** There are no groups per DOM element, and `id`/`data-*` from JSX are **not** emitted. | You can't find "the card" in the SVG. `layers.ts` works around this by diffing renders. |
-| **Text is `<g fill>` + `<use href="#gN">`** per glyph, with outlines in `<defs>`. | There's no `<text>`, so there's no editable PPTX text, and ppt-master expands each `<use>` into a shape. |
+| **Text is `<g fill>` + `<use href="#gN">`** per glyph, with outlines in `<defs>` (a one-glyph line is a bare `<use fill>`). | There's no `<text>`. `normalizeSvg` replaces each run with native `<text>` rebuilt from takumi-pdf; see [native-text.md](native-text.md). |
 | **Def ids (`g0`, `cp0`) are numbered per render.** | Two renders of the same slide number glyphs differently. Diffing has to compare *referenced content*, not ids. |
 | **Lowercase / short hex** (`#fff`, `#3b82f6`). | ppt-master prefers `#RRGGBB`, so `normalizeSvg` uppercases and expands it. |
 | **`border-radius` produces a path plus an empty `<g clip-path>`**. | It's harmless, and the normalizer drops it along with the unused `<clipPath>`. |

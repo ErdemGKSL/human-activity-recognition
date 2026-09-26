@@ -14,7 +14,8 @@ The rules below are the subset our pipeline hits, with the component that satisf
 | `clip-path` only on `<image>` or a crop wrapper | yes | empty clip groups dropped; content clip groups throw (avoid in layouts) |
 | Every visible root `<g>` declares `data-pptx-bounds="x y w h"` | yes | `slide-content` = canvas, or per block/static-run geometry bounds |
 | Root groups may not overlap > 1px on both axes | yes | checked earlier in `normalizeSvg` with a clearer error |
-| Module text overflow > 5% of its bounds | yes (text only) | n/a — our text is outlines, not `<text>`, so the estimator skips it |
+| Module text overflow > 5% of its bounds (checker's own width estimate) | yes (text only) | `normalizeSvg` widens groups to `pptMasterWidthEstimate` into free space ([native-text](../../takumi-rendering/references/native-text.md#the-quality-gate-and-bounds)) |
+| Text grammar: `font-family`/`font-size`/`font-weight`/`fill-opacity`/`letter-spacing`/`text-anchor`, no `text-transform` | yes | `replaceGlyphText` emits only registered attributes; `font-family` once on the root |
 | Full-canvas background primitive may carry `data-pptx-role="background"` | — | first full-canvas `<rect>` gets it |
 | Ungrouped root primitives | advisory | avoided; everything visible is grouped |
 | Uppercase `#RRGGBB` paints | advisory | canonicalized |

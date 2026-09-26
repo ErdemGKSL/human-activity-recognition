@@ -30,7 +30,7 @@ output/<deck>/
    report. On failure we re-run it without `--json` and throw the human-readable report.
 2. `animation_config.py validate <ws>` checks the sidecar against the real SVG group ids.
    It runs only when `animations.json` exists.
-3. `svg_to_pptx.py <ws> --quick-generate -o <out> --with-notes|--no-notes` writes the deck,
+3. `svg_to_pptx.py <ws> --quick-generate -o <out> --with-notes|--no-notes --reflow-text` writes the deck,
    then **reads the package back** and verifies every transition and animation row. Some
    invalid combinations only fail at this step (for example, accel + decel > 100%).
 

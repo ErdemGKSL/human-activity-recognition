@@ -88,10 +88,11 @@ or `quarterly-review` decks: [references/recipes.md](references/recipes.md)
 ## Effects that don't fit this pipeline
 
 - **Text-formatting emphasis** (anything that changes font, font color, font size, bold,
-  underline, or other text styling) needs real PowerPoint text runs. Our text is vector
-  outlines ([takumi-rendering](../takumi-rendering/SKILL.md)), so these have nothing to act
-  on. Use shape-level emphasis instead: grow/shrink, teeter, spin, transparency, or fill
-  color.
+  underline, or other text styling). The text is native PowerPoint text now
+  ([native-text](../takumi-rendering/references/native-text.md)), but animations target the
+  `<Animate>` block's *group*, not the text box inside it, and these effects on a group are
+  unverified. Use shape-level emphasis instead: grow/shrink, teeter, spin, transparency, or
+  fill color.
 - **Flip cards and stacked reveals** need two groups in the same spot, but root groups may
   not overlap ([ppt-master-export](../ppt-master-export/SKILL.md#rules-you-cant-bypass)).
   Put them side by side and use a click-to-reveal instead.

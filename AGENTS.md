@@ -198,11 +198,13 @@ The reasons are in [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md) 
 2. **Every box is `display: "flex"`**, styled with inline `style` objects that read theme
    tokens. Never hard-code colors. Decks override tokens with `deck.theme`.
 3. **The canvas is fixed at 1280×720** (`CANVAS`, which is ppt-master's `ppt169`).
-4. **Text exports as vector glyph outlines**, not editable PowerPoint text. Don't promise
-   editable text, and don't use text-formatting animation effects.
-5. **Geist is the only font** (full Geist registered as `Geist Sans`, so Turkish works)
-   unless you register another. `→` and similar symbols render as tofu boxes. Emoji and
-   remote images are unverified.
+4. **Text exports as native, editable PowerPoint text**: one text box per paragraph, rebuilt
+   from takumi-pdf's real PDF text ([native-text](.claude/skills/takumi-rendering/references/native-text.md)).
+   Text-formatting animation effects are still off: animations target block groups.
+5. **Carlito is the only font**, and PowerPoint shows it as Calibri (identical metrics, so
+   lines break the same). Weights snap to 400/700. Uppercase with `upper(text, lang)`, not
+   `textTransform` (not Turkish-aware). `→` and similar symbols render as tofu boxes.
+   Emoji and remote images are unverified.
 6. **Root groups must not overlap** (a ppt-master rule). `<Animate>` blocks must not nest or
    overlap each other or static content, and their ids avoid chrome tokens
    (`SLIDE_CHROME_TOKENS`).
@@ -231,9 +233,16 @@ These facts took experiments to establish. Each links to the skill that owns it.
 - `fromJsx` **keeps** `id` and `data-*` on the node tree. `@takumi-rs/core` has
   `measure()`, which `takumi-js` doesn't re-export →
   [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md#apis-you-may-need).
-- Takumi's built-in Geist is a subset: `ş` and `ğ` render as tofu, and a registered face
-  named `Geist` loses to it. The full Geist is registered as `Geist Sans` →
-  [fonts](.claude/skills/takumi-rendering/references/layout-and-css.md#fonts).
+- Takumi's SVG has no text, but **takumi-pdf writes real text** from the same layout: per
+  line the face, size, colour, alpha and baseline in CSS px (letter-spacing hides in `TJ`
+  offsets, centring in a leading `TJ` offset). Reading it back and pairing it with the SVG
+  glyph runs and `measure()` paragraphs gives editable PPTX text →
+  [native-text](.claude/skills/takumi-rendering/references/native-text.md).
+- Carlito ≡ Calibri metrics (ppt-master's Calibri table matches to 4 decimals). ppt-master's
+  width estimate lacks Turkish `ı`, so group bounds widen into free space to pass the gate →
+  [native-text](.claude/skills/takumi-rendering/references/native-text.md#the-quality-gate-and-bounds).
+- Takumi's built-in Geist is a subset (`ş`/`ğ` are tofu), and it synthesizes missing
+  weights as stroked outlines → [fonts](.claude/skills/takumi-rendering/references/layout-and-css.md#fonts).
 - `visibility: hidden` hides a whole subtree, and children can't opt back in.
 - ppt-master fails any root-group overlap larger than 1px. It needs a passing
   `--json` quality report before quick export, and notes need `--with-notes` →

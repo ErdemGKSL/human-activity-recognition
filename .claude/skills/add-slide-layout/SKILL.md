@@ -10,7 +10,7 @@ description: Add a new slide layout (e.g. timeline, two-column, image+text) to t
 > `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
 
 Read [takumi-rendering](../takumi-rendering/SKILL.md) first if you haven't written a
-layout here before. Its rules (no single-side borders, no `overflow: hidden`, and Geist's
+layout here before. Its rules (no single-side borders, no `overflow: hidden`, and the font's
 missing glyphs) will fail the export if you ignore them.
 
 The type system drives this: once the layout exists in `Slide`, `tsc` fails until it is

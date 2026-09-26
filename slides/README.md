@@ -177,6 +177,8 @@ makes the following changes:
   bounded `<g>`. On animated slides it instead creates one bounded `<g>` per `<Animate>`
   block, plus groups for the static content between them. To find a block's elements, it
   re-renders the slide with that block hidden and diffs the result.
+- It replaces each glyph-outline text run with native `<text>` (one per paragraph), rebuilt
+  from takumi-pdf's PDF text and Takumi's `measure()` layout.
 - It canonicalizes colors to `#RRGGBB`.
 
 After that, ppt-master's `svg_quality_checker.py` gates the SVG and `svg_to_pptx.py` writes
@@ -184,9 +186,12 @@ the deck.
 
 ## Known limitations
 
-- **Text is exported as vector glyph outlines**, not editable text boxes, because Takumi's
-  SVG backend outlines glyphs. It stays sharp at any zoom but can't be edited as text in
-  PowerPoint. Shapes, bars, and cards are native, editable shapes.
+- Text is **native, editable PowerPoint text** (one text box per paragraph, re-wrapping on
+  edit). Takumi's SVG only has glyph outlines, so the renderer rebuilds the text from
+  takumi-pdf's real PDF text for the same layout; see the
+  [native-text reference](../.claude/skills/takumi-rendering/references/native-text.md).
+  Slides are laid out in Carlito and shown as Calibri (same metrics), so nothing needs
+  installing. Shapes, bars, and cards are native, editable shapes.
 - Layouts must avoid `overflow: hidden` and single-side borders, which Takumi turns into
   clip groups. The renderer throws a clear error if a layout uses them.
 

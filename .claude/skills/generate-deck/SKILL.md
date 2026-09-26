@@ -1,6 +1,6 @@
 ---
 name: generate-deck
-description: Run the JSX → SVG → PPTX pipeline, inspect outputs (PNG previews, `bun run inspect`), and debug failures (Takumi render errors, SvgNormalizeError, LayerError, ppt-master quality gate or export failures, missing Python toolchain). Use when asked to build/regenerate decks, check what a .pptx contains, or when generation fails.
+description: Run the JSX → SVG → PPTX pipeline, inspect outputs (PNG previews, `bun run inspect`), and debug failures (Takumi render errors, SvgNormalizeError, NativeTextError, LayerError, ppt-master quality gate or export failures, missing Python toolchain). Use when asked to build/regenerate decks, check what a .pptx contains, or when generation fails.
 ---
 
 # Generate and debug decks
@@ -73,6 +73,11 @@ For motion-specific failures, see
 5. **`animations.json validation failed`.** The sidecar has an unknown effect, an invalid
    option, or a trigger conflict. Check the options with
    `pptx_animations.py --describe <effect>`.
-6. **"ppt-master not found" or "Python not found".** Run `bun run setup`.
+6. **`NativeTextError`.** A text line could not be rebuilt as editable text: an SVG glyph
+   run with no matching takumi-pdf line (or the reverse), or a face that isn't a registered
+   slide font. Usual causes: a weight or style the fonts don't have (Takumi draws it as
+   stroked outlines), or an unregistered `fontFamily`. See
+   [native-text](../takumi-rendering/references/native-text.md).
+7. **"ppt-master not found" or "Python not found".** Run `bun run setup`.
 
 **Never** bypass the gate with `--enable-dangerous-nonconforming-svg-export`.

@@ -38,14 +38,15 @@ reasons are in [references/svg-output-anatomy.md](references/svg-output-anatomy.
    export, so `normalizeSvg` throws. Draw rules and bars as sized `<div>`s with
    `backgroundColor`. Full borders and `borderRadius` are fine, because they only produce
    empty clip groups that get dropped.
-2. **Text becomes vector glyph outlines**, not PowerPoint text. It's crisp but not editable
-   as text, and text-formatting animation effects have nothing to act on (see
-   [pptx-object-animations](../pptx-object-animations/SKILL.md#effects-that-dont-fit-this-pipeline)).
-3. **Fonts: the full Geist, registered as `Geist Sans`** by `packages/renderer/src/fonts.ts`
-   (Takumi's built-in Geist is a subset that draws Turkish `ş`/`ğ` as tofu, verified). Geist
-   has no `→` (verified), and likely no other symbols such as `✓`, arrows, or emoji. Missing
-   glyphs render as tofu boxes. `—`, `…`, `·` and curly quotes are fine. See
-   [references/layout-and-css.md#fonts](references/layout-and-css.md#fonts).
+2. **Takumi's SVG draws text as glyph outlines, but the export is native, editable text.**
+   The renderer rebuilds every line as SVG `<text>` from takumi-pdf's real PDF text and
+   `measure()`, so each paragraph becomes one PowerPoint text box. How and why:
+   [references/native-text.md](references/native-text.md).
+3. **Fonts: Carlito in layout, Calibri in PowerPoint.** Carlito is metric-compatible with
+   Calibri, so lines break identically. Only 400/700 (regular and italic) exist, so weights
+   snap to those. Use `upper(text, deck.lang)`, not `textTransform: "uppercase"` (it isn't
+   Turkish-aware). Symbols such as `→`, `✓` and emoji are unverified in Carlito; prefer words.
+   See [references/layout-and-css.md#fonts](references/layout-and-css.md#fonts).
 4. **`visibility: hidden` drops the whole subtree.** A child with `visibility: visible`
    inside a hidden parent is not shown (verified). The layering code relies on hiding one
    `<Animate>` block at a time while keeping its layout box.
@@ -60,7 +61,8 @@ reasons are in [references/svg-output-anatomy.md](references/svg-output-anatomy.
 | JSX to Takumi node tree | `fromJsx(element)` from `takumi-js/helpers/jsx` | Returns `{ node, css }`. Keeps `id` and `attributes` (`data-*`), which is how `<Animate>` markers survive. |
 | Vector output | `renderSvg(nodeOrElement, { width, height })` | Accepts the node tree, so render once and reuse. |
 | Raster preview | `render(node, { width, height, format: "png" })` | |
-| Layout boxes | `Renderer#measure(node, opts)` in `@takumi-rs/core` | Gives absolute `transform`, `width`, `height` and text runs per node. `takumi-js` doesn't re-export it. Not used today; geometry comes from the SVG instead. |
+| Layout boxes | `Renderer#measure(node, opts)` in `@takumi-rs/core` | Gives absolute `transform` (border box), `width`, `height` and text runs per node (relative to the content box). `takumi-js` doesn't re-export it. Used for paragraph grouping in `native-text.ts`. |
+| Real text | `render(node, { viewport })` from `takumi-pdf` | Same layout, written as PDF text operators. `extractTextRuns` (`pdf-text.ts`) reads it back. |
 
 ## Where to go next
 
@@ -68,6 +70,7 @@ reasons are in [references/svg-output-anatomy.md](references/svg-output-anatomy.
   [references/svg-output-anatomy.md](references/svg-output-anatomy.md)
 - CSS and layout support, fonts, and verified behaviors:
   [references/layout-and-css.md](references/layout-and-css.md)
+- How text becomes editable PowerPoint text: [references/native-text.md](references/native-text.md)
 - What the exporter needs from that SVG: [ppt-master-export](../ppt-master-export/SKILL.md)
 - Making parts of a slide animatable (`<Animate>`): [animate-slides](../animate-slides/SKILL.md)
 - Adding a whole layout: [add-slide-layout](../add-slide-layout/SKILL.md)

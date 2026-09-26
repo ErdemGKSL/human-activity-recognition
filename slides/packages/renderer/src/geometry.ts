@@ -57,6 +57,8 @@ export function elementBox(
   el: Element,
   lookup: DefLookup,
   parent: Matrix = IDENTITY,
+  /** Measure `<text>` with `data-text-estimate` instead of its true width. */
+  estimated = false,
 ): Box | undefined {
   const m = multiply(parent, parseTransform(el.getAttribute("transform")));
   const out = new BoxBuilder();
@@ -89,13 +91,37 @@ export function elementBox(
       const target = lookup(id);
       if (target) {
         const shifted = multiply(m, [1, 0, 0, 1, num("x"), num("y")]);
-        out.addBox(elementBox(target, lookup, shifted));
+        out.addBox(elementBox(target, lookup, shifted, estimated));
       }
+      break;
+    }
+    case "text": {
+      // Native text from `replaceGlyphText`: true advance width, and a line box
+      // at least as tall as ppt-master's own text estimate.
+      const size = num("font-size");
+      const lines = Math.max(1, el.getElementsByTagName("tspan").length);
+      const step = num("data-paragraph-line-height");
+      // Rows are laid out from the true left edge; an estimate (wider than the
+      // real text) grows from the side the anchor leaves free.
+      const left = num("data-text-left");
+      const width = num("data-text-width");
+      const anchor = el.getAttribute("text-anchor") ?? "start";
+      const grow = estimated ? Math.max(0, num("data-text-estimate") - width) : 0;
+      const x0 = anchor === "end" ? left - grow : anchor === "middle" ? left - grow / 2 : left;
+      const x1 =
+        anchor === "end"
+          ? left + width
+          : anchor === "middle"
+            ? left + width + grow / 2
+            : left + width + grow;
+      const y = num("y");
+      out.add(x0, y - size * 0.9, m);
+      out.add(x1, y + (lines - 1) * step + size * 0.4, m);
       break;
     }
     case "g":
       for (const child of Array.from(el.childNodes)) {
-        if (child.nodeType === 1) out.addBox(elementBox(child as Element, lookup, m));
+        if (child.nodeType === 1) out.addBox(elementBox(child as Element, lookup, m, estimated));
       }
       break;
   }

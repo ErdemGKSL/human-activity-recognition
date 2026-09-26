@@ -48,8 +48,8 @@ Back to [../SKILL.md](../SKILL.md).
 | Animation missing in inspect output | slide or deck has `animate: false`, the block's animation is `"none"`, or the override replaced it | check `slide.animations` and layout defaults |
 | Objects appear, vanish, then appear again after a Morph | an entrance on an object that Morph already fades in | remove its entrance ([why](../../pptx-morph/SKILL.md#how-pairing-works-here)) |
 | Morph plays as a plain crossfade | keys differ, or the slides aren't consecutive | same key, adjacent slides; inspect shows `!!key` on both |
-| Emphasis "does nothing" in PowerPoint | text-formatting effect on outline text | use shape-level emphasis ([why](../../pptx-object-animations/SKILL.md#effects-that-dont-fit-this-pipeline)) |
-| Tofu boxes in previews | glyph missing from Geist (`→`, `✓`) | use words, or register a font ([fonts](../../takumi-rendering/references/layout-and-css.md#fonts)) |
+| Emphasis "does nothing" in PowerPoint | text-formatting effect on a block group | use shape-level emphasis ([why](../../pptx-object-animations/SKILL.md#effects-that-dont-fit-this-pipeline)) |
+| Tofu boxes in previews | glyph missing from Carlito (`→`, `✓`) | use words, or register a font ([fonts](../../takumi-rendering/references/layout-and-css.md#fonts)) |
 
 ## Hand-checking the sidecar
 

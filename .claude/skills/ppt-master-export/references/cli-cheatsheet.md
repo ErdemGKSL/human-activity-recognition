@@ -9,6 +9,7 @@ Back to [../SKILL.md](../SKILL.md).
 | `--quick-generate` | Export without a design-spec lock; requires a passing final quality report | always |
 | `-o <file>` | Output path | always |
 | `--with-notes` / `--no-notes` | Speaker notes (quick mode needs explicit opt-in) | auto from notes presence |
+| `--reflow-text` | Multi-line `<text>` (soft-broken rows) becomes one paragraph in a fixed-width, word-wrapping box | always ([native-text](../../takumi-rendering/references/native-text.md)) |
 | `-t <transition>` / `--transition-duration` | CLI-wide transition; **sidecar wins per slide** | no — use `deck.transition` |
 | `-a auto\|mixed\|random\|none` | Generic auto-builds for every group | no — explicit per block is better design |
 | `--auto-advance <s>` / `--kiosk` | Timed playback / looping kiosk | not wired; `Transition.autoAdvance` covers per-slide timing |

@@ -1,4 +1,4 @@
-import { Animate, Heading, SlideFrame } from "../components";
+import { Animate, Heading, SlideFrame, upper } from "../components";
 import type { LayoutProps } from "../types";
 
 export function Bullets({ slide, ...ctx }: LayoutProps<"bullets">) {
@@ -9,12 +9,11 @@ export function Bullets({ slide, ...ctx }: LayoutProps<"bullets">) {
         fontSize: theme.font.size.caption - 2,
         fontWeight: 700,
         letterSpacing: 1.5,
-        textTransform: "uppercase",
         color: theme.colors.primary,
         marginBottom: theme.space.gap * 0.75,
       }}
     >
-      {text}
+      {upper(text, ctx.deck.lang)}
     </span>
   );
   return (

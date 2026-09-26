@@ -20,25 +20,29 @@ preview (`bun run generate <deck> --png`) before relying on it.
 
 - Wrapping and line height work (see the quote slide). Nothing auto-shrinks text to fit, so
   shorten copy or size the box.
-- `textTransform: "uppercase"` and `letterSpacing` are verified (section eyebrow).
-- Output is glyph outlines. PowerPoint sees shapes, not text, so there's no spell-check, no
-  font substitution, and no text editing.
+- `letterSpacing` is verified (section eyebrow) and exports as run spacing (`spc`).
+- `textTransform: "uppercase"` works but ignores the locale ("Girdi" becomes "GIRDI"). Use
+  `upper(text, deck.lang)` from the slides components instead.
+- The export is native PowerPoint text (editable, spell-checked, `lang` from the deck); see
+  [native-text.md](native-text.md).
 
 ## Fonts
 
-- Takumi **never reads system fonts**. With no `fonts` option you get the built-in **Geist**
-  (Latin, weights 300–800), which is a **subset**: `ç ö ü ı İ` render but `ş` and `ğ` are
-  tofu (verified). So `packages/renderer/src/fonts.ts` registers the full static Geist faces
-  from the `geist` npm package (Light 300 … Black 800) as family **`Geist Sans`**, and
-  `defaultTheme.font.family` is `Geist Sans`. A registered face named plain `Geist` loses to
-  the built-in one at the same weight (verified), hence the distinct name.
-- Missing glyphs render as tofu boxes. Verified missing: `→`. Treat other arrows and check
-  marks (`✓`, `✔`), plus emoji, as missing. Verified present: `—`, `…`, `·`, `“ ”`, `$`, `%`.
-- To use another font, add it to `loadFonts()` in `packages/renderer/src/fonts.ts` (every
-  `renderSvg` / `render` call in `render.ts` passes those fonts), with entries like `{ name, data }` or helper output
-  such as `googleFonts([...])` (upstream API). Then set `theme.font.family` to match.
-  CJK, Arabic, and similar scripts need a font that covers them. After that, the deck's
-  `lang` should use the right BCP-47 tag.
+- Takumi **never reads system fonts**. With no `fonts` option you get the built-in **Geist**,
+  a **subset**: `ç ö ü ı İ` render but `ş` and `ğ` are tofu (verified). Slides don't use it.
+- Slides use **Carlito** (`packages/renderer/src/fonts.ts`, `defaultTheme.font.family`),
+  metric-compatible with Calibri, which the PPTX names. See
+  [native-text.md](native-text.md#fonts-carlito-on-our-side-calibri-in-powerpoint).
+  Carlito covers Turkish. Its faces are 400/700 regular and italic, so `snapFontWeights`
+  maps every weight to one of those: a synthesized weight is drawn as stroked outlines,
+  which the text export rejects.
+- Missing glyphs render as tofu boxes. Treat arrows (`→`), check marks (`✓`, `✔`) and emoji
+  as missing. `—`, `…`, `·`, `“ ”`, `×`, `$` and `%` are present.
+- Changing the font means changing both names in `fonts.ts`: the layout font (`FONT_FAMILY`,
+  files in `FILES`) and the PowerPoint typeface (`POWERPOINT_TYPEFACE`). They must be
+  metric-compatible, or PowerPoint will wrap lines differently from the previews. CJK,
+  Arabic and similar scripts need a font that covers them, and the deck's `lang` should
+  use the right BCP-47 tag.
 
 ## Images and emoji
 

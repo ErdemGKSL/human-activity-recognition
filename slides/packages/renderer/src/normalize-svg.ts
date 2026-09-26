@@ -2,6 +2,14 @@ import type { PageRole } from "@pptx/core";
 import { DOMParser, type Element, XMLSerializer } from "@xmldom/xmldom";
 import { type Box, boxesOverlap, elementBox, snapBox, unionBoxes } from "./geometry";
 import { BLOCK_ATTR } from "./layers";
+import {
+  pruneUnreferencedDefs,
+  replaceGlyphText,
+  TEXT_ESTIMATE_ATTR,
+  TEXT_LEFT_ATTR,
+  TEXT_WIDTH_ATTR,
+  type TextLine,
+} from "./native-text";
 
 /**
  * Takumi's SVG is valid, but ppt-master's native exporter enforces a stricter
@@ -20,7 +28,10 @@ import { BLOCK_ATTR } from "./layers";
  *    tagged `data-pptx-block` by `tagBlocks`), each block becomes
  *    `<g id="anim-<id>">` and the static content between blocks becomes
  *    `<g id="static-<n>">`, each bounded by its own geometry.
- * 6. Hex paints are canonicalized to uppercase `#RRGGBB`.
+ * 6. With `text`, glyph-outline text becomes native `<text>` before grouping
+ *    (bounds then use each line box, see `elementBox`), and the unused glyph
+ *    defs are dropped.
+ * 7. Hex paints are canonicalized to uppercase `#RRGGBB`.
  */
 
 export interface NormalizeOptions {
@@ -30,6 +41,8 @@ export interface NormalizeOptions {
   height: number;
   /** Used in error messages only. */
   label?: string;
+  /** Laid-out text lines (`layoutText`); when set, text is exported as editable `<text>`. */
+  text?: TextLine[];
 }
 
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -72,6 +85,12 @@ export function normalizeSvg(svg: string, options: NormalizeOptions): string {
   }
   pruneUnreferencedClipPaths(root, defs);
 
+  // 6. Editable text (before grouping so bounds use text line boxes).
+  if (options.text) {
+    replaceGlyphText(root, options.text, label);
+    pruneUnreferencedDefs(root, defs);
+  }
+
   // 4. Background rect.
   const content = childElements(root).filter((el) => el !== defs);
   const [first] = content;
@@ -93,7 +112,7 @@ export function normalizeSvg(svg: string, options: NormalizeOptions): string {
     const lookup = (id: string) =>
       Array.from(defs.getElementsByTagName("*")).find((el) => el.getAttribute("id") === id);
     const groups = layerGroups(content);
-    const placed: { id: string; box: Box }[] = [];
+    const placed: { id: string; box: Box; members: Element[] }[] = [];
     for (const { id, members } of groups) {
       const raw = unionBoxes(members.map((el) => elementBox(el, lookup)));
       if (!raw) continue;
@@ -106,7 +125,32 @@ export function normalizeSvg(svg: string, options: NormalizeOptions): string {
             "each other and of static content, or wrap the overlapping content in the block.",
         );
       }
-      placed.push({ id, box });
+      placed.push({ id, box, members });
+    }
+    // Widen groups to ppt-master's estimate of their text (see
+    // `pptMasterWidthEstimate`) into free space only: the widening stops at the
+    // nearest other group and at the canvas, so it never creates an overlap.
+    const bounds = placed.map((p) => {
+      const est = unionBoxes(p.members.map((el) => elementBox(el, lookup, undefined, true)));
+      if (!est) return p.box;
+      const trueLeft = p.box.x;
+      const trueRight = p.box.x + p.box.width;
+      let left = Math.max(0, Math.min(trueLeft, est.x));
+      let right = Math.min(width, Math.max(trueRight, est.x + est.width));
+      for (const o of placed) {
+        if (o === p) continue;
+        const verticalOverlap =
+          o.box.y < p.box.y + p.box.height - 1 && p.box.y < o.box.y + o.box.height - 1;
+        if (!verticalOverlap) continue;
+        if (o.box.x >= trueRight - 1) right = Math.min(right, o.box.x - 1);
+        if (o.box.x + o.box.width <= trueLeft + 1) left = Math.max(left, o.box.x + o.box.width + 1);
+      }
+      left = Math.min(trueLeft, Math.ceil(left));
+      right = Math.max(trueRight, Math.floor(right));
+      return { ...p.box, x: left, width: right - left };
+    });
+    placed.forEach(({ id, members }, i) => {
+      const box = bounds[i] as Box;
       const group = doc.createElementNS(SVG_NS, "g");
       group.setAttribute("id", id);
       group.setAttribute("data-pptx-bounds", fmt(box));
@@ -115,10 +159,16 @@ export function normalizeSvg(svg: string, options: NormalizeOptions): string {
         group.appendChild(el);
       }
       root.appendChild(group);
-    }
+    });
   }
 
-  // 6. Paint canonicalization.
+  for (const el of Array.from(root.getElementsByTagName("text"))) {
+    el.removeAttribute(TEXT_WIDTH_ATTR);
+    el.removeAttribute(TEXT_ESTIMATE_ATTR);
+    el.removeAttribute(TEXT_LEFT_ATTR);
+  }
+
+  // 7. Paint canonicalization.
   for (const el of Array.from(root.getElementsByTagName("*"))) {
     for (const attr of PAINT_ATTRS) {
       const value = el.getAttribute(attr);

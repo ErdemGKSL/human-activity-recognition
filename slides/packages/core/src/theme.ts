@@ -52,7 +52,7 @@ export const defaultTheme: Theme = {
     border: "#CBD5E1",
   },
   font: {
-    family: "Geist Sans",
+    family: "Carlito",
     size: { display: 72, h1: 48, h2: 32, body: 24, caption: 18 },
   },
   space: { page: 72, gap: 24 },

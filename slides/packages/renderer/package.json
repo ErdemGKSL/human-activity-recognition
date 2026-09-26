@@ -8,12 +8,14 @@
   },
   "types": "./src/index.ts",
   "dependencies": {
+    "@expo-google-fonts/carlito": "0.4.1",
     "@pptx/core": "workspace:*",
     "@pptx/slides": "workspace:*",
+    "@takumi-rs/core": "2.14.0",
     "@xmldom/xmldom": "^0.9.8",
-    "geist": "^1.7.2",
     "react": "^19.1.0",
-    "takumi-js": "^2.14.0"
+    "takumi-js": "^2.14.0",
+    "takumi-pdf": "0.15.0"
   },
   "devDependencies": {
     "@pptx/mock-data": "workspace:*"

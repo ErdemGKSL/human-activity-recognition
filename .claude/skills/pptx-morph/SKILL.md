@@ -64,8 +64,9 @@ match. Morph blocks exist even with `animate: false`.
   To make room for a new object next to a full-frame one, shrink the paired object on the
   destination slide (for example `push-focus`: the Europe card is 780 px wide so a 300 px
   note fits). The Morph animates to whatever size you give it.
-- Keep the **text inside the paired object** similar. Text is vector outlines here, so
-  changed text cross-fades rather than morphing letter by letter, and that's usually fine
+- Keep the **text inside the paired object** similar. Morph pairs the block groups, not
+  the text boxes inside them, so changed text cross-fades rather than morphing letter by
+  letter, and that's usually fine
   (see the [re-sort recipe](references/recipes.md#re-sort-or-re-rank)).
 
 ## Recipes
@@ -100,7 +101,7 @@ should arrive *after* the Morph has landed. See
   clamps bounds to the canvas and the stage layout doesn't mark staging. To support it,
   extend `normalize-svg.ts` and `geometry.ts`, and add a test.
 - **Morph by word or character** (`morph_by: word|character`) is rejected with explicit
-  pairs, and our text is outlines anyway.
+  pairs.
 - **Stacked in-place swaps** (the same spot, different object) aren't possible on one slide.
   Use two slides with Morph.
 

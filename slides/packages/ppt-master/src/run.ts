@@ -75,6 +75,9 @@ export interface ExportOptions {
 export async function exportPptx(workspace: string, options: ExportOptions): Promise<RunResult> {
   const args = [workspace, "--quick-generate", "-o", options.output];
   args.push(options.notes ? "--with-notes" : "--no-notes");
+  // Multi-line <text> (one paragraph, soft-broken rows) becomes one text box
+  // with a fixed width that PowerPoint re-wraps when the text is edited.
+  args.push("--reflow-text");
   const result = await runScript("svg_to_pptx.py", args);
   if (result.exitCode !== 0) {
     throw new PptMasterError(

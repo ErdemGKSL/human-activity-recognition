@@ -15,6 +15,7 @@ import { render, renderSvg } from "takumi-js";
 import { fromJsx } from "takumi-js/helpers/jsx";
 import { loadFonts } from "./fonts";
 import { type Block, findBlocks, hideAt, LayerError, type TakumiNode, tagBlocks } from "./layers";
+import { layoutText, snapFontWeights } from "./native-text";
 import { blockGroupId, normalizeSvg } from "./normalize-svg";
 
 /** Deterministic Morph pairing into this slide from the previous one. */
@@ -64,7 +65,8 @@ export async function renderDeck(
   options: RenderDeckOptions = {},
 ): Promise<RenderedSlide[]> {
   const theme = extendTheme(defaultTheme, deck.theme);
-  const opts = { ...SIZE, fonts: await loadFonts() };
+  const fonts = await loadFonts();
+  const opts = { ...SIZE, fonts: fonts.map(({ name, data }) => ({ name, data })) };
   const total = deck.slides.length;
 
   const rendered = await Promise.all(
@@ -72,7 +74,8 @@ export async function renderDeck(
       const stem = slideStem(slide, index);
       const label = `${deck.id}/${stem}`;
       const element = renderSlide(slide, { deck, theme, index, total });
-      const { node } = (await fromJsx(element)) as { node: TakumiNode };
+      // Only real faces: a synthesized weight is drawn as outlines, not text.
+      const node = snapFontWeights(((await fromJsx(element)) as { node: TakumiNode }).node);
 
       // With animations off, blocks still matter when they carry a Morph key.
       const animate = slide.animate ?? deck.animate ?? true;
@@ -96,6 +99,7 @@ export async function renderDeck(
           svg = tagBlocks(full, new Map(hidden), label);
         }
         svg = normalizeSvg(svg, {
+          text: await layoutText(node, fonts, SIZE),
           lang: deck.lang,
           pageRole: PAGE_ROLE[slide.layout],
           width: CANVAS.width,

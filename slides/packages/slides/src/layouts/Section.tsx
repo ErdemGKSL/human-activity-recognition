@@ -1,4 +1,4 @@
-import { Animate, SlideFrame } from "../components";
+import { Animate, SlideFrame, upper } from "../components";
 import type { LayoutProps } from "../types";
 
 export function Section({ slide, ...ctx }: LayoutProps<"section">) {
@@ -14,11 +14,10 @@ export function Section({ slide, ...ctx }: LayoutProps<"section">) {
               fontSize: theme.font.size.caption,
               fontWeight: 700,
               letterSpacing: 2,
-              textTransform: "uppercase",
               opacity: 0.8,
             }}
           >
-            {slide.eyebrow}
+            {upper(slide.eyebrow, ctx.deck.lang)}
           </span>
         ) : null}
         <h1

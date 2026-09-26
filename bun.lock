@@ -78,12 +78,14 @@
       "name": "@pptx/renderer",
       "version": "0.1.0",
       "dependencies": {
+        "@expo-google-fonts/carlito": "0.4.1",
         "@pptx/core": "workspace:*",
         "@pptx/slides": "workspace:*",
+        "@takumi-rs/core": "2.14.0",
         "@xmldom/xmldom": "^0.9.8",
-        "geist": "^1.7.2",
         "react": "^19.1.0",
         "takumi-js": "^2.14.0",
+        "takumi-pdf": "0.15.0",
       },
       "devDependencies": {
         "@pptx/mock-data": "workspace:*",
@@ -118,6 +120,8 @@
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.5.14", "", { "os": "win32", "cpu": "x64" }, "sha512-oJWmBhoHsnhUKIke+0gXDX0mltJrWHA1UyHsrTlXwX0TL64ilVZAo+TYZm97baecV0esBdpzy3k96q+09JaZUQ=="],
 
     "@emnapi/runtime": ["@emnapi/runtime@1.11.3", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-Xz4Tpyki7XyrpbUK1jR1AhdAdaXyhhY4lZ3neLodmhpuWfy2PAQN5B46sAiU4liOXGLkHypn/qU+jvfWSCYYLA=="],
+
+    "@expo-google-fonts/carlito": ["@expo-google-fonts/carlito@0.4.1", "", {}, "sha512-S4vhxWiS1mKp6AAx44VvNt7edQhnoXJU3obKcBZRjMkvQn0MJlm+Sz3O2bhcXy3h01CMi/soREOjDcZYFDzL/Q=="],
 
     "@har/report": ["@har/report@workspace:report"],
 
