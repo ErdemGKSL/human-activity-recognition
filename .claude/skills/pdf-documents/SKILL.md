@@ -49,6 +49,12 @@ report/src/documents/*.tsx        slide-directions/src/directions/*.ts  +  @pptx
 | One guide per deck | `slide-directions/src/directions/<deck-id>.ts` |
 | Guide layout | `slide-directions/src/DirectionsDocument.tsx` |
 
+## Writing the text
+
+All prose (report sections, guide scripts, Q&A answers) is written and revised with
+[academic-humanizer](../academic-humanizer/SKILL.md), following the Turkish and project notes
+in the "Writing prose" section of `AGENTS.md`.
+
 ## Adding or filling a report
 
 1. Write sections as JSX in `report/src/documents/<id>.tsx` with the components above.
