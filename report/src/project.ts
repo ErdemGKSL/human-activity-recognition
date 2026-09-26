@@ -13,8 +13,7 @@ export const project = {
   },
   authors: ["Erdem Göksel"],
   studentId: "261402103",
-  /** TODO: dersi veren öğretim üyesi. */
-  instructor: "TODO: Öğretim üyesi",
+  instructor: "Cem CANTEKİN",
   sensors: ["Accelerometer", "Gyroscope"],
   models: ["MLP", "1D CNN", "LSTM", "GRU"],
   metrics: ["Accuracy", "Precision", "Recall", "F1-score", "Confusion Matrix"],

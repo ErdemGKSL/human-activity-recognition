@@ -1,7 +1,7 @@
 import { defineDirections } from "../types";
 
 /**
- * Anlatıcı rehberi — 1. Sunum: Project Proposal (hedef ~8 dk).
+ * Anlatıcı rehberi: 1. Sunum: Project Proposal (hedef ~8 dk).
  * Henüz deney yapılmadı: hiçbir sonuç kesinmiş gibi anlatılmaz.
  */
 export const proposal = defineDirections({
@@ -9,14 +9,14 @@ export const proposal = defineDirections({
   duration: "5–10 dakika (hedef ~8 dk)",
   date: "19.10.2026",
   summary:
-    "Bu projede, akıllı telefonların accelerometer ve gyroscope sensörlerinden elde edilen time-series verileri kullanılarak yürüme, oturma, ayakta durma, uzanma, merdiven çıkma ve merdiven inme gibi insan aktivitelerinin yapay sinir ağlarıyla sınıflandırılması amaçlanmaktadır. UCI Machine Learning Repository'deki “Smartphone-Based Recognition of Human Activities and Postural Transitions” veri seti üzerinde MLP, 1D CNN, LSTM ve GRU mimarileri aynı ön işleme ve aynı katılımcı bazlı veri ayrımıyla eğitilecek; modeller Accuracy, Precision, Recall, F1-score ve Confusion Matrix ile karşılaştırılacaktır. Projenin ilerleyen aşamasında kendi telefonumuzdan toplanacak sensör verileriyle, modellerin daha önce görülmemiş gerçek bir kullanıcıya ne kadar genellenebildiği ayrıca değerlendirilecektir.",
+    "Bu projede, akıllı telefonların accelerometer ve gyroscope sensörlerinden elde edilen time-series verileriyle yürüme, oturma, ayakta durma, uzanma, merdiven çıkma ve merdiven inme gibi insan aktivitelerinin yapay sinir ağlarıyla sınıflandırılması amaçlanmaktadır. Veri kaynağı, UCI Machine Learning Repository'deki “Smartphone-Based Recognition of Human Activities and Postural Transitions” veri setidir. MLP, 1D CNN, LSTM ve GRU mimarileri aynı katılımcı bazlı veri ayrımıyla eğitilecek ve Accuracy, Precision, Recall, F1-score ve Confusion Matrix ile karşılaştırılacaktır. MLP veri setindeki hazır özniteliklerle, diğer üç model ham sinyal pencereleriyle beslenecektir. Son aşamada kendi telefonumuzdan toplanacak sensör verileriyle, modellerin daha önce görülmemiş gerçek bir kullanıcıya ne kadar genellenebildiği değerlendirilecektir.",
   opening: {
     duration: "~30 saniye",
-    text: "Hepimizin cebinde, her saniye onlarca kez hareketimizi ölçen iki sensör var: accelerometer ve gyroscope. Telefonunuz şu anda oturduğunuzu biliyor mu? Aslında sinyalde bu bilgi var; ama onu çıkarmak için doğru modele ihtiyaç var. Bu projede, telefon sensörlerinden gelen sinyallerle insan aktivitelerini tanımak için dört farklı nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı koşullarda karşılaştırmayı ve en sonunda kendi telefonumuzdan topladığımız verilerle gerçek hayatta sınamayı planlıyoruz.",
+    text: "Hepimizin cebinde, her saniye onlarca kez hareketimizi ölçen iki sensör var: accelerometer ve gyroscope. Telefonunuz şu anda oturduğunuzu biliyor mu? Bu bilgi sinyalde var; onu çıkarmak için uygun bir model gerekiyor. Bu projede dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımı ve aynı metriklerle karşılaştırmayı planlıyoruz. Son adımda modelleri kendi telefonumuzdan topladığımız verilerle sınayacağız.",
   },
   overview: [
-    "Dinleyici, nöral ağları bilen bir yüksek lisans sınıfı ve dersin hocası. Temel kavramları (katman, geri yayılım) anlatmaya gerek yok; asıl vurgu problem, veri ve karşılaştırmanın nasıl adil yapılacağı olmalı.",
-    "Ana hikâye tek cümle: “Aynı veri, aynı koşullar, dört mimari; hangisi aktiviteyi daha iyi tanıyor ve bu başarı gerçek bir telefona taşınabiliyor mu?”",
+    "Dinleyici, nöral ağları bilen bir yüksek lisans sınıfı ve dersin hocası. Temel kavramları (katman, geri yayılım) anlatmaya gerek yok; vurgu problemde, veride ve karşılaştırmanın hangi koşullarda yapılacağında olmalı.",
+    "Ana hikâye tek cümle: “Aynı veri ayrımı, aynı metrikler, dört mimari: hangisi aktiviteyi daha iyi tanıyor ve bu başarı gerçek bir telefona taşınabiliyor mu?”",
     "Dil proje önerisi dilidir: “amaçlanmaktadır, planlanmaktadır, karşılaştırılacaktır”. Henüz hiçbir sonuç yok; “GRU daha iyi” gibi kesin ifadelerden kaçının, en fazla “beklenmektedir” deyin.",
     "Slaytlarda az metin var; maddeleri okumayın, her maddeyi kendi cümlenizle bir iki cümlede açın. Süreyi tutturmak için her slaytın yanında hedef süre yazıyor.",
   ],
@@ -25,7 +25,7 @@ export const proposal = defineDirections({
       question:
         "MLP'yi neden ham sinyal yerine 561 öznitelikle besliyorsunuz? Bu adil bir karşılaştırma mı?",
       answer:
-        "MLP girdinin zaman sırasını modellemez; ham pencereyi düzleştirip vermek zamansal yapıyı yok sayar. Bu yüzden MLP'yi veri setinin sağladığı, zaman ve frekans alanında hesaplanmış 561 öznitelikle referans model olarak kullanmayı planlıyoruz. Böylece elle tasarlanmış özniteliklerle, 1D CNN, LSTM ve GRU'nun ham sinyalden kendi öğrendiği temsiller karşılaştırılmış olacak. Zaman kalırsa MLP'yi düzleştirilmiş ham pencerelerle de eğiterek girdi türünün etkisini ayrıca raporlayabiliriz.",
+        "MLP, komşu zaman adımları arasındaki ilişkiyi mimarisinde kodlamaz; düzleştirilmiş bir ham pencerede her adımı ayrı bir girdi olarak görür. Bu yüzden MLP'yi veri setindeki, zaman ve frekans alanında hesaplanmış 561 öznitelikle referans model olarak kullanmayı planlıyoruz. Böylece elle tasarlanmış öznitelikler ile 1D CNN, LSTM ve GRU'nun ham sinyalden öğrendiği temsiller de karşılaştırılacak. Bu tasarımda MLP ile diğer modeller arasındaki farkın bir kısmı girdi temsilinden gelecek; bunu sonuçlarda açıkça belirteceğiz. Zaman kalırsa MLP'yi düzleştirilmiş ham pencerelerle de eğiterek girdi türünün etkisini ayrıca raporlayabiliriz.",
     },
     {
       question:
@@ -42,7 +42,7 @@ export const proposal = defineDirections({
       question:
         "Kendi telefonunuzdan topladığınız veri, veri setindeki kayıtlardan farklı olacak. Bu farkı nasıl yöneteceksiniz?",
       answer:
-        "Farkı olabildiğince azaltmak için veriyi 50 Hz'e yeniden örnekleyip aynı birimlere (accelerometer için g, gyroscope için rad/s) çevireceğiz, telefonu veri setindeki gibi bel bölgesine yerleştireceğiz ve aynı pencereleme ile eğitim kümesinden hesaplanan aynı normalizasyon değerlerini kullanacağız. Yine de cihaz, konum ve kişi farkı nedeniyle performansın düşmesi beklenir; bu düşüşün ne kadar olduğu ve hangi sınıflarda yoğunlaştığı zaten bu ek deneyin cevaplamak istediği sorudur.",
+        "Farkı azaltmak için veriyi 50 Hz'e yeniden örnekleyip aynı birimlere (accelerometer için g, gyroscope için rad/s) çevireceğiz. Telefonu veri setindeki gibi bel bölgesine yerleştireceğiz. Aynı pencerelemeyi ve eğitim kümesinden hesaplanan aynı normalizasyon değerlerini kullanacağız. Yine de cihaz, konum ve kişi farkı nedeniyle performansın düşmesi beklenir; bu düşüşün ne kadar olduğu ve hangi sınıflarda yoğunlaştığı zaten bu ek deneyin cevaplamak istediği sorudur.",
     },
     {
       question: "LSTM ile GRU arasındaki fark nedir, ikisini birden denemek neden gerekli?",
@@ -71,8 +71,8 @@ export const proposal = defineDirections({
       time: "1 dk",
       goal: "Sensör sinyalinden aktiviteyi çıkarmak kolay değil; özellikle benzer aktiviteler karışıyor.",
       script: [
-        "Telefon her saniye onlarca kez üç eksende ivme ve üç eksende açısal hız ölçüyor. Yani elimizde 6 kanallı bir time-series var; ama bu sayılar kendiliğinden “yürüyor” ya da “oturuyor” demiyor.",
-        "Yürüme ve merdiven çıkma gibi hareketli aktiviteler sinyalde belirgin ritimler oluşturur. Oturma ve ayakta durma ise neredeyse hareketsizdir; aralarındaki fark çoğunlukla telefonun yerçekimine göre duruşundan gelir. Bu yüzden bu iki sınıfın karışması bekleniyor.",
+        "Veri setinde telefon saniyede 50 kez üç eksende ivme ve üç eksende açısal hız ölçüyor. Yani elimizde 6 kanallı bir time-series var; ama bu sayılar kendiliğinden “yürüyor” ya da “oturuyor” demiyor.",
+        "Yürüme ve merdiven çıkma gibi hareketli aktiviteler sinyalde belirgin ritimler oluşturur. Oturma ve ayakta durma ise neredeyse hareketsizdir; aralarındaki fark çoğunlukla telefonun yerçekimine göre duruşundan gelir. Bu yüzden bu iki sınıfın birbirine karışması bekleniyor.",
         "Üstelik herkes farklı yürür. Modelin bir kişiyi ezberlemesi değil, yeni kişilere genellenmesi gerekiyor. Hangi nöral ağ mimarisinin bu yapıyı en iyi yakaladığı ise projenin asıl sorusu.",
       ],
       data: [
@@ -90,7 +90,7 @@ export const proposal = defineDirections({
         },
       ],
       funFacts: [
-        "Accelerometer masada hareketsiz dururken bile yaklaşık 1 g ölçer: bu, yerçekimidir. Veri setinde bu bileşen düşük geçiren bir filtreyle vücut hareketinden ayrılmıştır; durağan aktiviteleri ayırt etmede en önemli ipucu da çoğu zaman budur.",
+        "Accelerometer masada hareketsiz dururken bile yaklaşık 1 g ölçer: bu, yerçekimidir. Veri setinde bu bileşen düşük geçiren bir filtreyle vücut hareketinden ayrılmıştır. Durağan aktivitelerde telefonun duruş açısı bu bileşenden okunur.",
       ],
       visuals: [
         "Yürüme ile oturma için aynı eksende 2–3 saniyelik accelerometer sinyali grafiği: biri dalgalı, diğeri neredeyse düz. Veri indirildikten sonra eklenebilir.",
@@ -103,11 +103,11 @@ export const proposal = defineDirections({
     },
     goal: {
       time: "1 dk",
-      goal: "Projenin çıktısı tek bir model değil, dört mimarinin adil bir karşılaştırması.",
+      goal: "Projenin çıktısı tek bir model değil, dört mimarinin kontrollü bir karşılaştırması.",
       script: [
-        "Amacımız dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ve aynı koşullarda eğitip karşılaştırmak.",
-        "Bunu dört araştırma sorusu üzerinden yapmayı planlıyoruz: mimariler genel olarak nasıl performans gösterecek; zaman serisini doğrudan işleyen modeller MLP'ye göre bir fark yaratacak mı; modeller hiç görmedikleri gerçek bir kullanıcıya genellenebilecek mi; ve hangi aktiviteler birbirine karışacak.",
-        "Motivasyon tarafında aktivite tanıma; yaşlı ve hasta takibi, spor ve egzersiz uygulamaları ve bağlama göre davranan akıllı cihazlar gibi birçok alanın temel yapı taşı.",
+        "Amacımız dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımıyla eğitip aynı metriklerle karşılaştırmak.",
+        "Karşılaştırma dört araştırma sorusuna göre yapılacak. Birincisi, dört mimarinin aynı test kümesindeki performansı. İkincisi, zaman serisini doğrudan işleyen modellerin MLP referans modelinden farkı. Üçüncüsü, modellerin hiç görmedikleri gerçek bir kullanıcıya genellenip genellenemeyeceği. Dördüncüsü, hangi aktivitelerin birbirine karıştığı.",
+        "Motivasyon: aktivite tanıma; yaşlı ve hasta takibi, spor ve egzersiz uygulamaları ve bağlama göre davranan akıllı cihazlar için girdi sağlar.",
       ],
       data: [
         {
@@ -122,18 +122,18 @@ export const proposal = defineDirections({
       ],
       tips: [
         "Soruları okumak yerine her birini bir cümleyle özetleyin.",
-        "Üçüncü soruyu (gerçek kullanıcı) vurgulayın; projeyi hazır veri seti çalışmalarından ayıran kısım bu.",
+        "Üçüncü soruyu (gerçek kullanıcı) vurgulayın; projenin hazır veri setinin dışına çıktığı kısım bu.",
       ],
       transition: "Bu soruları cevaplamak için kullanacağımız veri setine geçelim.",
     },
     dataset: {
       time: "1 dk",
-      goal: "Veri seti güvenilir, iyi tanımlanmış ve kişi bazlı ayrılmış.",
+      goal: "Veri seti açık erişimli, belgelenmiş ve kişi bazlı ayrılmış.",
       script: [
         "Veri seti, UCI Machine Learning Repository'deki “Smartphone-Based Recognition of Human Activities and Postural Transitions”. 19 ile 48 yaş arasındaki 30 gönüllü, bellerine takılı bir telefonla belirlenen aktiviteleri yapmış.",
         "Sinyaller 50 Hz'de, yani saniyede 50 kez örneklenmiş ve 2,56 saniyelik, yüzde 50 örtüşen pencerelere bölünmüş; her pencere 128 ölçüm içeriyor. Veri setinde her pencere için hesaplanmış 561 öznitelik de hazır olarak bulunuyor.",
         "Etiketlerde 6 temel aktivitenin yanında oturmadan kalkma gibi 6 duruş geçişi var. Temel hedefimiz 6 aktivite; geçiş sınıflarının kullanımını ayrıca değerlendireceğiz.",
-        "En önemli nokta: eğitim ve test ayrımı kişi bazlı. Test kümesindeki gönüllüler eğitimde hiç görülmüyor; bu da sonuçların yeni kullanıcılara genellemeyi ölçmesini sağlıyor.",
+        "Eğitim ve test ayrımı kişi bazlı: test kümesindeki gönüllüler eğitimde hiç görülmüyor. Bu yüzden test sonuçları yeni kullanıcılara genellemeyi ölçecek.",
       ],
       data: [
         {
@@ -157,7 +157,7 @@ export const proposal = defineDirections({
       ],
       funFacts: [
         "Bir pencere 2,56 saniyelik bir hareketi 128 × 6 = 768 sayıyla anlatıyor. Bir yürüme adımı yaklaşık yarım saniye sürdüğü için her pencereye birkaç adım sığıyor.",
-        "Bu veri seti, 2012'de yayımlanan ve alanda en çok kullanılan veri setlerinden biri olan UCI HAR veri setinin genişletilmiş sürümüdür; yeni eklenen kısım duruş geçişleridir.",
+        "Bu veri seti, 2012'de yayımlanan UCI HAR veri setinin genişletilmiş sürümüdür; yeni eklenen kısım duruş geçişleridir.",
       ],
       visuals: [
         "Sınıf başına örnek sayısını gösteren çubuk grafik (veri indirildikten sonra); geçiş sınıflarının azlığı tek bakışta görünür.",
@@ -170,11 +170,11 @@ export const proposal = defineDirections({
     },
     method: {
       time: "1,5 dk",
-      goal: "Dört model de aynı akıştan geçecek; fark yalnızca mimariden gelecek.",
+      goal: "Dört model aynı veri ayrımı ve aynı metriklerle değerlendirilecek.",
       script: [
         "Soldan sağa gidelim. İlk adımda UCI veri setinden accelerometer ve gyroscope sinyallerini alıyoruz.",
         "Ön işleme adımında sinyaller filtrelenecek, sabit uzunlukta pencerelere bölünecek ve eğitim kümesinden hesaplanan değerlerle normalize edilecek.",
-        "Modelleme adımında dört mimari eğitilecek. MLP veri setindeki öznitelik vektörleriyle, 1D CNN, LSTM ve GRU ise ham sinyal pencereleriyle beslenecek; böylece elle tasarlanmış öznitelikler ile modelin kendi öğrendiği temsiller de karşılaştırılmış olacak.",
+        "Modelleme adımında dört mimari eğitilecek. MLP veri setindeki öznitelik vektörleriyle, 1D CNN, LSTM ve GRU ise ham sinyal pencereleriyle beslenecek. Bu yüzden MLP ile diğer modeller arasındaki farkın bir kısmı girdi temsilinden gelecek; bu, sonuçlarda ayrıca belirtilecek.",
         "Değerlendirme adımında modeller aynı test kümesinde metriklerle ve hata analiziyle karşılaştırılacak. Son adım turuncu, çünkü ek deney: kendi telefonumuzdan topladığımız verilerle modelleri gerçek bir kullanıcıda sınayacağız.",
       ],
       data: [
@@ -185,12 +185,12 @@ export const proposal = defineDirections({
         {
           label: "Ortak akış",
           meaning:
-            "Aynı ön işleme, aynı ayrım, aynı metrikler: karşılaştırmanın adil olmasının şartı.",
+            "Aynı katılımcı ayrımı ve aynı metrikler; üç zamansal model için ayrıca aynı ön işleme.",
         },
       ],
       tips: [
         "Diyagramı parmakla ya da imleçle soldan sağa takip edin; her kutuda bir iki cümle yeterli.",
-        "Gerçek veri kutusuna gelince kısa bir duraklama yapın; projenin farklılaştığı nokta burası.",
+        "Gerçek veri kutusuna gelince kısa bir duraklama yapın; bu adım veri setinin dışında yapılacak tek deney.",
       ],
       transition: "Modelleme kutusundaki dört mimariye biraz daha yakından bakalım.",
     },
@@ -199,7 +199,7 @@ export const proposal = defineDirections({
       goal: "Her mimari sinyalin farklı bir özelliğini yakalamak için seçildi.",
       script: [
         "MLP sinyalin zaman sırasını görmez; bu yüzden hazır özniteliklerle referans model olacak. Diğer modeller bu referansı ne kadar geçebiliyor, ona bakacağız.",
-        "1D CNN, zaman ekseni boyunca kayan filtrelerle adım ritmi gibi kısa ve yerel örüntüleri yakalar; genellikle hafif ve hızlıdır.",
+        "1D CNN, zaman ekseni boyunca kayan filtrelerle adım ritmi gibi kısa ve yerel örüntüleri yakalar. Zaman adımlarını paralel işlediği için tekrarlayan ağlardan genellikle daha kısa sürede eğitilir.",
         "LSTM ve GRU tekrarlayan ağlardır; pencere boyunca bilgiyi taşıyarak zamansal bağımlılıkları öğrenir. GRU, LSTM'e benzer bir yapıyı daha az parametreyle kurar; bu yüzden aralarındaki başarı ve maliyet dengesini de karşılaştıracağız.",
       ],
       data: [
@@ -225,8 +225,8 @@ export const proposal = defineDirections({
       time: "45 sn",
       goal: "Tek bir sayıya değil, sınıf bazında ve hata türüne göre bakılacak.",
       script: [
-        "Accuracy genel tabloyu verir ama sınıflar dengesiz olduğunda yanıltabilir. Bu yüzden sınıf bazında Precision, Recall ve bunların dengesi olan F1-score da raporlanacak.",
-        "Confusion Matrix ise dördüncü araştırma sorumuza doğrudan cevap verecek: hangi aktivite hangisiyle karışıyor.",
+        "Accuracy genel tabloyu verir ama sınıf bazındaki hataları göstermez; az örnekli duruş geçişleri dahil edilirse yanıltıcı olabilir. Bu yüzden sınıf bazında Precision, Recall ve F1-score da raporlanacak.",
+        "Confusion Matrix, dördüncü araştırma sorusunun cevabını verecek: hangi aktivite hangisiyle karışıyor.",
         "Tüm metrikler, eğitimde hiç görülmemiş katılımcılardan oluşan test kümesinde hesaplanacak.",
       ],
       data: [
@@ -241,7 +241,7 @@ export const proposal = defineDirections({
         {
           label: "F1-score",
           meaning:
-            "Precision ve Recall'un harmonik ortalaması; sınıflar üzerinden ortalaması (macro F1) dengesiz veride daha adil bir özet verir.",
+            "Precision ve Recall'un harmonik ortalaması; sınıflar üzerinden ortalaması (macro F1) her sınıfa eşit ağırlık verir; az örnekli sınıflar sonucu gizlenmeden etkiler.",
         },
       ],
       tips: [
@@ -251,10 +251,10 @@ export const proposal = defineDirections({
     },
     outcomes: {
       time: "45 sn",
-      goal: "Katkı yeni bir mimari değil; adil bir karşılaştırma ve gerçek kullanıcı testi.",
+      goal: "Katkı yeni bir mimari değil; kontrollü bir karşılaştırma ve gerçek kullanıcı testi.",
       script: [
-        "Projenin sonunda dört mimarinin aynı koşullarda yapılmış sistematik bir karşılaştırmasını, sınıf bazında bir hata analizini ve modellerin gerçek kullanıcı verisindeki genelleme başarısının ölçümünü ortaya koymayı amaçlıyoruz.",
-        "Ayrıca kodu ve deney düzeneğini yeniden üretilebilir şekilde paylaşmayı planlıyoruz.",
+        "Projenin sonunda üç çıktı hedefleniyor: dört mimarinin aynı veri ayrımı ve metriklerle karşılaştırılması, sınıf bazında bir hata analizi ve gerçek kullanıcı verisinde genelleme başarısının ölçümü.",
+        "Kodu ve deney düzeneğini yeniden üretilebilir şekilde paylaşmayı planlıyoruz.",
       ],
       data: [
         {
@@ -289,7 +289,7 @@ export const proposal = defineDirections({
       time: "15 sn + sorular",
       goal: "Sorulara açık, kısa ve net bir kapanış.",
       script: [
-        "Tek cümlelik bir özetle kapatın: “Özetle; aynı veri ve aynı koşullarda dört nöral ağ mimarisini karşılaştıracak ve sonuçları gerçek bir telefonda sınayacağız.” Ardından soruları davet edin.",
+        "Tek cümlelik bir özetle kapatın: “Özetle: dört nöral ağ mimarisini aynı veri ayrımı ve metriklerle karşılaştıracak, ardından modelleri gerçek bir telefon verisinde sınayacağız.” Ardından soruları davet edin.",
       ],
       tips: [
         "Olası sorular ve cevapları rehberin sonunda. Bilmediğiniz bir soruda “bunu literatür taramasında inceleyeceğiz” demek dürüst ve kabul edilebilir bir cevaptır.",

@@ -29,10 +29,10 @@ export const proposal = defineDeck({
       title: "Problem Tanımı",
       lead: "Ham sensör sinyali, hangi aktivitenin yapıldığını doğrudan söylemez.",
       points: [
-        "Accelerometer ve gyroscope saniyede onlarca ölçümlük time-series üretir",
-        "Oturma ile ayakta durma gibi aktivitelerin sinyalleri birbirine çok yakındır",
+        "Accelerometer ve gyroscope, saniyede 50 ölçümlük 6 kanallı bir time-series üretir",
+        "Oturma ve ayakta durma gibi durağan aktivitelerin sinyalleri birbirine benzer",
         "Hareket biçimi kişiden kişiye farklılık gösterir",
-        "Bu yapıya en uygun nöral ağ mimarisi açık bir sorudur",
+        "Projenin sorusu: bu veriye hangi nöral ağ mimarisi daha uygun?",
       ],
       highlightsLabel: "Girdi",
       highlights: [
@@ -41,17 +41,17 @@ export const proposal = defineDeck({
         { label: "Temel aktivite", value: "6", delta: "yürüme, oturma, uzanma…" },
       ],
       notes:
-        "Telefon her an üç eksende ivme ve açısal hız ölçüyor, ama bu sayılar tek başına 'yürüyor' ya da 'oturuyor' demiyor. Özellikle durağan aktiviteler sinyalde birbirine çok benziyor; problemin zor kısmı burası.",
+        "Telefon üç eksende ivme ve açısal hız ölçüyor, ama bu sayılar tek başına 'yürüyor' ya da 'oturuyor' demiyor. Durağan aktivitelerin sinyalleri birbirine benziyor; bu sınıfların karışması bekleniyor.",
     },
     {
       id: "goal",
       layout: "bullets",
       title: "Projenin Amacı ve Motivasyonu",
-      lead: "Amaç: dört nöral ağ mimarisini aynı veri ve aynı koşullarda karşılaştırmak.",
+      lead: "Amaç: dört nöral ağ mimarisini aynı veri ayrımı ve aynı metriklerle karşılaştırmak.",
       pointsLabel: "Araştırma soruları",
       points: [
-        "Farklı mimariler aktivite sınıflandırmasında nasıl performans gösterecek?",
-        "Time-series yapısını doğrudan kullanan 1D CNN, LSTM ve GRU, MLP'ye göre nasıl bir fark yaratacak?",
+        "Dört mimari, aynı test kümesinde aktivite sınıflandırmasında nasıl performans gösterecek?",
+        "Time-series yapısını doğrudan kullanan 1D CNN, LSTM ve GRU, MLP referans modelinden ne kadar farklı sonuç verecek?",
         "Modeller, görülmemiş gerçek bir kullanıcının verisine ne kadar genellenebilecek?",
         "Hangi aktiviteler birbirine daha çok karışacak?",
       ],
@@ -66,7 +66,7 @@ export const proposal = defineDeck({
         },
       ],
       notes:
-        "Projenin çıktısı tek bir model değil, dört mimarinin adil bir karşılaştırması olacak. Bu dört soru, ileride raporlarımızın da iskeletini oluşturacak.",
+        "Projenin çıktısı tek bir model değil, dört mimarinin aynı veri ayrımı ve aynı metriklerle karşılaştırılması olacak. Sonraki raporlar da bu dört soruya göre düzenlenecek.",
     },
     {
       id: "dataset",
@@ -91,7 +91,7 @@ export const proposal = defineDeck({
       id: "method",
       layout: "flow",
       title: "Önerilen Yöntem",
-      lead: "Veriden gerçek kullanıcı testine uçtan uca akış",
+      lead: "Veriden gerçek kullanıcı testine beş adım",
       steps: [
         { label: "Veri", items: ["Accelerometer", "Gyroscope", "UCI veri seti"] },
         { label: "Ön İşleme", items: ["Filtreleme", "Pencereleme", "Normalizasyon"] },
@@ -100,11 +100,11 @@ export const proposal = defineDeck({
         { label: "Gerçek Veri", items: ["Kendi telefonumuz", "Yeni kullanıcı"], tone: "accent" },
       ],
       points: [
-        "Tüm modeller aynı ön işleme ve aynı veri ayrımıyla eğitilecektir",
+        "Tüm modeller aynı katılımcı ayrımı ve aynı metriklerle değerlendirilecektir",
         "MLP öznitelik vektörleriyle, diğer modeller ham sinyal pencereleriyle beslenecektir",
       ],
       notes:
-        "Akışın her adımı dört model için ortak olacak; böylece fark yalnızca mimariden gelecek. Son adımda kendi telefonumuzla topladığımız verilerle modelleri gerçek koşulda sınayacağız.",
+        "Veri ayrımı ve metrikler dört model için ortak olacak. MLP'nin girdisi hazır öznitelikler olduğundan, MLP ile diğer modeller arasındaki fark hem mimariden hem girdi temsilinden gelecek. Son adımda modelleri kendi telefonumuzla topladığımız verilerle sınayacağız.",
     },
     {
       id: "architectures",
@@ -118,14 +118,19 @@ export const proposal = defineDeck({
           "Özniteliklerin doğrusal olmayan birleşimi",
           "Referans model",
         ],
+        ["1D CNN", "Ham pencere (128 × 6)", "Kısa, yerel zamansal örüntüler", "Evrişimli model"],
         [
-          "1D CNN",
+          "LSTM",
           "Ham pencere (128 × 6)",
-          "Kısa, yerel zamansal örüntüler",
-          "Hafif ve hızlı model",
+          "Uzun süreli zamansal bağımlılıklar",
+          "Tekrarlayan model",
         ],
-        ["LSTM", "Ham pencere (128 × 6)", "Uzun süreli zamansal bağımlılıklar", "Ardışık model"],
-        ["GRU", "Ham pencere (128 × 6)", "LSTM'e benzer, daha az parametre", "Verimli alternatif"],
+        [
+          "GRU",
+          "Ham pencere (128 × 6)",
+          "LSTM'e benzer, daha az parametre",
+          "Hafif tekrarlayan model",
+        ],
       ],
       notes:
         "MLP sinyalin zaman sırasını görmediği için hazır özniteliklerle referans model olacak. 1D CNN yerel örüntüleri, LSTM ve GRU ise zaman içindeki bağımlılıkları doğrudan öğrenecek.",
@@ -139,18 +144,18 @@ export const proposal = defineDeck({
         ["Accuracy", "Pencerelerin ne kadarı doğru sınıflandırıldı?"],
         ["Precision", "“Yürüme” tahminlerinin ne kadarı gerçekten yürüme?"],
         ["Recall", "Gerçek yürüme örneklerinin ne kadarı yakalandı?"],
-        ["F1-score", "Precision ve Recall dengesi (sınıf ortalamalı)"],
+        ["F1-score", "Precision ve Recall'un harmonik ortalaması (macro)"],
         ["Confusion Matrix", "Hangi aktiviteler birbirine karışıyor?"],
       ],
       notes:
-        "Sınıflar dengeli olmadığı için yalnızca Accuracy'ye bakmayacağız; sınıf bazında Precision, Recall ve F1 raporlanacak. Confusion Matrix, dördüncü araştırma sorumuza doğrudan cevap verecek.",
+        "Accuracy tek başına sınıf bazındaki hataları göstermez ve az örnekli duruş geçişlerini gizleyebilir. Bu yüzden sınıf bazında Precision, Recall ve F1 de raporlanacak. Confusion Matrix, dördüncü araştırma sorusunun cevabını verecek.",
     },
     {
       id: "outcomes",
       layout: "bullets",
       title: "Beklenen Çıktılar ve Projenin Katkısı",
       points: [
-        "Dört mimarinin aynı koşullarda sistematik karşılaştırması",
+        "Dört mimarinin aynı veri ayrımı ve metriklerle karşılaştırılması",
         "Sınıf bazında hata analizi: hangi aktiviteler karışıyor, neden?",
         "Gerçek kullanıcı verisinde genelleme başarısının ölçülmesi",
         "Yeniden üretilebilir kod ve deney düzeneği",
@@ -161,7 +166,7 @@ export const proposal = defineDeck({
         { label: "Veri kaynağı", value: "2", delta: "UCI veri seti + gerçek telefon" },
       ],
       notes:
-        "Katkımız yeni bir mimari değil; aynı koşullarda yapılan dürüst bir karşılaştırma ve gerçek telefon verisiyle yapılacak bir genelleme testi olacak.",
+        "Katkımız yeni bir mimari değil. Dört mimarinin kontrollü bir karşılaştırmasını ve gerçek telefon verisiyle bir genelleme testini hedefliyoruz.",
     },
     {
       id: "plan",
