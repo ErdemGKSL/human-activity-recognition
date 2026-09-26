@@ -13,7 +13,7 @@ export const literatureReview = defineDeck({
       layout: "cover",
       title: "Human Activity Recognition",
       subtitle: "Literature Review",
-      presenter: "TODO: Sunum yapanlar",
+      presenter: "Erdem Göksel · 261402103",
       date: "TODO: 02.11.2026 / 09.11.2026",
     },
     {

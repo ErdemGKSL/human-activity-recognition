@@ -55,7 +55,7 @@ export const proposal = defineDirections({
       time: "30 sn",
       goal: "Dinleyici projenin ne hakkında olduğunu ilk cümlede anlamalı.",
       script: [
-        "Açılış konuşmasını (bkz. “Açılış Konuşması” bölümü) bu slayt açıkken yapın. Ardından kendinizi ve ekibi kısaca tanıtın.",
+        "Açılış konuşmasını (bkz. “Açılış Konuşması” bölümü) bu slayt açıkken yapın. Ardından kendinizi kısaca tanıtın: Erdem Göksel, 261402103.",
         "Bugünkü sunumun bir proje önerisi olduğunu, yani sonuç değil plan sunduğunuzu açıkça söyleyin: “Bugün problemi, veri setini ve yöntemimizi anlatacağız.”",
       ],
       tips: [

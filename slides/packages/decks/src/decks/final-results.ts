@@ -13,7 +13,7 @@ export const finalResults = defineDeck({
       layout: "cover",
       title: "Human Activity Recognition",
       subtitle: "Final Results",
-      presenter: "TODO: Sunum yapanlar",
+      presenter: "Erdem Göksel · 261402103",
       date: "TODO: 30.11.2026 / 07.12.2026",
     },
     {

@@ -10,7 +10,8 @@ export function ReportTitle({ id }: { id: string }) {
       title={project.title}
       subtitle={project.subtitle}
       meta={[
-        ["Hazırlayanlar", project.authors.join(", ")],
+        ["Hazırlayan", project.authors.join(", ")],
+        ["Öğrenci no", project.studentId],
         ["Ders", project.course],
         ["Öğretim üyesi", project.instructor],
         ["Teslim tarihi", d.due],
