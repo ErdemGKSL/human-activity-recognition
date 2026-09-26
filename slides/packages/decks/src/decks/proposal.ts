@@ -47,7 +47,7 @@ export const proposal = defineDeck({
       id: "goal",
       layout: "bullets",
       title: "Projenin Amacı ve Motivasyonu",
-      lead: "Amaç: dört nöral ağ mimarisini aynı veri ayrımı ve aynı metriklerle karşılaştırmak.",
+      lead: "Amaç: dört mimariyi aynı veri ayrımı ve aynı metriklerle karşılaştırmak.",
       pointsLabel: "Araştırma soruları",
       points: [
         "Dört mimari, aynı test kümesinde aktivite sınıflandırmasında nasıl performans gösterecek?",
