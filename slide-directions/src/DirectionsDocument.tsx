@@ -43,6 +43,20 @@ export function DirectionsDocument({ deck, directions, thumbnails }: Props) {
           ["Slayt sayısı", String(total)],
         ]}
       />
+      <Section title="Proje Özeti">
+        {directions.summary ? (
+          <Paragraph>{directions.summary}</Paragraph>
+        ) : (
+          <Todo>Projenin tek paragraflık özeti.</Todo>
+        )}
+      </Section>
+      {directions.opening ? (
+        <Section title={`Açılış Konuşması (${directions.opening.duration})`}>
+          <Callout tone="tip" title="İlk slayt açıkken, dinleyiciye dönerek">
+            <Paragraph>“{directions.opening.text}”</Paragraph>
+          </Callout>
+        </Section>
+      ) : null}
       <Section title="Genel Yönlendirmeler">
         {directions.overview?.length ? (
           directions.overview.map((p) => <Paragraph key={p}>{p}</Paragraph>)
@@ -73,6 +87,15 @@ export function DirectionsDocument({ deck, directions, thumbnails }: Props) {
           thumbnail={thumbnails}
         />
       ))}
+      {directions.questions?.length ? (
+        <Section title="Hocanın Sorabileceği Sorular" newPage>
+          {directions.questions.map(({ question, answer }, i) => (
+            <Callout key={question} title={`${i + 1}. ${question}`}>
+              <Paragraph>{answer}</Paragraph>
+            </Callout>
+          ))}
+        </Section>
+      ) : null}
     </Document>
   );
 }
@@ -144,6 +167,12 @@ function SlidePage({
       {d.tips?.length ? (
         <SubSection title="Sunum İpuçları">
           <BulletList items={d.tips} />
+        </SubSection>
+      ) : null}
+
+      {d.visuals?.length ? (
+        <SubSection title="Görsel Önerileri">
+          <BulletList items={d.visuals} />
         </SubSection>
       ) : null}
 

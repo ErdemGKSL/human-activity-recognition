@@ -2,8 +2,10 @@ import type { SlideLayout } from "@pptx/core";
 import type { LayoutComponent } from "../types";
 import { Agenda } from "./Agenda";
 import { BarChart } from "./BarChart";
+import { Bullets } from "./Bullets";
 import { Closing } from "./Closing";
 import { Cover } from "./Cover";
+import { Flow } from "./Flow";
 import { Metrics } from "./Metrics";
 import { Quote } from "./Quote";
 import { Section } from "./Section";
@@ -19,6 +21,8 @@ export const layouts: { [L in SlideLayout]: LayoutComponent<L> } = {
   agenda: Agenda,
   section: Section,
   metrics: Metrics,
+  bullets: Bullets,
+  flow: Flow,
   "bar-chart": BarChart,
   table: Table,
   quote: Quote,
@@ -26,4 +30,4 @@ export const layouts: { [L in SlideLayout]: LayoutComponent<L> } = {
   closing: Closing,
 };
 
-export { Agenda, BarChart, Closing, Cover, Metrics, Quote, Section, Stage, Table };
+export { Agenda, BarChart, Bullets, Closing, Cover, Flow, Metrics, Quote, Section, Stage, Table };

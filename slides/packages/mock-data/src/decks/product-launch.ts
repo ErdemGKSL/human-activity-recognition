@@ -64,6 +64,33 @@ export const productLaunch = defineDeck({
       ],
     },
     {
+      id: "launch-risks",
+      layout: "bullets",
+      title: "What could slow us down",
+      lead: "Three risks, each with an owner.",
+      points: [
+        "Sync conflicts on shared notebooks",
+        "Onboarding email lands in spam for some domains",
+        "Support queue doubles in launch week",
+      ],
+      highlights: [
+        { label: "Open bugs", value: "14", delta: "3 blocking" },
+        { label: "Support staff", value: "6", delta: "+2 temporary" },
+      ],
+    },
+    {
+      id: "launch-flow",
+      layout: "flow",
+      title: "Launch sequence",
+      steps: [
+        { label: "Waitlist", items: ["12k invites"] },
+        { label: "Soft launch", items: ["EU", "US"] },
+        { label: "Press", items: ["Blog", "Video"] },
+        { label: "Public", items: ["All regions"], tone: "accent" },
+      ],
+      points: ["Each step waits for a green dashboard"],
+    },
+    {
       id: "closing",
       layout: "closing",
       title: "Let's ship it",

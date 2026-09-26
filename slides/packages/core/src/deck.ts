@@ -60,6 +60,40 @@ export interface MetricsSlide extends SlideBase {
   metrics: Metric[];
 }
 
+/**
+ * Short points (3–5) with an optional side column of stat cards. The workhorse
+ * for text-light content slides; long explanations belong in speaker notes.
+ */
+export interface BulletsSlide extends SlideBase {
+  layout: "bullets";
+  title: string;
+  /** One-line takeaway under the title. */
+  lead?: string;
+  /** Small label above the points, e.g. "Araştırma soruları". */
+  pointsLabel?: string;
+  points: string[];
+  /** Up to 4 stat cards stacked beside the points. */
+  highlights?: Metric[];
+  highlightsLabel?: string;
+}
+
+export interface FlowStep {
+  label: string;
+  /** Chips inside the step card (e.g. model names). */
+  items?: string[];
+  /** `accent` marks a step that stands out (e.g. an extra experiment). */
+  tone?: "primary" | "accent";
+}
+
+/** A left-to-right pipeline diagram (3–6 steps) with optional points below. */
+export interface FlowSlide extends SlideBase {
+  layout: "flow";
+  title: string;
+  lead?: string;
+  steps: FlowStep[];
+  points?: string[];
+}
+
 export interface BarDatum {
   label: string;
   value: number;
@@ -147,6 +181,8 @@ export type Slide =
   | AgendaSlide
   | SectionSlide
   | MetricsSlide
+  | BulletsSlide
+  | FlowSlide
   | BarChartSlide
   | TableSlide
   | QuoteSlide
@@ -183,6 +219,8 @@ export const PAGE_ROLE: Record<SlideLayout, PageRole> = {
   agenda: "toc",
   section: "section",
   metrics: "content",
+  bullets: "content",
+  flow: "content",
   "bar-chart": "content",
   table: "content",
   quote: "content",

@@ -36,7 +36,7 @@ Template example decks (`packages/mock-data`, fictional, built with `--examples`
 | Deck | Slides | Notes |
 | --- | --- | --- |
 | `quarterly-review` | 8 | Every layout, light theme, speaker notes, fade/push transitions, auto-playing builds, a presenter-paced KPI slide with an ordered pulse |
-| `product-launch` | 4 | Dark theme override, cover transition, click-to-reveal bar chart |
+| `product-launch` | 6 | Dark theme override, cover transition, click-to-reveal bar chart, `bullets` and `flow` layouts |
 | `motion-showcase` | 13 | Morph resize/move/recolor, camera push-in and pull-out, Morph re-sort, motion paths, looping emphasis, enter→emphasize→exit, "On click of" triggers (including on a Morph-paired object), dim-after build |
 
 ## Commands
@@ -76,7 +76,7 @@ pyproject.toml         minimal Python env for the exporter (uv)
 
 ## Slide layouts
 
-`cover`, `agenda`, `section`, `metrics`, `bar-chart`, `table`, `quote`, `closing`, and
+`cover`, `agenda`, `section`, `metrics`, `bullets`, `flow`, `bar-chart`, `table`, `quote`, `closing`, and
 `stage`. `stage` places objects freely from data and is the layout for Morph and motion
 work.
 

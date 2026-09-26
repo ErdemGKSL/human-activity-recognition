@@ -3,10 +3,15 @@
  * Fill the TODO fields once; every document picks them up.
  */
 export const project = {
-  title: "Human Activity Recognition",
-  subtitle: "Akıllı telefon ivmeölçer ve jiroskop verileriyle insan aktivitesi tanıma",
-  /** TODO: ders adı / kodu. */
-  course: "TODO: Ders adı",
+  title: "Akıllı Telefon Sensörleri Kullanılarak Nöral Ağlarla İnsan Aktivitesi Tanıma",
+  subtitle: "Human Activity Recognition (HAR) · accelerometer ve gyroscope verileriyle",
+  /** TODO: ders kodu. */
+  course: "Nöral Ağlar (Yüksek Lisans)",
+  dataset: {
+    name: "Smartphone-Based Recognition of Human Activities and Postural Transitions",
+    source: "UCI Machine Learning Repository",
+    url: "https://archive.ics.uci.edu/dataset/341/smartphone+based+recognition+of+human+activities+and+postural+transitions",
+  },
   /** TODO: grup üyeleri. */
   authors: ["TODO: Öğrenci 1", "TODO: Öğrenci 2"],
   /** TODO: dersi veren öğretim üyesi. */

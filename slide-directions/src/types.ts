@@ -30,6 +30,8 @@ export interface SlideDirection {
   funFacts?: string[];
   /** Delivery cues: where to point, when to pause, what to click. */
   tips?: string[];
+  /** Suggested charts, diagrams, tables or images to add to (or show beside) the slide. */
+  visuals?: string[];
   /** Bridge sentence into the next slide. */
   transition?: string;
   /** Questions the audience or instructor may ask, with prepared answers. */
@@ -43,8 +45,14 @@ export interface DeckDirections {
   duration: string;
   /** Presentation date(s). */
   date: string;
+  /** One-paragraph summary of the project, for the presenter to internalise. */
+  summary?: string;
+  /** Opening speech to say (roughly word for word) before the first slide. */
+  opening?: { duration: string; text: string };
   /** Talk-wide guidance shown before the slides: audience, storyline, roles. */
   overview?: string[];
+  /** Questions the instructor may ask after the talk, with prepared answers. */
+  questions?: LikelyQuestion[];
   /** Who presents which slides (slide id → presenter). */
   speakers?: Record<string, string>;
   /** One entry per slide id of the deck; a test keeps the two in sync. */

@@ -62,9 +62,11 @@ report/src/documents/*.tsx        slide-directions/src/directions/*.ts  +  @pptx
 Slides carry numbers and few words; the guide carries the story. Each slide id of the deck
 gets a `SlideDirection`: `time`, `goal` (one sentence), `script` (paragraphs to tell, not
 read), `data` (each number or visual on the slide and what it means), `funFacts`, `tips`
-(delivery cues: point, pause, click), `questions` (likely questions with answers), and
-`transition` (the bridge sentence into the next slide). Talk-wide `overview` and per-slide
-`speakers` go on the guide itself.
+(delivery cues: point, pause, click), `visuals` (suggested charts or diagrams), `questions`
+(likely questions with answers), and `transition` (the bridge sentence into the next slide).
+Talk-wide fields go on the guide itself: `summary` (one paragraph), `opening` (a timed
+opening speech), `overview`, per-slide `speakers`, and `questions` (the instructor's likely
+questions, printed at the end). `proposal.ts` is the filled-in reference guide.
 
 - A test fails unless the guide has **exactly** the deck's slide ids. After adding,
   removing or renaming a slide in `slides/packages/decks`, update the guide in the same
