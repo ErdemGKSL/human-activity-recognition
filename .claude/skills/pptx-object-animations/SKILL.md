@@ -5,6 +5,10 @@ description: In-slide PowerPoint object animations for this repo — choosing en
 
 # Object animations
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 An object animation is a row in PowerPoint's Animation Pane that targets one shape group.
 In this repo a target is always an **`<Animate>` block**. It becomes the group
 `anim-<id>` in the SVG and a named group in PowerPoint. If there's no block, nothing can

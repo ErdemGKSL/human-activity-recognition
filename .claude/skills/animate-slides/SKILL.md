@@ -5,6 +5,10 @@ description: Entry point for ANY motion work in the generated decks — routes t
 
 # Motion in the generated decks: start here
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 This skill is the map. Find your intent in the router, read the linked skill, then come
 back here for the [mechanism](#the-animate-block-mechanism) and the
 [verify loop](#verify-loop).

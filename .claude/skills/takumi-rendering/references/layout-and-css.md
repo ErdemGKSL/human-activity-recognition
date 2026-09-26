@@ -27,11 +27,15 @@ preview (`bun run generate <deck> --png`) before relying on it.
 ## Fonts
 
 - Takumi **never reads system fonts**. With no `fonts` option you get the built-in **Geist**
-  (Latin, weights 300–800).
+  (Latin, weights 300–800), which is a **subset**: `ç ö ü ı İ` render but `ş` and `ğ` are
+  tofu (verified). So `packages/renderer/src/fonts.ts` registers the full static Geist faces
+  from the `geist` npm package (Light 300 … Black 800) as family **`Geist Sans`**, and
+  `defaultTheme.font.family` is `Geist Sans`. A registered face named plain `Geist` loses to
+  the built-in one at the same weight (verified), hence the distinct name.
 - Missing glyphs render as tofu boxes. Verified missing: `→`. Treat other arrows and check
   marks (`✓`, `✔`), plus emoji, as missing. Verified present: `—`, `…`, `·`, `“ ”`, `$`, `%`.
-- To use another font, pass `fonts` to `renderSvg` / `render` in
-  `packages/renderer/src/render.ts`, with entries like `{ name, data }` or helper output
+- To use another font, add it to `loadFonts()` in `packages/renderer/src/fonts.ts` (every
+  `renderSvg` / `render` call in `render.ts` passes those fonts), with entries like `{ name, data }` or helper output
   such as `googleFonts([...])` (upstream API). Then set `theme.font.family` to match.
   CJK, Arabic, and similar scripts need a font that covers them. After that, the deck's
   `lang` should use the right BCP-47 tag.

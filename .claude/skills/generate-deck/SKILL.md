@@ -5,12 +5,18 @@ description: Run the JSX → SVG → PPTX pipeline, inspect outputs (PNG preview
 
 # Generate and debug decks
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 ## Run
 
 ```bash
-bun run setup                          # first time: submodule + bun install + uv sync
-bun run generate                       # all decks  → output/<deck>.pptx
-bun run generate quarterly-review --png
+bun run setup                          # first time: submodule + bun install (repo root) + uv sync
+bun run generate                       # project decks (@pptx/decks) → output/<deck>.pptx
+bun run generate --examples            # + template example decks (@pptx/mock-data)
+bun run generate final-results --png   # any deck id, project or example
+bun run decks                          # list ids (project / example)
 ```
 
 Outputs for each deck:

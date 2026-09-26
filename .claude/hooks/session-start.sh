@@ -8,4 +8,4 @@ if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
 fi
 
 cd "${CLAUDE_PROJECT_DIR:-$(dirname "$0")/../..}"
-bash scripts/setup.sh >&2
+bash slides/scripts/setup.sh >&2

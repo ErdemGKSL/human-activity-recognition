@@ -1,11 +1,11 @@
 """Validate agent docs: cross-links between skills must never rot.
 
-Checks every Markdown file in AGENTS.md, README.md and .claude/skills/:
+Checks AGENTS.md, every README.md (root, slides/, report/, slide-directions/) and .claude/skills/:
   - relative links point at files that exist
   - `#anchor` fragments match a heading in the target (GitHub slug rules)
   - every skill directory has SKILL.md with `name` == directory and a `description`
 
-Run: bun run lint:docs   (also part of `bun run check`)
+Run from the repo root: bun run lint:docs   (also part of `bun run check`)
 """
 
 from __future__ import annotations
@@ -60,7 +60,8 @@ def links(path: Path):
 
 
 def main() -> int:
-    files = [ROOT / "AGENTS.md", ROOT / "README.md", *sorted(SKILLS.rglob("*.md"))]
+    readmes = [ROOT / d / "README.md" for d in (".", "slides", "report", "slide-directions")]
+    files = [ROOT / "AGENTS.md", *(p for p in readmes if p.exists()), *sorted(SKILLS.rglob("*.md"))]
     errors: list[str] = []
     cache: dict[Path, set[str]] = {}
 

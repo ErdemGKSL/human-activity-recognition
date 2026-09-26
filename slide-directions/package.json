@@ -1,0 +1,20 @@
+{
+  "name": "@har/slide-directions",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "bun ./src/cli.ts"
+  },
+  "dependencies": {
+    "@har/report": "workspace:*",
+    "@pptx/core": "workspace:*",
+    "@pptx/decks": "workspace:*",
+    "@pptx/renderer": "workspace:*",
+    "react": "^19.3.0"
+  }
+}

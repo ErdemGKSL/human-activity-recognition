@@ -5,6 +5,10 @@ description: How Takumi (takumi-js) turns this repo's React JSX slides into SVG/
 
 # Takumi rendering
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 [Takumi](https://github.com/kane50613/takumi) is a Rust layout and paint engine for JSX
 and CSS. This repo uses `takumi-js@2.x` in two ways (`packages/renderer/src/render.ts`):
 
@@ -37,9 +41,10 @@ reasons are in [references/svg-output-anatomy.md](references/svg-output-anatomy.
 2. **Text becomes vector glyph outlines**, not PowerPoint text. It's crisp but not editable
    as text, and text-formatting animation effects have nothing to act on (see
    [pptx-object-animations](../pptx-object-animations/SKILL.md#effects-that-dont-fit-this-pipeline)).
-3. **Fonts: only the built-in Geist**, unless you register more. Geist has no `→` (verified),
-   and likely no other symbols such as `✓`, arrows, or emoji. Missing glyphs render as
-   tofu boxes. `—`, `…`, `·` and curly quotes are fine. See
+3. **Fonts: the full Geist, registered as `Geist Sans`** by `packages/renderer/src/fonts.ts`
+   (Takumi's built-in Geist is a subset that draws Turkish `ş`/`ğ` as tofu, verified). Geist
+   has no `→` (verified), and likely no other symbols such as `✓`, arrows, or emoji. Missing
+   glyphs render as tofu boxes. `—`, `…`, `·` and curly quotes are fine. See
    [references/layout-and-css.md#fonts](references/layout-and-css.md#fonts).
 4. **`visibility: hidden` drops the whole subtree.** A child with `visibility: visible`
    inside a hidden parent is not shown (verified). The layering code relies on hiding one

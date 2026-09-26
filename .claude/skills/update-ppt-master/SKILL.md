@@ -5,6 +5,10 @@ description: Bump the vendored ppt-master submodule to a newer upstream commit a
 
 # Update the ppt-master pin
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 `vendor/ppt-master` is a shallow git submodule pinned to one commit. Never edit files
 inside it.
 

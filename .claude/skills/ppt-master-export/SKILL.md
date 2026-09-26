@@ -5,6 +5,10 @@ description: How the vendored ppt-master (vendor/ppt-master) turns our normalize
 
 # ppt-master export stage
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 [ppt-master](https://github.com/hugohe3/ppt-master) is a complete AI deck workflow. This
 repo uses **only its export stage**: the SVG → native DrawingML compiler in
 `vendor/ppt-master/skills/ppt-master/scripts/`, pinned as a submodule. Never edit it. Adapt

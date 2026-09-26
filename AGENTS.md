@@ -10,96 +10,148 @@ follow its links into `references/` only as far as the task needs.
 
 ## What this is
 
-A template monorepo that turns **typed deck data** into a **native `.pptx`**:
+A course project on **Human Activity Recognition (HAR)** from smartphone accelerometer and
+gyroscope data (MLP, 1D CNN, LSTM, GRU). This repo produces its deliverables. It has three
+areas that share one Bun workspace and one toolchain:
 
-```
-@pptx/mock-data      Deck objects (pure data, mock/fictional)
-      │
-@pptx/slides         React JSX layouts, one per slide `layout` (+ <Animate> blocks)
-      │
-@pptx/renderer       Takumi renderSvg()  →  <Animate> block layering  →  normalizeSvg()
-      │
-@pptx/ppt-master     writes <out>/<deck>/svg_output + notes/ + animations.json, runs Python:
-      │                svg_quality_checker.py → animation_config.py validate → svg_to_pptx.py
-      ▼
-output/<deck>.pptx   native DrawingML shapes + native transitions/animations/Morph
-```
+| Folder | Produces | How |
+| --- | --- | --- |
+| [`slides/`](slides/README.md) | The presentations as native `.pptx` | deck data → Takumi JSX → SVG → ppt-master |
+| [`report/`](report/README.md) | The written reports as PDF, plus the shared JSX → PDF converter | JSX → takumi-pdf |
+| [`slide-directions/`](slide-directions/README.md) | One presenter guide PDF per deck (narrator script, what each number means, fun facts, tips) | deck data + directions → takumi-pdf |
 
-- **Takumi** (`takumi-js`, <https://github.com/kane50613/takumi>) is a Rust JSX/CSS
-  renderer that runs without a browser. We use `renderSvg()` for vectors and `render()` for
-  PNG previews only.
-- **ppt-master** (<https://github.com/hugohe3/ppt-master>) is vendored as a pinned git
-  submodule at `vendor/ppt-master`. We only use its export stage.
+Slides show numbers and few words; the presenter guide carries the story. Every deck in
+`slides/packages/decks` has a guide in `slide-directions/src/directions/` with one entry per
+slide (a test keeps them in sync).
+
+### Deliverables
+
+| Deliverable | Area | Id | Due |
+| --- | --- | --- | --- |
+| 1. Sunum – Project Proposal (5–10 dk) | slides + guide | `proposal` | 19.10.2026 |
+| Literature Review Raporu | report | `literature-review` | 01.11.2026 23:55 |
+| 2. Sunum – Literature Review (15–20 dk) | slides + guide | `literature-review` | 02.11 or 09.11.2026 |
+| Final Results Raporu (plain PDF for the instructor) | report | `final-results` | 29.11.2026 23:55 |
+| 3. Sunum – Final Results (20–30 dk, live demo if possible) | slides + guide | `final-results` | 30.11 or 07.12.2026 |
+
+The source of truth for these is `report/src/project.ts` (`deliverables`). Everything is a
+skeleton for now: unfinished parts are `todoSlide()` slides, `<Todo>` blocks, and empty
+`SlideDirection` entries.
 
 ## Skill map: read this when…
 
-| When you are… | Read |
-|---|---|
-| Writing or debugging slide JSX, seeing odd SVG, clip errors, tofu glyphs | [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md) |
-| Hitting a quality-gate or export error, changing `normalizeSvg` or the Python bridge | [ppt-master-export](.claude/skills/ppt-master-export/SKILL.md) |
-| Doing **anything with motion** (always start here) | [animate-slides](.claude/skills/animate-slides/SKILL.md) (the router) |
-| Deciding whether or how much to animate, or reviewing motion quality | [motion-design](.claude/skills/motion-design/SKILL.md) |
-| Building in-slide motion: builds, emphasis, exits, paths, click triggers | [pptx-object-animations](.claude/skills/pptx-object-animations/SKILL.md) |
-| Making the same object move, resize, or re-rank across slides | [pptx-morph](.claude/skills/pptx-morph/SKILL.md) |
-| Choosing slide transitions or auto-advance | [pptx-transitions](.claude/skills/pptx-transitions/SKILL.md) |
-| Adding a slide layout | [add-slide-layout](.claude/skills/add-slide-layout/SKILL.md) |
-| Adding a mock deck | [add-mock-deck](.claude/skills/add-mock-deck/SKILL.md) |
-| Generating, inspecting, or debugging decks | [generate-deck](.claude/skills/generate-deck/SKILL.md) |
-| Bumping the ppt-master pin | [update-ppt-master](.claude/skills/update-ppt-master/SKILL.md) |
+**Scope matters.** Every skill except `pdf-documents` is about **`slides/` only** (the PPTX
+pipeline): its paths are relative to `slides/`, and its `bun run …` commands run from
+`slides/`. They do not apply to `report/` or `slide-directions/`.
+
+| When you are… | Scope | Read |
+|---|---|---|
+| Writing or building a report, filling a presenter guide, adding a PDF component, fixing a PDF render | `report/`, `slide-directions/` | [pdf-documents](.claude/skills/pdf-documents/SKILL.md) |
+| Writing or debugging slide JSX, seeing odd SVG, clip errors, tofu glyphs | `slides/` | [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md) |
+| Hitting a quality-gate or export error, changing `normalizeSvg` or the Python bridge | `slides/` | [ppt-master-export](.claude/skills/ppt-master-export/SKILL.md) |
+| Doing **anything with motion** (always start here) | `slides/` | [animate-slides](.claude/skills/animate-slides/SKILL.md) (the router) |
+| Deciding whether or how much to animate, or reviewing motion quality | `slides/` | [motion-design](.claude/skills/motion-design/SKILL.md) |
+| Building in-slide motion: builds, emphasis, exits, paths, click triggers | `slides/` | [pptx-object-animations](.claude/skills/pptx-object-animations/SKILL.md) |
+| Making the same object move, resize, or re-rank across slides | `slides/` | [pptx-morph](.claude/skills/pptx-morph/SKILL.md) |
+| Choosing slide transitions or auto-advance | `slides/` | [pptx-transitions](.claude/skills/pptx-transitions/SKILL.md) |
+| Adding a slide layout | `slides/` | [add-slide-layout](.claude/skills/add-slide-layout/SKILL.md) |
+| Adding a project deck or a mock (example) deck | `slides/` | [add-mock-deck](.claude/skills/add-mock-deck/SKILL.md) |
+| Generating, inspecting, or debugging decks | `slides/` | [generate-deck](.claude/skills/generate-deck/SKILL.md) |
+| Bumping the ppt-master pin | `slides/` | [update-ppt-master](.claude/skills/update-ppt-master/SKILL.md) |
 
 ## Layout
 
 ```
+package.json, bun.lock    one Bun workspace: slides/, slides/apps/*, slides/packages/*, report/, slide-directions/
+biome.json, tsconfig*.json shared lint/format/type config for all three areas
+scripts/check-docs.py     validates skill cross-links, anchors and frontmatter (repo-wide)
+.claude/skills/           project skills (mirrored at .agents/skills via symlink)
+
+slides/                   @har/slides — the PPTX pipeline (see below)
+report/                   @har/report — reports + the shared converter (@har/report/pdf)
+  src/pdf/                  components, fonts, theme, renderPdf()/writePdf() over takumi-pdf
+  src/documents/            one .tsx per report + registry
+  src/project.ts            project facts and deliverable dates
+  output/                   generated PDFs, gitignored
+slide-directions/         @har/slide-directions — presenter guides
+  src/directions/           one guide per deck id (data)
+  src/DirectionsDocument.tsx, src/build.tsx   guide layout; slide thumbnails via @pptx/renderer
+  output/                   generated PDFs, gitignored
+```
+
+Inside `slides/`:
+
+```
 apps/cli/                 @pptx/cli — `bun run generate` entry point (orchestration only)
 packages/core/            @pptx/core — Deck/Slide types, PAGE_ROLE, theme tokens, canvas, motion types
-packages/mock-data/       @pptx/mock-data — sample decks + registry (`decks`, `getDeck`)
+packages/decks/           @pptx/decks — the project's real decks + registry (`decks`, `getDeck`)
+packages/mock-data/       @pptx/mock-data — template example decks (fictional) + registry
 packages/slides/          @pptx/slides — SlideFrame/Heading/Animate components, layouts/, registry
-packages/renderer/        @pptx/renderer — renderDeck(), layers (block split), geometry, normalizeSvg(), Morph linking
+packages/renderer/        @pptx/renderer — renderDeck(), fonts, layers (block split), geometry, normalizeSvg(), Morph linking
 packages/ppt-master/      @pptx/ppt-master — Python bridge: paths, workspace, animations sidecar, run
 vendor/ppt-master/        git submodule — DO NOT EDIT (bump the pin instead)
 scripts/setup.sh                 bootstrap (submodule + bun install + uv sync)
 scripts/sync-motion-presets.py   generates motion types + skill catalogs from ppt-master
 scripts/inspect-pptx.py          prints transitions / Morph names / animation rows of a .pptx
-scripts/check-docs.py            validates skill cross-links, anchors and frontmatter
-pyproject.toml, uv.lock   minimal Python env for the exporter (.venv)
-.claude/skills/           project skills (mirrored at .agents/skills via symlink)
+pyproject.toml, uv.lock   minimal Python env for the exporter (slides/.venv)
 output/                   generated, gitignored
 ```
 
-Dependencies only point downward: `cli → renderer → slides → core`,
-`cli → ppt-master → core`, and `cli → mock-data → core`. `core` depends on nothing.
+Dependencies only point downward. In `slides/`: `cli → renderer → slides → core`,
+`cli → ppt-master → core`, `cli → decks → core`, and `cli → mock-data → core`; `core`
+depends on nothing. Across areas: `slide-directions → report/pdf`, and
+`slide-directions → @pptx/decks, @pptx/renderer`. Nothing in `slides/` or `report/` imports
+from `slide-directions/`, and `slides/` never imports from `report/`.
 
 ## Commands
+
+From the repo root:
 
 | Task | Command |
 | --- | --- |
 | Bootstrap (first time / after pull) | `bun run setup` |
-| Generate all decks / one deck | `bun run generate` / `bun run generate motion-showcase` |
+| Project decks / reports / presenter guides | `bun run slides` / `bun run report` / `bun run directions` |
+| All of the above | `bun run build` |
+| Everything that must pass | `bun run check` (lint, docs links, typecheck, tests) |
+| Auto-fix formatting | `bun run format` |
+
+From `slides/` (what the `slides/` skills assume):
+
+| Task | Command |
+| --- | --- |
+| Project decks / also the examples / one deck | `bun run generate` / `bun run generate --examples` / `bun run generate final-results` |
 | SVG only (no Python needed) | `bun run generate --svg-only` |
-| Also PNG previews (final frame of each slide) | `bun run generate --png` → `output/<deck>/preview/*.png` |
+| Also PNG previews (final frame of each slide) | `bun run generate --png` → `slides/output/<deck>/preview/*.png` |
 | Raw Takumi SVG (debug) | `bun run generate --raw` |
 | What a .pptx really contains | `bun run inspect output/<deck>.pptx [--slide N] [--json]` |
 | List decks | `bun run decks` |
 | Regenerate motion types + catalogs | `bun run sync:motion` (after bumping ppt-master) |
-| Everything CI checks | `bun run check` (lint, docs links, typecheck, tests) |
-| Auto-fix formatting | `bun run format` |
+| Check / format (proxies to the root) | `bun run check` / `bun run format` |
+
+From `report/` and `slide-directions/`: `bun run build [id…]` (see
+[pdf-documents](.claude/skills/pdf-documents/SKILL.md)).
 
 Toolchain: **Bun ≥ 1.3** (runtime, workspaces, and tests; it runs `.ts`/`.tsx` directly with
-no build step), **uv** with Python ≥ 3.10 (exporter only), **Biome** for lint and format,
-and **TypeScript** for types only (`noEmit`).
+no build step), **uv** with Python ≥ 3.10 (slide exporter only), **Biome** for lint and
+format, and **TypeScript** for types only (`noEmit`). There is no CI (private repo), so
+`bun run check` locally is the gate.
 
 ## Definition of done
 
-1. `bun run check` passes.
-2. `bun run generate --png` ends with `✓ output/<deck>.pptx` for every deck. That means the
-   quality gate, sidecar validation, and export read-back all passed.
-3. You looked at the PNG previews of every slide you touched.
+1. `bun run check` passes (repo root).
+2. Slides: `bun run generate --png --examples` (in `slides/`) ends with
+   `✓ output/<deck>.pptx` for every deck. That means the quality gate, sidecar validation,
+   and export read-back all passed.
+3. You looked at the PNG previews of every slide you touched, and at the pages of every
+   PDF you touched.
 4. For motion changes, `bun run inspect` shows the transitions, `!!` Morph names, and
    animation rows you intended.
-5. If you changed behavior that a skill describes, update that skill in the same commit.
+5. A deck change (slide added, removed or renamed) updates its presenter guide in the same
+   commit.
+6. If you changed behavior that a skill describes, update that skill in the same commit.
    `lint:docs` catches broken links, but not stale facts.
 
-## Slide authoring rules (Takumi → ppt-master)
+## Slide authoring rules (Takumi → ppt-master, `slides/`)
 
 The reasons are in [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md) and
 [ppt-master-export](.claude/skills/ppt-master-export/SKILL.md).
@@ -111,11 +163,14 @@ The reasons are in [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md) 
 3. **The canvas is fixed at 1280×720** (`CANVAS`, which is ppt-master's `ppt169`).
 4. **Text exports as vector glyph outlines**, not editable PowerPoint text. Don't promise
    editable text, and don't use text-formatting animation effects.
-5. **Geist is the only font** unless you register another. `→` and similar symbols render
-   as tofu boxes. Emoji and remote images are unverified.
+5. **Geist is the only font** (full Geist registered as `Geist Sans`, so Turkish works)
+   unless you register another. `→` and similar symbols render as tofu boxes. Emoji and
+   remote images are unverified.
 6. **Root groups must not overlap** (a ppt-master rule). `<Animate>` blocks must not nest or
    overlap each other or static content, and their ids avoid chrome tokens
    (`SLIDE_CHROME_TOKENS`).
+7. **Slides stay light.** Put numbers and visuals on the slide; put the explanation in the
+   deck's presenter guide, not in long slide text.
 
 ## Motion in one paragraph
 
@@ -139,6 +194,9 @@ These facts took experiments to establish. Each links to the skill that owns it.
 - `fromJsx` **keeps** `id` and `data-*` on the node tree. `@takumi-rs/core` has
   `measure()`, which `takumi-js` doesn't re-export →
   [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md#apis-you-may-need).
+- Takumi's built-in Geist is a subset: `ş` and `ğ` render as tofu, and a registered face
+  named `Geist` loses to it. The full Geist is registered as `Geist Sans` →
+  [fonts](.claude/skills/takumi-rendering/references/layout-and-css.md#fonts).
 - `visibility: hidden` hides a whole subtree, and children can't opt back in.
 - ppt-master fails any root-group overlap larger than 1px. It needs a passing
   `--json` quality report before quick export, and notes need `--with-notes` →
@@ -147,8 +205,10 @@ These facts took experiments to establish. Each links to the skill that owns it.
   [modifiers](.claude/skills/pptx-object-animations/references/modifiers-and-triggers.md).
 - Morph pairs need an explicit `morph` transition on the destination slide, and shapes are
   named `!!key` on both slides → [pptx-morph](.claude/skills/pptx-morph/SKILL.md).
+- takumi-pdf rejects `break-after: avoid`; `break-inside: avoid` and `break-before: page`
+  work → [pdf-documents](.claude/skills/pdf-documents/SKILL.md#gotchas-verified-with-takumi-pdf-015).
 - LibreOffice in the cloud container can't open any PPTX, so verify with `bun run inspect`
-  and the PNG previews.
+  and the PNG previews. PDFs can be rasterized with PyMuPDF (`uv run --with pymupdf`).
 
 ## Conventions
 
@@ -156,13 +216,18 @@ These facts took experiments to establish. Each links to the skill that owns it.
   (`verbatimModuleSyntax`).
 - Workspace packages export `./src/index.ts` directly. There's no build output and no
   `dist/`.
-- Package names use the `@pptx/*` scope, and internal dependencies use `"workspace:*"`.
-- Tests are `*.test.ts` files next to the source, using `bun:test`. They must not need
+- Package scopes: `@pptx/*` inside `slides/`, `@har/*` for the areas themselves. Internal
+  dependencies use `"workspace:*"`.
+- Tests are `*.test.ts(x)` files next to the source, using `bun:test`. They must not need
   Python.
-- Comments explain *why* (especially constraints that come from ppt-master), not *what*.
-- **Mock data is fictional.** No real companies, people, or figures, and contact details
-  use `.example` domains.
-- Never edit `vendor/ppt-master`. Adapt `normalizeSvg` or `@pptx/ppt-master` instead.
+- Comments explain *why* (especially constraints that come from ppt-master or Takumi), not
+  *what*.
+- **Mock data is fictional** (`@pptx/mock-data`): no real companies, people, or figures,
+  and contact details use `.example` domains. Project decks, reports and guides hold the
+  real project content.
+- Project content (slides, reports, guides) is written in Turkish (`lang: "tr-TR"`);
+  technical terms (MLP, F1-score, confusion matrix…) stay in English.
+- Never edit `slides/vendor/ppt-master`. Adapt `normalizeSvg` or `@pptx/ppt-master` instead.
 - Never pass `--enable-dangerous-nonconforming-svg-export`.
 - Never hand-edit generated files. That means `motion-presets.generated.ts`,
   `effect-catalog.md`, and `transition-catalog.md`; run `bun run sync:motion` instead.
@@ -171,5 +236,5 @@ These facts took experiments to establish. Each links to the skill that owns it.
 
 ## Environment overrides
 
-- `PPT_MASTER_DIR`: an alternative ppt-master checkout (default `vendor/ppt-master`)
-- `PPT_MASTER_PYTHON`: the Python interpreter (default `.venv/bin/python`)
+- `PPT_MASTER_DIR`: an alternative ppt-master checkout (default `slides/vendor/ppt-master`)
+- `PPT_MASTER_PYTHON`: the Python interpreter (default `slides/.venv/bin/python`)

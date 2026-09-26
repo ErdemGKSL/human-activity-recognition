@@ -1,0 +1,16 @@
+{
+  "name": "@har/slides",
+  "private": true,
+  "type": "module",
+  "description": "Presentation decks: typed deck data -> Takumi JSX -> SVG -> native PPTX via ppt-master.",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "generate": "bun run --cwd apps/cli generate",
+    "generate:svg": "bun run --cwd apps/cli generate --svg-only",
+    "decks": "bun run --cwd apps/cli generate --list",
+    "inspect": ".venv/bin/python scripts/inspect-pptx.py",
+    "sync:motion": ".venv/bin/python scripts/sync-motion-presets.py && biome format --write packages/core/src/motion-presets.generated.ts",
+    "check": "bun run --cwd .. check",
+    "format": "bun run --cwd .. format"
+  }
+}

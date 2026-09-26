@@ -5,6 +5,10 @@ description: Principles for deciding WHETHER and HOW slides should move — purp
 
 # Motion design for slides
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 Every other motion skill tells you *how*. This one is about *whether* and *why*. Good deck
 motion is mostly invisible. It directs attention, shows how two states relate, and paces
 information. Bad deck motion is decoration: things spin because they can. That's the

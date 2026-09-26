@@ -5,6 +5,17 @@ description: Create a new mock/sample deck (typed Deck data) for the generator, 
 
 # Add a mock deck
 
+Mock decks are **template examples** (`@pptx/mock-data`, built with `--examples`). The
+project's real presentations live in `packages/decks` (`@pptx/decks`): same `defineDeck`
+format, real content, `lang: "tr-TR"`, and each one needs a matching presenter guide in
+`../slide-directions/src/directions/` (a test enforces one entry per slide id; see
+[pdf-documents](../pdf-documents/SKILL.md)). Unfinished parts use `todoSlide()` from
+`packages/decks/src/skeleton.ts`.
+
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 1. Create `packages/mock-data/src/decks/<deck-id>.ts`:
 
    ```ts

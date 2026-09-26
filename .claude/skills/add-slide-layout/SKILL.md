@@ -5,6 +5,10 @@ description: Add a new slide layout (e.g. timeline, two-column, image+text) to t
 
 # Add a slide layout
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 Read [takumi-rendering](../takumi-rendering/SKILL.md) first if you haven't written a
 layout here before. Its rules (no single-side borders, no `overflow: hidden`, and Geist's
 missing glyphs) will fail the export if you ignore them.
@@ -72,7 +76,7 @@ Add at least one slide that uses the new layout, with fictional data only.
 ## 5. Verify
 
 ```bash
-bun run check                                   # lint + tsc + tests (renders all decks)
+bun run check                                   # lint + docs + tsc + tests, whole repo
 bun run generate <deck-id> --png                # full pipeline incl. ppt-master gate
 ```
 

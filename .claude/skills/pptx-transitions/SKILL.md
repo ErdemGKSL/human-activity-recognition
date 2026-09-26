@@ -5,6 +5,10 @@ description: Slide-to-slide PowerPoint transitions in this repo — choosing an 
 
 # Slide transitions
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 A transition plays when a slide *enters*. In this repo it's data:
 
 ```ts

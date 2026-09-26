@@ -5,6 +5,10 @@ description: PowerPoint Morph in this repo — making the same object move, resi
 
 # Morph: the same object across slides
 
+> **Scope: `slides/`** — this skill covers the PPTX pipeline in `slides/` only. Paths below
+> are relative to `slides/`, and `bun run …` commands run from there. PDFs (`report/`,
+> `slide-directions/`) are covered by [pdf-documents](../pdf-documents/SKILL.md).
+
 Morph is a **slide transition**. PowerPoint looks at slide A and slide B, finds objects
 that are "the same", and interpolates their position, size, rotation, and fill between
 them. Objects that exist only on A fade out, and objects that exist only on B fade in.

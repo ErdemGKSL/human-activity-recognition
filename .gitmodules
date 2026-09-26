@@ -1,4 +1,4 @@
 [submodule "vendor/ppt-master"]
-	path = vendor/ppt-master
+	path = slides/vendor/ppt-master
 	url = https://github.com/hugohe3/ppt-master.git
 	shallow = true

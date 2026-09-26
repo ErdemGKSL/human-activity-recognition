@@ -1,30 +1,32 @@
 {
-  "name": "pptx-generator",
+  "name": "human-activity-recognition",
   "private": true,
   "type": "module",
-  "description": "Template monorepo: typed deck data -> Takumi JSX -> SVG -> native PPTX via ppt-master.",
+  "description": "HAR course project: slide decks (JSX -> PPTX), reports and presenter directions (JSX -> PDF).",
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "slides",
+    "slides/apps/*",
+    "slides/packages/*",
+    "report",
+    "slide-directions"
   ],
   "packageManager": "bun@1.3.11",
   "engines": {
     "bun": ">=1.3.0"
   },
   "scripts": {
-    "setup": "bash scripts/setup.sh",
-    "generate": "bun run --cwd apps/cli generate",
-    "generate:svg": "bun run --cwd apps/cli generate --svg-only",
-    "decks": "bun run --cwd apps/cli generate --list",
-    "inspect": ".venv/bin/python scripts/inspect-pptx.py",
-    "sync:motion": ".venv/bin/python scripts/sync-motion-presets.py && biome format --write packages/core/src/motion-presets.generated.ts",
+    "setup": "bash slides/scripts/setup.sh",
+    "slides": "bun run --cwd slides generate",
+    "report": "bun run --cwd report build",
+    "directions": "bun run --cwd slide-directions build",
+    "build": "bun run slides && bun run report && bun run directions",
     "typecheck": "tsc -p tsconfig.json",
     "lint": "biome check .",
     "lint:docs": "python3 scripts/check-docs.py",
     "format": "biome check --write .",
     "test": "bun test",
     "check": "bun run lint && bun run lint:docs && bun run typecheck && bun run test",
-    "clean": "rm -rf output **/*.tsbuildinfo"
+    "clean": "rm -rf slides/output report/output slide-directions/output"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.14",
