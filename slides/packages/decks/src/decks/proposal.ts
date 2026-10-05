@@ -21,6 +21,7 @@ export const proposal = defineDeck({
       title: "Akıllı Telefon Sensörleri Kullanılarak Nöral Ağlarla İnsan Aktivitesi Tanıma",
       subtitle: "Proje Önerisi · BİL 512 Yapay Sinir Ağları",
       presenter: "Erdem Göksel · 261402103",
+      instructor: "Öğretim Üyesi: Cem CANTEKİN",
       date: "19.10.2026",
       animate: false,
       notes:

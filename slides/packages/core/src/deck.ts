@@ -28,6 +28,8 @@ export interface CoverSlide extends SlideBase {
   title: string;
   subtitle?: string;
   presenter?: string;
+  /** Second line under `presenter`, e.g. the course instructor. */
+  instructor?: string;
   date?: string;
 }
 

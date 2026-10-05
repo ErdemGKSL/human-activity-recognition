@@ -48,11 +48,15 @@ export function Cover({ slide, ...ctx }: LayoutProps<"cover">) {
         style={{
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "flex-end",
           fontSize: theme.font.size.caption,
           color: theme.colors.textMuted,
         }}
       >
-        <span>{slide.presenter ?? ""}</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <span>{slide.presenter ?? ""}</span>
+          {slide.instructor ? <span>{slide.instructor}</span> : null}
+        </div>
         <span>{slide.date ?? ""}</span>
       </div>
     </SlideFrame>

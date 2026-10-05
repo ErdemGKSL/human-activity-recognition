@@ -1,11 +1,23 @@
+import type { CSSProperties } from "react";
 import { Animate, Heading, SlideFrame } from "../components";
 import type { LayoutProps } from "../types";
 
-/** Width of the bar-and-dot link drawn before every step but the first. */
-const CONNECTOR = 32;
+/** Gap between step cards; the connector line is drawn inside it. */
+const CONNECTOR = 28;
+/** Diameter of the numbered step marker. */
+const MARKER = 36;
+/** Inner padding of a step card; the connector aligns with the marker's centre. */
+const PAD = 18;
 
+/**
+ * A left-to-right pipeline: one flat card per step (number, name, items as
+ * plain lines), with no boxes nested inside a card. Each connector sits inside
+ * the block of the step it leads to, so it enters together with that step
+ * instead of showing before the cards.
+ */
 export function Flow({ slide, ...ctx }: LayoutProps<"flow">) {
   const { theme } = ctx;
+  const row: CSSProperties = { display: "flex", alignItems: "flex-start" };
   return (
     <SlideFrame {...ctx}>
       <Heading theme={theme}>{slide.title}</Heading>
@@ -22,90 +34,68 @@ export function Flow({ slide, ...ctx }: LayoutProps<"flow">) {
           {slide.lead}
         </p>
       ) : null}
-      <div style={{ display: "flex", alignItems: "stretch" }}>
+      <div style={{ ...row, alignItems: "stretch" }}>
         {slide.steps.map((step, i) => {
-          const accent = step.tone === "accent";
-          const fill = accent ? theme.colors.accent : theme.colors.primary;
-          // The connector lives inside the block of the step it leads to, so it
-          // enters with that step instead of hanging in the air before the cards
-          // appear. Its 32px sits in the flex basis, which keeps every card the
-          // same width.
+          const tone = step.tone === "accent" ? theme.colors.accent : theme.colors.primary;
           return (
             <Animate
               key={step.label}
               id={`step-${i}`}
               animation={{ effect: "entrance_fade", duration: 0.4 }}
+              // The connector's width sits in the flex basis so every card is the same width.
               style={{ flexGrow: 1, flexShrink: 1, flexBasis: i > 0 ? CONNECTOR : 0 }}
             >
               {i > 0 ? (
-                // A bar plus a dot, not an arrow glyph (`→` is tofu in Geist) and
-                // not a border triangle (single-side borders become clip groups).
-                <div style={{ display: "flex", width: CONNECTOR, alignItems: "center" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flex: 1,
-                      height: 4,
-                      backgroundColor: theme.colors.border,
-                    }}
-                  />
-                  <div
-                    style={{
-                      display: "flex",
-                      width: 10,
-                      height: 10,
-                      borderRadius: 5,
-                      backgroundColor: theme.colors.textMuted,
-                    }}
-                  />
-                </div>
+                // A plain line at marker height: no arrow glyph (`→` is tofu) and no
+                // border triangle (single-side borders become clip groups).
+                <div
+                  style={{
+                    display: "flex",
+                    width: CONNECTOR,
+                    height: 2,
+                    marginTop: PAD + MARKER / 2 - 1,
+                    backgroundColor: theme.colors.border,
+                  }}
+                />
               ) : null}
               <div
                 style={{
                   display: "flex",
                   flex: 1,
                   flexDirection: "column",
+                  gap: 14,
+                  padding: PAD,
                   backgroundColor: theme.colors.surface,
-                  border: `2px solid ${fill}`,
+                  border: `2px solid ${step.tone === "accent" ? tone : theme.colors.border}`,
                   borderRadius: theme.radius,
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "10px 14px",
-                    backgroundColor: fill,
-                    color: theme.colors.primaryContrast,
-                    borderRadius: theme.radius - 4,
-                  }}
-                >
-                  <span style={{ fontSize: theme.font.size.caption - 4, opacity: 0.85 }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span style={{ fontSize: theme.font.size.body, fontWeight: 700 }}>
+                <div style={{ ...row, alignItems: "center", gap: 10 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: MARKER,
+                      height: MARKER,
+                      borderRadius: MARKER / 2,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: tone,
+                      color: theme.colors.primaryContrast,
+                      fontSize: theme.font.size.caption - 2,
+                      fontWeight: 700,
+                    }}
+                  >
+                    {i + 1}
+                  </div>
+                  <span style={{ fontSize: theme.font.size.body - 2, fontWeight: 700 }}>
                     {step.label}
                   </span>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                    padding: 14,
-                  }}
-                >
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   {(step.items ?? []).map((item) => (
                     <span
                       key={item}
-                      style={{
-                        display: "flex",
-                        padding: "6px 10px",
-                        fontSize: theme.font.size.caption,
-                        backgroundColor: theme.colors.background,
-                        border: `1px solid ${theme.colors.border}`,
-                        borderRadius: 8,
-                      }}
+                      style={{ fontSize: theme.font.size.caption, color: theme.colors.textMuted }}
                     >
                       {item}
                     </span>
