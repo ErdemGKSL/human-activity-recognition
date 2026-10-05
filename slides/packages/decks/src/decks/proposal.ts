@@ -30,13 +30,12 @@ export const proposal = defineDeck({
     {
       id: "problem",
       layout: "bullets",
-      title: "Problem ve Neden Önemli",
+      title: "Problem ve Önemi",
       points: [
-        "Telefondaki accelerometer ve gyroscope saniyede 50 ölçüm alıyor (6 kanal)",
-        "Bu sinyale bakıp kişinin o an yürüdüğünü mü, oturduğunu mu, uzandığını mı söyleyebilir miyiz? 6 aktivite var",
-        "En zoru oturma ile ayakta durmayı ayırmak, çünkü ikisinde de telefon neredeyse hiç hareket etmiyor",
-        "Herkes biraz farklı yürür",
-        "Neden önemli? Yaşlı ve hasta takibi gibi sağlık uygulamaları da, spor uygulamaları da kişinin ne yaptığını bilmek zorunda",
+        "Telefon sensörleri saniyede 50 ölçüm üretir (6 kanal).",
+        "Problem, bu sinyalden 6 aktiviteyi ayırt etmektir.",
+        "Oturma ve ayakta durma birbirine çok benzer.",
+        "Aktivite tanıma, hasta takibi ve spor uygulamalarında kullanılır.",
       ],
       notes:
         "Telefon üç eksende ivme ve açısal hız ölçüyor, ama bu sayılar tek başına 'yürüyor' ya da 'oturuyor' demiyor. Aktivite tanıma; hasta ve yaşlı takibi, spor uygulamaları ve bağlama göre davranan cihazlar için girdi sağlıyor.",
@@ -45,12 +44,12 @@ export const proposal = defineDeck({
       id: "goal",
       layout: "bullets",
       title: "Amaç ve Araştırma Soruları",
-      lead: "Dört modeli aynı veriyle eğitip yan yana koyacağız.",
-      pointsLabel: "Sorularımız",
+      lead: "Dört model aynı veriyle eğitilip karşılaştırılacak.",
+      pointsLabel: "Araştırma soruları",
       points: [
-        "Ham sinyali doğrudan alan 1D CNN, LSTM ve GRU, hazır feature'larla çalışan MLP baseline'ını geçebilecek mi?",
-        "Hangi aktiviteler birbirine karışacak?",
-        "Eğitimde olmayan bir kişide, mesela kendi telefonumuzla kaydettiğimiz veride, başarı ne kadar düşüyor?",
+        "Ham sinyal kullanan modeller MLP baseline'ını geçebilir mi?",
+        "Hangi aktiviteler birbirine karışır?",
+        "Modeller yeni bir kişide ne kadar başarılıdır?",
       ],
       notes:
         "Üç sorunun hepsine aynı deney düzeniyle bakacağız: aynı veri ayrımı, aynı metrikler. Sonraki raporları da bu sorulara göre yazacağız.",
@@ -61,11 +60,10 @@ export const proposal = defineDeck({
       title: "Kullanılacak Veri Seti",
       lead: "UCI ML Repository: Smartphone-Based Recognition of Human Activities and Postural Transitions",
       points: [
-        "30 gönüllü (19–48 yaş), telefon bellerinde, 3 eksenli accelerometer ve gyroscope ile kaydedilmiş",
-        "50 Hz örnekleme, 2,56 saniyelik window'lar (128 ölçüm), %50 overlap",
-        "10.929 örnek, her birinde 561 feature",
-        "12 etiket var, 6 aktivite + 6 postural transition. Ana hedefimiz 6 aktivite; geçişleri katıp katmayacağımıza sonra karar vereceğiz",
-        "Gönüllülerin %70'i eğitimde, %30'u testte. Yani test kişileri eğitimde hiç yok",
+        "Veri, 30 gönüllüden bele takılı telefonla toplanmıştır.",
+        "Sinyaller 50 Hz ile örneklenir ve 2,56 saniyelik window'lara bölünür.",
+        "Veri setinde 10.929 örnek ve 12 etiket (6 aktivite, 6 postural transition) bulunur.",
+        "Eğitim ve test kümeleri kişiye göre ayrılmıştır (%70 / %30).",
       ],
       notes:
         "Veri seti, bellerinde telefon taşıyan 30 gönüllünün kayıtlarından oluşuyor. Test kümesindeki kişiler eğitimde hiç görülmediği için sonuçlar yeni kullanıcılara genellemeyi ölçecek.",
@@ -76,18 +74,12 @@ export const proposal = defineDeck({
       title: "Önerilen Yöntem",
       steps: [
         { label: "Veri", items: ["UCI veri seti"] },
-        {
-          label: "Ön İşleme",
-          items: ["low-pass filter", "128 ölçümlük window'lar", "normalizasyon"],
-        },
+        { label: "Ön İşleme", items: ["Filtreleme", "Windowing", "Normalizasyon"] },
         { label: "Modelleme", items: ["MLP", "1D CNN", "LSTM", "GRU"] },
-        {
-          label: "Değerlendirme",
-          items: ["test kümesinde metrikler", "hangi sınıf neyle karışıyor?"],
-        },
-        { label: "Gerçek Veri", items: ["Kendi telefonumuzla", "yeni bir kişi"], tone: "accent" },
+        { label: "Değerlendirme", items: ["Test kümesi"] },
+        { label: "Gerçek Veri", items: ["Kendi telefonumuz"], tone: "accent" },
       ],
-      points: ["MLP hazır 561 feature'la çalışacak. Diğer üçü ham window'ları alacak"],
+      points: ["MLP hazır feature'ları, diğer modeller ham sinyali kullanır."],
       notes:
         "Veri ayrımı ve metrikler dört model için ortak olacak. MLP'nin girdisi hazır feature'lar olduğundan, MLP ile diğer modeller arasındaki fark hem mimariden hem input representation'ından gelecek. Son adımda modelleri kendi telefonumuzla topladığımız verilerle sınayacağız.",
     },
@@ -95,16 +87,12 @@ export const proposal = defineDeck({
       id: "architectures",
       layout: "table",
       title: "Kullanılacak ANN Modelleri",
-      columns: ["Model", "Girdi", "Neden bu model"],
+      columns: ["Model", "Girdi", "Özellik"],
       rows: [
-        [
-          "MLP",
-          "561 feature",
-          "Baseline. Zaman sırasını görmüyor, sadece hazır feature'lara bakıyor",
-        ],
-        ["1D CNN", "Ham window (128 × 6)", "Sinyaldeki kısa pattern'leri convolution ile yakalar"],
-        ["LSTM", "Ham window (128 × 6)", "Uzun temporal dependency'ler için (recurrent)"],
-        ["GRU", "Aynı", "LSTM gibi ama daha az parametre"],
+        ["MLP", "561 feature", "Baseline modeldir."],
+        ["1D CNN", "Ham sinyal", "Kısa pattern'leri yakalar."],
+        ["LSTM", "Ham sinyal", "Uzun temporal dependency'leri öğrenir."],
+        ["GRU", "Ham sinyal", "LSTM'e benzer, daha az parametre kullanır."],
       ],
       notes:
         "MLP sinyalin zaman sırasını görmediği için hazır feature'larla baseline model olacak. 1D CNN yerel pattern'leri, LSTM ve GRU ise zaman içindeki bağımlılıkları doğrudan öğrenecek.",
@@ -113,11 +101,10 @@ export const proposal = defineDeck({
       id: "evaluation",
       layout: "bullets",
       title: "Değerlendirme Yöntemi",
-      lead: "Accuracy, Precision, Recall, F1-score (macro) ve Confusion Matrix",
       points: [
-        "Sadece Accuracy'ye bakmak yetmez, çünkü az örnekli sınıflardaki hatalar toplamda kaybolur",
-        "Bu yüzden Precision, Recall ve F1'i her sınıf için ayrı raporlayacağız",
-        "Karışan aktiviteler Confusion Matrix'te",
+        "Modeller Accuracy, Precision, Recall ve F1-score (macro) ile ölçülecek.",
+        "Accuracy tek başına yeterli değildir, çünkü az örnekli sınıflardaki hataları gizler.",
+        "Karışan aktiviteler Confusion Matrix ile incelenecek.",
       ],
       notes:
         "Accuracy tek başına sınıf bazındaki hataları göstermez ve az örnekli postural transition'ları gizleyebilir. Bu yüzden sınıf bazında Precision, Recall ve F1 de raporlanacak. İkinci araştırma sorusunun cevabını Confusion Matrix'te arayacağız.",
@@ -127,10 +114,10 @@ export const proposal = defineDeck({
       layout: "bullets",
       title: "Sonuç Beklentileri",
       points: [
-        "1D CNN, LSTM ve GRU, feature engineering olmadan MLP baseline'ına yaklaşır diye düşünüyoruz",
-        "En çok karışacak ikili: oturma ve ayakta durma",
-        "LSTM ile GRU yakın çıkar, GRU daha az hesaplama ister",
-        "Kendi telefon verimizde başarı düşerse şaşırmayız, sonuçta başka bir cihaz ve başka bir kişi",
+        "Ham sinyal kullanan modellerin MLP baseline'ına yakın sonuç vermesi beklenmektedir.",
+        "En çok karışıklık oturma ile ayakta durma arasında beklenir.",
+        "LSTM ve GRU'nun benzer sonuç vermesi, GRU'nun ise daha az hesaplama gerektirmesi beklenir.",
+        "Kendi telefon verisinde başarı düşebilir.",
       ],
       notes:
         "Bunlar tahmin; gerçek sonuçları final sunumunda göstereceğiz. Katkımız yeni bir mimari değil, dört mimarinin kontrollü karşılaştırması ve gerçek telefon verisiyle bir genelleme testi.",
@@ -138,13 +125,13 @@ export const proposal = defineDeck({
     {
       id: "plan",
       layout: "table",
-      title: "Çalışma Planı ve Sonraki Adımlar",
+      title: "Çalışma Planı",
       columns: ["Aşama", "Tarih", "Çıktı"],
       rows: [
         ["Proje önerisi", "18.10 (PDF) · 19.10.2026", "Bu sunum"],
         ["Literatür taraması", "01.11 – 09.11.2026", "Rapor ve 2. sunum"],
-        ["Ön işleme ve model eğitimi", "Kasım 2026", "4 modeli eğitip karşılaştırma"],
-        ["Gerçek telefon verisi", "Kasım 2026", "Kendi telefonumuzla test"],
+        ["Ön işleme ve model eğitimi", "Kasım 2026", "Model deneyleri"],
+        ["Gerçek telefon verisi", "Kasım 2026", "Genelleme testi"],
         ["Final raporu ve sunumu", "29.11 – 07.12.2026", "Rapor, 3. sunum ve demo"],
       ],
       notes:

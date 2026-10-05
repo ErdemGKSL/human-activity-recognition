@@ -281,7 +281,7 @@ export const proposal = defineDirections({
           meaning: "Yürüme, merdiven çıkma, merdiven inme, oturma, ayakta durma, uzanma.",
         },
         {
-          label: "“Neden önemli?” maddesi",
+          label: "Son madde (önemi)",
           meaning:
             "Uygulama alanlarıdır; her birine bir örnek yeter (ör. hareketsizlik süresinin takibi, adım ve egzersiz sayımı, telefonun yürürken bildirimleri ertelemesi).",
         },
@@ -406,8 +406,9 @@ export const proposal = defineDirections({
             "Veri setinde hazır gelen, zaman ve frekans alanında hesaplanmış istatistikler (ortalama, standart sapma, enerji vb.).",
         },
         {
-          label: "Ham window (128 × 6)",
-          meaning: "128 zaman adımı × 6 sensör kanalı; model feature'ları kendisi öğrenir.",
+          label: "Ham sinyal",
+          meaning:
+            "128 × 6 boyutlu window: 128 zaman adımı × 6 sensör kanalı; model feature'ları kendisi öğrenir.",
         },
       ],
       funFacts: [
