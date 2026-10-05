@@ -269,7 +269,7 @@ export const proposal = defineDirections({
       script: [
         "Veri setinde telefon saniyede 50 kez üç eksende ivme ve üç eksende açısal hız ölçüyor. Elimizde 6 kanallı bir time-series var, ama bu sayılar kendiliğinden “yürüyor” ya da “oturuyor” demiyor. Problem, bu sinyalden altı aktiviteyi sınıflandırmak.",
         "Yürüme ve merdiven çıkma gibi hareketli aktiviteler sinyalde belirgin ritimler oluşturur. Oturma ve ayakta durma ise neredeyse hareketsizdir; aralarındaki fark çoğunlukla telefonun yerçekimine göre duruşundan gelir. Bu yüzden bu iki sınıfın birbirine karışması bekleniyor. Üstelik herkes farklı yürür: modelin bir kişiyi ezberlemesi değil, yeni kişilere genellenmesi gerekiyor.",
-        "Önemi: aktivite tanıma; hasta ve yaşlı takibi, spor ve egzersiz uygulamaları ve bağlama göre davranan akıllı cihazlar için girdi sağlar. Sağdaki üç kart bu uygulama alanlarını gösteriyor.",
+        "Son madde önemini söylüyor: hasta ve yaşlı takibi, spor ve egzersiz uygulamaları ve bağlama göre davranan cihazlar, kişinin o an ne yaptığını bilmeye ihtiyaç duyar.",
       ],
       data: [
         {
@@ -281,7 +281,7 @@ export const proposal = defineDirections({
           meaning: "Yürüme, merdiven çıkma, merdiven inme, oturma, ayakta durma, uzanma.",
         },
         {
-          label: "Önemi kartları",
+          label: "“Neden önemli?” maddesi",
           meaning:
             "Uygulama alanlarıdır; her birine bir örnek yeter (ör. hareketsizlik süresinin takibi, adım ve egzersiz sayımı, telefonun yürürken bildirimleri ertelemesi).",
         },
@@ -293,7 +293,7 @@ export const proposal = defineDirections({
         "Yürüme ile oturma için aynı eksende 2–3 saniyelik accelerometer sinyali grafiği: biri dalgalı, diğeri neredeyse düz. Veri indirildikten sonra eklenebilir.",
       ],
       tips: [
-        "Önce problemi, sonra önemini anlatın; kartları tek tek okumayın.",
+        "Önce problemi, sonra önemini anlatın; maddeleri okumak yerine kendi cümlelerinizle söyleyin.",
         "“Oturma ile ayakta durma” maddesinde durun; sonuç beklentilerindeki karışıklık tahminine buradan zemin hazırlıyorsunuz.",
       ],
       transition: "Bu problemi hangi amaçla ve hangi sorularla ele alacağımıza bakalım.",
@@ -303,13 +303,13 @@ export const proposal = defineDirections({
       goal: "Projenin çıktısı tek bir model değil, dört mimarinin kontrollü bir karşılaştırması.",
       script: [
         "Amacımız dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımıyla eğitip aynı metriklerle karşılaştırmak.",
-        "Karşılaştırma dört araştırma sorusuna göre yapılacak. Birincisi, dört mimarinin aynı test kümesindeki performansı. İkincisi, time-series'i doğrudan işleyen modellerin MLP baseline'ından farkı. Üçüncüsü, modellerin hiç görmedikleri gerçek bir kullanıcıya genellenip genellenemeyeceği. Dördüncüsü, hangi aktivitelerin birbirine karıştığı.",
+        "Üç sorumuz var. Birincisi, ham sinyali doğrudan işleyen 1D CNN, LSTM ve GRU'nun hazır feature'larla çalışan MLP baseline'ını geçip geçemeyeceği. İkincisi, hangi aktivitelerin birbirine karıştığı. Üçüncüsü, eğitimde hiç olmayan bir kişide, kendi telefonumuzla kaydettiğimiz veride, başarının ne kadar düştüğü.",
       ],
       data: [
         {
           label: "Araştırma soruları",
           meaning:
-            "Sonuç beklentileri slaytındaki dört madde bu sorulara verilen ön cevaplardır; sonraki raporlar da bu sorulara göre düzenlenecek.",
+            "Sonuç beklentileri slaytındaki maddeler bu sorulara verilen ön cevaplardır; sonraki raporlar da bu sorulara göre düzenlenecek.",
         },
       ],
       tips: [
@@ -401,12 +401,12 @@ export const proposal = defineDirections({
       ],
       data: [
         {
-          label: "561 feature vector",
+          label: "561 feature",
           meaning:
             "Veri setinde hazır gelen, zaman ve frekans alanında hesaplanmış istatistikler (ortalama, standart sapma, enerji vb.).",
         },
         {
-          label: "Raw window (128 × 6)",
+          label: "Ham window (128 × 6)",
           meaning: "128 zaman adımı × 6 sensör kanalı; model feature'ları kendisi öğrenir.",
         },
       ],
@@ -423,7 +423,7 @@ export const proposal = defineDirections({
       goal: "Tek bir sayıya değil, sınıf bazında ve hata türüne göre bakılacak.",
       script: [
         "Accuracy genel tabloyu verir ama sınıf bazındaki hataları göstermez; az örnekli postural transition'lar dahil edilirse yanıltıcı olabilir. Bu yüzden sınıf bazında Precision, Recall ve F1-score da raporlanacak.",
-        "Confusion Matrix, dördüncü araştırma sorusunun cevabını verecek: hangi aktivite hangisiyle karışıyor.",
+        "Confusion Matrix, ikinci araştırma sorusunun cevabını verecek: hangi aktivite hangisiyle karışıyor.",
         "Tüm metrikler, eğitimde hiç görülmemiş katılımcılardan oluşan test kümesinde hesaplanacak.",
       ],
       data: [
@@ -450,21 +450,15 @@ export const proposal = defineDirections({
       time: "1 dk",
       goal: "Beklentiler açık ve sınanabilir; hiçbiri sonuç gibi sunulmuyor.",
       script: [
-        "Henüz deney yapmadık; bu slayttaki maddeler deneylerle sınanacak beklentiler. Her biri bir araştırma sorusuna karşılık geliyor.",
+        "Henüz deney yapmadık; bu slayttaki maddeler deneylerle sınanacak beklentiler ve araştırma sorularına verdiğimiz ön cevaplar.",
         "Birincisi, time-series'i doğrudan işleyen 1D CNN, LSTM ve GRU'nun, elle tasarlanmış feature kullanmadan MLP baseline'ına yakın sonuç vermesini bekliyoruz. MLP'nin 561 hazır feature'ı güçlü bir baseline olduğu için “daha iyi” değil “yakın” diyoruz.",
         "İkincisi, en çok karışıklığın oturma ile ayakta durma arasında çıkmasını bekliyoruz; iki aktivite de durağan ve sinyalleri benzer. Üçüncüsü, LSTM ile GRU'nun benzer başarı göstermesini, GRU'nun daha az parametresi nedeniyle daha kısa sürede eğitilmesini bekliyoruz. Dördüncüsü, kendi telefonumuzdan topladığımız veride cihaz, konum ve kişi farkı nedeniyle başarının düşmesini bekliyoruz; bu düşüşün büyüklüğü ek deneyin cevaplayacağı soru.",
-        "Sağdaki kartlar projenin somut çıktılarını özetliyor: dört model, beş değerlendirme ölçütü ve iki veri kaynağı.",
       ],
       data: [
         {
           label: "“MLP baseline'ına yakın”",
           meaning:
             "Karşılaştırma aynı test kümesinde macro F1-score ile yapılacak; “yakın” bilerek seçilmiş, temkinli bir beklenti.",
-        },
-        {
-          label: "4 · 5 · 2",
-          meaning:
-            "4 model, 5 değerlendirme ölçütü, 2 veri kaynağı (UCI veri seti ve kendi telefonumuz).",
         },
       ],
       tips: [
