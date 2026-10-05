@@ -35,9 +35,9 @@ export const proposal = defineDeck({
       pointsLabel: "Problem",
       points: [
         "Accelerometer ve gyroscope, saniyede 50 ölçümlük 6 kanallı bir time-series üretir",
-        "Bu sinyalden yürüme, oturma, uzanma gibi 6 aktivitenin sınıflandırılması amaçlanmaktadır",
+        "Bu sinyalden yürüme, oturma, uzanma gibi 6 aktivite sınıflandırılacaktır",
         "Oturma ve ayakta durma gibi durağan aktivitelerin sinyalleri birbirine benzer",
-        "Hareket biçimi kişiden kişiye farklılık gösterir",
+        "Aynı aktivitenin sinyali kişiden kişiye değişir",
       ],
       highlightsLabel: "Önemi",
       highlights: [
@@ -59,13 +59,13 @@ export const proposal = defineDeck({
       lead: "Amaç: dört mimariyi aynı veri ayrımı ve aynı metriklerle karşılaştırmak.",
       pointsLabel: "Araştırma soruları",
       points: [
-        "Dört mimari, aynı test kümesinde aktivite sınıflandırmasında nasıl performans gösterecek?",
+        "Dört mimari, aynı test kümesinde aktiviteleri ne kadar doğru sınıflandıracak?",
         "Time-series yapısını doğrudan kullanan 1D CNN, LSTM ve GRU, MLP baseline'ından ne kadar farklı sonuç verecek?",
         "Modeller, görülmemiş gerçek bir kullanıcının verisine ne kadar genellenebilecek?",
         "Hangi aktiviteler birbirine daha çok karışacak?",
       ],
       notes:
-        "Projenin çıktısı tek bir model değil, dört mimarinin aynı veri ayrımı ve aynı metriklerle karşılaştırılması olacak. Sonraki raporlar da bu dört soruya göre düzenlenecek.",
+        "Her soru, dört mimarinin aynı veri ayrımı ve aynı metriklerle karşılaştırılmasıyla cevaplanacak. Sonraki raporlar da bu dört soruya göre düzenlenecek.",
     },
     {
       id: "dataset",
@@ -159,11 +159,11 @@ export const proposal = defineDeck({
       highlightsLabel: "Çıktılar",
       highlights: [
         { label: "Model", value: "4", delta: "MLP · 1D CNN · LSTM · GRU" },
-        { label: "Metrik", value: "5", delta: "Accuracy'den Confusion Matrix'e" },
+        { label: "Metrik", value: "5", delta: "Accuracy · Precision · Recall · F1 · CM" },
         { label: "Veri kaynağı", value: "2", delta: "UCI veri seti + gerçek telefon" },
       ],
       notes:
-        "Bunlar deneylerle sınanacak beklentiler; sonuçlar final sunumunda raporlanacak. Katkımız yeni bir mimari değil, dört mimarinin kontrollü karşılaştırması ve gerçek telefon verisiyle bir genelleme testi.",
+        "Sonuçlar final sunumunda raporlanacak. Katkımız yeni bir mimari değil, dört mimarinin kontrollü karşılaştırması ve gerçek telefon verisiyle bir genelleme testi.",
     },
     {
       id: "plan",
