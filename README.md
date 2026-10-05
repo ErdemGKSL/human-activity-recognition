@@ -14,7 +14,7 @@ sunumlar için anlatıcı rehberleri.
 
 | Teslim | Nerede | Tarih |
 | --- | --- | --- |
-| 1. Sunum – Project Proposal (5–10 dk) | `slides` + `slide-directions` → `proposal` | 19.10.2026 |
+| 1. Sunum – Project Proposal (5–10 dk); yalnızca sunum PDF'i yüklenir | `slides` + `slide-directions` → `proposal` (`slides/output/proposal.pdf`) | PDF 18.10.2026 23:55, sunum 19.10.2026 |
 | Literature Review Raporu | `report` → `literature-review` | 01.11.2026 23:55 |
 | 2. Sunum – Literature Review (15–20 dk) | `slides` + `slide-directions` → `literature-review` | 02.11.2026 veya 09.11.2026 |
 | Final Results Raporu (düz PDF) | `report` → `final-results` | 29.11.2026 23:55 |
@@ -31,7 +31,7 @@ git clone --recurse-submodules <repo>
 cd human-activity-recognition
 bun run setup        # submodule + bun install + uv sync
 
-bun run slides       # → slides/output/<deck>.pptx
+bun run slides       # → slides/output/<deck>.pptx + <deck>.pdf
 bun run report       # → report/output/<id>.pdf
 bun run directions   # → slide-directions/output/<deck>.pdf
 bun run build        # hepsi

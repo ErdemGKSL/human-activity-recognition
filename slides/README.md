@@ -46,6 +46,7 @@ bun run generate [deck-id...]   # full pipeline (default: project decks)
   --examples                    #   also the template example decks
   --svg-only                    #   stop after SVG (no Python needed)
   --png                         #   also write PNG previews
+  --pdf                         #   also write <deck>.pdf (one page per slide)
   --raw                         #   raw Takumi SVG, skip normalization (debug)
   -o, --out <dir>               #   output root (default ./output)
 bun run decks                   # list deck ids

@@ -1,7 +1,10 @@
 import { defineDeck } from "@pptx/core";
 
 /**
- * 1. Sunum – Project Proposal (5–10 dk, 19.10.2026). Slaytlar az metin taşır;
+ * 1. Sunum – Project Proposal (5–10 dk, sunum 19.10.2026; teslim 18.10.2026 23:55,
+ * yalnızca sunumun PDF'i yüklenir: `bun run generate proposal --pdf`).
+ * İstenen içerik: problemin tarifi ve önemi, veri seti, ANN modelleri, sonuç
+ * beklentileri. Slaytlar az metin taşır;
  * ayrıntılı anlatım, olası sorular ve açılış konuşması
  * `slide-directions/src/directions/proposal.ts` içindedir.
  * Henüz deney yapılmadı: sonuçlar kesinmiş gibi yazılmaz.
@@ -26,36 +29,16 @@ export const proposal = defineDeck({
     {
       id: "problem",
       layout: "bullets",
-      title: "Problem Tanımı",
+      title: "Problemin Tarifi ve Önemi",
       lead: "Ham sensör sinyali, hangi aktivitenin yapıldığını doğrudan söylemez.",
+      pointsLabel: "Problem",
       points: [
         "Accelerometer ve gyroscope, saniyede 50 ölçümlük 6 kanallı bir time-series üretir",
+        "Bu sinyalden yürüme, oturma, uzanma gibi 6 aktivitenin sınıflandırılması amaçlanmaktadır",
         "Oturma ve ayakta durma gibi durağan aktivitelerin sinyalleri birbirine benzer",
         "Hareket biçimi kişiden kişiye farklılık gösterir",
-        "Projenin sorusu: bu veriye hangi nöral ağ mimarisi daha uygun?",
       ],
-      highlightsLabel: "Girdi",
-      highlights: [
-        { label: "Sensör", value: "2", delta: "accelerometer + gyroscope" },
-        { label: "Kanal", value: "6", delta: "her sensörde 3 eksen" },
-        { label: "Temel aktivite", value: "6", delta: "yürüme, oturma, uzanma…" },
-      ],
-      notes:
-        "Telefon üç eksende ivme ve açısal hız ölçüyor, ama bu sayılar tek başına 'yürüyor' ya da 'oturuyor' demiyor. Durağan aktivitelerin sinyalleri birbirine benziyor; bu sınıfların karışması bekleniyor.",
-    },
-    {
-      id: "goal",
-      layout: "bullets",
-      title: "Projenin Amacı ve Motivasyonu",
-      lead: "Amaç: dört mimariyi aynı veri ayrımı ve aynı metriklerle karşılaştırmak.",
-      pointsLabel: "Araştırma soruları",
-      points: [
-        "Dört mimari, aynı test kümesinde aktivite sınıflandırmasında nasıl performans gösterecek?",
-        "Time-series yapısını doğrudan kullanan 1D CNN, LSTM ve GRU, MLP referans modelinden ne kadar farklı sonuç verecek?",
-        "Modeller, görülmemiş gerçek bir kullanıcının verisine ne kadar genellenebilecek?",
-        "Hangi aktiviteler birbirine daha çok karışacak?",
-      ],
-      highlightsLabel: "Motivasyon",
+      highlightsLabel: "Önemi",
       highlights: [
         { label: "Sağlık", value: "İzleme", delta: "yaşlı ve hasta takibi" },
         { label: "Spor", value: "Takip", delta: "aktivite ve egzersiz" },
@@ -64,6 +47,21 @@ export const proposal = defineDeck({
           value: "Bağlam",
           delta: "kullanıcıya uyum sağlayan uygulamalar",
         },
+      ],
+      notes:
+        "Telefon üç eksende ivme ve açısal hız ölçüyor, ama bu sayılar tek başına 'yürüyor' ya da 'oturuyor' demiyor. Aktivite tanıma; hasta ve yaşlı takibi, spor uygulamaları ve bağlama göre davranan cihazlar için girdi sağlıyor.",
+    },
+    {
+      id: "goal",
+      layout: "bullets",
+      title: "Amaç ve Araştırma Soruları",
+      lead: "Amaç: dört mimariyi aynı veri ayrımı ve aynı metriklerle karşılaştırmak.",
+      pointsLabel: "Araştırma soruları",
+      points: [
+        "Dört mimari, aynı test kümesinde aktivite sınıflandırmasında nasıl performans gösterecek?",
+        "Time-series yapısını doğrudan kullanan 1D CNN, LSTM ve GRU, MLP referans modelinden ne kadar farklı sonuç verecek?",
+        "Modeller, görülmemiş gerçek bir kullanıcının verisine ne kadar genellenebilecek?",
+        "Hangi aktiviteler birbirine daha çok karışacak?",
       ],
       notes:
         "Projenin çıktısı tek bir model değil, dört mimarinin aynı veri ayrımı ve aynı metriklerle karşılaştırılması olacak. Sonraki raporlar da bu dört soruya göre düzenlenecek.",
@@ -109,7 +107,7 @@ export const proposal = defineDeck({
     {
       id: "architectures",
       layout: "table",
-      title: "Kullanılacak Nöral Ağ Mimarileri",
+      title: "Kullanılacak ANN Modelleri",
       columns: ["Model", "Girdi", "Yakalaması beklenen yapı", "Projedeki rolü"],
       rows: [
         [
@@ -153,20 +151,23 @@ export const proposal = defineDeck({
     {
       id: "outcomes",
       layout: "bullets",
-      title: "Beklenen Çıktılar ve Projenin Katkısı",
+      title: "Sonuç Beklentileri",
+      lead: "Henüz deney yapılmadı; aşağıdakiler test edilecek beklentilerdir.",
+      pointsLabel: "Beklenen sonuçlar",
       points: [
-        "Dört mimarinin aynı veri ayrımı ve metriklerle karşılaştırılması",
-        "Sınıf bazında hata analizi: hangi aktiviteler karışıyor, neden?",
-        "Gerçek kullanıcı verisinde genelleme başarısının ölçülmesi",
-        "Yeniden üretilebilir kod ve deney düzeneği",
+        "1D CNN, LSTM ve GRU'nun öznitelik mühendisliği olmadan MLP referansına yakın sonuç vermesi",
+        "En çok karışıklığın oturma ile ayakta durma arasında görülmesi",
+        "LSTM ile GRU'nun benzer başarı, GRU'nun daha düşük hesaplama maliyeti göstermesi",
+        "Gerçek telefon verisinde, cihaz ve kişi farkı nedeniyle başarının düşmesi",
       ],
+      highlightsLabel: "Çıktılar",
       highlights: [
         { label: "Model", value: "4", delta: "MLP · 1D CNN · LSTM · GRU" },
         { label: "Metrik", value: "5", delta: "Accuracy'den Confusion Matrix'e" },
         { label: "Veri kaynağı", value: "2", delta: "UCI veri seti + gerçek telefon" },
       ],
       notes:
-        "Katkımız yeni bir mimari değil. Dört mimarinin kontrollü bir karşılaştırmasını ve gerçek telefon verisiyle bir genelleme testini hedefliyoruz.",
+        "Bunlar deneylerle sınanacak beklentiler; sonuçlar final sunumunda raporlanacak. Katkımız yeni bir mimari değil, dört mimarinin kontrollü karşılaştırması ve gerçek telefon verisiyle bir genelleme testi.",
     },
     {
       id: "plan",
@@ -174,7 +175,7 @@ export const proposal = defineDeck({
       title: "Çalışma Planı ve Sonraki Adımlar",
       columns: ["Aşama", "Tarih", "Çıktı"],
       rows: [
-        ["Proje önerisi", "19.10.2026", "Bu sunum"],
+        ["Proje önerisi", "18.10 (PDF) · 19.10.2026", "Bu sunum"],
         ["Literatür taraması", "01.11 – 09.11.2026", "Rapor ve 2. sunum"],
         ["Ön işleme ve model eğitimi", "Kasım 2026", "Dört modelin deneyleri"],
         ["Gerçek telefon verisi", "Kasım 2026", "Ek genelleme deneyi"],

@@ -29,6 +29,8 @@ export interface Deliverable {
   due: string;
   /** Presentations only. */
   duration?: string;
+  /** When something must be uploaded before the presentation date, and what. */
+  submission?: { due: string; upload: string };
 }
 
 /** Course deliverables in order; ids match deck ids (slides) and report ids (report). */
@@ -39,6 +41,7 @@ export const deliverables: Deliverable[] = [
     title: "1. Sunum – Project Proposal",
     due: "19.10.2026",
     duration: "5–10 dakika",
+    submission: { due: "18.10.2026 23:55", upload: "Yalnızca sunum PDF'i" },
   },
   {
     id: "literature-review",

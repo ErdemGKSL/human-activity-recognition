@@ -17,12 +17,14 @@ bun run generate                       # project decks (@pptx/decks) → output/
 bun run generate --examples            # + template example decks (@pptx/mock-data)
 bun run generate final-results --png   # any deck id, project or example
 bun run decks                          # list ids (project / example)
+bun run generate proposal --pdf        # + output/proposal.pdf: one page per slide, final frame
 ```
 
 Outputs for each deck:
 
 ```
 output/<deck>.pptx
+output/<deck>.pdf                       with --pdf: the deck as PDF (renderDeckPdf, takumi-pdf)
 output/<deck>/svg_output/NN_<id>.svg    normalized SVG (exporter input)
 output/<deck>/notes/NN_<id>.md          speaker notes
 output/<deck>/preview/NN_<id>.png       with --png

@@ -13,6 +13,7 @@
  *   bun run generate --examples          # also the template example decks
  *   bun run generate --svg-only          # stop after writing SVGs
  *   bun run generate --png               # also write PNG previews
+ *   bun run generate --pdf               # also write <deck>.pdf (one page per slide)
  *   bun run generate --list
  */
 import { join, relative } from "node:path";
@@ -27,7 +28,7 @@ import {
   validateAnimations,
   writeWorkspace,
 } from "@pptx/ppt-master";
-import { renderDeck } from "@pptx/renderer";
+import { renderDeck, renderDeckPdf } from "@pptx/renderer";
 
 const { values, positionals } = parseArgs({
   args: Bun.argv.slice(2),
@@ -37,6 +38,7 @@ const { values, positionals } = parseArgs({
     "svg-only": { type: "boolean", default: false },
     raw: { type: "boolean", default: false },
     png: { type: "boolean", default: false },
+    pdf: { type: "boolean", default: false },
     list: { type: "boolean", default: false },
     examples: { type: "boolean", default: false },
     help: { type: "boolean", short: "h", default: false },
@@ -51,6 +53,7 @@ if (values.help) {
   --out, -o     Output root (default: <repo>/output)
   --svg-only    Render SVGs into <out>/<deck>/svg_output and skip PPTX export
   --png         Also write PNG previews to <out>/<deck>/preview
+  --pdf         Also write <out>/<deck>.pdf, one page per slide (final state)
   --raw         Keep raw Takumi SVG (skip normalization; implies --svg-only)
   --examples    Also build the template example decks (@pptx/mock-data)
   --list        List available deck ids`);
@@ -102,6 +105,11 @@ for (const deck of selected) {
     if (hasMotion) await validateAnimations(workspace);
     const output = join(outRoot, `${deck.id}.pptx`);
     await exportPptx(workspace, { output, notes: hasNotes });
+    console.log(`  ✓ ${rel(output)}`);
+  }
+  if (values.pdf) {
+    const output = join(outRoot, `${deck.id}.pdf`);
+    await Bun.write(output, await renderDeckPdf(deck));
     console.log(`  ✓ ${rel(output)}`);
   }
   console.log(`  done in ${((performance.now() - started) / 1000).toFixed(1)}s`);

@@ -16,7 +16,7 @@
   },
   "scripts": {
     "setup": "bash slides/scripts/setup.sh",
-    "slides": "bun run --cwd slides generate",
+    "slides": "bun run --cwd slides generate --pdf",
     "report": "bun run --cwd report build",
     "directions": "bun run --cwd slide-directions build",
     "build": "bun run slides && bun run report && bun run directions",

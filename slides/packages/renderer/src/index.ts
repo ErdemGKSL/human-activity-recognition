@@ -8,4 +8,5 @@ export {
   normalizeSvg,
   SvgNormalizeError,
 } from "./normalize-svg";
+export { renderDeckPdf } from "./pdf";
 export { type RenderDeckOptions, type RenderedSlide, renderDeck, type SlideMotion } from "./render";

@@ -28,7 +28,7 @@ slide (a test keeps them in sync).
 
 | Deliverable | Area | Id | Due |
 | --- | --- | --- | --- |
-| 1. Sunum – Project Proposal (5–10 dk) | slides + guide | `proposal` | 19.10.2026 |
+| 1. Sunum – Project Proposal (5–10 dk): problem and its importance, dataset, ANN models, expected results | slides + guide; **upload: the deck as PDF only** (`--pdf`) | `proposal` | PDF 18.10.2026 23:55; talk 19.10.2026 |
 | Literature Review Raporu | report | `literature-review` | 01.11.2026 23:55 |
 | 2. Sunum – Literature Review (15–20 dk) | slides + guide | `literature-review` | 02.11 or 09.11.2026 |
 | Final Results Raporu (plain PDF for the instructor) | report | `final-results` | 29.11.2026 23:55 |
@@ -112,7 +112,7 @@ From the repo root:
 | Task | Command |
 | --- | --- |
 | Bootstrap (first time / after pull) | `bun run setup` |
-| Project decks / reports / presenter guides | `bun run slides` / `bun run report` / `bun run directions` |
+| Project decks (PPTX + PDF) / reports / presenter guides | `bun run slides` / `bun run report` / `bun run directions` |
 | All of the above | `bun run build` |
 | Everything that must pass | `bun run check` (lint, docs links, typecheck, tests) |
 | Auto-fix formatting | `bun run format` |
@@ -124,6 +124,7 @@ From `slides/` (what the `slides/` skills assume):
 | Project decks / also the examples / one deck | `bun run generate` / `bun run generate --examples` / `bun run generate final-results` |
 | SVG only (no Python needed) | `bun run generate --svg-only` |
 | Also PNG previews (final frame of each slide) | `bun run generate --png` → `slides/output/<deck>/preview/*.png` |
+| Also the deck as one PDF (one page per slide, final frame) | `bun run generate --pdf` → `slides/output/<deck>.pdf` |
 | Raw Takumi SVG (debug) | `bun run generate --raw` |
 | What a .pptx really contains | `bun run inspect output/<deck>.pptx [--slide N] [--json]` |
 | List decks | `bun run decks` |

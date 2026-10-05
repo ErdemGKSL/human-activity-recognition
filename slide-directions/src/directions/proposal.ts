@@ -7,7 +7,7 @@ import { defineDirections } from "../types";
 export const proposal = defineDirections({
   deckId: "proposal",
   duration: "5–10 dakika (hedef ~8 dk)",
-  date: "19.10.2026",
+  date: "19.10.2026 (sunum PDF'i teslimi: 18.10.2026 23:55)",
   summary:
     "Bu projede, akıllı telefonların accelerometer ve gyroscope sensörlerinden elde edilen time-series verileriyle yürüme, oturma, ayakta durma, uzanma, merdiven çıkma ve merdiven inme gibi insan aktivitelerinin yapay sinir ağlarıyla sınıflandırılması amaçlanmaktadır. Veri kaynağı, UCI Machine Learning Repository'deki “Smartphone-Based Recognition of Human Activities and Postural Transitions” veri setidir. MLP, 1D CNN, LSTM ve GRU mimarileri aynı katılımcı bazlı veri ayrımıyla eğitilecek ve Accuracy, Precision, Recall, F1-score ve Confusion Matrix ile karşılaştırılacaktır. MLP veri setindeki hazır özniteliklerle, diğer üç model ham sinyal pencereleriyle beslenecektir. Son aşamada kendi telefonumuzdan toplanacak sensör verileriyle, modellerin daha önce görülmemiş gerçek bir kullanıcıya ne kadar genellenebildiği değerlendirilecektir.",
   opening: {
@@ -15,6 +15,7 @@ export const proposal = defineDirections({
     text: "Hepimizin cebinde, her saniye onlarca kez hareketimizi ölçen iki sensör var: accelerometer ve gyroscope. Telefonunuz şu anda oturduğunuzu biliyor mu? Bu bilgi sinyalde var; onu çıkarmak için uygun bir model gerekiyor. Bu projede dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımı ve aynı metriklerle karşılaştırmayı planlıyoruz. Son adımda modelleri kendi telefonumuzdan topladığımız verilerle sınayacağız.",
   },
   overview: [
+    "Teslim edilen tek dosya sunumun PDF'idir (18.10.2026 23:55; dosya: slides/output/proposal.pdf). PDF'te animasyon yoktur; her slayt son hâliyle görünür, bu yüzden slaytlar animasyon olmadan da okunur olmalı. İstenen dört başlık: problemin tarifi ve önemi (slayt 2), veri seti (slayt 4), ANN modelleri (slayt 5–6) ve sonuç beklentileri (slayt 8).",
     "Dinleyici, nöral ağları bilen bir yüksek lisans sınıfı ve dersin hocası. Temel kavramları (katman, geri yayılım) anlatmaya gerek yok; vurgu problemde, veride ve karşılaştırmanın hangi koşullarda yapılacağında olmalı.",
     "Ana hikâye tek cümle: “Aynı veri ayrımı, aynı metrikler, dört mimari: hangisi aktiviteyi daha iyi tanıyor ve bu başarı gerçek bir telefona taşınabiliyor mu?”",
     "Dil proje önerisi dilidir: “amaçlanmaktadır, planlanmaktadır, karşılaştırılacaktır”. Henüz hiçbir sonuç yok; “GRU daha iyi” gibi kesin ifadelerden kaçının, en fazla “beklenmektedir” deyin.",
@@ -68,25 +69,26 @@ export const proposal = defineDirections({
       transition: "Önce çözmeye çalıştığımız problemin neden zor olduğuna bakalım.",
     },
     problem: {
-      time: "1 dk",
-      goal: "Sensör sinyalinden aktiviteyi çıkarmak kolay değil; özellikle benzer aktiviteler karışıyor.",
+      time: "1,5 dk",
+      goal: "Sensör sinyalinden aktiviteyi çıkarmak zor, ama çözüldüğünde sağlıktan spora birçok uygulamaya girdi sağlıyor.",
       script: [
-        "Veri setinde telefon saniyede 50 kez üç eksende ivme ve üç eksende açısal hız ölçüyor. Yani elimizde 6 kanallı bir time-series var; ama bu sayılar kendiliğinden “yürüyor” ya da “oturuyor” demiyor.",
-        "Yürüme ve merdiven çıkma gibi hareketli aktiviteler sinyalde belirgin ritimler oluşturur. Oturma ve ayakta durma ise neredeyse hareketsizdir; aralarındaki fark çoğunlukla telefonun yerçekimine göre duruşundan gelir. Bu yüzden bu iki sınıfın birbirine karışması bekleniyor.",
-        "Üstelik herkes farklı yürür. Modelin bir kişiyi ezberlemesi değil, yeni kişilere genellenmesi gerekiyor. Hangi nöral ağ mimarisinin bu yapıyı en iyi yakaladığı ise projenin asıl sorusu.",
+        "Veri setinde telefon saniyede 50 kez üç eksende ivme ve üç eksende açısal hız ölçüyor. Elimizde 6 kanallı bir time-series var, ama bu sayılar kendiliğinden “yürüyor” ya da “oturuyor” demiyor. Problem, bu sinyalden altı aktiviteyi sınıflandırmak.",
+        "Yürüme ve merdiven çıkma gibi hareketli aktiviteler sinyalde belirgin ritimler oluşturur. Oturma ve ayakta durma ise neredeyse hareketsizdir; aralarındaki fark çoğunlukla telefonun yerçekimine göre duruşundan gelir. Bu yüzden bu iki sınıfın birbirine karışması bekleniyor. Üstelik herkes farklı yürür: modelin bir kişiyi ezberlemesi değil, yeni kişilere genellenmesi gerekiyor.",
+        "Önemi: aktivite tanıma; hasta ve yaşlı takibi, spor ve egzersiz uygulamaları ve bağlama göre davranan akıllı cihazlar için girdi sağlar. Sağdaki üç kart bu uygulama alanlarını gösteriyor.",
       ],
       data: [
         {
-          label: "2 sensör",
-          meaning: "Accelerometer doğrusal ivmeyi (yerçekimi dahil), gyroscope dönme hızını ölçer.",
-        },
-        {
           label: "6 kanal",
-          meaning: "Her sensör x, y, z eksenlerinde ölçüm verir: 3 + 3 = 6 sinyal.",
+          meaning: "Accelerometer ve gyroscope'un x, y, z eksenleri: 3 + 3 = 6 sinyal.",
         },
         {
-          label: "6 temel aktivite",
+          label: "6 aktivite",
           meaning: "Yürüme, merdiven çıkma, merdiven inme, oturma, ayakta durma, uzanma.",
+        },
+        {
+          label: "Önemi kartları",
+          meaning:
+            "Uygulama alanlarıdır; her birine bir örnek yeter (ör. hareketsizlik süresinin takibi, adım ve egzersiz sayımı, telefonun yürürken bildirimleri ertelemesi).",
         },
       ],
       funFacts: [
@@ -96,28 +98,23 @@ export const proposal = defineDirections({
         "Yürüme ile oturma için aynı eksende 2–3 saniyelik accelerometer sinyali grafiği: biri dalgalı, diğeri neredeyse düz. Veri indirildikten sonra eklenebilir.",
       ],
       tips: [
-        "“Oturma ile ayakta durma” maddesinde durun; dördüncü araştırma sorusuna buradan zemin hazırlıyorsunuz.",
+        "Önce problemi, sonra önemini anlatın; kartları tek tek okumayın.",
+        "“Oturma ile ayakta durma” maddesinde durun; sonuç beklentilerindeki karışıklık tahminine buradan zemin hazırlıyorsunuz.",
       ],
-      transition:
-        "Bu zorluklar bizi projenin amacına ve cevaplamak istediğimiz sorulara götürüyor.",
+      transition: "Bu problemi hangi amaçla ve hangi sorularla ele alacağımıza bakalım.",
     },
     goal: {
-      time: "1 dk",
+      time: "45 sn",
       goal: "Projenin çıktısı tek bir model değil, dört mimarinin kontrollü bir karşılaştırması.",
       script: [
         "Amacımız dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımıyla eğitip aynı metriklerle karşılaştırmak.",
         "Karşılaştırma dört araştırma sorusuna göre yapılacak. Birincisi, dört mimarinin aynı test kümesindeki performansı. İkincisi, zaman serisini doğrudan işleyen modellerin MLP referans modelinden farkı. Üçüncüsü, modellerin hiç görmedikleri gerçek bir kullanıcıya genellenip genellenemeyeceği. Dördüncüsü, hangi aktivitelerin birbirine karıştığı.",
-        "Motivasyon: aktivite tanıma; yaşlı ve hasta takibi, spor ve egzersiz uygulamaları ve bağlama göre davranan akıllı cihazlar için girdi sağlar.",
       ],
       data: [
         {
           label: "Araştırma soruları",
           meaning:
-            "Sunumun geri kalanı bu dört soruya hizmet ediyor; sonraki raporların da iskeleti olacak.",
-        },
-        {
-          label: "Motivasyon kartları",
-          meaning: "Uygulama alanlarıdır; ayrıntıya girmeden örnek verin.",
+            "Sonuç beklentileri slaytındaki dört madde bu sorulara verilen ön cevaplardır; sonraki raporlar da bu sorulara göre düzenlenecek.",
         },
       ],
       tips: [
@@ -250,30 +247,44 @@ export const proposal = defineDirections({
       transition: "Bu değerlendirmenin sonunda ne elde etmeyi beklediğimizi özetleyelim.",
     },
     outcomes: {
-      time: "45 sn",
-      goal: "Katkı yeni bir mimari değil; kontrollü bir karşılaştırma ve gerçek kullanıcı testi.",
+      time: "1 dk",
+      goal: "Beklentiler açık ve sınanabilir; hiçbiri sonuç gibi sunulmuyor.",
       script: [
-        "Projenin sonunda üç çıktı hedefleniyor: dört mimarinin aynı veri ayrımı ve metriklerle karşılaştırılması, sınıf bazında bir hata analizi ve gerçek kullanıcı verisinde genelleme başarısının ölçümü.",
-        "Kodu ve deney düzeneğini yeniden üretilebilir şekilde paylaşmayı planlıyoruz.",
+        "Henüz deney yapmadık; bu slayttaki maddeler deneylerle sınanacak beklentiler. Her biri bir araştırma sorusuna karşılık geliyor.",
+        "Birincisi, zaman serisini doğrudan işleyen 1D CNN, LSTM ve GRU'nun, elle tasarlanmış öznitelik kullanmadan MLP referansına yakın sonuç vermesini bekliyoruz. MLP'nin 561 hazır özniteliği güçlü bir referans olduğu için “daha iyi” değil “yakın” diyoruz.",
+        "İkincisi, en çok karışıklığın oturma ile ayakta durma arasında çıkmasını bekliyoruz; iki aktivite de durağan ve sinyalleri benzer. Üçüncüsü, LSTM ile GRU'nun benzer başarı göstermesini, GRU'nun daha az parametresi nedeniyle daha kısa sürede eğitilmesini bekliyoruz. Dördüncüsü, kendi telefonumuzdan topladığımız veride cihaz, konum ve kişi farkı nedeniyle başarının düşmesini bekliyoruz; bu düşüşün büyüklüğü ek deneyin cevaplayacağı soru.",
+        "Sağdaki kartlar projenin somut çıktılarını özetliyor: dört model, beş değerlendirme ölçütü ve iki veri kaynağı.",
       ],
       data: [
+        {
+          label: "“MLP referansına yakın”",
+          meaning:
+            "Karşılaştırma aynı test kümesinde macro F1-score ile yapılacak; “yakın” bilerek seçilmiş, temkinli bir beklenti.",
+        },
         {
           label: "4 · 5 · 2",
           meaning:
             "4 model, 5 değerlendirme ölçütü, 2 veri kaynağı (UCI veri seti ve kendi telefonumuz).",
         },
       ],
-      tips: ["Burada sonuç tahmini yapmayın; “beklenmektedir” dili yeterli."],
+      tips: [
+        "Beklentileri “bekliyoruz” diliyle anlatın; hiçbir sayı vermeyin, çünkü henüz sonuç yok.",
+        "Hoca bir beklentiye itiraz ederse bunu final sunumunda sınayacağınızı söylemek yeterli ve doğru bir cevaptır.",
+      ],
       transition: "Son olarak bu işi hangi takvimle yapacağımızı gösterelim.",
     },
     plan: {
       time: "30 sn",
       goal: "Takvim gerçekçi ve teslim tarihleriyle uyumlu.",
       script: [
-        "Bugün proje önerisini sunuyoruz. Kasım başında literatür taraması raporunu teslim edip ikinci sunumu yapacağız.",
+        "Proje önerisinin PDF'ini 18 Ekim'de teslim ettik, bugün sunuyoruz. Kasım başında literatür taraması raporunu teslim edip ikinci sunumu yapacağız.",
         "Kasım boyunca ön işleme, model eğitimi ve gerçek telefon verisiyle ek deney yapılacak; final raporu ve sunumu Kasım sonu ile Aralık başında tamamlanacak. Mümkün olursa final sunumunda canlı demo göstermeyi planlıyoruz.",
       ],
       data: [
+        {
+          label: "18.10 (PDF) · 19.10.2026",
+          meaning: "Sunum PDF'inin teslimi 18.10.2026 23:55; sunumun kendisi 19.10.2026.",
+        },
         {
           label: "01.11 – 09.11.2026",
           meaning: "Literatür raporu teslimi 01.11; ikinci sunum 02.11 veya 09.11.",
