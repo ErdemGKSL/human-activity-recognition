@@ -71,8 +71,9 @@ read), `data` (each number or visual on the slide and what it means), `funFacts`
 (delivery cues: point, pause, click), `visuals` (suggested charts or diagrams), `questions`
 (likely questions with answers), and `transition` (the bridge sentence into the next slide).
 Talk-wide fields go on the guide itself: `summary` (one paragraph), `opening` (a timed
-opening speech), `overview`, per-slide `speakers`, and `questions` (the instructor's likely
-questions, printed at the end). `proposal.ts` is the filled-in reference guide.
+opening speech), `overview`, per-slide `speakers`, `questions` (the instructor's likely
+questions, printed at the end), and `glossary` (terms kept in English with their meaning,
+printed A to Z as an appendix). `proposal.ts` is the filled-in reference guide.
 
 - A test fails unless the guide has **exactly** the deck's slide ids. After adding,
   removing or renaming a slide in `slides/packages/decks`, update the guide in the same

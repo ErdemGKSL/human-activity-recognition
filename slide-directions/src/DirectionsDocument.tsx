@@ -96,6 +96,20 @@ export function DirectionsDocument({ deck, directions, thumbnails }: Props) {
           ))}
         </Section>
       ) : null}
+      {directions.glossary?.length ? (
+        <Section title="Ek: Terimler Sözlüğü" newPage>
+          <Paragraph muted>
+            Slaytlarda ve bu rehberde İngilizce bırakılan terimler, alfabetik sırayla.
+          </Paragraph>
+          <Table
+            columns={["Terim", "Anlamı"]}
+            widths={[1, 3.2]}
+            rows={[...directions.glossary]
+              .sort((a, b) => a.term.localeCompare(b.term, deck.lang))
+              .map((g) => [g.term, g.meaning])}
+          />
+        </Section>
+      ) : null}
     </Document>
   );
 }

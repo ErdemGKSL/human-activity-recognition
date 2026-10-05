@@ -19,7 +19,202 @@ export const proposal = defineDirections({
     "Dinleyici, nöral ağları bilen bir yüksek lisans sınıfı ve dersin hocası. Temel kavramları (katman, geri yayılım) anlatmaya gerek yok; vurgu problemde, veride ve karşılaştırmanın hangi koşullarda yapılacağında olmalı.",
     "Ana hikâye tek cümle: “Aynı veri ayrımı, aynı metrikler, dört mimari: hangisi aktiviteyi daha iyi tanıyor ve bu başarı gerçek bir telefona taşınabiliyor mu?”",
     "Dil proje önerisi dilidir: “amaçlanmaktadır, planlanmaktadır, karşılaştırılacaktır”. Henüz hiçbir sonuç yok; “GRU daha iyi” gibi kesin ifadelerden kaçının, en fazla “beklenmektedir” deyin.",
+    "Slaytlardaki İngilizce terimlerin (feature, window, baseline, gate…) anlamları rehberin sonundaki Terimler Sözlüğü'nde. Sunumdan önce bir kez okuyun; hoca bir terimi sorarsa oradaki tanımla cevap verebilirsiniz.",
     "Slaytlarda az metin var; maddeleri okumayın, her maddeyi kendi cümlenizle bir iki cümlede açın. Süreyi tutturmak için her slaytın yanında hedef süre yazıyor.",
+  ],
+  glossary: [
+    {
+      term: "Accelerometer",
+      meaning:
+        "Telefonun x, y ve z eksenlerindeki doğrusal ivmeyi ölçen sensör (birimi g). Yerçekimini de ölçer; telefon masada dururken bile yaklaşık 1 g gösterir.",
+    },
+    {
+      term: "Gyroscope",
+      meaning:
+        "Telefonun üç eksen etrafındaki dönme hızını (açısal hız) ölçen sensör (birimi rad/s).",
+    },
+    {
+      term: "Time-series",
+      meaning:
+        "Zamana göre sıralı ölçümler. Bu projede her sensör ekseni saniyede 50 ölçümlük bir time-series üretir.",
+    },
+    {
+      term: "Hz (örnekleme frekansı)",
+      meaning: "Saniyedeki ölçüm sayısı. 50 Hz, her 20 milisaniyede bir ölçüm demektir.",
+    },
+    {
+      term: "Window / windowing",
+      meaning:
+        "Sürekli sinyali sabit uzunlukta parçalara bölme işlemi ve bu parçaların her biri. Burada bir window 2,56 saniye, yani 128 ölçümdür; model her window için bir aktivite tahmini yapar.",
+    },
+    {
+      term: "Overlap",
+      meaning:
+        "Ardışık window'ların ortak kısmı. %50 overlap'te her window, bir öncekinin ikinci yarısıyla başlar (64 ölçüm ortaktır).",
+    },
+    {
+      term: "Raw window (128 × 6)",
+      meaning:
+        "Feature hesaplanmamış ham sinyal parçası: 128 zaman adımı × 6 kanal (3 accelerometer + 3 gyroscope ekseni). 1D CNN, LSTM ve GRU'nun girdisi.",
+    },
+    {
+      term: "Feature",
+      meaning:
+        "Bir window'dan hesaplanan özet sayı; örneğin ortalama, standart sapma, enerji veya bir frekans bileşeni. Veri setinde her window için 561 feature hazır gelir.",
+    },
+    {
+      term: "Feature vector",
+      meaning:
+        "Bir window'un bütün feature'larını sırayla tutan vektör. Burada 561 boyutludur ve MLP'nin girdisidir.",
+    },
+    {
+      term: "Feature engineering",
+      meaning:
+        "Feature'ları alan bilgisine dayanarak elle tasarlayıp hesaplama. 1D CNN, LSTM ve GRU bu adımı atlar ve feature'ları ham sinyalden kendileri öğrenir.",
+    },
+    {
+      term: "Flatten",
+      meaning:
+        "Çok boyutlu veriyi tek bir vektöre açma. 128 × 6'lık bir window flatten edilince 768 sayılık bir vektör olur.",
+    },
+    {
+      term: "ANN",
+      meaning:
+        "Artificial Neural Network (yapay sinir ağı). MLP, 1D CNN, LSTM ve GRU'nun hepsi ANN türüdür.",
+    },
+    {
+      term: "MLP",
+      meaning:
+        "Multilayer Perceptron. Her katmandaki nöronların bir sonraki katmanın bütün nöronlarına bağlı olduğu (fully connected) ağ. Girdinin zaman sırasını dikkate almaz; bu projede baseline.",
+    },
+    {
+      term: "Baseline",
+      meaning:
+        "Diğer modellerin karşılaştırıldığı referans model. Bu projede 561 feature ile beslenen MLP.",
+    },
+    {
+      term: "Convolutional",
+      meaning:
+        "Aynı küçük filtreyi (aynı ağırlıkları) girdinin üzerinde kaydırarak uygulayan katman türü. Yerel pattern'leri, girdinin neresinde olurlarsa olsunlar yakalar.",
+    },
+    {
+      term: "1D CNN",
+      meaning:
+        "Tek boyutlu convolutional neural network. Filtreler zaman ekseni boyunca kayar; adım ritmi gibi kısa, yerel pattern'leri öğrenir.",
+    },
+    {
+      term: "Recurrent",
+      meaning:
+        "Girdiyi zaman adımı zaman adımı işleyen ve her adımın bilgisini bir sonraki adıma taşıyan ağ türü.",
+    },
+    {
+      term: "LSTM",
+      meaning:
+        "Long Short-Term Memory. Gate'ler ve cell state sayesinde uzun aralıklardaki bilgiyi taşıyabilen recurrent ağ (Hochreiter ve Schmidhuber, 1997).",
+    },
+    {
+      term: "GRU",
+      meaning:
+        "Gated Recurrent Unit. LSTM'e benzer ama iki gate'i (update, reset) vardır ve ayrı bir cell state tutmaz; aynı hidden size'da daha az parametreye sahiptir (Cho ve arkadaşları, 2014).",
+    },
+    {
+      term: "Gate",
+      meaning:
+        "LSTM ve GRU'da bilginin ne kadarının tutulacağına, unutulacağına ya da aktarılacağına karar veren, 0 ile 1 arasında değer üreten öğrenilebilir birim.",
+    },
+    {
+      term: "Cell state",
+      meaning:
+        "LSTM'in adımlar boyunca taşıdığı uzun süreli hafıza vektörü. Gate'ler bu vektöre ne ekleneceğini ve ne silineceğini belirler.",
+    },
+    {
+      term: "Hidden size",
+      meaning:
+        "Recurrent katmanın her adımda tuttuğu gizli vektörün boyutu. Büyüdükçe modelin kapasitesi ve parametre sayısı artar.",
+    },
+    {
+      term: "Pattern",
+      meaning: "Sinyalde tekrar eden şekil; örneğin yürürken her adımda görülen ivme dalgası.",
+    },
+    {
+      term: "Temporal dependency",
+      meaning:
+        "Bir andaki değerin önceki anlardaki değerlere bağlı olması. LSTM ve GRU bu bağımlılıkları öğrenmek için tasarlanmıştır.",
+    },
+    {
+      term: "Representation",
+      meaning:
+        "Modelin girdiyi içeride ifade ettiği sayısal biçim. Ham sinyalden öğrenilen feature'lar bir representation'dır; MLP ise hazır feature'ları kullanır.",
+    },
+    {
+      term: "Postural transition",
+      meaning:
+        "İki duruş arasındaki kısa geçiş hareketi: otur-kalk, kalk-otur, otur-uzan, uzan-otur, kalk-uzan, uzan-kalk. Veri setinde 6 tür vardır ve az örneklidir.",
+    },
+    {
+      term: "Low-pass filter",
+      meaning:
+        "Yavaş değişen (düşük frekanslı) bileşenleri geçirip hızlı değişenleri bastıran filtre. Veri setinde yerçekimi bileşenini vücut hareketinden ayırmak için kullanılmıştır.",
+    },
+    {
+      term: "Validation set",
+      meaning:
+        "Eğitim verisinden ayrılan ve hiperparametre seçiminde kullanılan küme. Test kümesine bu aşamada hiç bakılmaz.",
+    },
+    {
+      term: "Data leakage",
+      meaning:
+        "Test kümesine ait bilginin eğitime sızması; sonuçların gerçekte olduğundan iyi görünmesine yol açar. Burada risk, aynı kişinin overlap'li window'larının hem eğitime hem teste düşmesidir; katılımcı bazlı ayrım bunu önler.",
+    },
+    {
+      term: "Loss",
+      meaning: "Modelin tahmin hatasını ölçen ve eğitim sırasında küçültülen fonksiyon.",
+    },
+    {
+      term: "Class-weighted loss",
+      meaning:
+        "Az örnekli sınıfların hatalarına daha büyük ağırlık veren loss. Sınıflar dengesiz olduğunda modelin küçük sınıfları görmezden gelmesini önler.",
+    },
+    {
+      term: "Softmax",
+      meaning:
+        "Modelin son katmanında sınıf skorlarını, toplamı 1 olan olasılıklara çeviren fonksiyon. Tahmin edilen aktivite, olasılığı en yüksek olan sınıftır.",
+    },
+    {
+      term: "Accuracy",
+      meaning:
+        "Doğru sınıflandırılan window'ların tüm window'lara oranı. Sınıflar dengesizse küçük sınıflardaki hataları gizleyebilir.",
+    },
+    {
+      term: "Precision",
+      meaning:
+        "Model bir sınıfı tahmin ettiğinde ne kadar sıklıkla haklı olduğu. Örneğin “yürüme” tahminlerinin kaçı gerçekten yürüme.",
+    },
+    {
+      term: "Recall",
+      meaning:
+        "Bir sınıfın gerçek örneklerinin ne kadarının yakalandığı. Örneğin gerçek yürüme window'larının kaçının “yürüme” diye tahmin edildiği.",
+    },
+    {
+      term: "F1-score",
+      meaning:
+        "Precision ve Recall'un harmonik ortalaması. İkisinden biri düşükse F1 de düşük çıkar.",
+    },
+    {
+      term: "Macro F1-score",
+      meaning:
+        "F1-score'un her sınıf için ayrı hesaplanıp ağırlıksız ortalaması. Küçük sınıflara büyükler kadar ağırlık verdiği için dengesiz veride Accuracy'den daha dengeli bir özettir.",
+    },
+    {
+      term: "Confusion Matrix",
+      meaning:
+        "Satırları gerçek sınıf, sütunları tahmin edilen sınıf olan tablo. Köşegen dışındaki hücreler hangi aktivitelerin birbirine karıştığını gösterir.",
+    },
+    {
+      term: "UCI ML Repository",
+      meaning:
+        "University of California, Irvine'ın makine öğrenmesi araştırmalarında kullanılan açık veri seti arşivi. Projenin veri seti buradan alınıyor.",
+    },
   ],
   questions: [
     {

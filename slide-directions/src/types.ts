@@ -12,6 +12,13 @@ export interface DataNote {
   meaning: string;
 }
 
+/** One entry of the guide's glossary: a term used on the slides or in the script. */
+export interface GlossaryEntry {
+  term: string;
+  /** What it means, in plain Turkish, and where it shows up in this project. */
+  meaning: string;
+}
+
 export interface LikelyQuestion {
   question: string;
   answer: string;
@@ -53,6 +60,8 @@ export interface DeckDirections {
   overview?: string[];
   /** Questions the instructor may ask after the talk, with prepared answers. */
   questions?: LikelyQuestion[];
+  /** Terms kept in English on the slides, explained; printed as an appendix, A to Z. */
+  glossary?: GlossaryEntry[];
   /** Who presents which slides (slide id → presenter). */
   speakers?: Record<string, string>;
   /** One entry per slide id of the deck; a test keeps the two in sync. */
