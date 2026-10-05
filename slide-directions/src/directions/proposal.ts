@@ -57,16 +57,17 @@ export const proposal = defineDirections({
       goal: "Dinleyici projenin ne hakkında olduğunu ilk cümlede anlamalı.",
       script: [
         "Açılış konuşmasını (bkz. “Açılış Konuşması” bölümü) bu slayt açıkken yapın. Ardından kendinizi kısaca tanıtın: Erdem Göksel, 261402103.",
-        "Bugünkü sunumun bir proje önerisi olduğunu, yani sonuç değil plan sunduğunuzu açıkça söyleyin: “Bugün problemi, veri setini ve yöntemimizi anlatacağız.”",
+        "Bugünkü sunumun bir proje önerisi olduğunu, yani sonuç değil plan sunduğunuzu açıkça söyleyin: “Bugün problemi ve önemini, kullanacağımız veri setini, ANN modellerini ve sonuç beklentilerimizi anlatacağız.”",
       ],
       tips: [
         "Başlığı okumayın; uzun bir başlık, dinleyici zaten okuyor.",
         "İsterseniz telefonunuzu elinize alıp gösterin: “Bu cihazın içindeki iki sensörden bahsedeceğiz.”",
+        "Kapağın sol altında adınız ve öğrenci numaranızın altında öğretim üyesinin adı (Cem CANTEKİN) yazıyor; bu satırı okumanıza gerek yok.",
       ],
       funFacts: [
         "Veri setindeki kayıtlar bele takılı bir Samsung Galaxy S II ile toplanmış; deneyler videoya alınmış ve etiketler bu videolardan elle çıkarılmıştır.",
       ],
-      transition: "Önce çözmeye çalıştığımız problemin neden zor olduğuna bakalım.",
+      transition: "Önce problemi ve neden önemli olduğunu anlatalım.",
     },
     problem: {
       time: "1,5 dk",
@@ -169,14 +170,19 @@ export const proposal = defineDirections({
       time: "1,5 dk",
       goal: "Dört model aynı veri ayrımı ve aynı metriklerle değerlendirilecek.",
       script: [
-        "Soldan sağa gidelim. İlk adımda UCI veri setinden accelerometer ve gyroscope sinyallerini alıyoruz.",
+        "Soldan sağa, numaralı beş kartı takip edelim. Birinci adımda UCI veri setinden accelerometer ve gyroscope sinyallerini alıyoruz.",
         "Ön işleme adımında sinyaller filtrelenecek, sabit uzunlukta pencerelere bölünecek ve eğitim kümesinden hesaplanan değerlerle normalize edilecek.",
         "Modelleme adımında dört mimari eğitilecek. MLP veri setindeki öznitelik vektörleriyle, 1D CNN, LSTM ve GRU ise ham sinyal pencereleriyle beslenecek. Bu yüzden MLP ile diğer modeller arasındaki farkın bir kısmı girdi temsilinden gelecek; bu, sonuçlarda ayrıca belirtilecek.",
-        "Değerlendirme adımında modeller aynı test kümesinde metriklerle ve hata analiziyle karşılaştırılacak. Son adım turuncu, çünkü ek deney: kendi telefonumuzdan topladığımız verilerle modelleri gerçek bir kullanıcıda sınayacağız.",
+        "Değerlendirme adımında modeller aynı test kümesinde metriklerle ve hata analiziyle karşılaştırılacak. Beşinci kart turuncu çerçeveli, çünkü ek deney: kendi telefonumuzdan topladığımız verilerle modelleri gerçek bir kullanıcıda sınayacağız.",
       ],
       data: [
         {
-          label: "Turuncu kutu",
+          label: "1–5 numaralı kartlar",
+          meaning:
+            "Akışın sırası: veri, ön işleme, modelleme, değerlendirme, gerçek veri. Her kartın altındaki satırlar o adımın içeriği.",
+        },
+        {
+          label: "Turuncu çerçeveli 5. kart",
           meaning: "Ek deney: veri setinin dışında, gerçek kullanıcı verisiyle genelleme testi.",
         },
         {
@@ -186,10 +192,10 @@ export const proposal = defineDirections({
         },
       ],
       tips: [
-        "Diyagramı parmakla ya da imleçle soldan sağa takip edin; her kutuda bir iki cümle yeterli.",
-        "Gerçek veri kutusuna gelince kısa bir duraklama yapın; bu adım veri setinin dışında yapılacak tek deney.",
+        "Kartlar PowerPoint'te birer birer, bağlantı çizgileriyle birlikte otomatik belirir; her kartta bir iki cümle yeterli. PDF'te animasyon yok, hepsi baştan görünür.",
+        "Turuncu çerçeveli 5. karta gelince kısa bir duraklama yapın; bu adım veri setinin dışında yapılacak tek deney.",
       ],
-      transition: "Modelleme kutusundaki dört mimariye biraz daha yakından bakalım.",
+      transition: "3 numaralı modelleme kartındaki dört mimariye biraz daha yakından bakalım.",
     },
     architectures: {
       time: "1 dk",
