@@ -466,29 +466,6 @@ export const proposal = defineDirections({
         "Beklentileri “bekliyoruz” diliyle anlatın; hiçbir sayı vermeyin, çünkü henüz sonuç yok.",
         "Hoca bir beklentiye itiraz ederse bunu final sunumunda sınayacağınızı söylemek yeterli ve doğru bir cevaptır.",
       ],
-      transition: "Son olarak bu işi hangi takvimle yapacağımızı gösterelim.",
-    },
-    plan: {
-      time: "30 sn",
-      goal: "Takvim gerçekçi ve teslim tarihleriyle uyumlu.",
-      script: [
-        "Proje önerisinin PDF'ini 18 Ekim'de teslim ettik, bugün sunuyoruz. Kasım başında literatür taraması raporunu teslim edip ikinci sunumu yapacağız.",
-        "Kasım boyunca ön işleme, model eğitimi ve gerçek telefon verisiyle ek deney yapılacak; final raporu ve sunumu Kasım sonu ile Aralık başında tamamlanacak. Mümkün olursa final sunumunda canlı demo göstermeyi planlıyoruz.",
-      ],
-      data: [
-        {
-          label: "18.10 (PDF) · 19.10.2026",
-          meaning: "Sunum PDF'inin teslimi 18.10.2026 23:55; sunumun kendisi 19.10.2026.",
-        },
-        {
-          label: "01.11 – 09.11.2026",
-          meaning: "Literatür raporu teslimi 01.11; ikinci sunum 02.11 veya 09.11.",
-        },
-        {
-          label: "29.11 – 07.12.2026",
-          meaning: "Final raporu teslimi 29.11; final sunumu 30.11 veya 07.12.",
-        },
-      ],
       transition: "Dinlediğiniz için teşekkürler.",
     },
     closing: {
