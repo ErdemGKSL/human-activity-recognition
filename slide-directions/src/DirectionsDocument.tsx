@@ -59,7 +59,7 @@ export function DirectionsDocument({ deck, directions, thumbnails }: Props) {
       ) : null}
       <Section title="Genel Yönlendirmeler">
         {directions.overview?.length ? (
-          directions.overview.map((p) => <Paragraph key={p}>{p}</Paragraph>)
+          <BulletList items={directions.overview} />
         ) : (
           <Todo>Dinleyici kitlesi, sunumun ana hikâyesi, kim hangi bölümü anlatacak.</Todo>
         )}

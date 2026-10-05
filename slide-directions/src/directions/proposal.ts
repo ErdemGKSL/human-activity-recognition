@@ -15,12 +15,11 @@ export const proposal = defineDirections({
     text: "Hepimizin cebinde, her saniye onlarca kez hareketimizi ölçen iki sensör var: accelerometer ve gyroscope. Telefonunuz şu anda oturduğunuzu biliyor mu? Bu bilgi sinyalde var; onu çıkarmak için uygun bir model gerekiyor. Bu projede dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımı ve aynı metriklerle karşılaştırmayı planlıyoruz. Son adımda modelleri kendi telefonumuzdan topladığımız verilerle sınayacağız.",
   },
   overview: [
-    "Teslim edilen tek dosya sunumun PDF'idir (18.10.2026 23:55; dosya: slides/output/proposal.pdf). PDF'te animasyon yoktur; her slayt son hâliyle görünür, bu yüzden slaytlar animasyon olmadan da okunur olmalı. İstenen dört başlık: problemin tarifi ve önemi (slayt 2), veri seti (slayt 4), ANN modelleri (slayt 5–6) ve sonuç beklentileri (slayt 8).",
-    "Dinleyici, nöral ağları bilen bir yüksek lisans sınıfı ve dersin hocası. Temel kavramları (katman, geri yayılım) anlatmaya gerek yok; vurgu problemde, veride ve karşılaştırmanın hangi koşullarda yapılacağında olmalı.",
-    "Ana hikâye tek cümle: “Aynı veri ayrımı, aynı metrikler, dört mimari: hangisi aktiviteyi daha iyi tanıyor ve bu başarı gerçek bir telefona taşınabiliyor mu?”",
-    "Dil proje önerisi dilidir: “amaçlanmaktadır, planlanmaktadır, karşılaştırılacaktır”. Henüz hiçbir sonuç yok; “GRU daha iyi” gibi kesin ifadelerden kaçının, en fazla “beklenmektedir” deyin.",
-    "Slaytlardaki İngilizce terimlerin (feature, window, baseline, gate…) anlamları rehberin sonundaki Terimler Sözlüğü'nde. Sunumdan önce bir kez okuyun; hoca bir terimi sorarsa oradaki tanımla cevap verebilirsiniz.",
-    "Slaytlarda az metin var; maddeleri okumayın, her maddeyi kendi cümlenizle bir iki cümlede açın. Süreyi tutturmak için her slaytın yanında hedef süre yazıyor.",
+    "Teslim: yalnızca sunum PDF'i, 18.10.2026 23:55. PDF'te animasyon yok.",
+    "İstenen başlıklar: problem ve önemi (slayt 2), veri seti (4), ANN modelleri (5–6), sonuç beklentileri (8).",
+    "Dinleyici: yüksek lisans sınıfı ve hoca. Temel kavramları anlatmayın; problem, veri ve karşılaştırma koşullarına odaklanın.",
+    "Henüz sonuç yok: “bekliyoruz, planlıyoruz” deyin, kesin sonuç cümlesi kurmayın.",
+    "Maddeleri okumayın, kendi cümlenizle açın. İngilizce terimler sondaki sözlükte.",
   ],
   glossary: [
     {
