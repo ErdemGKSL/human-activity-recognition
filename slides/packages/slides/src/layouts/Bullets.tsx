@@ -1,6 +1,9 @@
 import { Animate, Heading, SlideFrame, upper } from "../components";
 import type { LayoutProps } from "../types";
 
+/** Diameter of the numbered marker at the start of each point card. */
+const MARKER = 36;
+
 export function Bullets({ slide, ...ctx }: LayoutProps<"bullets">) {
   const { theme } = ctx;
   const label = (text: string) => (
@@ -24,7 +27,6 @@ export function Bullets({ slide, ...ctx }: LayoutProps<"bullets">) {
           style={{
             margin: 0,
             marginTop: -theme.space.gap,
-            marginBottom: theme.space.gap * 1.25,
             fontSize: theme.font.size.body,
             color: theme.colors.textMuted,
           }}
@@ -32,28 +34,53 @@ export function Bullets({ slide, ...ctx }: LayoutProps<"bullets">) {
           {slide.lead}
         </p>
       ) : null}
-      <div style={{ display: "flex", gap: theme.space.gap * 2, flexGrow: 1 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: theme.space.gap * 2,
+          flexGrow: 1,
+          alignItems: "center",
+          paddingBottom: theme.space.gap,
+        }}
+      >
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           {slide.pointsLabel ? label(slide.pointsLabel) : null}
-          <div style={{ display: "flex", flexDirection: "column", gap: theme.space.gap * 0.8 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: theme.space.gap * 0.6 }}>
             {slide.points.map((point, i) => (
               <Animate
                 key={point}
                 id={`point-${i}`}
                 animation={{ effect: "entrance_fade", duration: 0.4 }}
-                style={{ alignItems: "flex-start", gap: theme.space.gap * 0.75 }}
+                style={{
+                  alignItems: "center",
+                  gap: theme.space.gap * 0.75,
+                  paddingTop: 14,
+                  paddingBottom: 14,
+                  paddingLeft: 18,
+                  paddingRight: 24,
+                  backgroundColor: theme.colors.surface,
+                  border: `1.5px solid ${theme.colors.border}`,
+                  borderRadius: theme.radius,
+                }}
               >
-                {/* Marker as a sized box: bullet glyphs are not guaranteed in Geist. */}
+                {/* Numbered disc as a sized box: bullet glyphs are not guaranteed in the font. */}
                 <div
                   style={{
                     display: "flex",
-                    width: 10,
-                    height: 10,
-                    marginTop: 12,
-                    borderRadius: 3,
+                    flexShrink: 0,
+                    width: MARKER,
+                    height: MARKER,
+                    borderRadius: MARKER / 2,
+                    alignItems: "center",
+                    justifyContent: "center",
                     backgroundColor: theme.colors.primary,
+                    color: theme.colors.primaryContrast,
+                    fontSize: theme.font.size.caption,
+                    fontWeight: 700,
                   }}
-                />
+                >
+                  {i + 1}
+                </div>
                 <span style={{ flex: 1, fontSize: theme.font.size.body, lineHeight: 1.35 }}>
                   {point}
                 </span>
@@ -74,7 +101,7 @@ export function Bullets({ slide, ...ctx }: LayoutProps<"bullets">) {
                     flexDirection: "column",
                     padding: "12px 18px",
                     backgroundColor: theme.colors.surface,
-                    border: `2px solid ${theme.colors.border}`,
+                    border: `1.5px solid ${theme.colors.border}`,
                     borderRadius: theme.radius,
                   }}
                 >

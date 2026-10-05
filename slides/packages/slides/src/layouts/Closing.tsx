@@ -14,13 +14,37 @@ export function Closing({ slide, ...ctx }: LayoutProps<"closing">) {
           flexGrow: 1,
         }}
       >
+        <div
+          style={{
+            display: "flex",
+            width: 96,
+            height: 8,
+            marginBottom: theme.space.gap * 1.5,
+            backgroundColor: theme.colors.primary,
+            borderRadius: 4,
+          }}
+        />
         <h1 style={{ margin: 0, fontSize: theme.font.size.display, fontWeight: 800 }}>
           {slide.title}
         </h1>
         {slide.subtitle ? (
-          <p style={{ fontSize: theme.font.size.h2, color: theme.colors.textMuted }}>
+          <span
+            style={{
+              display: "flex",
+              marginTop: theme.space.gap * 1.25,
+              paddingTop: 8,
+              paddingBottom: 8,
+              paddingLeft: 20,
+              paddingRight: 20,
+              borderRadius: 999,
+              backgroundColor: theme.colors.surface,
+              border: `1.5px solid ${theme.colors.border}`,
+              fontSize: theme.font.size.body,
+              color: theme.colors.textMuted,
+            }}
+          >
             {slide.subtitle}
-          </p>
+          </span>
         ) : null}
         {slide.contact ? (
           <Animate
