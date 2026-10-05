@@ -52,7 +52,8 @@ report/src/documents/*.tsx        slide-directions/src/directions/*.ts  +  @pptx
 ## Writing the text
 
 All prose (report sections, guide scripts, Q&A answers) is written and revised with
-[academic-humanizer](../academic-humanizer/SKILL.md), following the Turkish and project notes
+[academic-humanizer](../academic-humanizer/SKILL.md) and
+[avoid-ai-writing](../avoid-ai-writing/SKILL.md), following the Turkish and project notes
 in the "Writing prose" section of `AGENTS.md`.
 
 ## Adding or filling a report

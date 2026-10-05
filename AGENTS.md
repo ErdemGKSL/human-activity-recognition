@@ -40,14 +40,15 @@ skeleton for now: unfinished parts are `todoSlide()` slides, `<Todo>` blocks, an
 
 ## Skill map: read this when…
 
-**Scope matters.** Every skill except `pdf-documents` and `academic-humanizer` is about
+**Scope matters.** Every skill except `pdf-documents`, `academic-humanizer` and
+`avoid-ai-writing` is about
 **`slides/` only** (the PPTX
 pipeline): its paths are relative to `slides/`, and its `bun run …` commands run from
 `slides/`. They do not apply to `report/` or `slide-directions/`.
 
 | When you are… | Scope | Read |
 |---|---|---|
-| Writing or revising **any prose**: report text, presenter-guide scripts, slide text, speaker notes | all areas | [academic-humanizer](.claude/skills/academic-humanizer/SKILL.md) + [Writing prose](#writing-prose) |
+| Writing or revising **any prose**: report text, presenter-guide scripts, slide text, speaker notes | all areas | [academic-humanizer](.claude/skills/academic-humanizer/SKILL.md) + [avoid-ai-writing](.claude/skills/avoid-ai-writing/SKILL.md) + [Writing prose](#writing-prose) |
 | Writing or building a report, filling a presenter guide, adding a PDF component, fixing a PDF render | `report/`, `slide-directions/` | [pdf-documents](.claude/skills/pdf-documents/SKILL.md) |
 | Writing or debugging slide JSX, seeing odd SVG, clip errors, tofu glyphs | `slides/` | [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md) |
 | Hitting a quality-gate or export error, changing `normalizeSvg` or the Python bridge | `slides/` | [ppt-master-export](.claude/skills/ppt-master-export/SKILL.md) |
@@ -156,11 +157,27 @@ format, and **TypeScript** for types only (`noEmit`). There is no CI (private re
 
 ## Writing prose
 
-Every piece of prose you write or revise goes through
-[academic-humanizer](.claude/skills/academic-humanizer/SKILL.md). That covers report sections,
-presenter-guide fields (`summary`, `opening`, `script`, `data`, `questions`…), slide text and
-speaker notes. Follow its process (read, audit, rewrite, report), and end with its short change
-report in your reply to the user.
+Every piece of prose you write or revise goes through two skills. That covers report
+sections, presenter-guide fields (`summary`, `opening`, `script`, `data`, `questions`,
+`glossary`…), slide text and speaker notes.
+
+1. [academic-humanizer](.claude/skills/academic-humanizer/SKILL.md) owns the academic
+   register: claims matched to evidence, honest tense, numbers and citations untouched.
+   Follow its process (read, audit, rewrite, report).
+2. [avoid-ai-writing](.claude/skills/avoid-ai-writing/SKILL.md) is the AI-pattern audit on
+   top: its catalog (`references/patterns.md`) covers structure and rhythm tells that
+   academic-humanizer doesn't list (padding, stacked hedges, rule-of-three, significance
+   inflation, formulaic openers and closers, uniform sentence shape). Use its `detect` mode
+   to audit and its rewrite mode with the `technical` voice for report and guide text.
+
+End with one short change report in your reply to the user, covering both passes.
+
+avoid-ai-writing is calibrated for English. For Turkish text, apply its pattern
+*categories* (structure, rhythm, padding, hedging) and use the Turkish word list below
+instead of its English word tiers. Its preservation validator is language-neutral for
+numbers and links, so it is worth running on Turkish edits too:
+`node .claude/skills/avoid-ai-writing/detector/validate.js --residual-policy warn <before> <after>`
+(its residual pattern counts are meaningful only for English).
 
 The skill is written for English papers. This is how it applies here:
 
@@ -192,10 +209,15 @@ The skill is written for English papers. This is how it applies here:
 - No voice sample from the author is in the repo yet. Default to clean, precise, neutral
   Turkish academic prose; if the author supplies earlier writing, match it (Layer 5).
 
-The skill is vendored from
+Both skills are vendored and never edited here; project-specific rules live in this section.
+academic-humanizer comes from
 [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer)
-(MIT, commit `94b88b2`). Don't edit its files; put project-specific rules here instead, and
-update it by copying the upstream `SKILL.md`, `LICENSE` and `examples/` again.
+(MIT, commit `94b88b2`; update by copying `SKILL.md`, `LICENSE` and `examples/` again).
+avoid-ai-writing comes from
+[conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing)
+(MIT, v3.37.0, commit `db82bc8`; update by copying its `skills/avoid-ai-writing/` directory
+and root `LICENSE` again). `lint:docs` checks only their frontmatter, and Biome skips
+avoid-ai-writing's JS.
 
 ## Slide authoring rules (Takumi → ppt-master, `slides/`)
 
