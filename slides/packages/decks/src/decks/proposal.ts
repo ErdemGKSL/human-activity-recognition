@@ -60,7 +60,7 @@ export const proposal = defineDeck({
       pointsLabel: "Araştırma soruları",
       points: [
         "Dört mimari, aynı test kümesinde aktivite sınıflandırmasında nasıl performans gösterecek?",
-        "Time-series yapısını doğrudan kullanan 1D CNN, LSTM ve GRU, MLP referans modelinden ne kadar farklı sonuç verecek?",
+        "Time-series yapısını doğrudan kullanan 1D CNN, LSTM ve GRU, MLP baseline'ından ne kadar farklı sonuç verecek?",
         "Modeller, görülmemiş gerçek bir kullanıcının verisine ne kadar genellenebilecek?",
         "Hangi aktiviteler birbirine daha çok karışacak?",
       ],
@@ -74,14 +74,14 @@ export const proposal = defineDeck({
       lead: "UCI ML Repository: Smartphone-Based Recognition of Human Activities and Postural Transitions",
       points: [
         "Bele takılı telefondan 3 eksenli accelerometer ve gyroscope sinyalleri",
-        "50 Hz örnekleme; 2,56 saniyelik (128 ölçüm), %50 örtüşen pencereler",
+        "50 Hz örnekleme; 2,56 saniyelik (128 ölçüm), %50 overlap'li window'lar",
         "Katılımcı bazlı ayrım: gönüllülerin %70'i eğitim, %30'u test",
         "Temel hedef 6 aktivite; geçiş sınıflarının kullanımı ayrıca değerlendirilecektir",
       ],
       highlights: [
         { label: "Katılımcı", value: "30", delta: "19–48 yaş arası" },
-        { label: "Etiket", value: "12", delta: "6 aktivite + 6 duruş geçişi" },
-        { label: "Örnek", value: "10.929", delta: "her biri 561 öznitelik" },
+        { label: "Etiket", value: "12", delta: "6 aktivite + 6 postural transition" },
+        { label: "Örnek", value: "10.929", delta: "her biri 561 feature" },
       ],
       notes:
         "Veri seti, bellerinde telefon taşıyan 30 gönüllünün kayıtlarından oluşuyor. Test kümesindeki kişiler eğitimde hiç görülmediği için sonuçlar yeni kullanıcılara genellemeyi ölçecek.",
@@ -93,17 +93,17 @@ export const proposal = defineDeck({
       lead: "Veriden gerçek kullanıcı testine beş adım",
       steps: [
         { label: "Veri", items: ["Accelerometer", "Gyroscope", "UCI veri seti"] },
-        { label: "Ön İşleme", items: ["Filtreleme", "Pencereleme", "Normalizasyon"] },
+        { label: "Ön İşleme", items: ["Filtreleme", "Windowing", "Normalizasyon"] },
         { label: "Modelleme", items: ["MLP", "1D CNN", "LSTM", "GRU"] },
         { label: "Değerlendirme", items: ["Test kümesi", "Metrikler", "Hata analizi"] },
         { label: "Gerçek Veri", items: ["Kendi telefonumuz", "Yeni kullanıcı"], tone: "accent" },
       ],
       points: [
         "Tüm modeller aynı katılımcı ayrımı ve aynı metriklerle değerlendirilecektir",
-        "MLP öznitelik vektörleriyle, diğer modeller ham sinyal pencereleriyle beslenecektir",
+        "MLP feature vector'leriyle, diğer modeller ham sinyal window'larıyla beslenecektir",
       ],
       notes:
-        "Veri ayrımı ve metrikler dört model için ortak olacak. MLP'nin girdisi hazır öznitelikler olduğundan, MLP ile diğer modeller arasındaki fark hem mimariden hem girdi temsilinden gelecek. Son adımda modelleri kendi telefonumuzla topladığımız verilerle sınayacağız.",
+        "Veri ayrımı ve metrikler dört model için ortak olacak. MLP'nin girdisi hazır feature'lar olduğundan, MLP ile diğer modeller arasındaki fark hem mimariden hem input representation'ından gelecek. Son adımda modelleri kendi telefonumuzla topladığımız verilerle sınayacağız.",
     },
     {
       id: "architectures",
@@ -111,28 +111,23 @@ export const proposal = defineDeck({
       title: "Kullanılacak ANN Modelleri",
       columns: ["Model", "Girdi", "Yakalaması beklenen yapı", "Projedeki rolü"],
       rows: [
+        ["MLP", "561 feature vector", "Feature'ların doğrusal olmayan birleşimi", "Baseline model"],
         [
-          "MLP",
-          "561 öznitelik vektörü",
-          "Özniteliklerin doğrusal olmayan birleşimi",
-          "Referans model",
+          "1D CNN",
+          "Raw window (128 × 6)",
+          "Kısa, yerel temporal pattern'ler",
+          "Convolutional model",
         ],
-        ["1D CNN", "Ham pencere (128 × 6)", "Kısa, yerel zamansal örüntüler", "Evrişimli model"],
-        [
-          "LSTM",
-          "Ham pencere (128 × 6)",
-          "Uzun süreli zamansal bağımlılıklar",
-          "Tekrarlayan model",
-        ],
+        ["LSTM", "Raw window (128 × 6)", "Uzun süreli temporal dependency'ler", "Recurrent model"],
         [
           "GRU",
-          "Ham pencere (128 × 6)",
+          "Raw window (128 × 6)",
           "LSTM'e benzer, daha az parametre",
-          "Hafif tekrarlayan model",
+          "Hafif recurrent model",
         ],
       ],
       notes:
-        "MLP sinyalin zaman sırasını görmediği için hazır özniteliklerle referans model olacak. 1D CNN yerel örüntüleri, LSTM ve GRU ise zaman içindeki bağımlılıkları doğrudan öğrenecek.",
+        "MLP sinyalin zaman sırasını görmediği için hazır feature'larla baseline model olacak. 1D CNN yerel pattern'leri, LSTM ve GRU ise zaman içindeki bağımlılıkları doğrudan öğrenecek.",
     },
     {
       id: "evaluation",
@@ -140,14 +135,14 @@ export const proposal = defineDeck({
       title: "Değerlendirme Yöntemi",
       columns: ["Metrik", "Sorduğu soru"],
       rows: [
-        ["Accuracy", "Pencerelerin ne kadarı doğru sınıflandırıldı?"],
+        ["Accuracy", "Window'ların ne kadarı doğru sınıflandırıldı?"],
         ["Precision", "“Yürüme” tahminlerinin ne kadarı gerçekten yürüme?"],
         ["Recall", "Gerçek yürüme örneklerinin ne kadarı yakalandı?"],
         ["F1-score", "Precision ve Recall'un harmonik ortalaması (macro)"],
         ["Confusion Matrix", "Hangi aktiviteler birbirine karışıyor?"],
       ],
       notes:
-        "Accuracy tek başına sınıf bazındaki hataları göstermez ve az örnekli duruş geçişlerini gizleyebilir. Bu yüzden sınıf bazında Precision, Recall ve F1 de raporlanacak. Confusion Matrix, dördüncü araştırma sorusunun cevabını verecek.",
+        "Accuracy tek başına sınıf bazındaki hataları göstermez ve az örnekli postural transition'ları gizleyebilir. Bu yüzden sınıf bazında Precision, Recall ve F1 de raporlanacak. Confusion Matrix, dördüncü araştırma sorusunun cevabını verecek.",
     },
     {
       id: "outcomes",
@@ -156,7 +151,7 @@ export const proposal = defineDeck({
       lead: "Henüz deney yapılmadı; aşağıdakiler test edilecek beklentilerdir.",
       pointsLabel: "Beklenen sonuçlar",
       points: [
-        "1D CNN, LSTM ve GRU'nun öznitelik mühendisliği olmadan MLP referansına yakın sonuç vermesi",
+        "1D CNN, LSTM ve GRU'nun feature engineering olmadan MLP baseline'ına yakın sonuç vermesi",
         "En çok karışıklığın oturma ile ayakta durma arasında görülmesi",
         "LSTM ile GRU'nun benzer başarı, GRU'nun daha düşük hesaplama maliyeti göstermesi",
         "Gerçek telefon verisinde, cihaz ve kişi farkı nedeniyle başarının düşmesi",

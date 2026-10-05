@@ -181,6 +181,14 @@ The skill is written for English papers. This is how it applies here:
   Once results exist, every number in text points to its table or figure (Layer 4).
 - **Never change** a number, dataset fact, citation, metric name, or English technical term
   (MLP, 1D CNN, LSTM, GRU, F1-score, Confusion Matrix…) during a pass.
+- **Terminology: don't translate jargon whose Turkish form is rarely used.** Keep it in
+  English with Turkish suffixes after an apostrophe: feature (not öznitelik), feature
+  vector, feature engineering, window/windowing (not pencere), overlap, baseline (not
+  referans model), pattern (not örüntü), temporal dependency, representation, recurrent,
+  convolutional, gate, cell state, hidden size, validation set, data leakage, class-weighted
+  loss, low-pass filter, postural transition, flatten. Turkish that is in common use stays
+  Turkish: eğitim/test kümesi, ön işleme, normalizasyon, sınıflandırma, veri seti, model,
+  katman, parametre.
 - No voice sample from the author is in the repo yet. Default to clean, precise, neutral
   Turkish academic prose; if the author supplies earlier writing, match it (Layer 5).
 

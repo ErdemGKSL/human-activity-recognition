@@ -9,7 +9,7 @@ export const proposal = defineDirections({
   duration: "5–10 dakika (hedef ~8 dk)",
   date: "19.10.2026 (sunum PDF'i teslimi: 18.10.2026 23:55)",
   summary:
-    "Bu projede, akıllı telefonların accelerometer ve gyroscope sensörlerinden elde edilen time-series verileriyle yürüme, oturma, ayakta durma, uzanma, merdiven çıkma ve merdiven inme gibi insan aktivitelerinin yapay sinir ağlarıyla sınıflandırılması amaçlanmaktadır. Veri kaynağı, UCI Machine Learning Repository'deki “Smartphone-Based Recognition of Human Activities and Postural Transitions” veri setidir. MLP, 1D CNN, LSTM ve GRU mimarileri aynı katılımcı bazlı veri ayrımıyla eğitilecek ve Accuracy, Precision, Recall, F1-score ve Confusion Matrix ile karşılaştırılacaktır. MLP veri setindeki hazır özniteliklerle, diğer üç model ham sinyal pencereleriyle beslenecektir. Son aşamada kendi telefonumuzdan toplanacak sensör verileriyle, modellerin daha önce görülmemiş gerçek bir kullanıcıya ne kadar genellenebildiği değerlendirilecektir.",
+    "Bu projede, akıllı telefonların accelerometer ve gyroscope sensörlerinden elde edilen time-series verileriyle yürüme, oturma, ayakta durma, uzanma, merdiven çıkma ve merdiven inme gibi insan aktivitelerinin yapay sinir ağlarıyla sınıflandırılması amaçlanmaktadır. Veri kaynağı, UCI Machine Learning Repository'deki “Smartphone-Based Recognition of Human Activities and Postural Transitions” veri setidir. MLP, 1D CNN, LSTM ve GRU mimarileri aynı katılımcı bazlı veri ayrımıyla eğitilecek ve Accuracy, Precision, Recall, F1-score ve Confusion Matrix ile karşılaştırılacaktır. MLP veri setindeki hazır feature'larla, diğer üç model ham sinyal window'larıyla beslenecektir. Son aşamada kendi telefonumuzdan toplanacak sensör verileriyle, modellerin daha önce görülmemiş gerçek bir kullanıcıya ne kadar genellenebildiği değerlendirilecektir.",
   opening: {
     duration: "~30 saniye",
     text: "Hepimizin cebinde, her saniye onlarca kez hareketimizi ölçen iki sensör var: accelerometer ve gyroscope. Telefonunuz şu anda oturduğunuzu biliyor mu? Bu bilgi sinyalde var; onu çıkarmak için uygun bir model gerekiyor. Bu projede dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımı ve aynı metriklerle karşılaştırmayı planlıyoruz. Son adımda modelleri kendi telefonumuzdan topladığımız verilerle sınayacağız.",
@@ -24,31 +24,31 @@ export const proposal = defineDirections({
   questions: [
     {
       question:
-        "MLP'yi neden ham sinyal yerine 561 öznitelikle besliyorsunuz? Bu adil bir karşılaştırma mı?",
+        "MLP'yi neden ham sinyal yerine 561 feature ile besliyorsunuz? Bu adil bir karşılaştırma mı?",
       answer:
-        "MLP, komşu zaman adımları arasındaki ilişkiyi mimarisinde kodlamaz; düzleştirilmiş bir ham pencerede her adımı ayrı bir girdi olarak görür. Bu yüzden MLP'yi veri setindeki, zaman ve frekans alanında hesaplanmış 561 öznitelikle referans model olarak kullanmayı planlıyoruz. Böylece elle tasarlanmış öznitelikler ile 1D CNN, LSTM ve GRU'nun ham sinyalden öğrendiği temsiller de karşılaştırılacak. Bu tasarımda MLP ile diğer modeller arasındaki farkın bir kısmı girdi temsilinden gelecek; bunu sonuçlarda açıkça belirteceğiz. Zaman kalırsa MLP'yi düzleştirilmiş ham pencerelerle de eğiterek girdi türünün etkisini ayrıca raporlayabiliriz.",
+        "MLP, komşu zaman adımları arasındaki ilişkiyi mimarisinde kodlamaz; flatten edilmiş bir ham window'da her adımı ayrı bir girdi olarak görür. Bu yüzden MLP'yi veri setindeki, zaman ve frekans alanında hesaplanmış 561 feature ile baseline model olarak kullanmayı planlıyoruz. Böylece elle tasarlanmış feature'lar ile 1D CNN, LSTM ve GRU'nun ham sinyalden öğrendiği representation'lar de karşılaştırılacak. Bu tasarımda MLP ile diğer modeller arasındaki farkın bir kısmı input representation'ından gelecek; bunu sonuçlarda açıkça belirteceğiz. Zaman kalırsa MLP'yi flatten edilmiş ham window'larla de eğiterek girdi türünün etkisini ayrıca raporlayabiliriz.",
+    },
+    {
+      question: "Eğitim ve test ayrımını nasıl yapacaksınız, data leakage'ı nasıl önleyeceksiniz?",
+      answer:
+        "Ayrım window bazında değil, katılımcı bazında yapılacak: veri setinin kendi ayrımında gönüllülerin %70'i eğitim, %30'u test kümesinde. Window'lar %50 overlap'li olduğu için rastgele bölünürse aynı kişinin neredeyse aynı window'ları iki tarafa düşer ve sonuçlar gerçekçi olmayacak kadar iyimser çıkar. Hiperparametre seçimi için validation set de eğitim katılımcılarından, yine kişi bazlı ayrılacak; test kümesine yalnızca son değerlendirmede bakılacak.",
     },
     {
       question:
-        "Eğitim ve test ayrımını nasıl yapacaksınız, veri sızıntısını nasıl önleyeceksiniz?",
+        "Sınıflar dengesiz, özellikle postural transition'lar çok az. Bunu nasıl ele alacaksınız?",
       answer:
-        "Ayrım pencere bazında değil, katılımcı bazında yapılacak: veri setinin kendi ayrımında gönüllülerin %70'i eğitim, %30'u test kümesinde. Pencereler %50 örtüştüğü için rastgele bölünürse aynı kişinin neredeyse aynı pencereleri iki tarafa düşer ve sonuçlar gerçekçi olmayacak kadar iyimser çıkar. Hiperparametre seçimi için doğrulama kümesi de eğitim katılımcılarından, yine kişi bazlı ayrılacak; test kümesine yalnızca son değerlendirmede bakılacak.",
-    },
-    {
-      question: "Sınıflar dengesiz, özellikle duruş geçişleri çok az. Bunu nasıl ele alacaksınız?",
-      answer:
-        "Geçişler birkaç saniye süren ve az örneği olan sınıflar. Bu yüzden yalnızca Accuracy'ye bakmayacağız; sınıf ortalamalı (macro) F1-score, sınıf bazında Recall ve Confusion Matrix raporlanacak. Gerekirse sınıf ağırlıklı kayıp fonksiyonu kullanılacak. Temel deneyler 6 aktivite üzerinde planlanıyor; geçiş sınıflarının dahil edilmesi ayrı bir deney olarak değerlendirilecek.",
+        "Geçişler birkaç saniye süren ve az örneği olan sınıflar. Bu yüzden yalnızca Accuracy'ye bakmayacağız; macro F1-score, sınıf bazında Recall ve Confusion Matrix raporlanacak. Gerekirse class-weighted loss kullanılacak. Temel deneyler 6 aktivite üzerinde planlanıyor; geçiş sınıflarının dahil edilmesi ayrı bir deney olarak değerlendirilecek.",
     },
     {
       question:
         "Kendi telefonunuzdan topladığınız veri, veri setindeki kayıtlardan farklı olacak. Bu farkı nasıl yöneteceksiniz?",
       answer:
-        "Farkı azaltmak için veriyi 50 Hz'e yeniden örnekleyip aynı birimlere (accelerometer için g, gyroscope için rad/s) çevireceğiz. Telefonu veri setindeki gibi bel bölgesine yerleştireceğiz. Aynı pencerelemeyi ve eğitim kümesinden hesaplanan aynı normalizasyon değerlerini kullanacağız. Yine de cihaz, konum ve kişi farkı nedeniyle performansın düşmesi beklenir; bu düşüşün ne kadar olduğu ve hangi sınıflarda yoğunlaştığı zaten bu ek deneyin cevaplamak istediği sorudur.",
+        "Farkı azaltmak için veriyi 50 Hz'e yeniden örnekleyip aynı birimlere (accelerometer için g, gyroscope için rad/s) çevireceğiz. Telefonu veri setindeki gibi bel bölgesine yerleştireceğiz. Aynı windowing'i ve eğitim kümesinden hesaplanan aynı normalizasyon değerlerini kullanacağız. Yine de cihaz, konum ve kişi farkı nedeniyle performansın düşmesi beklenir; bu düşüşün ne kadar olduğu ve hangi sınıflarda yoğunlaştığı zaten bu ek deneyin cevaplamak istediği sorudur.",
     },
     {
       question: "LSTM ile GRU arasındaki fark nedir, ikisini birden denemek neden gerekli?",
       answer:
-        "LSTM'de giriş, unutma ve çıkış kapıları ile ayrı bir hücre durumu vardır. GRU ise güncelleme ve sıfırlama kapılarıyla çalışır, ayrı hücre durumu yoktur; bu yüzden aynı gizli boyutta daha az parametreye sahiptir ve genellikle daha hızlı eğitilir. 128 adımlık kısa pencerelerde ikisinin benzer başarı göstermesi olası; karşılaştırma, başarı ile hesaplama maliyeti arasındaki dengeyi göstermek için yapılacak.",
+        "LSTM'de input, forget ve output gate'leri ile ayrı bir cell state vardır. GRU ise update ve reset gate'leriyle çalışır, ayrı cell state yoktur; bu yüzden aynı hidden size'da daha az parametreye sahiptir ve genellikle daha hızlı eğitilir. 128 adımlık kısa window'larda ikisinin benzer başarı göstermesi olası; karşılaştırma, başarı ile hesaplama maliyeti arasındaki dengeyi göstermek için yapılacak.",
     },
   ],
   slides: {
@@ -93,7 +93,7 @@ export const proposal = defineDirections({
         },
       ],
       funFacts: [
-        "Accelerometer masada hareketsiz dururken bile yaklaşık 1 g ölçer: bu, yerçekimidir. Veri setinde bu bileşen düşük geçiren bir filtreyle vücut hareketinden ayrılmıştır. Durağan aktivitelerde telefonun duruş açısı bu bileşenden okunur.",
+        "Accelerometer masada hareketsiz dururken bile yaklaşık 1 g ölçer: bu, yerçekimidir. Veri setinde bu bileşen low-pass filter ile vücut hareketinden ayrılmıştır. Durağan aktivitelerde telefonun duruş açısı bu bileşenden okunur.",
       ],
       visuals: [
         "Yürüme ile oturma için aynı eksende 2–3 saniyelik accelerometer sinyali grafiği: biri dalgalı, diğeri neredeyse düz. Veri indirildikten sonra eklenebilir.",
@@ -109,7 +109,7 @@ export const proposal = defineDirections({
       goal: "Projenin çıktısı tek bir model değil, dört mimarinin kontrollü bir karşılaştırması.",
       script: [
         "Amacımız dört nöral ağ mimarisini, MLP, 1D CNN, LSTM ve GRU'yu, aynı veri ayrımıyla eğitip aynı metriklerle karşılaştırmak.",
-        "Karşılaştırma dört araştırma sorusuna göre yapılacak. Birincisi, dört mimarinin aynı test kümesindeki performansı. İkincisi, zaman serisini doğrudan işleyen modellerin MLP referans modelinden farkı. Üçüncüsü, modellerin hiç görmedikleri gerçek bir kullanıcıya genellenip genellenemeyeceği. Dördüncüsü, hangi aktivitelerin birbirine karıştığı.",
+        "Karşılaştırma dört araştırma sorusuna göre yapılacak. Birincisi, dört mimarinin aynı test kümesindeki performansı. İkincisi, time-series'i doğrudan işleyen modellerin MLP baseline'ından farkı. Üçüncüsü, modellerin hiç görmedikleri gerçek bir kullanıcıya genellenip genellenemeyeceği. Dördüncüsü, hangi aktivitelerin birbirine karıştığı.",
       ],
       data: [
         {
@@ -129,8 +129,8 @@ export const proposal = defineDirections({
       goal: "Veri seti açık erişimli, belgelenmiş ve kişi bazlı ayrılmış.",
       script: [
         "Veri seti, UCI Machine Learning Repository'deki “Smartphone-Based Recognition of Human Activities and Postural Transitions”. 19 ile 48 yaş arasındaki 30 gönüllü, bellerine takılı bir telefonla belirlenen aktiviteleri yapmış.",
-        "Sinyaller 50 Hz'de, yani saniyede 50 kez örneklenmiş ve 2,56 saniyelik, yüzde 50 örtüşen pencerelere bölünmüş; her pencere 128 ölçüm içeriyor. Veri setinde her pencere için hesaplanmış 561 öznitelik de hazır olarak bulunuyor.",
-        "Etiketlerde 6 temel aktivitenin yanında oturmadan kalkma gibi 6 duruş geçişi var. Temel hedefimiz 6 aktivite; geçiş sınıflarının kullanımını ayrıca değerlendireceğiz.",
+        "Sinyaller 50 Hz'de, yani saniyede 50 kez örneklenmiş ve 2,56 saniyelik, yüzde 50 overlap'li window'lara bölünmüş; her window 128 ölçüm içeriyor. Veri setinde her window için hesaplanmış 561 feature de hazır olarak bulunuyor.",
+        "Etiketlerde 6 temel aktivitenin yanında oturmadan kalkma gibi 6 postural transition var. Temel hedefimiz 6 aktivite; geçiş sınıflarının kullanımını ayrıca değerlendireceğiz.",
         "Eğitim ve test ayrımı kişi bazlı: test kümesindeki gönüllüler eğitimde hiç görülmüyor. Bu yüzden test sonuçları yeni kullanıcılara genellemeyi ölçecek.",
       ],
       data: [
@@ -141,28 +141,28 @@ export const proposal = defineDirections({
         },
         {
           label: "12 etiket",
-          meaning: "6 temel aktivite + 6 duruş geçişi (ör. otur-kalk, uzan-otur).",
+          meaning: "6 temel aktivite + 6 postural transition (ör. otur-kalk, uzan-otur).",
         },
         {
           label: "10.929 örnek",
           meaning:
-            "UCI sayfasında belirtilen toplam pencere sayısı; her biri 561 boyutlu bir öznitelik vektörüyle temsil ediliyor.",
+            "UCI sayfasında belirtilen toplam window sayısı; her biri 561 boyutlu bir feature vector'üyle temsil ediliyor.",
         },
         {
           label: "128 ölçüm",
-          meaning: "50 Hz × 2,56 s = 128: bir pencere, 6 kanal için 128'er ölçümdür (128 × 6).",
+          meaning: "50 Hz × 2,56 s = 128: bir window, 6 kanal için 128'er ölçümdür (128 × 6).",
         },
       ],
       funFacts: [
-        "Bir pencere 2,56 saniyelik bir hareketi 128 × 6 = 768 sayıyla anlatıyor. Bir yürüme adımı yaklaşık yarım saniye sürdüğü için her pencereye birkaç adım sığıyor.",
-        "Bu veri seti, 2012'de yayımlanan UCI HAR veri setinin genişletilmiş sürümüdür; yeni eklenen kısım duruş geçişleridir.",
+        "Bir window 2,56 saniyelik bir hareketi 128 × 6 = 768 sayıyla anlatıyor. Bir yürüme adımı yaklaşık yarım saniye sürdüğü için her window'a birkaç adım sığıyor.",
+        "Bu veri seti, 2012'de yayımlanan UCI HAR veri setinin genişletilmiş sürümüdür; yeni eklenen kısım postural transition'lardır.",
       ],
       visuals: [
         "Sınıf başına örnek sayısını gösteren çubuk grafik (veri indirildikten sonra); geçiş sınıflarının azlığı tek bakışta görünür.",
-        "Tek bir pencerenin 6 kanalını üst üste gösteren küçük bir çizgi grafiği.",
+        "Tek bir window'un 6 kanalını üst üste gösteren küçük bir çizgi grafiği.",
       ],
       tips: [
-        "“Kişi bazlı ayrım” maddesinde durun; hocanın veri sızıntısı sorusuna (bkz. soru 2) zemin hazırlar.",
+        "“Kişi bazlı ayrım” maddesinde durun; hocanın data leakage sorusuna (bkz. soru 2) zemin hazırlar.",
       ],
       transition: "Peki bu veriyle ne yapacağız? Önerdiğimiz yöntemin akışına bakalım.",
     },
@@ -171,8 +171,8 @@ export const proposal = defineDirections({
       goal: "Dört model aynı veri ayrımı ve aynı metriklerle değerlendirilecek.",
       script: [
         "Soldan sağa, numaralı beş kartı takip edelim. Birinci adımda UCI veri setinden accelerometer ve gyroscope sinyallerini alıyoruz.",
-        "Ön işleme adımında sinyaller filtrelenecek, sabit uzunlukta pencerelere bölünecek ve eğitim kümesinden hesaplanan değerlerle normalize edilecek.",
-        "Modelleme adımında dört mimari eğitilecek. MLP veri setindeki öznitelik vektörleriyle, 1D CNN, LSTM ve GRU ise ham sinyal pencereleriyle beslenecek. Bu yüzden MLP ile diğer modeller arasındaki farkın bir kısmı girdi temsilinden gelecek; bu, sonuçlarda ayrıca belirtilecek.",
+        "Ön işleme adımında sinyaller filtrelenecek, sabit uzunlukta window'lara bölünecek ve eğitim kümesinden hesaplanan değerlerle normalize edilecek.",
+        "Modelleme adımında dört mimari eğitilecek. MLP veri setindeki feature vector'leriyle, 1D CNN, LSTM ve GRU ise ham sinyal window'larıyla beslenecek. Bu yüzden MLP ile diğer modeller arasındaki farkın bir kısmı input representation'ından gelecek; bu, sonuçlarda ayrıca belirtilecek.",
         "Değerlendirme adımında modeller aynı test kümesinde metriklerle ve hata analiziyle karşılaştırılacak. Beşinci kart turuncu çerçeveli, çünkü ek deney: kendi telefonumuzdan topladığımız verilerle modelleri gerçek bir kullanıcıda sınayacağız.",
       ],
       data: [
@@ -188,7 +188,7 @@ export const proposal = defineDirections({
         {
           label: "Ortak akış",
           meaning:
-            "Aynı katılımcı ayrımı ve aynı metrikler; üç zamansal model için ayrıca aynı ön işleme.",
+            "Aynı katılımcı ayrımı ve aynı metrikler; üç time-series modeli için ayrıca aynı ön işleme.",
         },
       ],
       tips: [
@@ -201,23 +201,23 @@ export const proposal = defineDirections({
       time: "1 dk",
       goal: "Her mimari sinyalin farklı bir özelliğini yakalamak için seçildi.",
       script: [
-        "MLP sinyalin zaman sırasını görmez; bu yüzden hazır özniteliklerle referans model olacak. Diğer modeller bu referansı ne kadar geçebiliyor, ona bakacağız.",
-        "1D CNN, zaman ekseni boyunca kayan filtrelerle adım ritmi gibi kısa ve yerel örüntüleri yakalar. Zaman adımlarını paralel işlediği için tekrarlayan ağlardan genellikle daha kısa sürede eğitilir.",
-        "LSTM ve GRU tekrarlayan ağlardır; pencere boyunca bilgiyi taşıyarak zamansal bağımlılıkları öğrenir. GRU, LSTM'e benzer bir yapıyı daha az parametreyle kurar; bu yüzden aralarındaki başarı ve maliyet dengesini de karşılaştıracağız.",
+        "MLP sinyalin zaman sırasını görmez; bu yüzden hazır feature'larla baseline model olacak. Diğer modeller bu baseline'ı ne kadar geçebiliyor, ona bakacağız.",
+        "1D CNN, zaman ekseni boyunca kayan filtrelerle adım ritmi gibi kısa ve yerel pattern'leri yakalar. Zaman adımlarını paralel işlediği için recurrent ağlardan genellikle daha kısa sürede eğitilir.",
+        "LSTM ve GRU recurrent ağlardır; window boyunca bilgiyi taşıyarak temporal dependency'leri öğrenir. GRU, LSTM'e benzer bir yapıyı daha az parametreyle kurar; bu yüzden aralarındaki başarı ve maliyet dengesini de karşılaştıracağız.",
       ],
       data: [
         {
-          label: "561 öznitelik vektörü",
+          label: "561 feature vector",
           meaning:
             "Veri setinde hazır gelen, zaman ve frekans alanında hesaplanmış istatistikler (ortalama, standart sapma, enerji vb.).",
         },
         {
-          label: "Ham pencere (128 × 6)",
-          meaning: "128 zaman adımı × 6 sensör kanalı; model öznitelikleri kendisi öğrenir.",
+          label: "Raw window (128 × 6)",
+          meaning: "128 zaman adımı × 6 sensör kanalı; model feature'ları kendisi öğrenir.",
         },
       ],
       funFacts: [
-        "LSTM 1997'de Hochreiter ve Schmidhuber tarafından, GRU ise 2014'te Cho ve arkadaşları tarafından önerildi: aynı “uzun süreli hafıza” problemine 17 yıl arayla iki farklı kapı tasarımı.",
+        "LSTM 1997'de Hochreiter ve Schmidhuber tarafından, GRU ise 2014'te Cho ve arkadaşları tarafından önerildi: aynı “uzun süreli hafıza” problemine 17 yıl arayla iki farklı gate tasarımı.",
       ],
       visuals: [
         "Dört modelin katmanlarını gösteren basit bir şema (girdi, gizli katmanlar, softmax); mimari kesinleşince eklenebilir.",
@@ -228,7 +228,7 @@ export const proposal = defineDirections({
       time: "45 sn",
       goal: "Tek bir sayıya değil, sınıf bazında ve hata türüne göre bakılacak.",
       script: [
-        "Accuracy genel tabloyu verir ama sınıf bazındaki hataları göstermez; az örnekli duruş geçişleri dahil edilirse yanıltıcı olabilir. Bu yüzden sınıf bazında Precision, Recall ve F1-score da raporlanacak.",
+        "Accuracy genel tabloyu verir ama sınıf bazındaki hataları göstermez; az örnekli postural transition'lar dahil edilirse yanıltıcı olabilir. Bu yüzden sınıf bazında Precision, Recall ve F1-score da raporlanacak.",
         "Confusion Matrix, dördüncü araştırma sorusunun cevabını verecek: hangi aktivite hangisiyle karışıyor.",
         "Tüm metrikler, eğitimde hiç görülmemiş katılımcılardan oluşan test kümesinde hesaplanacak.",
       ],
@@ -257,13 +257,13 @@ export const proposal = defineDirections({
       goal: "Beklentiler açık ve sınanabilir; hiçbiri sonuç gibi sunulmuyor.",
       script: [
         "Henüz deney yapmadık; bu slayttaki maddeler deneylerle sınanacak beklentiler. Her biri bir araştırma sorusuna karşılık geliyor.",
-        "Birincisi, zaman serisini doğrudan işleyen 1D CNN, LSTM ve GRU'nun, elle tasarlanmış öznitelik kullanmadan MLP referansına yakın sonuç vermesini bekliyoruz. MLP'nin 561 hazır özniteliği güçlü bir referans olduğu için “daha iyi” değil “yakın” diyoruz.",
+        "Birincisi, time-series'i doğrudan işleyen 1D CNN, LSTM ve GRU'nun, elle tasarlanmış feature kullanmadan MLP baseline'ına yakın sonuç vermesini bekliyoruz. MLP'nin 561 hazır feature'ı güçlü bir baseline olduğu için “daha iyi” değil “yakın” diyoruz.",
         "İkincisi, en çok karışıklığın oturma ile ayakta durma arasında çıkmasını bekliyoruz; iki aktivite de durağan ve sinyalleri benzer. Üçüncüsü, LSTM ile GRU'nun benzer başarı göstermesini, GRU'nun daha az parametresi nedeniyle daha kısa sürede eğitilmesini bekliyoruz. Dördüncüsü, kendi telefonumuzdan topladığımız veride cihaz, konum ve kişi farkı nedeniyle başarının düşmesini bekliyoruz; bu düşüşün büyüklüğü ek deneyin cevaplayacağı soru.",
         "Sağdaki kartlar projenin somut çıktılarını özetliyor: dört model, beş değerlendirme ölçütü ve iki veri kaynağı.",
       ],
       data: [
         {
-          label: "“MLP referansına yakın”",
+          label: "“MLP baseline'ına yakın”",
           meaning:
             "Karşılaştırma aynı test kümesinde macro F1-score ile yapılacak; “yakın” bilerek seçilmiş, temkinli bir beklenti.",
         },
