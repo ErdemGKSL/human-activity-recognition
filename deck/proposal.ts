@@ -30,7 +30,7 @@ export const proposal = defineDeck({
       layout: "bullets",
       title: "Problem ve Önemi",
       points: [
-        "Telefon sensörleri 50 ölçüm/s üretir (6 farklı kanal).",
+        "Telefon sensörleri 50 ölçüm/s üretir (6 farklı channel).",
         "Çözeceğimiz problem, bu sinyallerden 6 aktiviteyi ayırt edebilmektir.",
         "Oturmak ve ayakta durma birbirine çok benzer, bunların ayırt edilebilmesi ayrı bir öneme sahiptir.",
         "Mevcut aktiviteyi tanıma ve spor uygulamalarında kullanılabilir.",
@@ -65,9 +65,9 @@ export const proposal = defineDeck({
       title: "Önerilen Yöntem",
       steps: [
         { label: "Veri", items: ["UCI veri seti"] },
-        { label: "Ön İşleme", items: ["Filtreleme", "Windowing", "Normalizasyon"] },
-        { label: "Modelleme", items: ["MLP", "1D CNN", "LSTM", "GRU"] },
-        { label: "Değerlendirme", items: ["Test kümesi"] },
+        { label: "Preprocessing", items: ["Filtreleme", "Windowing", "Normalizasyon"] },
+        { label: "Modeling", items: ["MLP", "1D CNN", "LSTM", "GRU"] },
+        { label: "Evaluation", items: ["Test kümesi"] },
         { label: "Gerçek Veri", items: ["Kendi telefonumuz"], tone: "accent" },
       ],
       points: [
@@ -89,7 +89,7 @@ export const proposal = defineDeck({
     {
       id: "evaluation",
       layout: "bullets",
-      title: "Değerlendirme Yöntemi",
+      title: "Evaluation Method",
       points: [
         "Modeller, Accuracy, Precision, Recall ve F1-score (macro) ile ölçülecek.",
         "Accuracy önemli fakat tek başına yeterli değildir, çünkü az örnekli sınıflardaki hataları es geçer.",

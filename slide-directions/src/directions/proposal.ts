@@ -54,7 +54,7 @@ export const proposal = defineDirections({
     {
       term: "Raw window (128 × 6)",
       meaning:
-        "Feature hesaplanmamış ham sinyal parçası: 128 zaman adımı × 6 kanal (3 accelerometer + 3 gyroscope ekseni). 1D CNN, LSTM ve GRU'nun girdisi.",
+        "Feature hesaplanmamış ham sinyal parçası: 128 zaman adımı × 6 channel (3 accelerometer + 3 gyroscope ekseni). 1D CNN, LSTM ve GRU'nun girdisi.",
     },
     {
       term: "Feature",
@@ -267,13 +267,13 @@ export const proposal = defineDirections({
       time: "1,5 dk",
       goal: "Sensör sinyalinden aktiviteyi çıkarmak zor, ama çözüldüğünde sağlıktan spora birçok uygulamaya girdi sağlıyor.",
       script: [
-        "Veri setinde telefon saniyede 50 kez üç eksende ivme ve üç eksende açısal hız ölçüyor. Elimizde 6 kanallı bir time-series var, ama bu sayılar kendiliğinden “yürüyor” ya da “oturuyor” demiyor. Problem, bu sinyalden altı aktiviteyi sınıflandırmak.",
+        "Veri setinde telefon saniyede 50 kez üç eksende ivme ve üç eksende açısal hız ölçüyor. Elimizde 6 channellı bir time-series var, ama bu sayılar kendiliğinden “yürüyor” ya da “oturuyor” demiyor. Problem, bu sinyalden altı aktiviteyi sınıflandırmak.",
         "Yürüme ve merdiven çıkma gibi hareketli aktiviteler sinyalde belirgin ritimler oluşturur. Oturma ve ayakta durma ise neredeyse hareketsizdir; aralarındaki fark çoğunlukla telefonun yerçekimine göre duruşundan gelir. Bu yüzden bu iki sınıfın birbirine karışması bekleniyor. Üstelik herkes farklı yürür: modelin bir kişiyi ezberlemesi değil, yeni kişilere genellenmesi gerekiyor.",
         "Son madde önemini söylüyor: hasta ve yaşlı takibi, spor ve egzersiz uygulamaları ve bağlama göre davranan cihazlar, kişinin o an ne yaptığını bilmeye ihtiyaç duyar.",
       ],
       data: [
         {
-          label: "6 kanal",
+          label: "6 channel",
           meaning: "Accelerometer ve gyroscope'un x, y, z eksenleri: 3 + 3 = 6 sinyal.",
         },
         {
@@ -344,7 +344,7 @@ export const proposal = defineDirections({
         },
         {
           label: "128 ölçüm",
-          meaning: "50 Hz × 2,56 s = 128: bir window, 6 kanal için 128'er ölçümdür (128 × 6).",
+          meaning: "50 Hz × 2,56 s = 128: bir window, 6 channel için 128'er ölçümdür (128 × 6).",
         },
       ],
       funFacts: [
@@ -353,7 +353,7 @@ export const proposal = defineDirections({
       ],
       visuals: [
         "Sınıf başına örnek sayısını gösteren çubuk grafik (veri indirildikten sonra); geçiş sınıflarının azlığı tek bakışta görünür.",
-        "Tek bir window'un 6 kanalını üst üste gösteren küçük bir çizgi grafiği.",
+        "Tek bir window'un 6 channelını üst üste gösteren küçük bir çizgi grafiği.",
       ],
       tips: [
         "“Kişi bazlı ayrım” maddesinde durun; hocanın data leakage sorusuna (bkz. soru 2) zemin hazırlar.",
@@ -366,14 +366,14 @@ export const proposal = defineDirections({
       script: [
         "Soldan sağa, numaralı beş kartı takip edelim. Birinci adımda UCI veri setinden accelerometer ve gyroscope sinyallerini alıyoruz.",
         "Ön işleme adımında sinyaller filtrelenecek, sabit uzunlukta window'lara bölünecek ve eğitim kümesinden hesaplanan değerlerle normalize edilecek.",
-        "Modelleme adımında dört mimari eğitilecek. MLP veri setindeki feature vector'leriyle, 1D CNN, LSTM ve GRU ise ham sinyal window'larıyla beslenecek. Bu yüzden MLP ile diğer modeller arasındaki farkın bir kısmı input representation'ından gelecek; bu, sonuçlarda ayrıca belirtilecek.",
-        "Değerlendirme adımında modeller aynı test kümesinde metriklerle ve hata analiziyle karşılaştırılacak. Beşinci kart turuncu çerçeveli, çünkü ek deney: kendi telefonumuzdan topladığımız verilerle modelleri gerçek bir kullanıcıda sınayacağız.",
+        "Modeling adımında dört mimari eğitilecek. MLP veri setindeki feature vector'leriyle, 1D CNN, LSTM ve GRU ise ham sinyal window'larıyla beslenecek. Bu yüzden MLP ile diğer modeller arasındaki farkın bir kısmı input representation'ından gelecek; bu, sonuçlarda ayrıca belirtilecek.",
+        "Evaluation adımında modeller aynı test kümesinde metriklerle ve hata analiziyle karşılaştırılacak. Beşinci kart turuncu çerçeveli, çünkü ek deney: kendi telefonumuzdan topladığımız verilerle modelleri gerçek bir kullanıcıda sınayacağız.",
       ],
       data: [
         {
           label: "1–5 numaralı kartlar",
           meaning:
-            "Akışın sırası: veri, ön işleme, modelleme, değerlendirme, gerçek veri. Her kartın altındaki satırlar o adımın içeriği.",
+            "Akışın sırası: veri, preprocessing, modeling, evaluation, gerçek veri. Her kartın altındaki satırlar o adımın içeriği.",
         },
         {
           label: "Turuncu çerçeveli 5. kart",
@@ -389,7 +389,7 @@ export const proposal = defineDirections({
         "Kartlar PowerPoint'te birer birer, bağlantı çizgileriyle birlikte otomatik belirir; her kartta bir iki cümle yeterli. PDF'te animasyon yok, hepsi baştan görünür.",
         "Turuncu çerçeveli 5. karta gelince kısa bir duraklama yapın; bu adım veri setinin dışında yapılacak tek deney.",
       ],
-      transition: "3 numaralı modelleme kartındaki dört mimariye biraz daha yakından bakalım.",
+      transition: "3 numaralı modeling kartındaki dört mimariye biraz daha yakından bakalım.",
     },
     architectures: {
       time: "1 dk",
@@ -408,7 +408,7 @@ export const proposal = defineDirections({
         {
           label: "Ham sinyal",
           meaning:
-            "128 × 6 boyutlu window: 128 zaman adımı × 6 sensör kanalı; model feature'ları kendisi öğrenir.",
+            "128 × 6 boyutlu window: 128 zaman adımı × 6 sensör channelı; model feature'ları kendisi öğrenir.",
         },
       ],
       funFacts: [
