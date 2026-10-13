@@ -5,26 +5,31 @@
  * between calls, so the deck is built in stages: each stage loads the previous
  * `.deckcraft` file (`--in`), runs its commands and saves the next one
  * (`--save`). Every stage starts with `slide.go`, because commands act on the
- * selected slide. Table cells need the table's id, which only exists after
- * `insert.table` has run, so a table takes two stages.
+ * selected slide. Table cells and text styling need ids that only exist after
+ * a command has run, so those take a second stage (`after`).
  */
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import type { DeckSpec, SlideSpec } from "../deck/types";
 
-/** Colours and fonts: one ink colour, one accent, one font family. See `design/` notes in the skill. */
+/**
+ * Colours and fonts. One ink colour for text and dark backgrounds, one blue
+ * accent for emphasis, one font family. Keep it to these: a deck that uses
+ * more hues than this looks like a template, not a designed deck.
+ */
 export const THEME = {
   colors: {
-    dk1: "#1B2430", // text on light
-    lt1: "#FFFFFF", // background
-    dk2: "#3D4B5C", // secondary text
+    dk1: "#14213D", // ink: titles, dark backgrounds
+    lt1: "#FFFFFF", // page
+    dk2: "#3D4B5C", // body text, plain flow steps
     lt2: "#F4F5F7", // quiet panels
-    accent1: "#1F5FAD", // the one accent: the outcome and the emphasis
+    accent1: "#1F5FAD", // the one accent: rules, emphasis, the outcome step
     accent2: "#D9822B",
     accent3: "#6B7A8F",
-    accent4: "#A3ADBB",
+    accent4: "#A3ADBB", // arrows between flow steps
     accent5: "#2E7D5B",
     accent6: "#8E44AD",
+    muted: "#C5CFDD", // secondary text on dark backgrounds
   },
   font: "Inter",
 } as const;
@@ -33,12 +38,21 @@ export const THEME = {
 const SLIDE = { width: 960, height: 540 };
 const MARGIN_X = 60;
 
+/** Text sizes in points. Titles are large enough to read from the back of a room. */
+const TYPE = {
+  title: 32,
+  body: 20,
+  coverTitle: 44,
+  coverSubtitle: 20,
+  flow: 14,
+} as const;
+
 /** One call to `deckcraft-cli run`. `after` builds the commands that need the previous stage's output. */
 export interface Stage {
   /** Name shown in logs. */
   label: string;
   cmds: string[];
-  /** Commands that need an id printed by this stage (e.g. a table id). */
+  /** Commands that need an id printed by this stage (a table id, a shape id, a slide id). */
   after?: (printed: Map<string, unknown>) => string[];
 }
 
@@ -57,10 +71,67 @@ export function themeCommands(): string[] {
   ];
 }
 
+interface TextStyle {
+  color?: string;
+  size?: number;
+  bold?: boolean;
+}
+
+/**
+ * Sets colour, size and weight of one shape's whole text. DeckCraft only
+ * formats a selection, so this selects the shape, enters text edit, selects
+ * all, formats and leaves edit mode again.
+ */
+export function styleText(id: number, style: TextStyle): string[] {
+  return [
+    cmd("selection.select", { ids: [id] }),
+    cmd("text.edit", {}),
+    cmd("text.selectAll", {}),
+    ...(style.color ? [cmd("format.color", { color: style.color })] : []),
+    ...(style.size ? [cmd("format.size", { size: style.size })] : []),
+    ...(style.bold !== undefined ? [cmd("format.bold", { on: style.bold })] : []),
+    cmd("text.exit", {}),
+  ];
+}
+
+/** Title and body text styles for a light content slide. */
+const TITLE_ON_LIGHT: TextStyle = { color: THEME.colors.dk1, size: TYPE.title, bold: true };
+const BODY_ON_LIGHT: TextStyle = { color: THEME.colors.dk2, size: TYPE.body };
+const TITLE_ON_DARK: TextStyle = { color: THEME.colors.lt1, size: TYPE.coverTitle, bold: true };
+const SUBTITLE_ON_DARK: TextStyle = { color: THEME.colors.muted, size: TYPE.coverSubtitle };
+
+/**
+ * A short accent rule under the title. It is the only decoration on a content
+ * slide, so it carries the deck's colour without adding clutter.
+ */
+function accentRule(): string[] {
+  return [
+    cmd("shape.insert", { preset: "rect", rect: [MARGIN_X, 124, 56, 4] }),
+    cmd("shape.fill", { color: THEME.colors.accent1 }),
+    cmd("shape.line", { none: true }),
+  ];
+}
+
+/** Dark slides (cover, closing) get a solid ink background instead of the white page. */
+const darkBackground = (): string[] => [cmd("design.background", { color: THEME.colors.dk1 })];
+
+/** The id of the slide that a stage just created, as printed by `slide.new`. */
+function slideIdOf(printed: Map<string, unknown>): number {
+  const value = printed.get("slide.new");
+  if (typeof value === "object" && value !== null && "id" in value) {
+    return (value as { id: number }).id;
+  }
+  throw new Error("slide.new printed no id");
+}
+
 /**
  * Stages for one slide. The slide is appended at the end of the deck, so its
  * index is `index`; every `slide.new` is followed by `slide.go` so the commands
  * after it act on that slide.
+ *
+ * Placeholder ids: a new slide gets its id, then its title placeholder gets
+ * id + 1 and its body or subtitle placeholder id + 2. Rendering the deck checks
+ * this; if DeckCraft changes the numbering, the rendered slides show it.
  */
 export function slideStages(
   slide: SlideSpec,
@@ -109,8 +180,17 @@ function slideStagesRaw(
                 .map(text)
                 .join("\n"),
             }),
+            ...darkBackground(),
             ...fade,
           ],
+          after: (printed) => {
+            const id = slideIdOf(printed);
+            return [
+              cmd("slide.go", { index }),
+              ...styleText(id + 1, TITLE_ON_DARK),
+              ...styleText(id + 2, SUBTITLE_ON_DARK),
+            ];
+          },
         },
       ];
 
@@ -127,8 +207,17 @@ function slideStagesRaw(
           label: `${slide.id}: bullets`,
           cmds: [
             cmd("slide.new", { layout: "titleAndContent", title: text(slide.title), body }),
+            ...accentRule(),
             ...fade,
           ],
+          after: (printed) => {
+            const id = slideIdOf(printed);
+            return [
+              cmd("slide.go", { index }),
+              ...styleText(id + 1, TITLE_ON_LIGHT),
+              ...styleText(id + 2, BODY_ON_LIGHT),
+            ];
+          },
         },
       ];
     }
@@ -139,6 +228,7 @@ function slideStagesRaw(
           label: `${slide.id}: flow`,
           cmds: [
             cmd("slide.new", { layout: "titleOnly", title: text(slide.title) }),
+            ...accentRule(),
             ...flowShapes(slide.steps),
             ...(Array.isArray(slide.points)
               ? [
@@ -150,6 +240,10 @@ function slideStagesRaw(
               : []),
             ...fade,
           ],
+          after: (printed) => {
+            const id = slideIdOf(printed);
+            return [cmd("slide.go", { index }), ...styleText(id + 1, TITLE_ON_LIGHT)];
+          },
         },
       ];
 
@@ -163,7 +257,9 @@ function slideStagesRaw(
           label: `${slide.id}: table`,
           cmds: [
             cmd("slide.new", { layout: "titleOnly", title: text(slide.title) }),
+            ...accentRule(),
             cmd("insert.table", { rows: rowCount, cols: columns.length, rect: tableRect }),
+            cmd("table.style", { style: "medium2-accent1" }),
             ...fade,
           ],
           after: (printed) => {
@@ -185,6 +281,7 @@ function slideStagesRaw(
               ...cells.map(([r, c, value]) =>
                 cmd("text.set", { id: tableId, text: value, cell: [r, c] }),
               ),
+              ...styleText(slideIdOf(printed) + 1, TITLE_ON_LIGHT),
             ];
           },
         },
@@ -201,8 +298,17 @@ function slideStagesRaw(
               title: text(slide.title),
               body: text(slide.subtitle),
             }),
+            ...darkBackground(),
             ...fade,
           ],
+          after: (printed) => {
+            const id = slideIdOf(printed);
+            return [
+              cmd("slide.go", { index }),
+              ...styleText(id + 1, TITLE_ON_DARK),
+              ...styleText(id + 2, SUBTITLE_ON_DARK),
+            ];
+          },
         },
       ];
 
@@ -211,7 +317,11 @@ function slideStagesRaw(
   }
 }
 
-/** Process steps: rounded boxes joined by small arrows, the last step in the accent colour. */
+/**
+ * Process steps: rounded boxes joined by small arrows. Plain steps are dark
+ * slate with white text; the outcome step is the accent blue so the eye lands
+ * on it last.
+ */
 function flowShapes(steps: unknown): string[] {
   if (!Array.isArray(steps) || steps.length === 0) return [];
   const count = steps.length;
@@ -226,11 +336,11 @@ function flowShapes(steps: unknown): string[] {
     const label = [text(s.label), ...(Array.isArray(s.items) ? s.items.map(text) : [])].join("\n");
     const out = [
       cmd("shape.insert", { preset: "roundRect", rect: [x, top, width, height], text: label }),
-      // Step text is white by default, so plain steps use the dark secondary colour, not a light panel.
+      // Step text is white by default, so the fill must be dark enough for it.
       cmd("shape.fill", { color: accent ? THEME.colors.accent1 : THEME.colors.dk2 }),
       cmd("shape.line", { none: true }),
       // Long Turkish words such as "Normalizasyon" must fit the box without breaking mid-word.
-      cmd("format.size", { size: 14 }),
+      cmd("format.size", { size: TYPE.flow }),
     ];
     if (i < count - 1) {
       out.push(
@@ -246,7 +356,23 @@ function flowShapes(steps: unknown): string[] {
   });
 }
 
-/** The whole deck as stages: theme, one stage per slide, then the blank first slide removed. */
+/**
+ * Footer on every slide except the cover (`hideOnTitle`): the deck title on
+ * the left, the slide number on the right.
+ */
+function footerCommands(deck: DeckSpec): string[] {
+  return [
+    cmd("design.headerFooter", {
+      slideNumber: true,
+      footer: true,
+      footerText: deck.title,
+      hideOnTitle: true,
+      all: true,
+    }),
+  ];
+}
+
+/** The whole deck as stages: theme, one stage per slide, footer, then the blank first slide removed. */
 export function planDeck(deck: DeckSpec): Stage[] {
   const stages: Stage[] = [
     { label: "new presentation", cmds: [cmd("file.new", {}), ...themeCommands()] },
@@ -256,8 +382,12 @@ export function planDeck(deck: DeckSpec): Stage[] {
     stages.push(...slideStages(slide, i + 1, deck.transition));
   });
   stages.push({
-    label: "remove empty first slide",
-    cmds: [cmd("slide.go", { index: 0 }), cmd("slide.delete", { index: 0 })],
+    label: "footer and remove empty first slide",
+    cmds: [
+      ...footerCommands(deck),
+      cmd("slide.go", { index: 0 }),
+      cmd("slide.delete", { index: 0 }),
+    ],
   });
   return stages;
 }
