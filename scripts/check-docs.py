@@ -1,6 +1,6 @@
 """Validate agent docs: cross-links between skills must never rot.
 
-Checks AGENTS.md, every README.md (root, slides/, report/, slide-directions/) and .claude/skills/:
+Checks AGENTS.md, every README.md (root, report/, slide-directions/) and .claude/skills/:
   - relative links point at files that exist
   - `#anchor` fragments match a heading in the target (GitHub slug rules)
   - every skill directory has SKILL.md with `name` == directory and a `description`
@@ -61,7 +61,7 @@ def links(path: Path):
 
 
 def main() -> int:
-    readmes = [ROOT / d / "README.md" for d in (".", "slides", "report", "slide-directions")]
+    readmes = [ROOT / d / "README.md" for d in (".", "report", "slide-directions")]
     # Vendored skills (copied verbatim from upstream, never edited here) may link to
     # files of their upstream repo; only their frontmatter is checked below.
     vendored = {SKILLS / name for name in VENDORED_SKILLS}

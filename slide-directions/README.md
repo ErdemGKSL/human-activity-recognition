@@ -12,14 +12,11 @@ Her slayt sayfasında:
 - **fun fact**'ler, **sunum ipuçları** (nereyi göster, nerede dur),
 - **olası sorular** ve cevapları, **sonraki slayta geçiş** cümlesi.
 
-```bash
-bun run build                      # tüm rehberler → output/<deck-id>.pdf
-bun run build final-results        # tek rehber
-bun run build --no-thumbnails      # slayt görüntüsü olmadan (hızlı)
-```
+Rehber, kökteki `bun run build` ile her deck'in yanında üretilir:
+`dist/<deck-id>/slide-directions.pdf`. Slayt görüntüleri DeckCraft'ın PNG çıktısından gelir.
 
 Veriler `src/directions/<deck-id>.ts` içinde, slayt id'sine göre (`SlideDirection`, bkz.
-`src/types.ts`). Deck'ler `slides/packages/decks` içinde; bir test her deck'in her slaytı
+`src/types.ts`). Deck içeriği `deck/<deck-id>.ts` içinde; bir test her deck'in her slaytı
 için tam bir giriş olmasını zorunlu tutar. PDF'ler [report](../report/README.md)
 içindeki ortak dönüştürücüyle üretilir. Ayrıntılar:
 [pdf-documents skill](../.claude/skills/pdf-documents/SKILL.md).

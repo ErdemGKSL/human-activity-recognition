@@ -1,10 +1,12 @@
 import { describe, expect, test } from "bun:test";
-import { decks } from "@pptx/decks";
+import { proposal as proposalDeck } from "../../deck/proposal";
 import { buildDirectionsPdf } from "./build";
 import { directions } from "./directions";
 
+const decks = { [proposalDeck.id]: proposalDeck };
+
 describe("slide directions", () => {
-  test("every project deck has a guide and every guide has a deck", () => {
+  test("every deck has a guide and every guide has a deck", () => {
     expect(Object.keys(directions).sort()).toEqual(Object.keys(decks).sort());
   });
 
@@ -15,11 +17,10 @@ describe("slide directions", () => {
     });
   }
 
-  test("builds a PDF (no thumbnails)", async () => {
-    const deck = Object.values(decks)[0];
-    const guide = deck && directions[deck.id];
-    if (!deck || !guide) throw new Error("no decks");
-    const bytes = await buildDirectionsPdf(deck, guide, { thumbnails: false });
+  test("builds a PDF without thumbnails", async () => {
+    const guide = directions[proposalDeck.id];
+    if (!guide) throw new Error("no guide for the proposal deck");
+    const bytes = await buildDirectionsPdf(proposalDeck, guide);
     expect(new TextDecoder().decode(bytes.slice(0, 5))).toBe("%PDF-");
   });
 });

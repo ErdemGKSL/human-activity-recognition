@@ -11,10 +11,9 @@ import {
   Todo,
   docTheme as t,
 } from "@har/report/pdf";
-import type { Deck } from "@pptx/core";
 import type { CSSProperties } from "react";
 import { slideTitle } from "./slide-title";
-import type { DeckDirections, SlideDirection } from "./types";
+import type { DeckDirections, GuideDeck, SlideDirection } from "./types";
 
 /** `<img src>` key for slide `index` (0-based); matched by the `images` passed to renderPdf. */
 export const thumbnailSrc = (index: number) => `slide-${index + 1}.png`;
@@ -22,7 +21,7 @@ export const thumbnailSrc = (index: number) => `slide-${index + 1}.png`;
 const THUMB = { width: 300, height: 169 };
 
 interface Props {
-  deck: Deck;
+  deck: GuideDeck;
   directions: DeckDirections;
   /** Render slide thumbnails (their bytes must be passed as `images`). */
   thumbnails: boolean;

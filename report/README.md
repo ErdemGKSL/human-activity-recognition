@@ -4,9 +4,7 @@ Projenin yazılı teslimleri, JSX'ten PDF'e. Ayrıca repo genelinde kullanılan
 **JSX → PDF dönüştürücüsü** burada: `src/pdf` (`@har/report/pdf`).
 
 ```bash
-bun run build                      # tüm raporlar → output/<id>.pdf
-bun run build final-results        # tek rapor
-bun run build --list
+bun run report                     # tüm raporlar → report/output/<id>.pdf
 ```
 
 | Rapor | Dosya | Teslim |

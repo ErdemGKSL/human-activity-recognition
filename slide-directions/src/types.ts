@@ -72,3 +72,11 @@ export interface DeckDirections {
 export function defineDirections(directions: DeckDirections): DeckDirections {
   return directions;
 }
+
+/** The deck facts a guide needs: title, language and the slide list (in order). */
+export interface GuideDeck {
+  id: string;
+  title: string;
+  lang: string;
+  slides: { id: string; layout: string; title?: string }[];
+}

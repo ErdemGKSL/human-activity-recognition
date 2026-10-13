@@ -1,4 +1,4 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": ["slides/apps/*/src", "slides/packages/*/src", "report/src", "slide-directions/src"]
+  "include": ["deck", "scripts", "report/src", "slide-directions/src"]
 }

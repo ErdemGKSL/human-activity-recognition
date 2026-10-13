@@ -1,13 +1,11 @@
 import type { DeckDirections } from "../types";
-import { finalResults } from "./final-results";
-import { literatureReview } from "./literature-review";
 import { proposal } from "./proposal";
 
-export { finalResults, literatureReview, proposal };
+export { proposal };
 
-/** Every presenter guide, keyed by deck id. Add one per deck in `@pptx/decks`. */
+/** Every presenter guide, keyed by deck id. Add one per deck in `deck/`. */
 export const directions: Record<string, DeckDirections> = Object.fromEntries(
-  [proposal, literatureReview, finalResults].map((d) => [d.deckId, d]),
+  [proposal].map((d) => [d.deckId, d]),
 );
 
 export function getDirections(deckId: string): DeckDirections {

@@ -5,20 +5,20 @@ description: The JSX → PDF side of the repo — the shared takumi-pdf converte
 
 # PDF documents (report/ and slide-directions/)
 
-> **Scope: `report/` and `slide-directions/`.** Paths below are relative to the repo root.
-> The slide decks themselves are the `slides/` skills (start at
-> [generate-deck](../generate-deck/SKILL.md)).
+> **Scope: `report/` and `slide-directions/`, both rendered with takumi-pdf.** Paths below are
+> relative to the repo root. The slide decks (PPTX and slide PDF) are built with DeckCraft, see
+> [deckcraft](../deckcraft/SKILL.md). takumi-pdf is never used for a PPTX.
 
 ## Pipeline
 
 ```
-report/src/documents/*.tsx        slide-directions/src/directions/*.ts  +  @pptx/decks (slides)
-        │                                    │  DirectionsDocument.tsx (+ slide PNGs via @pptx/renderer)
+report/src/documents/*.tsx        slide-directions/src/directions/*.ts  +  deck/<id>.ts (slide titles)
+        │                                    │  DirectionsDocument.tsx (+ slide PNGs exported by DeckCraft)
         └──────────────┬─────────────────────┘
                        ▼
         report/src/pdf  (@har/report/pdf)   components + renderPdf() → takumi-pdf (wasm, no browser)
                        ▼
-  report/output/<id>.pdf            slide-directions/output/<deck-id>.pdf
+  report/output/<id>.pdf            dist/<deck-id>/slide-directions.pdf
 ```
 
 - **takumi-pdf** (`takumi-pdf` on npm, same Takumi engine as the slides) lays out JSX with
@@ -31,8 +31,8 @@ report/src/documents/*.tsx        slide-directions/src/directions/*.ts  +  @pptx
 | Task | Command |
 | --- | --- |
 | Build every report | `bun run report` (or `cd report && bun run build [id…]`) |
-| Build every presenter guide | `bun run directions` (or `cd slide-directions && bun run build [deck-id…] [--no-thumbnails]`) |
-| Everything (slides + PDFs) | `bun run build` |
+| Build a deck's guide (with its PPTX and slide PDF) | `bun run build proposal` (writes `dist/proposal/`) |
+| Everything | `bun run build` |
 | Tests (no Python needed) | `bun run check` |
 
 ## Where things live
@@ -77,10 +77,10 @@ questions, printed at the end), and `glossary` (terms kept in English with their
 printed A to Z as an appendix). `proposal.ts` is the filled-in reference guide.
 
 - A test fails unless the guide has **exactly** the deck's slide ids. After adding,
-  removing or renaming a slide in `slides/packages/decks`, update the guide in the same
-  commit.
-- Thumbnails are rendered live from the deck (raw Takumi PNG, no Python), so the guide
-  always shows the current slides.
+  removing or renaming a slide in `deck/<id>.ts`, update the guide in the same commit.
+- Thumbnails are PNGs exported from the finished DeckCraft file, so the guide always shows
+  the current slides. `slide-directions/` never imports DeckCraft or `@pptx/*`; it takes
+  the PNG bytes as input.
 
 ## Gotchas (verified with takumi-pdf 0.15)
 
