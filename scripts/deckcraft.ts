@@ -75,6 +75,7 @@ interface TextStyle {
   color?: string;
   size?: number;
   bold?: boolean;
+  align?: "left" | "center";
 }
 
 /**
@@ -94,9 +95,27 @@ export function styleText(id: number, style: TextStyle): string[] {
   ];
 }
 
+/**
+ * Same as styleText, for the shape or text box that was just inserted: insert
+ * commands leave their new object selected, so no `selection.select` is needed.
+ */
+function inlineText(style: TextStyle): string[] {
+  return [
+    cmd("text.edit", {}),
+    cmd("text.selectAll", {}),
+    ...(style.color ? [cmd("format.color", { color: style.color })] : []),
+    ...(style.size ? [cmd("format.size", { size: style.size })] : []),
+    ...(style.bold !== undefined ? [cmd("format.bold", { on: style.bold })] : []),
+    ...(style.align ? [cmd("format.align", { align: style.align })] : []),
+    cmd("text.exit", {}),
+  ];
+}
+
 /** Title and body text styles for a light content slide. */
 const TITLE_ON_LIGHT: TextStyle = { color: THEME.colors.dk1, size: TYPE.title, bold: true };
 const BODY_ON_LIGHT: TextStyle = { color: THEME.colors.dk2, size: TYPE.body };
+const LABEL_ON_LIGHT: TextStyle = { color: THEME.colors.accent1, size: 16, bold: true };
+const CARD_TEXT: TextStyle = { color: THEME.colors.dk1, size: TYPE.body, align: "left" };
 const TITLE_ON_DARK: TextStyle = { color: THEME.colors.lt1, size: TYPE.coverTitle, bold: true };
 const SUBTITLE_ON_DARK: TextStyle = { color: THEME.colors.muted, size: TYPE.coverSubtitle };
 
@@ -109,6 +128,28 @@ function accentRule(): string[] {
     cmd("shape.insert", { preset: "rect", rect: [MARGIN_X, 124, 56, 4] }),
     cmd("shape.fill", { color: THEME.colors.accent1 }),
     cmd("shape.line", { none: true }),
+  ];
+}
+
+/**
+ * One point as a card: a pale panel with a blue bar at its left edge. Cards
+ * replace bullets, so every point reads as one unit and the slide has no
+ * empty lower half.
+ */
+function pointCard(line: string, top: number, height: number): string[] {
+  const barWidth = 6;
+  return [
+    cmd("shape.insert", { preset: "rect", rect: [MARGIN_X, top, barWidth, height] }),
+    cmd("shape.fill", { color: THEME.colors.accent1 }),
+    cmd("shape.line", { none: true }),
+    cmd("shape.insert", {
+      preset: "rect",
+      rect: [MARGIN_X + barWidth, top, SLIDE.width - 2 * MARGIN_X - barWidth, height],
+      text: line,
+    }),
+    cmd("shape.fill", { color: THEME.colors.lt2 }),
+    cmd("shape.line", { none: true }),
+    ...inlineText(CARD_TEXT),
   ];
 }
 
@@ -181,6 +222,10 @@ function slideStagesRaw(
                 .join("\n"),
             }),
             ...darkBackground(),
+            // A short blue bar centred above the title, the cover's only decoration.
+            cmd("shape.insert", { preset: "rect", rect: [450, 120, 60, 4] }),
+            cmd("shape.fill", { color: THEME.colors.accent1 }),
+            cmd("shape.line", { none: true }),
             ...fade,
           ],
           after: (printed) => {
@@ -195,28 +240,45 @@ function slideStagesRaw(
       ];
 
     case "bullets": {
-      const body = [
-        text(slide.lead),
-        text(slide.pointsLabel),
-        ...(Array.isArray(slide.points) ? slide.points.map(text) : []),
-      ]
-        .filter((line) => line.length > 0)
-        .join("\n");
+      // Lead line and label are text boxes above the cards. Only the points become cards,
+      // so the label never carries a bullet.
+      const lead = text(slide.lead);
+      const label = text(slide.pointsLabel);
+      const points = (Array.isArray(slide.points) ? slide.points.map(text) : []).filter(Boolean);
+      const cmds: string[] = [...accentRule()];
+      let y = 150;
+      if (lead) {
+        // About 80 characters fit one line at 20 pt across the content width.
+        const leadHeight = Math.ceil(lead.length / 80) * 28 + 12;
+        cmds.push(
+          cmd("insert.textBox", {
+            rect: [MARGIN_X, y, SLIDE.width - 2 * MARGIN_X, leadHeight],
+            text: lead,
+          }),
+        );
+        cmds.push(...inlineText(BODY_ON_LIGHT));
+        y += leadHeight + 8;
+      }
+      if (label) {
+        cmds.push(cmd("insert.textBox", { rect: [MARGIN_X, y, 400, 28], text: label }));
+        cmds.push(...inlineText(LABEL_ON_LIGHT));
+        y += 36;
+      }
+      // Cards share the space down to the footer; a card is never taller than 76 pt.
+      const gap = 14;
+      const bottom = 470;
+      const cardHeight = Math.min(76, (bottom - y - gap * (points.length - 1)) / points.length);
+      cmds.push(
+        ...points.flatMap((line, i) => pointCard(line, y + i * (cardHeight + gap), cardHeight)),
+        ...fade,
+      );
       return [
         {
-          label: `${slide.id}: bullets`,
-          cmds: [
-            cmd("slide.new", { layout: "titleAndContent", title: text(slide.title), body }),
-            ...accentRule(),
-            ...fade,
-          ],
+          label: `${slide.id}: cards`,
+          cmds: [cmd("slide.new", { layout: "titleOnly", title: text(slide.title) }), ...cmds],
           after: (printed) => {
             const id = slideIdOf(printed);
-            return [
-              cmd("slide.go", { index }),
-              ...styleText(id + 1, TITLE_ON_LIGHT),
-              ...styleText(id + 2, BODY_ON_LIGHT),
-            ];
+            return [cmd("slide.go", { index }), ...styleText(id + 1, TITLE_ON_LIGHT)];
           },
         },
       ];

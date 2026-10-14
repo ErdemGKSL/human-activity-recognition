@@ -106,9 +106,16 @@ Everything below was run against `deckcraft-cli 0.6.1`. Ids and params come from
   fill for plain steps, or set the text colour.
 - **Long Turkish words break mid-word in small shapes** (`Normalizasyon`, `Değerlendirme`).
   Set `format.size` to 14 pt in shapes with four or more steps.
-- **Bullets come from the layout.** `titleAndContent` gives bullets to every paragraph,
-  including a lead line or a label. Keep lead lines and labels out of the body, or accept the
-  bullet.
+- **Bullets come from the layout.** `titleAndContent` gives a bullet to every paragraph, including
+  a lead line or a label. The `bullets` slide type avoids this: it uses `titleOnly`, puts the lead
+  and label in text boxes and each point in a card (a rectangle with a text run). Do not switch it
+  back to `titleAndContent` unless the slide needs a real bulleted list.
+- **Text in a shape or text box is styled right after it is inserted.** Insert commands leave the
+  new object selected, so `text.edit`, `text.selectAll`, `format.*`, `text.exit` work without
+  `selection.select`. Shapes from earlier stages need `selection.select` (see `styleText`).
+- **Card height depends on the text.** About 80 characters fit one line at 20 pt across the
+  content width. `bullets` sizes the lead box from that estimate; a longer lead overlaps the
+  cards otherwise.
 - **Turkish characters round-trip** through `.pptx`, `.deckcraft` and PDF (`ğ ü ş ö ç ı İ` checked).
 - **Table rows count the header**: `rows = data rows + 1`.
 - **Exports need the saved state.** `file.export` reads the file given by `--in`. Export after
@@ -124,8 +131,10 @@ text). The concrete values live in `THEME` and the layout functions in `scripts/
 - Colours: ink `#1B2430` on white, one blue accent `#1F5FAD` for the outcome, grey for
   secondary text. No other hues.
 - One font family (Inter) for headings and body.
-- Layouts map to DeckCraft placeholders where they exist (title, bullets, table), so the
-  deck stays editable in PowerPoint. The process diagram is shapes, not a picture.
+- Points are cards: pale panels with a blue bar at the left edge, one per point. The cover has a
+  short blue bar above the title. Titles keep the placeholder, so the title stays editable in
+  PowerPoint. The process diagram and the cards are shapes, not pictures.
+- Table and flow text is still small (14 pt). Raising it is open work.
 - Keep slide text short. The explanation lives in the presenter guide.
 
 When you change the look, change `THEME` or the layout function, rebuild, and check the PNG
