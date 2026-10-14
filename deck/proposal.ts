@@ -70,9 +70,6 @@ export const proposal = defineDeck({
         { label: "Evaluation", items: ["Test kümesi"] },
         { label: "Gerçek Veri", items: ["Kendi telefonumuz"], tone: "accent" },
       ],
-      points: [
-        "MLP veri setindeki hazır feature'ları, diğer modeller ise direkt sinyalleri kullanır.",
-      ],
     },
     {
       id: "architectures",
