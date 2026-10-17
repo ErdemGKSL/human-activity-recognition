@@ -86,7 +86,7 @@ export const proposal = defineDeck({
     {
       id: "evaluation",
       layout: "bullets",
-      title: "Evaluation Method",
+      title: "Değerlendirme Yöntemi",
       points: [
         "Modeller, Accuracy, Precision, Recall ve F1-score (macro) ile ölçülecek.",
         "Accuracy önemli fakat tek başına yeterli değildir, çünkü az örnekli sınıflardaki hataları es geçer.",
