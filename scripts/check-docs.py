@@ -16,7 +16,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / ".claude/skills"
-VENDORED_SKILLS = ("academic-humanizer", "avoid-ai-writing")
+# Skills written in this repo. Every other skill under .claude/skills is copied from upstream
+# (see AGENTS.md) and only its frontmatter is trusted, so its links are not checked here.
+OWN_SKILLS = ("deckcraft", "pdf-documents")
 LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)\)")
 FENCE = re.compile(r"^(```|~~~)")
 
@@ -63,9 +65,8 @@ def links(path: Path):
 def main() -> int:
     readmes = [ROOT / d / "README.md" for d in (".", "report", "slide-directions")]
     # Vendored skills (copied verbatim from upstream, never edited here) may link to
-    # files of their upstream repo; only their frontmatter is checked below.
-    vendored = {SKILLS / name for name in VENDORED_SKILLS}
-    skill_docs = [p for p in sorted(SKILLS.rglob("*.md")) if not any(v in p.parents for v in vendored)]
+    # files of their upstream repo, so only the skills written here are checked.
+    skill_docs = [p for name in OWN_SKILLS for p in sorted((SKILLS / name).rglob("*.md"))]
     files = [ROOT / "AGENTS.md", *(p for p in readmes if p.exists()), *skill_docs]
     errors: list[str] = []
     cache: dict[Path, set[str]] = {}

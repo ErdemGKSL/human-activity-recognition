@@ -68,13 +68,13 @@ Commands are plain strings `id={json params}`, the form `--cmd` reads. `cmd(id, 
 
 ## Verified commands and parameters
 
-Everything below was run against `deckcraft-cli 0.6.1`. Ids and params come from
+Everything below was run against `deckcraft-cli 0.12.0`. Ids and params come from
 `deckcraft-cli commands` and `deckcraft-cli describe <id>`, which are the source of truth.
 
 | Command | Params we use | Notes |
 |---|---|---|
 | `file.new` | `{}` | Creates one empty slide at index 0. Remove it at the end. |
-| `design.colors` | `{colors: {dk1, lt1, dk2, lt2, accent1…accent6}}` | `#RRGGBB` values. |
+| `design.colors` | `{colors: {dk1, lt1, dk2, lt2, accent1…accent6}}` | `#RRGGBB` values. 0.12.0 also accepts `hlink`, `folHlink` and rejects any other key (`unknown colour muted`). |
 | `design.fonts` | `{major, minor}` | We use `Inter` for both. Inter embeds and covers Turkish. |
 | `slide.new` | `{layout, title, body, at}` | `layout`: `title`, `titleAndContent`, `titleOnly`, `sectionHeader`, `twoContent`, `comparison`, `blank`, … `body` is one paragraph per `\n`. **Always pass `at`** (see gotchas). |
 | `slide.go` | `{index}` | Selects a slide. Needed before any slide-scoped command. |

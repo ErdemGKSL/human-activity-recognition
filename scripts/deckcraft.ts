@@ -65,8 +65,10 @@ const text = (value: unknown): string => (typeof value === "string" ? value : ""
 
 /** Commands that style the whole deck once, before any slide exists. */
 export function themeCommands(): string[] {
+  // DeckCraft 0.12 rejects keys that are not theme slots, so `muted` (used for text only) stays out.
+  const { muted: _muted, ...slots } = THEME.colors;
   return [
-    cmd("design.colors", { colors: THEME.colors }),
+    cmd("design.colors", { colors: slots }),
     cmd("design.fonts", { major: THEME.font, minor: THEME.font }),
   ];
 }
@@ -313,7 +315,9 @@ function slideStagesRaw(
       const columns = Array.isArray(slide.columns) ? slide.columns.map(text) : [];
       const rows = Array.isArray(slide.rows) ? (slide.rows as unknown[][]) : [];
       const rowCount = rows.length + 1;
-      const tableRect = [MARGIN_X, 150, SLIDE.width - 2 * MARGIN_X, rowCount * 44];
+      // Long tables use shorter rows so that they stop above the footer.
+      const rowHeight = rowCount > 7 ? 34 : 44;
+      const tableRect = [MARGIN_X, 150, SLIDE.width - 2 * MARGIN_X, rowCount * rowHeight];
       return [
         {
           label: `${slide.id}: table`,
