@@ -10,10 +10,10 @@ export const literatureReview = defineDirections({
   duration: "15–20 dakika (hedef ~15 dk)",
   date: "01.11.2026",
   summary:
-    "Bu tarama, akıllı telefon sensörleriyle insan aktivitesi tanıma (HAR) alanındaki 11 çalışmayı inceler. Çalışmalar üç gruba ayrılır: klasik feature tabanlı yaklaşımlar ve veri setleri, sinir ağı modelleri (CNN, LSTM, GRU ve hibritleri) ve değerlendirme pratiği (window boyutu, overlap, cross validation). Tarama anlatı biçimindedir; sistematik review değildir. Kaynaklar projeye uygunluğuna göre seçilmiştir. Amaç, önerdiğimiz dört modelin (MLP, 1D CNN, LSTM, GRU) literatürdeki yerini göstermek ve aynı veri ayrımıyla karşılaştırma yapmanın neden gerekli olduğunu açıklamaktır. Projenin kendi sonuçları henüz yoktur; bu sunumda yalnızca planlar anlatılır.",
+    "Bu tarama, akıllı telefon sensörleriyle insan aktivitesi tanıma (HAR) alanındaki 8 çalışmayı inceler. Çalışmalar üç gruba ayrılır: klasik feature tabanlı yaklaşımlar ve veri setleri, sinir ağı modelleri (CNN, LSTM, GRU ve hibritleri) ve değerlendirme pratiği (window boyutu, overlap, cross validation). Tarama anlatı biçimindedir; sistematik review değildir. Kaynaklar projeye uygunluğuna göre seçilmiştir. Amaç, önerdiğimiz dört modelin (MLP, 1D CNN, LSTM, GRU) literatürdeki yerini göstermek ve aynı veri ayrımıyla karşılaştırma yapmanın neden gerekli olduğunu açıklamaktır. Projenin kendi sonuçları henüz yoktur; bu sunumda yalnızca planlar anlatılır.",
   opening: {
     duration: "~30 saniye",
-    text: "Geçen sunumda dört sinir ağını karşılaştırmayı önerdik. Bu sunumda bir adım geri gidiyoruz: bu soruya daha önce kimler, hangi veriyle ve hangi modellerle yaklaştı? On bir çalışmaya bakacağız. Önce telefon sensörlerinden aktivite tanımanın nasıl başladığını, sonra sinir ağlarının bu alana nasıl girdiğini, en sonda da sonuçların neden kolay karşılaştırılamadığını göstereceğim.",
+    text: "Geçen sunumda dört sinir ağını karşılaştırmayı önerdik. Bu sunumda bir adım geri gidiyoruz: bu soruya daha önce kimler, hangi veriyle ve hangi modellerle yaklaştı? Sekiz çalışmaya bakacağız. Önce telefon sensörlerinden aktivite tanımanın nasıl başladığını, sonra sinir ağlarının bu alana nasıl girdiğini, en sonda da sonuçların neden kolay karşılaştırılamadığını göstereceğim.",
   },
   overview: [
     "Dinleyici: yüksek lisans sınıfı ve hoca. Temel kavramları anlatmayın; kaynakların neyi yaptığına ve projeyle ilişkisine odaklanın.",
@@ -24,14 +24,11 @@ export const literatureReview = defineDirections({
     "Kaynak 1: Kwapisz, Weiss, Moore (2011). Activity recognition using cell phone accelerometers. ACM SIGKDD Explorations Newsletter. DOI 10.1145/1964897.1964918.",
     "Kaynak 2: Anguita, Ghio, Oneto, Parra, Reyes-Ortiz (2013). A public domain dataset for human activity recognition using smartphones. ESANN 2013, s. 437–442.",
     "Kaynak 3: Reyes-Ortiz, Oneto, Samà, Parra, Anguita (2016). Transition-aware human activity recognition using smartphones. Neurocomputing. DOI 10.1016/j.neucom.2015.07.085.",
-    "Kaynak 4: Ronao, Cho (2016). Human activity recognition with smartphone sensors using deep learning neural networks. Expert Systems with Applications. DOI 10.1016/j.eswa.2016.04.032.",
-    "Kaynak 5: Ordóñez, Roggen (2016). Deep convolutional and LSTM recurrent neural networks for multimodal wearable activity recognition. Sensors. DOI 10.3390/s16010115.",
-    "Kaynak 6: Hammerla, Halloran, Plötz (2016). Deep, convolutional, and recurrent models for human activity recognition using wearables. IJCAI 2016. https://www.ijcai.org/Abstract/16/220.",
-    "Kaynak 7: Ignatov (2018). Real-time human activity recognition from accelerometer data using convolutional neural networks. Applied Soft Computing. DOI 10.1016/j.asoc.2017.09.027.",
-    "Kaynak 8: Xia, Huang, Wang (2020). LSTM-CNN architecture for human activity recognition. IEEE Access. DOI 10.1109/ACCESS.2020.2982225.",
-    "Kaynak 9: Dua, Singh, Semwal (2021). Multi-input CNN-GRU based human activity recognition using wearable sensors. Computing. DOI 10.1007/s00607-021-00928-8.",
-    "Kaynak 10: Banos, Galvez, Damas, Pomares, Rojas (2014). Window size impact in human activity recognition. Sensors. DOI 10.3390/s140406474.",
-    "Kaynak 11: Dehghani, Sarbishei, Glatard, Shihab (2019). A quantitative comparison of overlapping and non-overlapping sliding windows for human activity recognition using inertial sensors. Sensors. DOI 10.3390/s19225026.",
+    "Kaynak 4: Ordóñez, Roggen (2016). Deep convolutional and LSTM recurrent neural networks for multimodal wearable activity recognition. Sensors. DOI 10.3390/s16010115.",
+    "Kaynak 5: Hammerla, Halloran, Plötz (2016). Deep, convolutional, and recurrent models for human activity recognition using wearables. IJCAI 2016. https://www.ijcai.org/Abstract/16/220.",
+    "Kaynak 6: Xia, Huang, Wang (2020). LSTM-CNN architecture for human activity recognition. IEEE Access. DOI 10.1109/ACCESS.2020.2982225.",
+    "Kaynak 7: Banos, Galvez, Damas, Pomares, Rojas (2014). Window size impact in human activity recognition. Sensors. DOI 10.3390/s140406474.",
+    "Kaynak 8: Dehghani, Sarbishei, Glatard, Shihab (2019). A quantitative comparison of overlapping and non-overlapping sliding windows for human activity recognition using inertial sensors. Sensors. DOI 10.3390/s19225026.",
     "Veri seti: Reyes-Ortiz vd., UCI Machine Learning Repository, dataset 341, https://archive.ics.uci.edu/dataset/341.",
     "Süre planı: kapak 30 sn, kapsam 1 dk, harita 1 dk, klasik 1,5 dk, veri setleri 1,5 dk, CNN 1 dk, LSTM ve GRU 1,5 dk, hibrit 1 dk, değerlendirme 2 dk, karşılaştırma 2 dk, boşluklar 1,5 dk, kapanış 30 sn. Toplam yaklaşık 15 dk.",
   ],
@@ -107,7 +104,7 @@ export const literatureReview = defineDirections({
   ],
   questions: [
     {
-      question: "Neden yalnızca 11 çalışma? Bu bir sistematik tarama mı?",
+      question: "Neden yalnızca 8 çalışma? Bu bir sistematik tarama mı?",
       answer:
         "Hayır, anlatı taramasıdır. Kaynakları projeye uygunluğuna göre seçtik: telefon sensörleri, UCI veri seti, sinir ağı modelleri ve değerlendirme pratiği. Klasik çalışmaları yalnızca bağlam için aldık. Alanda çok daha fazla makale var; bu tarama onların hepsini kapsamıyor. Bunu slaytta da belirttik.",
     },
@@ -145,15 +142,15 @@ export const literatureReview = defineDirections({
       time: "1 dk",
       goal: "Taramanın sınırları baştan açık: kısa, sinir ağı odaklı ve sistematik değil.",
       script: [
-        "Sorumuz basit: telefon sensörleriyle aktivite tanımada sinir ağları hangi noktada? Bu soruya 11 çalışmayla bakacağız. Hepsi dergi ya da konferans makalesi; veri setleri için de bir UCI sayfasına başvurduk.",
+        "Sorumuz basit: telefon sensörleriyle aktivite tanımada sinir ağları hangi noktada? Bu soruya 8 çalışmayla bakacağız. Hepsi dergi ya da konferans makalesi; veri setleri için de bir UCI sayfasına başvurduk.",
         "Odak sinir ağları, çünkü ders ve proje bu konuda. İki klasik çalışmayı (Kwapisz ve Anguita) yalnızca bağlam için aldık: sinir ağlarının neyin yerine geçtiğini görmek için.",
         "Bu bir anlatı taraması. Sistematik review değil; yani alanın tamamını taradığımızı iddia etmiyoruz. Kaynakları projeye uygunluğuna göre seçtik. Yayın bilgilerini DOI üzerinden kontrol ettik.",
       ],
       data: [
         {
-          label: "11 çalışma",
+          label: "8 çalışma",
           meaning:
-            "Kwapisz, Anguita, Reyes-Ortiz, Ronao, Ordóñez, Hammerla, Ignatov, Xia, Dua, Banos, Dehghani. Tam başlıklar genel bakış bölümündeki kaynak satırlarında.",
+            "Kwapisz, Anguita, Reyes-Ortiz, Ordóñez, Hammerla, Xia, Banos, Dehghani. Tam başlıklar genel bakış bölümündeki kaynak satırlarında.",
         },
         {
           label: "Anlatı taraması",
@@ -255,15 +252,15 @@ export const literatureReview = defineDirections({
       time: "1 dk",
       goal: "CNN, feature tasarımını modelin içine taşır; ham sinyalden feature'ları kendisi öğrenir.",
       script: [
-        "Ronao ve Cho 2016'da telefon sensörleriyle deep learning kullanan bir çalışma yayımladı. Başlığı, yöntemi derin sinir ağı olarak tanımlıyor ve verinin telefon sensörlerinden geldiğini belirtiyor. Hangi veri seti ve hangi mimariyi kullandığı gibi ayrıntıları bu sunumda söylemeyeceğiz; makalenin tamamını okuyunca eklenebilir.",
-        "Ignatov 2018'de yalnızca accelerometer verisiyle çalışan bir CNN önerdi ve çalışmanın başlığı gerçek zamanlı tanıma vurguluyor.",
+        "Ordóñez ve Roggen 2016'da convolutional ve LSTM katmanlarından oluşan bir çerçeve önerdi. Özetlerine göre çerçeve, uzman bilgisiyle feature tasarlamayı gerektirmiyor; yani feature'lar ham sinyalden öğreniliyor.",
+        "Hammerla ve arkadaşları aynı yıl deep feed-forward, convolutional ve recurrent modelleri inceledi. Bu iki çalışmayı bir sonraki slaytta recurrent katmanlar açısından yeniden ele alacağız.",
         "CNN'in proje ile ilişkisi şu: proje planında 1D CNN, UCI verisindeki ham window'larla (128 × 6) beslenecek.",
       ],
       data: [
         {
           label: "Slayttaki kartlar",
           meaning:
-            "İki kartta da yalnızca makale başlığından ve yayın bilgisinden doğrulanan şeyler var; hiçbir sayı yok.",
+            "İki kartta da yalnızca makale özetinde okunup doğrulanan şeyler var; hiçbir sayı yok.",
         },
       ],
       tips: [
@@ -278,18 +275,12 @@ export const literatureReview = defineDirections({
       script: [
         "Ordóñez ve Roggen 2016'da convolutional ve LSTM katmanlarından oluşan genel bir çerçeve önerdi. Özetlerine göre bu çerçeve, giyilebilir sensörlerle çalışıyor, uzman bilgisiyle feature tasarlamayı gerektirmiyor ve feature aktivasyonlarının zamansal dinamiğini açıkça modelliyor.",
         "Hammerla ve arkadaşları 2016'da deep feed-forward, convolutional ve recurrent ağları üç veri setinde sistematik biçimde inceledi. Binlerce deney çalıştırdılar ve hiperparametrelerin etkisini analiz ettiler. Özetlerine göre recurrent modelleri bir benchmark üzerinde önceki en iyi sonuçların üzerine çıkardılar. Bu benchmark telefon verisi değil; o yüzden bunu bizim sonucumuz gibi okumayın.",
-        "Dua ve arkadaşları 2021'de CNN-GRU tabanlı, çok girdili bir model yayımladı. Bu çalışma GRU'yu ele aldığı için projemizdeki GRU ile ilgili.",
         "LSTM ile GRU'yu karşılaştırmak projede bir araştırma sorusu. Bu çalışmalar ikisini aynı koşulda bizim veri setimizde karşılaştırmıyor; bu bir boşluk olarak sonda tekrar gelecek.",
       ],
       data: [
         {
           label: "Üç veri seti (Hammerla)",
           meaning: "Makale özetinde belirtilen veri seti sayısı.",
-        },
-        {
-          label: "Çok girdili (Dua)",
-          meaning:
-            "Başlıktaki “multi-input” ifadesi. Girdilerin tam olarak neyi temsil ettiğini özetten doğrulamadım.",
         },
       ],
       tips: [
@@ -303,7 +294,7 @@ export const literatureReview = defineDirections({
       goal: "Hibrit modeller yaygın, ama projede kapsam dışı; bilerek dışarıda bırakıldı.",
       script: [
         "Xia ve arkadaşları 2020'de iki katmanlı LSTM ve ardından convolutional katmanlar kullanan bir model önerdi. Makalenin özetinde modelin UCI, WISDM ve OPPORTUNITY veri setlerinde değerlendirildiği ve parametre sayısını azaltmak için global average pooling kullanıldığı yazıyor.",
-        "Dua ve arkadaşları da bir CNN-GRU hibriti. İki çalışmanın ortak fikri: convolutional katman yerel pattern'leri çıkarır, recurrent katman bunların sırasını modeller.",
+        "Ordóñez ve Roggen de convolutional ve LSTM katmanlarını birleştiriyor. İki çalışmanın ortak fikri: convolutional katman yerel pattern'leri çıkarır, recurrent katman bunların sırasını modeller.",
         "Projede hibrit model planlamıyoruz. Dört saf modeli (MLP, 1D CNN, LSTM, GRU) aynı koşulda karşılaştıracağız. Hibrit bir model, saf modellerin ne kadar katkı verdiğini görmeyi zorlaştırır. Zaman kalırsa sonraki bir adım olabilir.",
       ],
       data: [
@@ -348,7 +339,7 @@ export const literatureReview = defineDirections({
       goal: "Çalışmalar farklı veri, model ve protokol kullanıyor; tablo bunu açıkça gösteriyor, sıralama yapmıyor.",
       script: [
         "Tabloda her satır bir çalışma. Sütunlar: hangi veri seti, hangi model ve kısa bir not. Bilerek sayısal sütun yok.",
-        "Üstteki iki satır SVM kullanan klasik çalışmalar. Sonra sinir ağı çalışmaları: Ronao, Ordóñez, Hammerla ve Ignatov. Alttaki iki satır hibrit modeller: Xia ve Dua.",
+        "Üstteki iki satır SVM kullanan klasik çalışmalar. Sonra sinir ağı çalışmaları: Ordóñez ve Hammerla. Alttaki satır hibrit bir model: Xia.",
         "Sütunlara bakınca hemen görülen şey: veri seti sütunu hiç bir yerde aynı değil. Bazıları telefon, bazıları giyilebilir sensör kullanıyor. Bu yüzden hangi modelin daha iyi olduğunu bu tablodan çıkaramayız.",
         "Örnek: Xia ve arkadaşlarının özetinde UCI, WISDM ve OPPORTUNITY için ayrı doğruluk değerleri veriliyor. Bu üç değer bile birbirine eşit koşullarda ölçülmüş sayılar olarak okunamaz.",
       ],
@@ -356,12 +347,12 @@ export const literatureReview = defineDirections({
         {
           label: "Veri seti sütunu",
           meaning:
-            "Ronao, Ordóñez, Ignatov ve Dua satırlarında veri seti bilgisi yalnızca başlıktan gelen genel ifadedir. Tam veri seti adları doğrulanmadığı için yazılmadı.",
+            "Ordóñez satırında veri seti bilgisi yalnızca başlıktan gelen genel ifadedir. Tam veri seti adları doğrulanmadığı için yazılmadı.",
         },
         {
           label: "Not sütunu",
           meaning:
-            "Makalenin kendi ifadesine dayanan kısa not: Anguita'da hazır feature'lar, Reyes-Ortiz'de geçişler, Ordóñez'de elle feature tasarımı gerekmemesi, Hammerla'da hiperparametre analizi, Ignatov'da gerçek zamanlı tanıma, Xia'da az parametre, Dua'da çok girdili yapı.",
+            "Makalenin kendi ifadesine dayanan kısa not: Anguita'da hazır feature'lar, Reyes-Ortiz'de geçişler, Ordóñez'de elle feature tasarımı gerekmemesi, Hammerla'da hiperparametre analizi, Xia'da az parametre.",
         },
       ],
       tips: [
@@ -376,7 +367,7 @@ export const literatureReview = defineDirections({
         "Taradığımız çalışmalar farklı veri setleri, farklı modeller ve farklı protokoller kullanıyor. Bu, birbirleriyle doğrudan kıyaslanmalarını zorlaştırıyor.",
         "Projede dört modeli (MLP, 1D CNN, LSTM, GRU) aynı veri ayrımı ve aynı metriklerle karşılaştırmayı planlıyoruz. Karışan aktiviteleri Confusion Matrix ile inceleyeceğiz.",
         "Son olarak kendi telefonumuzdan veri toplayıp modelleri sınamayı planlıyoruz. UCI verisi tek bir cihazdan ve belde toplanmış; bizim telefonumuz farklı olacak. Bu testin sonucu henüz bilinmiyor; deney yapıldığında raporlanacak.",
-        "Bu bir boşluk iddiası değil, bir tarama sınırı: biz 11 çalışmaya baktık. Başkalarının bu karşılaştırmayı yapmadığını söyleyemeyiz; yalnızca taradığımız çalışmalarda aynı koşulda dört modelin yer almadığını görüyoruz.",
+        "Bu bir boşluk iddiası değil, bir tarama sınırı: biz 8 çalışmaya baktık. Başkalarının bu karşılaştırmayı yapmadığını söyleyemeyiz; yalnızca taradığımız çalışmalarda aynı koşulda dört modelin yer almadığını görüyoruz.",
       ],
       data: [
         {

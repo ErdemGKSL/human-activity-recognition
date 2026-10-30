@@ -2,7 +2,7 @@ import { defineDeck } from "./types";
 
 /**
  * 2. Sunum – Literatür Taraması (tarih 01.11.2026).
- * Kısa bir anlatı (narrative) taramasıdır: 11 çalışma, sinir ağı odaklı, klasik
+ * Kısa bir anlatı (narrative) taramasıdır: 8 çalışma, sinir ağı odaklı, klasik
  * çalışmalar yalnızca bağlam için. Slaytlar kısa metin taşır; çalışmaların tam
  * İngilizce başlıkları, açıklamalar ve süreler
  * `slide-directions/src/directions/literature-review.ts` içindedir.
@@ -32,7 +32,7 @@ export const literatureReview = defineDeck({
       lead: "Telefon sensörleriyle aktivite tanımada sinir ağları hangi noktadadır?",
       pointsLabel: "Tarama",
       points: [
-        "11 çalışma: dergi ve konferans makaleleri.",
+        "8 çalışma: dergi ve konferans makaleleri.",
         "Odak sinir ağları; klasik çalışmalar yalnızca bağlam için.",
         "Anlatı taraması: sistematik review değildir.",
       ],
@@ -43,11 +43,8 @@ export const literatureReview = defineDeck({
       title: "Alanın Haritası",
       steps: [
         { label: "Feature tabanlı", items: ["Kwapisz 2011", "Anguita 2013", "Reyes-Ortiz 2016"] },
-        {
-          label: "Deep learning",
-          items: ["Ronao 2016", "Ordóñez 2016", "Hammerla 2016", "Ignatov 2018"],
-        },
-        { label: "Hibrit modeller", items: ["Xia 2020", "Dua 2021"] },
+        { label: "Deep learning", items: ["Ordóñez 2016", "Hammerla 2016"] },
+        { label: "Hibrit modeller", items: ["Xia 2020"] },
         { label: "Değerlendirme", items: ["Banos 2014", "Dehghani 2019"], tone: "accent" },
       ],
     },
@@ -81,8 +78,8 @@ export const literatureReview = defineDeck({
       lead: "Ham sinyalden feature'lar öğrenilir.",
       pointsLabel: "Çalışmalar",
       points: [
-        "Ronao ve Cho (2016): telefon sensörleri, deep learning.",
-        "Ignatov (2018): accelerometer verisi, CNN, gerçek zamanlı.",
+        "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları, elle feature yok.",
+        "Hammerla vd. (2016): DNN, CNN ve recurrent modeller.",
       ],
     },
     {
@@ -94,7 +91,6 @@ export const literatureReview = defineDeck({
       points: [
         "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları.",
         "Hammerla vd. (2016): DNN, CNN ve recurrent modeller, üç veri seti.",
-        "Dua vd. (2021): çok girdili CNN-GRU.",
       ],
     },
     {
@@ -105,7 +101,7 @@ export const literatureReview = defineDeck({
       pointsLabel: "Çalışmalar",
       points: [
         "Xia vd. (2020): LSTM-CNN; UCI, WISDM ve OPPORTUNITY.",
-        "Dua vd. (2021): CNN-GRU, wearable sensörler.",
+        "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları.",
         "Projede hibrit model planlanmamaktadır; MLP, 1D CNN, LSTM ve GRU karşılaştırılacaktır.",
       ],
     },
@@ -129,12 +125,9 @@ export const literatureReview = defineDeck({
       rows: [
         ["Anguita 2013", "UCI HAR", "SVM", "Hazır feature'lar"],
         ["Reyes-Ortiz 2016", "UCI HAR + Transitions", "SVM", "Geçişler"],
-        ["Ronao 2016", "Telefon sensörleri", "Deep NN", "Smartphone"],
         ["Ordóñez 2016", "İki veri seti", "CNN + LSTM", "Elle feature yok"],
         ["Hammerla 2016", "Üç veri seti", "DNN, CNN, LSTM", "Hiperparametre analizi"],
-        ["Ignatov 2018", "Accelerometer", "CNN", "Gerçek zamanlı"],
         ["Xia 2020", "UCI, WISDM, OPPORTUNITY", "LSTM-CNN", "Az parametre"],
-        ["Dua 2021", "Wearable sensörler", "CNN-GRU", "Çok girdili"],
       ],
     },
     {
