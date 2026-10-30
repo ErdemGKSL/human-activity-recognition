@@ -12,6 +12,7 @@
  */
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join, relative, resolve } from "node:path";
+import { literatureReview } from "../deck/literature-review";
 import { proposal } from "../deck/proposal";
 import type { DeckSpec } from "../deck/types";
 import { buildDirectionsPdf } from "../slide-directions/src/build";
@@ -22,7 +23,10 @@ const ROOT = resolve(import.meta.dir, "..");
 const DIST = join(ROOT, "dist");
 const CLI = process.env.DECKCRAFT_CLI || "deckcraft-cli";
 
-const decks: Record<string, DeckSpec> = { [proposal.id]: proposal };
+const decks: Record<string, DeckSpec> = {
+  [proposal.id]: proposal,
+  [literatureReview.id]: literatureReview,
+};
 
 async function buildDeck(deck: DeckSpec): Promise<void> {
   const outDir = join(DIST, deck.id);

@@ -1,9 +1,13 @@
 import { describe, expect, test } from "bun:test";
+import { literatureReview as literatureReviewDeck } from "../../deck/literature-review";
 import { proposal as proposalDeck } from "../../deck/proposal";
 import { buildDirectionsPdf } from "./build";
 import { directions } from "./directions";
 
-const decks = { [proposalDeck.id]: proposalDeck };
+const decks = {
+  [proposalDeck.id]: proposalDeck,
+  [literatureReviewDeck.id]: literatureReviewDeck,
+};
 
 describe("slide directions", () => {
   test("every deck has a guide and every guide has a deck", () => {

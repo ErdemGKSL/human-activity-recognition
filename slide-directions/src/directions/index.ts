@@ -1,11 +1,12 @@
 import type { DeckDirections } from "../types";
+import { literatureReview } from "./literature-review";
 import { proposal } from "./proposal";
 
-export { proposal };
+export { literatureReview, proposal };
 
 /** Every presenter guide, keyed by deck id. Add one per deck in `deck/`. */
 export const directions: Record<string, DeckDirections> = Object.fromEntries(
-  [proposal].map((d) => [d.deckId, d]),
+  [proposal, literatureReview].map((d) => [d.deckId, d]),
 );
 
 export function getDirections(deckId: string): DeckDirections {
