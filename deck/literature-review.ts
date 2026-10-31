@@ -96,19 +96,19 @@ export const literatureReview = defineDeck({
       pointsLabel: "Çalışmalar",
       points: [
         "Xia vd. (2020): LSTM-CNN; UCI, WISDM ve OPPORTUNITY.",
-        "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları.",
-        "Projede hibrit model planlanmamaktadır; MLP, 1D CNN, LSTM ve GRU karşılaştırılacaktır.",
+        "Ordóñez ve Roggen (2016): convolutional ve LSTM, katmanları.",
+        "Bu projelerde hibrit model planlanmamaktadır ve MLP, 1D CNN, LSTM ve GRU karşılaştırılacaktır.",
       ],
     },
     {
       id: "evaluation",
       layout: "bullets",
       title: "Değerlendirme Pratiği",
-      pointsLabel: "Dikkat edilmesi gerekenler",
+      pointsLabel: "Dikkat edilecekler",
       points: [
         "Window boyutu: Banos vd. (2014).",
-        "Overlap ve cross validation türü: Dehghani vd. (2019).",
-        "Projede katılımcı bazlı ayrım ve macro F1-score planlanmaktadır.",
+        "Overlap, cross validation türleri: Dehghani vd. (2019).",
+        "Projelerde katılımcılara göre ayrım ve macro F1-score planlanmaktadır.",
       ],
     },
     {
