@@ -18,7 +18,7 @@ export const literatureReview = defineDeck({
     {
       id: "cover",
       layout: "cover",
-      title: "Akıllı Telefon Sensörleriyle İnsan Aktivitesi Tanıma: Literatür Taraması",
+      title: "Sensörlerle İnsan Aktivitesi Tanıma - Literatür Taraması",
       subtitle: "Literatür Taraması · BİL 512 Yapay Sinir Ağları",
       presenter: "Erdem Göksel · 261402103",
       instructor: "Öğretim Üyesi: Cem CANTEKİN",
@@ -29,12 +29,12 @@ export const literatureReview = defineDeck({
       id: "scope",
       layout: "bullets",
       title: "Kapsam ve Yöntem",
-      lead: "Telefon sensörleriyle aktivite tanımada sinir ağları hangi noktadadır?",
+      lead: "Sensörlerle aktivite tanımada sinir ağları hangi noktadadır?",
       pointsLabel: "Tarama",
       points: [
-        "8 çalışma: dergi ve konferans makaleleri.",
-        "Odak sinir ağları; klasik çalışmalar yalnızca bağlam için.",
-        "Anlatı taraması: sistematik review değildir.",
+        "8 çalışma",
+        "Sinir ağları merkezli",
+        "Klasik çalışmalar yalnızca alakalı olduğu için",
       ],
     },
     {
@@ -51,7 +51,7 @@ export const literatureReview = defineDeck({
     {
       id: "classical",
       layout: "bullets",
-      title: "Klasik Yaklaşım: Feature Tabanlı HAR",
+      title: "Feature Tabanlı HAR (Klasik Yaklaşım)",
       lead: "Feature'lar elle tasarlanır, sınıflandırıcı bunlarla eğitilir.",
       pointsLabel: "Çalışmalar",
       points: [
@@ -74,19 +74,19 @@ export const literatureReview = defineDeck({
     {
       id: "cnn",
       layout: "bullets",
-      title: "Deep Learning: CNN",
-      lead: "Ham sinyalden feature'lar öğrenilir.",
+      title: "Derin öğrenme: CNN",
+      lead: "Ham sinyal ile feature'lar öğrenilir.",
       pointsLabel: "Çalışmalar",
       points: [
-        "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları, elle feature yok.",
+        "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları, feature elle verilmiyor.",
         "Hammerla vd. (2016): DNN, CNN ve recurrent modeller.",
       ],
     },
     {
       id: "rnn",
       layout: "bullets",
-      title: "Deep Learning: LSTM ve GRU",
-      lead: "Recurrent katmanlar zamansal yapıyı modeller.",
+      title: "Derin öğrenme: LSTM ve GRU",
+      lead: "Zamansal yapı recurrent katmanlardan modellenir",
       pointsLabel: "Çalışmalar",
       points: [
         "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları.",
@@ -97,7 +97,7 @@ export const literatureReview = defineDeck({
       id: "hybrid",
       layout: "bullets",
       title: "Hibrit Modeller",
-      lead: "Convolutional ve recurrent katmanlar birlikte kullanılır.",
+      lead: "Convolutional ve recurrent, katmanlar birlikte kullanılır.",
       pointsLabel: "Çalışmalar",
       points: [
         "Xia vd. (2020): LSTM-CNN; UCI, WISDM ve OPPORTUNITY.",
@@ -109,8 +109,8 @@ export const literatureReview = defineDeck({
       id: "evaluation",
       layout: "bullets",
       title: "Değerlendirme Pratiği",
-      lead: "Sonuçlar, protokol aynı değilse doğrudan karşılaştırılamaz.",
-      pointsLabel: "Dikkat edilecekler",
+      lead: "Sonuçlar protokol aynı değilse asla doğrudan karşılaştırılamaz.",
+      pointsLabel: "Dikkat edilmesi gerekenler",
       points: [
         "Window boyutu: Banos vd. (2014).",
         "Overlap ve cross validation türü: Dehghani vd. (2019).",
@@ -134,7 +134,7 @@ export const literatureReview = defineDeck({
       id: "gaps",
       layout: "bullets",
       title: "Boşluklar ve Projenin Konumu",
-      lead: "Taranan çalışmalar farklı veri seti, model ve protokol kullanmaktadır.",
+      lead: "Taranan çalışmalarda farklı veri seti, model ve protokol kullanılıyor.",
       pointsLabel: "Projede planlanan",
       points: [
         "Dört model aynı veri ayrımı ve metriklerle karşılaştırılacaktır.",
