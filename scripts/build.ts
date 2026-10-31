@@ -16,7 +16,7 @@ import { literatureReview } from "../deck/literature-review";
 import { proposal } from "../deck/proposal";
 import type { DeckSpec } from "../deck/types";
 import { buildDirectionsPdf } from "../slide-directions/src/build";
-import { findDirections } from "../slide-directions/src/directions";
+import { getDirections } from "../slide-directions/src/directions";
 import { exportDeck, planDeck, runStages } from "./deckcraft";
 
 const ROOT = resolve(import.meta.dir, "..");
@@ -39,16 +39,13 @@ async function buildDeck(deck: DeckSpec): Promise<void> {
   const exported = await exportDeck(CLI, deckcraftFile, outDir);
 
   const thumbnails = await Promise.all(exported.pngs.map((path) => readFile(path)));
-  // A deck without a presenter guide ships only the .pptx and the slide PDF.
-  const directions = findDirections(deck.id);
+  const guide = await buildDirectionsPdf(deck, getDirections(deck.id), { thumbnails });
   const guidePath = join(outDir, "slide-directions.pdf");
-  if (directions) {
-    await writeFile(guidePath, await buildDirectionsPdf(deck, directions, { thumbnails }));
-  }
+  await writeFile(guidePath, guide);
 
   await rm(join(outDir, ".png"), { recursive: true, force: true });
   await rm(work, { recursive: true, force: true });
-  for (const path of [exported.pptx, exported.pdf, ...(directions ? [guidePath] : [])]) {
+  for (const path of [exported.pptx, exported.pdf, guidePath]) {
     const size = (await readFile(path)).byteLength;
     console.log(`✓ ${relative(ROOT, path)} (${(size / 1024).toFixed(0)} KB)`);
   }

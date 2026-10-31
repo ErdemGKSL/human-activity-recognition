@@ -29,7 +29,6 @@ export const literatureReview = defineDeck({
       id: "scope",
       layout: "bullets",
       title: "Kapsam ve Yöntem",
-      lead: "Sensörlerle aktivite tanımada sinir ağları hangi noktadadır?",
       pointsLabel: "Tarama",
       points: [
         "8 çalışma",
@@ -52,7 +51,6 @@ export const literatureReview = defineDeck({
       id: "classical",
       layout: "bullets",
       title: "Feature Tabanlı HAR (Klasik Yaklaşım)",
-      lead: "Feature'lar elle tasarlanır, sınıflandırıcı bunlarla eğitilir.",
       pointsLabel: "Çalışmalar",
       points: [
         "Kwapisz vd. (2011): telefon accelerometer'ı, 29 kullanıcı.",
@@ -75,7 +73,6 @@ export const literatureReview = defineDeck({
       id: "cnn",
       layout: "bullets",
       title: "Derin öğrenme: CNN",
-      lead: "Ham sinyal ile feature'lar öğrenilir.",
       pointsLabel: "Çalışmalar",
       points: [
         "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları, feature elle verilmiyor.",
@@ -86,7 +83,6 @@ export const literatureReview = defineDeck({
       id: "rnn",
       layout: "bullets",
       title: "Derin öğrenme: LSTM ve GRU",
-      lead: "Zamansal yapı recurrent katmanlardan modellenir",
       pointsLabel: "Çalışmalar",
       points: [
         "Ordóñez ve Roggen (2016): convolutional ve LSTM katmanları.",
@@ -97,7 +93,6 @@ export const literatureReview = defineDeck({
       id: "hybrid",
       layout: "bullets",
       title: "Hibrit Modeller",
-      lead: "Convolutional ve recurrent, katmanlar birlikte kullanılır.",
       pointsLabel: "Çalışmalar",
       points: [
         "Xia vd. (2020): LSTM-CNN; UCI, WISDM ve OPPORTUNITY.",
@@ -109,7 +104,6 @@ export const literatureReview = defineDeck({
       id: "evaluation",
       layout: "bullets",
       title: "Değerlendirme Pratiği",
-      lead: "Sonuçlar protokol aynı değilse asla doğrudan karşılaştırılamaz.",
       pointsLabel: "Dikkat edilmesi gerekenler",
       points: [
         "Window boyutu: Banos vd. (2014).",
@@ -134,7 +128,6 @@ export const literatureReview = defineDeck({
       id: "gaps",
       layout: "bullets",
       title: "Boşluklar ve Projenin Konumu",
-      lead: "Taranan çalışmalarda farklı veri seti, model ve protokol kullanılıyor.",
       pointsLabel: "Projede planlanan",
       points: [
         "Dört model aynı veri ayrımı ve metriklerle karşılaştırılacaktır.",
