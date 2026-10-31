@@ -131,8 +131,8 @@ export const literatureReview = defineDeck({
       pointsLabel: "Projede planlanan",
       points: [
         "Dört model aynı veri ayrımı ve metriklerle karşılaştırılacaktır.",
-        "Karışan aktiviteler Confusion Matrix ile incelenecektir.",
-        "Kendi telefon verimizle genelleme test edilecektir.",
+        "Confusion Matrix kullanılarak karışan aktiviteler incelenecektir.",
+        "Kendi telefon uygulamamızla genel çalışma durumu test edilecektir.",
       ],
     },
     {
