@@ -57,7 +57,7 @@ export const literatureReview = defineDeck({
       points: [
         "Kwapisz vd. (2011): telefon accelerometer'ı, 29 kullanıcı.",
         "Anguita vd. (2013): UCI HAR, 30 kişi, 561 feature, SVM.",
-        "Reyes-Ortiz vd. (2016): postural transition'lar, SVM.",
+        "Reyes-Ortiz vd. (2016): UCI HAR'a postural transition etiketleri.",
       ],
     },
     {
@@ -124,7 +124,7 @@ export const literatureReview = defineDeck({
       columns: ["Çalışma", "Veri seti", "Model", "Not"],
       rows: [
         ["Anguita 2013", "UCI HAR", "SVM", "Hazır feature'lar"],
-        ["Reyes-Ortiz 2016", "UCI HAR + Transitions", "SVM", "Geçişler"],
+        ["Reyes-Ortiz 2016", "UCI HAR + Transitions", "Feature tabanlı", "Geçişler"],
         ["Ordóñez 2016", "İki veri seti", "CNN + LSTM", "Elle feature yok"],
         ["Hammerla 2016", "Üç veri seti", "DNN, CNN, LSTM", "Hiperparametre analizi"],
         ["Xia 2020", "UCI, WISDM, OPPORTUNITY", "LSTM-CNN", "Az parametre"],

@@ -46,7 +46,7 @@ export const literatureReview = defineDirections({
     {
       term: "SVM",
       meaning:
-        "Support Vector Machine. Sınıfları ayıran en geniş marjlı sınırı bulan klasik sınıflandırıcı. Anguita ve Reyes-Ortiz çalışmalarında kullanıldı.",
+        "Support Vector Machine. Sınıfları ayıran en geniş marjlı sınırı bulan klasik sınıflandırıcı. Anguita ve arkadaşlarının çalışmasında kullanıldı.",
     },
     {
       term: "CNN",
@@ -121,7 +121,7 @@ export const literatureReview = defineDirections({
     {
       question: "Overlap'li window'lar neden bir sorun olabilir?",
       answer:
-        "Window'lar %50 overlap'liyse komşu window'lar aynı sinyalin yarısını paylaşır. Rastgele bölünürse aynı kişinin komşu window'ları hem eğitime hem teste düşebilir. Dehghani ve arkadaşları overlap'in etkisini subject-dependent ve subject-independent cross validation ile incelemiştir. Projede katılımcı bazlı ayrım planlanmaktadır.",
+        "Window'lar %50 overlap'liyse komşu window'lar aynı sinyalin yarısını paylaşır. Rastgele bölünürse aynı kişinin komşu window'ları hem eğitime hem teste düşebilir. Dehghani ve arkadaşları overlap'in etkisini subject-dependent ve subject-independent cross validation ile incelemiştir: overlap'in görünen kazancı subject-dependent bölmede ortaya çıkıyor, subject-independent bölmede etkisi küçük ya da ihmal edilebilir. Projede katılımcı bazlı ayrım planlanmaktadır.",
     },
   ],
   slides: {
@@ -167,7 +167,7 @@ export const literatureReview = defineDirections({
       script: [
         "Dört kart sunumun dört bölümü. Soldan sağa: feature tabanlı yaklaşım, deep learning, hibrit modeller ve değerlendirme.",
         "Feature tabanlı çalışmalarda feature'lar elle hesaplanır ve SVM gibi bir sınıflandırıcıya verilir. Deep learning çalışmalarında model feature'ları ham sinyalden öğrenir. Hibrit modeller convolutional ve recurrent katmanları birleştirir.",
-        "Sağdaki turuncu kart farklı türde: modelden çok, sonuçların nasıl ölçüldüğüyle ilgili. Window boyutu ve overlap gibi seçimlerin sonucu etkilediğini gösteren iki çalışma var.",
+        "Sağdaki turuncu kart farklı türde: modelden çok, sonuçların nasıl ölçüldüğüyle ilgili. Window boyutu ve overlap gibi seçimlerin sonucu nasıl etkilediğini inceleyen iki çalışma var.",
       ],
       data: [
         {
@@ -187,25 +187,26 @@ export const literatureReview = defineDirections({
       time: "1,5 dk",
       goal: "Telefon sensörleriyle aktivite tanıma, sinir ağlarından önce de çalışıyordu; sinir ağlarının getirdiği şey elle feature tasarımından kurtulmaktır.",
       script: [
-        "Kwapisz ve arkadaşları 2011'de telefon accelerometer'ıyla aktivite tanımayı anlatıyor. Özetlerine göre veriyi yirmi dokuz kullanıcıdan topladılar. Bu, telefonun tek başına yeterli bir sensör olduğunu gösteren erken çalışmalardan biri.",
-        "Anguita ve arkadaşları 2013'te UCI HAR veri setini yayımladı. Veri, belinde telefon taşıyan 30 gönüllüden geliyor. Her window'dan 561 feature çıkarılmış ve sonuçlar çok sınıflı bir SVM ile verilmiş. Projemizdeki MLP'nin 561 feature girdisi bu veri setinden geliyor.",
-        "Reyes-Ortiz ve arkadaşları 2016'da transition-aware bir sistem önerdi. Özetlerine göre SVM'in olasılık çıktısını bir heuristic filtreyle birleştiriyorlar ve aktiviteler arası geçişleri ayrıca ele alıyorlar. Bu çalışmayla veri setinin postural transition'lı sürümü oluştu; projemizin veri seti bu.",
+        "Kwapisz ve arkadaşları 2011'de telefon accelerometer'ıyla aktivite tanımayı anlatıyor. Özetlerine göre veriyi yirmi dokuz kullanıcıdan topladılar. Telefon ön cepte taşınıyor, yalnızca accelerometer kullanılıyor ve altı aktivite ayırt ediliyor. Çalışma, tek bir telefondaki accelerometer verisiyle bu koşullarda aktivite tanımanın mümkün olduğunu gösteren erken örneklerden biridir; telefonun her durumda yeterli bir sensör olduğunu göstermez.",
+        "Anguita ve arkadaşları 2013'te UCI HAR veri setini yayımladı. Veri, belinde telefon taşıyan 30 gönüllüden geliyor. Her window'dan 561 feature çıkarılmış ve sonuçlar çok sınıflı bir SVM ile verilmiş. Projemizdeki MLP'nin 561 feature girdisi bu veri setinden geliyor. Makalede veri rastgele %70 eğitim, %30 test olarak bölünmüş; makale bu bölmenin katılımcı bazlı olduğunu belirtmiyor. Biz katılımcı bazlı ayrım planlıyoruz; bu makaledeki bir hata değil, planımızın ondan farkı.",
+        "Reyes-Ortiz ve arkadaşlarının 2016 çalışmasıyla veri setinin postural transition'lı sürümü oluştu; projemizin veri seti bu. UCI sayfasına göre altı temel aktiviteye altı postural transition etiketi eklenmiş ve ham sensör sinyalleri de yayımlanmış. Makalenin tam metnine erişemediğimiz için yöntem ayrıntılarını (sınıflandırıcı, geçişlerin nasıl ele alındığı) anlatmıyoruz.",
         "Bu yaklaşımın bedeli: feature'ları bir uzman tasarlamak zorunda. Sinir ağı çalışmaları bu adımı ortadan kaldırmayı hedefliyor.",
       ],
       data: [
         {
           label: "29 kullanıcı (Kwapisz)",
-          meaning: "Makalenin özetinde belirtilen kullanıcı sayısı.",
+          meaning:
+            "Makalede belirtilen kullanıcı sayısı. Telefon ön cepte, yalnızca accelerometer, altı aktivite (yürüme, koşma, merdiven çıkma ve inme, oturma, ayakta durma).",
         },
         {
           label: "30 kişi, 561 feature (Anguita)",
           meaning:
-            "Makalede: 30 gönüllü, belde Samsung Galaxy S II, 50 Hz, 2,56 saniyelik window'lar, %50 overlap, her window için 561 feature, SVM.",
+            "Makalede: 30 gönüllü, belde Samsung Galaxy S II, 50 Hz, 2,56 saniyelik window'lar, %50 overlap, her window için 561 feature, SVM. Veri rastgele %70 eğitim, %30 test olarak bölünmüş; projede ise katılımcı bazlı ayrım planlanmaktadır.",
         },
         {
           label: "Postural transition (Reyes-Ortiz)",
           meaning:
-            "Geçişleri ya doğrudan öğrenen ya da bilinmeyen aktivite sayan iki uygulama önerilmiş.",
+            "UCI sayfasındaki bilgiler: 30 gönüllü, belde Samsung Galaxy S II, 50 Hz, altı temel aktivite ve altı postural transition (ör. otur-kalk, yat-otur). Etiketler videodan elle çıkarılmış. Yöntem bilgisi tam metin okunmadığı için verilmez.",
         },
       ],
       funFacts: [
@@ -234,7 +235,7 @@ export const literatureReview = defineDirections({
         {
           label: "29 kullanıcı (Kwapisz)",
           meaning:
-            "Makale özetindeki kullanıcı sayısı. Xia vd. aynı veri kümesini WISDM adıyla anar; bu adı Kwapisz'in kendi metninde doğrulamadık.",
+            "Makaledeki kullanıcı sayısı. Kwapisz'in metni WISDM'i proje adı olarak anar (Wireless Sensor Data Mining) ve veriyi ileride yayımlamayı planladığını yazar; veri setine bu adı vermez. Xia vd.'nin WISDM adıyla kullandığı veri setinde 36 katılımcı var; bu yüzden ikisini aynı veri kümesi saymayın.",
         },
         {
           label: "Sensör sütunu",
@@ -280,7 +281,8 @@ export const literatureReview = defineDirections({
       data: [
         {
           label: "Üç veri seti (Hammerla)",
-          meaning: "Makale özetinde belirtilen veri seti sayısı.",
+          meaning:
+            "Opportunity, PAMAP2 ve Daphnet Gait; üçü de vücuda takılan sensör verisi, telefon değil. Makalede en iyi model veri setine göre değişiyor; recurrent modeller her veri setinde önde değil.",
         },
       ],
       tips: [
@@ -294,7 +296,7 @@ export const literatureReview = defineDirections({
       goal: "Hibrit modeller yaygın, ama projede kapsam dışı; bilerek dışarıda bırakıldı.",
       script: [
         "Xia ve arkadaşları 2020'de iki katmanlı LSTM ve ardından convolutional katmanlar kullanan bir model önerdi. Makalenin özetinde modelin UCI, WISDM ve OPPORTUNITY veri setlerinde değerlendirildiği ve parametre sayısını azaltmak için global average pooling kullanıldığı yazıyor.",
-        "Ordóñez ve Roggen de convolutional ve LSTM katmanlarını birleştiriyor. İki çalışmanın ortak fikri: convolutional katman yerel pattern'leri çıkarır, recurrent katman bunların sırasını modeller.",
+        "Ordóñez ve Roggen de convolutional ve LSTM katmanlarını birleştiriyor. İki çalışmanın ortak fikri convolutional ve recurrent katmanları birleştirmek, ama katmanların sırası farklı. Ordóñez ve Roggen'de convolutional katmanlar önce, LSTM katmanları sonra gelir. Xia'da sıra tersidir: önce LSTM zamansal feature'ları çıkarır, ardından convolutional katmanlar uzamsal feature'ları çıkarır.",
         "Projede hibrit model planlamıyoruz. Dört saf modeli (MLP, 1D CNN, LSTM, GRU) aynı koşulda karşılaştıracağız. Hibrit bir model, saf modellerin ne kadar katkı verdiğini görmeyi zorlaştırır. Zaman kalırsa sonraki bir adım olabilir.",
       ],
       data: [
@@ -305,7 +307,7 @@ export const literatureReview = defineDirections({
         },
       ],
       funFacts: [
-        "Xia ve arkadaşlarının modelinde sıra, başlığın da söylediği gibi LSTM önce, convolutional katmanlar sonra gelir.",
+        "Xia ve arkadaşlarının modelinde sıra, makalenin özetine göre, LSTM önce, convolutional katmanlar sonra gelir.",
       ],
       tips: ["Üçüncü maddeyi vurgulayın: kapsam kararı bilinçli."],
       transition:
@@ -316,7 +318,7 @@ export const literatureReview = defineDirections({
       goal: "Sonuçların karşılaştırılabilir olması için window, overlap ve bölme yönteminin aynı olması gerekir.",
       script: [
         "Banos ve arkadaşları window boyutunun etkisini inceledi. Özetlerine göre windowing, aktivite tanıma sürecinin önemli bir aşaması, ama hangi window boyutunun seçileceği konusunda net bir görüş birliği yok; çoğu çalışma önceki çalışmalardaki değerleri kullanıyor. Kendi çalışmaları bunu sistematik olarak ölçüyor.",
-        "Dehghani ve arkadaşları overlap'li ve overlap'siz kayan window'ları karşılaştırdı. Özetlerine göre bunu subject-dependent ve subject-independent cross validation ile yaptılar. Alanda overlap'in performansı artırdığı yönünde yaygın bir kanı var; bu çalışma bu kanıyı değerlendiriyor. Sonucun yönünü özetin tamamını okumadan söylemeyeceğim.",
+        "Dehghani ve arkadaşları overlap'li ve overlap'siz kayan window'ları karşılaştırdı. Özetlerine göre bunu subject-dependent ve subject-independent cross validation ile yaptılar. Alanda overlap'in performansı artırdığı yönünde yaygın bir kanı var; bu çalışma bu kanıyı sınıyor. Subject-dependent cross validation'da overlap'li window'lar daha iyi sonuç veriyor, ama yazarlar bunu eğitim ve test fold'ları arasındaki korelasyona bağlıyor. Subject-independent cross validation'da overlap'in etkisi küçük ya da ihmal edilebilir düzeyde. Yani overlap seçiminin sonucu her durumda değiştirdiğini söyleyemeyiz; etkisi bölme yöntemine bağlı.",
         "Projeyle bağlantı: UCI HAR %50 overlap kullanıyor. Biz katılımcı bazlı bir ayrım planlıyoruz; test katılımcıları eğitimde hiç görülmeyecek. Metrik olarak macro F1-score, sınıf bazında Recall ve Confusion Matrix planlıyoruz; çünkü Accuracy tek başına küçük sınıflardaki hataları gizleyebilir.",
       ],
       data: [
@@ -326,7 +328,8 @@ export const literatureReview = defineDirections({
         },
         {
           label: "Overlap ve cross validation (Dehghani 2019)",
-          meaning: "Overlap'in etkisi iki farklı cross validation türüyle incelenmiştir.",
+          meaning:
+            "Overlap'in etkisi iki cross validation türüyle incelenmiştir. Subject-dependent'te overlap sonucu iyileştiriyor görünür; subject-independent'te etkisi küçük ya da ihmal edilebilir. Veri setleri giyilebilir sensör verisidir, telefon değil.",
         },
       ],
       tips: [
@@ -339,7 +342,7 @@ export const literatureReview = defineDirections({
       goal: "Çalışmalar farklı veri, model ve protokol kullanıyor; tablo bunu açıkça gösteriyor, sıralama yapmıyor.",
       script: [
         "Tabloda her satır bir çalışma. Sütunlar: hangi veri seti, hangi model ve kısa bir not. Bilerek sayısal sütun yok.",
-        "Üstteki iki satır SVM kullanan klasik çalışmalar. Sonra sinir ağı çalışmaları: Ordóñez ve Hammerla. Alttaki satır hibrit bir model: Xia.",
+        "Üstteki iki satır klasik, feature tabanlı çalışmalar: Anguita SVM kullanıyor, Reyes-Ortiz satırında yalnızca veri seti bilgisi var. Sonra sinir ağı çalışmaları: Ordóñez ve Hammerla. Alttaki satır hibrit bir model: Xia.",
         "Sütunlara bakınca hemen görülen şey: veri seti sütunu hiç bir yerde aynı değil. Bazıları telefon, bazıları giyilebilir sensör kullanıyor. Bu yüzden hangi modelin daha iyi olduğunu bu tablodan çıkaramayız.",
         "Örnek: Xia ve arkadaşlarının özetinde UCI, WISDM ve OPPORTUNITY için ayrı doğruluk değerleri veriliyor. Bu üç değer bile birbirine eşit koşullarda ölçülmüş sayılar olarak okunamaz.",
       ],
@@ -347,7 +350,7 @@ export const literatureReview = defineDirections({
         {
           label: "Veri seti sütunu",
           meaning:
-            "Ordóñez satırında veri seti bilgisi yalnızca başlıktan gelen genel ifadedir. Tam veri seti adları doğrulanmadığı için yazılmadı.",
+            "Ordóñez satırındaki “İki veri seti” ifadesi makalenin özetinden gelir. Makalede bunlar OPPORTUNITY ve Skoda'dır; ikisi de giyilebilir sensör verisidir, telefon verisi değildir. Slayt kısa kalsın diye adlar yazılmadı.",
         },
         {
           label: "Not sütunu",
