@@ -30,11 +30,7 @@ export const literatureReview = defineDeck({
       layout: "bullets",
       title: "Kapsam ve Yöntem",
       pointsLabel: "Tarama",
-      points: [
-        "8 çalışma",
-        "Sinir ağları merkezli",
-        "Klasik çalışmalar yalnızca alakalı olduğu için",
-      ],
+      points: ["8 çalışma", "Sinir ağları merkezli"],
     },
     {
       id: "map",
