@@ -124,6 +124,111 @@ export const literatureReview = defineDirections({
         "Window'lar %50 overlap'liyse komşu window'lar aynı sinyalin yarısını paylaşır. Rastgele bölünürse aynı kişinin komşu window'ları hem eğitime hem teste düşebilir. Dehghani ve arkadaşları overlap'in etkisini subject-dependent ve subject-independent cross validation ile incelemiştir: overlap'in görünen kazancı subject-dependent bölmede ortaya çıkıyor, subject-independent bölmede etkisi küçük ya da ihmal edilebilir. Projede katılımcı bazlı ayrım planlanmaktadır.",
     },
   ],
+  papers: [
+    {
+      citation:
+        "Kwapisz, Weiss, Moore (2011). Activity recognition using cell phone accelerometers. ACM SIGKDD Explorations Newsletter 12(2), 74-82. DOI 10.1145/1964897.1964918.",
+      status:
+        "Okuma durumu: tam metin, ancak WISDM çalıştayı sürümünden (SensorKDD 2010). ACM sürümü erişilemedi.",
+      points: [
+        "29 gönüllü, Android telefonu ön pantolon cebinde taşıdı.",
+        "Altı aktivite: yürüme, koşma, merdiven çıkma, merdiven inme, oturma, ayakta durma.",
+        "Yalnızca accelerometer, 50 ms aralıkla (saniyede 20 örnek). Gyroscope kullanılmadı.",
+        "Veri 10 saniyelik parçalara ayrıldı (her biri 200 okuma); her örnek için 43 feature hesaplandı, toplam 4526 örnek.",
+        "Sınıflandırıcılar WEKA J48, lojistik regresyon ve çok katmanlı algılayıcı (MLP); 10 katlı cross validation.",
+        "Makalede en yüksek genel doğruluk MLP ile %91,7 (J48 %85,1, lojistik regresyon %78,1). Bu değerler slayta konmadı.",
+        "Makale telefonun tek başına her koşulda yeterli olduğunu iddia etmiyor; yalnızca bu altı aktivite ve bu koşul için sonuç veriyor.",
+      ],
+    },
+    {
+      citation:
+        "Anguita, Ghio, Oneto, Parra, Reyes-Ortiz (2013). A public domain dataset for human activity recognition using smartphones. ESANN 2013, pp. 437-442.",
+      status: "Okuma durumu: tam metin (PDF).",
+      points: [
+        "30 gönüllü, 19-48 yaş arası. Altı temel aktivite: ayakta, oturma, yatma, yürüme, merdiven inme, merdiven çıkma.",
+        "Samsung Galaxy S II belde taşındı; accelerometer ve gyroscope 50 Hz ile ölçüldü. Sinyaller median ve 20 Hz düşük geçiren filtreden geçirildi.",
+        "Pencereler 2,56 saniye (128 örnek), %50 overlap. Pencere başına 561 feature.",
+        "Veri rastgele %70 eğitim, %30 test olarak bölündü; katılımcı bazlı bir bölme değil.",
+        "Sınıflandırıcı çok sınıflı SVM (Gaussian kernel, one-vs-all). Test setinde 2947 örnek üzerinde %96 doğruluk; en düşük recall oturma sınıfında (%88), oturma ayakta durmayla karıştı.",
+      ],
+    },
+    {
+      citation:
+        "Reyes-Ortiz, Oneto, Samà, Parra, Anguita (2016). Transition-aware human activity recognition using smartphones. Neurocomputing 171, 754-767. DOI 10.1016/j.neucom.2015.07.085.",
+      status:
+        "Okuma durumu: makalenin tam metni alınamadı (Elsevier engelledi). Yalnızca UCI veri seti sayfası okundu; yöntem anlatılmıyor.",
+      points: [
+        "Bu makale, UCI veri seti 341'i (UCI HAR + Transitions) tanıtıyor; projemizin veri seti bu.",
+        "30 gönüllü, belde Samsung Galaxy S II; accelerometer ve gyroscope 50 Hz.",
+        "Altı temel aktivite ve altı postural transition (ör. otur-kalk, yat-otur), toplam 12 etiket. Etiketler videodan elle çıkarıldı.",
+        "Pencereler 2,56 saniye, %50 overlap; 561 feature. Ham sinyaller de yayımlandı.",
+        "Sınıflandırıcı ve geçiş ele alma yöntemi bu özet kapsamında okunmadı; rehberde yöntem iddiası yok.",
+      ],
+    },
+    {
+      citation:
+        "Ordóñez, Roggen (2016). Deep convolutional and LSTM recurrent neural networks for multimodal wearable activity recognition. Sensors 16(1), 115. DOI 10.3390/s16010115.",
+      status: "Okuma durumu: tam metin (PMC).",
+      points: [
+        "DeepConvLSTM: dört convolutional katman (yalnızca zaman ekseninde), ardından iki LSTM katmanı ve softmax çıkışı.",
+        "Elle tasarlanmış feature kullanılmıyor; ham sensör verisi minimum ön işlemeyle giriyor.",
+        "İki veri seti: OPPORTUNITY (vücuda takılı IMU ve accelerometer, 113 kanal, 30 Hz) ve Skoda (sağ kola takılı 10 accelerometer, 10 hareket).",
+        "Pencereler 500 ms, adım 250 ms. Model, vücut sensörleri; telefon verisi kullanılmadı.",
+        "Sensör füzyonu: yalnızca accelerometer ile F1 0,69; gyroscope eklenince ortalama %15, manyetometre eklenince %20 iyileşme.",
+        "OPPORTUNITY üzerinde, derin ama recurrent olmayan bir baseline'a göre ortalama %4 daha iyi (makalenin raporladığı değer).",
+      ],
+    },
+    {
+      citation:
+        "Hammerla, Halloran, Plötz (2016). Deep, convolutional, and recurrent models for human activity recognition using wearables. IJCAI 2016, pp. 1533-1540. arXiv:1604.08880.",
+      status: "Okuma durumu: tam metin (arXiv v1).",
+      points: [
+        "Karşılaştırılan modeller: DNN (en fazla beş gizli katman), CNN ve üç LSTM varyantı (LSTM-F, LSTM-S, çift yönlü b-LSTM-S).",
+        "Üç veri seti, hepsi vücuda takılı sensörler: Opportunity (4 denek), PAMAP2 (9 denek, 12 aktivite), Daphnet Gait (10 hasta, iki sınıf).",
+        "4000'den fazla deney, rastgele seçilmiş hiperparametrelerle; hiperparametrelerin önemi fANOVA ile analiz edildi.",
+        "Opportunity'de b-LSTM-S en iyi (makro F1 0,745), PAMAP2'de CNN en iyi (0,937), Daphnet Gait'te LSTM-S en iyi (0,760).",
+        "Sonuç: kısa ve sıralı aktiviteler için recurrent modeller, uzun ve tekrarlı aktiviteler için CNN. Öğrenme oranı en önemli ayar.",
+        "Çalışmanın veri setleri telefon değil; bu ayrım slayta ve sunuma yansıdı.",
+      ],
+    },
+    {
+      citation:
+        "Xia, Huang, Wang (2020). LSTM-CNN architecture for human activity recognition. IEEE Access 8, 56855-56866. DOI 10.1109/ACCESS.2020.2982225.",
+      status: "Okuma durumu: tam metin (PDF, IEEE Access açık erişim).",
+      points: [
+        "Katman sırası: önce iki katmanlı LSTM (zamansal feature), sonra convolutional katmanlar (uzamsal feature), global average pooling, batch normalization, tam bağlantılı katman ve softmax.",
+        "Global average pooling, tam bağlantılı katmanın yerine geçiyor; UCI-HAR deneyinde parametre sayısı yaklaşık %94 azaldı (502 bin civarından 27 bine).",
+        "Veri setleri: UCI-HAR (30 denek), WISDM (36 denek), OPPORTUNITY (challenge alt kümesi).",
+        "Özette raporlanan değerler: UCI-HAR %95,78, WISDM %95,85, OPPORTUNITY %92,63. Makale bu değerlere bazen doğruluk, bazen F1 diyor; slayta konmadı.",
+        "Recurrent kısım LSTM olduğu için eğitim, paralelleştirilemediğinden CNN'e göre daha yavaş.",
+      ],
+    },
+    {
+      citation:
+        "Banos, Galvez, Damas, Pomares, Rojas (2014). Window size impact in human activity recognition. Sensors 14(4), 6474-6499. DOI 10.3390/s140406474.",
+      status: "Okuma durumu: tam metin (PMC).",
+      points: [
+        "Veri seti: 17 gönüllü, 33 fitness aktivitesi, 9 eylemsizlik sensörü; yalnızca ivmelenme kullanıldı. Vücuda takılı sensörler, telefon değil.",
+        "Pencere boyutu 0,25 s ile 7 s arasında, 0,25 s adımlarla; pencereler üst üste binmiyor.",
+        "Üç özellik seti, dört sınıflandırıcı: C4.5 karar ağacı, kNN (k=3), naive Bayes ve nearest centroid. Değerlendirme 10 katlı CV, 100 kez tekrarlandı, F1 ile ölçüldü.",
+        "Naive Bayes ve nearest centroid, 0,25 s ile 1 s arasında %30'a varan iyileşme gösterdi. kNN en iyisiydi (0,25-0,5 s'de F1 0,95'in üzerinde).",
+        "Makalenin sonucu: 1-2 saniye, hız ve doğruluk arasında en iyi dengeyi veriyor; büyük pencereler her zaman daha iyi değil.",
+      ],
+    },
+    {
+      citation:
+        "Dehghani, Sarbishei, Glatard, Shihab (2019). A quantitative comparison of overlapping and non-overlapping sliding windows for human activity recognition using inertial sensors. Sensors 19(22), 5026. DOI 10.3390/s19225026.",
+      status: "Okuma durumu: tam metin (PMC).",
+      points: [
+        "Üst üste binen ve binmeyen kayan pencereler karşılaştırıldı; pencere 0,25-7 s arası, üst üste binenlerde kayma 200 ms.",
+        "İki değerlendirme türü: subject-dependent (rastgele k katlı) ve subject-independent (katılımcıya göre bölme).",
+        "Subject-dependent'te overlap sonucu iyileştiriyor; yazarlar bunu eğitim ve test katlarındaki korelasyona bağlıyor.",
+        "Subject-independent'te overlap'in etkisi küçük ya da ihmal edilebilir; binmeyen pencereler aynı performansa ulaşıyor.",
+        "Veri setleri: 17 denek, 33 aktivite, 9 Xsens IMU; 94 denek, 74 aktivite, ön kola takılı bileklik (accelerometer ve gyroscope). Telefon değil.",
+        "Üst üste binen pencereler daha fazla enerji, zaman ve bellek gerektiriyor.",
+      ],
+    },
+  ],
   slides: {
     cover: {
       time: "30 sn",

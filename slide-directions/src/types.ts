@@ -45,6 +45,16 @@ export interface SlideDirection {
   questions?: LikelyQuestion[];
 }
 
+/** The key points of one paper cited in the deck, printed as an appendix. */
+export interface PaperSummary {
+  /** Full citation, with the original English title. */
+  citation: string;
+  /** How much of the paper was read, e.g. "tam metin okundu". */
+  status: string;
+  /** Key points, in Turkish with English technical terms. */
+  points: string[];
+}
+
 export interface DeckDirections {
   /** Deck id in `@pptx/decks`; the guide is built to `output/<deckId>.pdf`. */
   deckId: string;
@@ -64,6 +74,8 @@ export interface DeckDirections {
   glossary?: GlossaryEntry[];
   /** Who presents which slides (slide id → presenter). */
   speakers?: Record<string, string>;
+  /** Summaries of the papers the deck cites, printed before the glossary. */
+  papers?: PaperSummary[];
   /** One entry per slide id of the deck; a test keeps the two in sync. */
   slides: Record<string, SlideDirection>;
 }

@@ -95,6 +95,16 @@ export function DirectionsDocument({ deck, directions, thumbnails }: Props) {
           ))}
         </Section>
       ) : null}
+      {directions.papers?.length ? (
+        <Section title="Makale Özetleri" newPage>
+          {directions.papers.map(({ citation, status, points }) => (
+            <Callout key={citation} title={citation}>
+              <Paragraph muted>{status}</Paragraph>
+              <BulletList items={points} />
+            </Callout>
+          ))}
+        </Section>
+      ) : null}
       {directions.glossary?.length ? (
         <Section title="Ek: Terimler Sözlüğü" newPage>
           <Paragraph muted>
