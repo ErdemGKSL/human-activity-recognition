@@ -36,6 +36,7 @@ p.add_argument("--cw", choices=["full", "sqrt", "none"], default="full")
 p.add_argument("--pool", choices=["last", "meanmax"], default="last")
 p.add_argument("--bidir", action="store_true")
 p.add_argument("--variant", default="base")
+p.add_argument("--export", default="", help="final modunda GRU'yu Kotlin için JSON olarak dışa aktar (klasör)")
 p.add_argument("--min-frac", type=float, default=0.9)
 p.add_argument("--noise", type=float, default=0.0, help="MLP için standardize feature uzayında Gauss gürültüsü (std birimi)")
 p.add_argument("--save-oof", action="store_true", help="CV modunda OOF tahminlerini ve kişi etiketlerini kaydet")
@@ -108,6 +109,8 @@ def fit_predict(Xtr, ytr, Xs, seed):
             opt.zero_grad(); lossf(model((xb - m_) / s_), yt[b]).backward()
             if a.clip: nn.utils.clip_grad_norm_(model.parameters(), a.clip)
             opt.step(); step += 1
+    global LAST
+    LAST = dict(model=model, m=m.reshape(-1), s=s.reshape(-1))
     model.eval(); outs = []
     with torch.no_grad():
         for X in Xs:
@@ -149,6 +152,10 @@ else:
     probs = []
     for seed in a.seeds:
         (pt,) = fit_predict(D["Xtr"], D["ytr"], [D["Xte"]], seed)
+        if a.export:
+            from har.export import export_gru
+            Path(a.export).mkdir(parents=True, exist_ok=True)
+            export_gru(LAST["model"], LAST["m"], LAST["s"], D["Xte"][::997][:3], Path(a.export) / f"model_seed{seed}.json")
         probs.append(pt)
         r = scores(D["yte"], pt.argmax(1)); r["seed"] = seed; res["seeds"].append(r)
         print(f"{a.name} final seed={seed} testF1={r['macro_f1']:.4f} acc={r['accuracy']:.4f}", flush=True)
