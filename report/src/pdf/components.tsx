@@ -311,6 +311,33 @@ export function FigurePlaceholder({ caption, height = 180 }: { caption: string; 
   );
 }
 
+/**
+ * A figure from an image passed to `renderPdf({ images })` under the key `src`.
+ * Falls back to the placeholder box when `available` is false (image not produced yet).
+ * `aspect` is width / height of the source image; takumi-pdf needs both sizes explicit.
+ */
+export function Figure({
+  src,
+  caption,
+  available = true,
+  width = 340,
+  aspect = 7 / 6,
+}: {
+  src: string;
+  caption: string;
+  available?: boolean;
+  width?: number;
+  aspect?: number;
+}) {
+  if (!available) return <FigurePlaceholder caption={caption} />;
+  return (
+    <div style={{ ...column, gap: 4, alignItems: "center", breakInside: "avoid" }}>
+      <img src={src} style={{ width, height: Math.round(width / aspect) }} alt={caption} />
+      <Caption>{caption}</Caption>
+    </div>
+  );
+}
+
 /** Inline code / file names. */
 export function Code({ children }: { children: ReactNode }) {
   return <span style={{ fontFamily: MONO_FAMILY, fontSize: t.size.small + 1 }}>{children}</span>;

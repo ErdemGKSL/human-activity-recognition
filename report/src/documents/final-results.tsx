@@ -1,9 +1,31 @@
-import { Document, FigurePlaceholder, Paragraph, Section, SubSection, Table, Todo } from "../pdf";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import {
+  Document,
+  Figure,
+  FigurePlaceholder,
+  Paragraph,
+  Section,
+  SubSection,
+  Table,
+  Todo,
+} from "../pdf";
 import { deliverable, project } from "../project";
 import { ReportTitle } from "./ReportTitle";
 import type { ReportDefinition } from "./types";
 
 const ID = "final-results";
+
+// Şekil dosyaları experiments/ altında üretilir; yoksa şekil yer tutucu kalır.
+const EXPERIMENTS = join(import.meta.dir, "../../../experiments");
+const FIGURES = {
+  "cm-baseline-mlp": "results/confusion_mlp.png",
+  "cm-baseline-cnn": "results/confusion_cnn.png",
+} as const;
+const images = Object.entries(FIGURES)
+  .filter(([, rel]) => existsSync(join(EXPERIMENTS, rel)))
+  .map(([src, rel]) => ({ src, data: new Uint8Array(readFileSync(join(EXPERIMENTS, rel))) }));
+const has = (src: keyof typeof FIGURES) => images.some((i) => i.src === src);
 
 /** Final Results raporu (hocaya teslim edilen düz PDF) — iskelet. */
 export const finalResults: ReportDefinition = {
@@ -12,6 +34,7 @@ export const finalResults: ReportDefinition = {
     title: `${project.title} — ${deliverable(ID, "report").title}`,
     footerLabel: "Final Results",
     authors: [...project.authors],
+    images,
   },
   render: () => (
     <Document>
@@ -61,7 +84,11 @@ export const finalResults: ReportDefinition = {
           ]}
           caption="Tablo 1: Test kümesi sonuçları (5 seed ortalaması ± standart sapma; Precision, Recall ve F1 macro ortalamadır). Kaynak: experiments/results/summary.md"
         />
-        <FigurePlaceholder caption="Şekil 2: Confusion matrix (şekiller experiments/results/confusion_*.png dosyalarında)" />
+        <Figure
+          src="cm-baseline-mlp"
+          available={has("cm-baseline-mlp")}
+          caption="Şekil 2: MLP confusion matrix (ilk baseline düzeni, test kümesi, 5 seed toplamı, satır normalize). Kaynak: experiments/results/confusion_mlp.png"
+        />
       </Section>
       <Section number="7" title="Modellerin Karşılaştırılması">
         <Paragraph>
