@@ -40,8 +40,8 @@ skeleton for now: unfinished parts are `todoSlide()` slides, `<Todo>` blocks, an
 
 ## Skill map: read this when…
 
-**Scope matters.** Every skill except `pdf-documents`, `academic-humanizer` and
-`avoid-ai-writing` is about
+**Scope matters.** Every skill except `pdf-documents`, `colab-gpu`, `academic-humanizer`
+and `avoid-ai-writing` is about
 **`slides/` only** (the PPTX
 pipeline): its paths are relative to `slides/`, and its `bun run …` commands run from
 `slides/`. They do not apply to `report/` or `slide-directions/`.
@@ -50,6 +50,7 @@ pipeline): its paths are relative to `slides/`, and its `bun run …` commands r
 |---|---|---|
 | Writing or revising **any prose**: report text, presenter-guide scripts, slide text, speaker notes | all areas | [academic-humanizer](.claude/skills/academic-humanizer/SKILL.md) + [avoid-ai-writing](.claude/skills/avoid-ai-writing/SKILL.md) + [Writing prose](#writing-prose) |
 | Writing or building a report, filling a presenter guide, adding a PDF component, fixing a PDF render | `report/`, `slide-directions/` | [pdf-documents](.claude/skills/pdf-documents/SKILL.md) |
+| Running experiments on a Colab GPU: starting a runtime, uploading code, downloading results, a dropped runtime or a timed-out Colab call | `experiments/` Colab runs | [colab-gpu](.claude/skills/colab-gpu/SKILL.md) |
 | Writing or debugging slide JSX, seeing odd SVG, clip errors, tofu glyphs | `slides/` | [takumi-rendering](.claude/skills/takumi-rendering/SKILL.md) |
 | Hitting a quality-gate or export error, changing `normalizeSvg` or the Python bridge | `slides/` | [ppt-master-export](.claude/skills/ppt-master-export/SKILL.md) |
 | Doing **anything with motion** (always start here) | `slides/` | [animate-slides](.claude/skills/animate-slides/SKILL.md) (the router) |
