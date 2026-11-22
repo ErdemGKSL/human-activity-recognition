@@ -40,7 +40,18 @@ def load_features(raw: Path):
             ld("Train/subject_id_train.txt").astype(int), ld("Test/subject_id_test.txt").astype(int))
 
 
-def build_windows(raw: Path, min_frac: float = 1.0):
+def add_gravity_split(sig):
+    """acc kanallarını 0,3 Hz low-pass ile gravity ve body olarak ayırır: [body acc, gravity, gyro] (9 kanal).
+
+    Kayıt düzeyinde ve etiketsiz sabit bir filtredir; window istatistiği hesaplanmaz.
+    """
+    from scipy.signal import butter, sosfiltfilt
+    sos = butter(3, 0.3, btype="low", fs=50, output="sos")
+    grav = sosfiltfilt(sos, sig[:, :3], axis=0)
+    return np.hstack([sig[:, :3] - grav, grav, sig[:, 3:]]).astype(np.float32)
+
+
+def build_windows(raw: Path, min_frac: float = 1.0, step: int = STEP, gravity: bool = False):
     """Ham sinyali 128'lik window'lara böler (%50 overlap).
 
     Bir window yalnızca etiketli tek bir segmentin en az `min_frac` kadarını kapsıyorsa
@@ -54,10 +65,12 @@ def build_windows(raw: Path, min_frac: float = 1.0):
         f = f"exp{exp:02d}_user{user:02d}.txt"
         sig = np.hstack([np.loadtxt(raw / "RawData" / f"acc_{f}"),
                          np.loadtxt(raw / "RawData" / f"gyro_{f}")]).astype(np.float32)
+        if gravity:
+            sig = add_gravity_split(sig)
         lab = np.full(len(sig), -1, int)
         for _, _, act, a, b in seg:  # 1 tabanlı, uçlar dahil
             lab[a - 1:b] = act - 1
-        for st in range(0, len(sig) - WIN + 1, STEP):
+        for st in range(0, len(sig) - WIN + 1, step):
             w = lab[st:st + WIN]
             vals, cnt = np.unique(w[w >= 0], return_counts=True)
             if len(vals) and cnt.max() / WIN >= min_frac:
