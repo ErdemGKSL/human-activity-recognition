@@ -28,4 +28,42 @@ Yeni kod: `train2.py` (CV ve final modları), `har/models2.py`, `har/data.py` (g
 
 ## Sonraki adımlar
 
-(Her aşamanın CV sonucu buraya eklenecek.)
+## Adım 2: CV ile Aşama 0-3 (havuzlanmış out-of-fold macro F1, 21 eğitim kişisi, 3 seed)
+
+Tam tablo: `results2/ablation.md`. Karar ölçütü yalnızca CV; test'e dokunulmadı. Colab runtime'ı bir kez düştü (boşta kalma) ve çıktılar kayboldu; ızgara yeniden koşuldu ve a0 sonuçları öncekiyle birebir aynı çıktı (tekrarlanabilir).
+
+| Model | A0 baseline (40 ep, lr 2e-3) | A1a (100 ep, lr 1e-3, warmup, clip) | A1b (lr 2e-3) | pooling meanmax | + bidir | + gravity 9 kanal | derin CNN |
+|---|---|---|---|---|---|---|---|
+| MLP (561) | 0,824 | 0,845 | 0,844 | - | - | - | - |
+| 1D CNN | 0,807 | 0,809 | 0,822 | - | - | 0,827 | 0,830 |
+| LSTM | 0,768 | 0,771 | 0,797 | 0,763 | 0,787 | 0,781 | - |
+| GRU | 0,776 | 0,767 | 0,779 | 0,767 | 0,789 | 0,764 | - |
+| MLP-raw (düzleştirilmiş ham) | - | 0,803 (6 kanal) | - | - | - | 0,808 (9 kanal) | - |
+
+Gözlemler: (1) Ayarlı optimizasyon MLP'ye de yaradı (0,824 → 0,845), yani baseline tüm modeller için eksik ayarlıydı. (2) lr 2e-3 RNN ve CNN'de lr 1e-3'ten iyi. (3) bidirectional + mean/max pooling LSTM ve GRU'da fayda sağladı. (4) Gravity/body ayrımı CNN ve LSTM'de yardım etti, GRU'da etkisiz. (5) Aynı MLP ham girdiyle 0,803, 561 feature'la 0,845: fark girdi temsilinden geliyor. Std değerleri 0,003-0,02; 0,01 altındaki farklar gürültü sayılır.
+
+Karar: Aşama 4'te modele göre en iyi birleşim (CNN: deep + gravity; LSTM: bidir+meanmax + gravity; GRU: bidir+meanmax) lr 2e-3 ile kurulur, sonra yoğun window (adım 16) ve augmentasyon eklenir.
+
+## Adım 3 (sürüyor): Aşama 4 CV
+
+(Sonuçlar eklenecek.)
+
+## Karar kronolojisi (rapordaki "izlenen yol" bölümünün iskeleti)
+
+Her satır: ne yaptık, ne oldu, hangi karar çıktı. Rapor bölümü bu sırayla yazılacak.
+
+1. **Veri seti seçimi ve doğrulama.** UCI #341 (HAPT) indirildi. Resmi dosyalarda 10.929 örnek (7.767 eğitim, 3.162 test), 30 kişi, 12 sınıf. Karar: resmi kişi bazlı ayrım korunur.
+2. **Girdi tasarımı.** Resmi 561 feature MLP içindir. Ham sinyal modelleri (CNN/LSTM/GRU) için ham window'lar bizim üretmemiz gerekti, çünkü resmi dosyalarda hangi satırın hangi ham window olduğu yok. Denenen kural: window, tek bir etiketli segmentin en az %90'ını kapsamalı. Sonuç: 10.776 window (resmi 10.929'a %1,4 yakın; geçiş sınıfları 471 window, resmi 518). Karar: %90 kuralı; MLP ile ham modellerin test kümeleri biraz farklı (3.162 ve 3.124) ve bu raporda açıkça yazılır.
+3. **Donanım kararı.** Önce CPU'da denendi: tek koşuda MLP 5 sn, CNN 36 sn, LSTM 150 sn; baseline (4 model x 3 seed) CPU'da mümkündü. CV ve ablation planı büyüyünce (tek RNN yapılandırması için CPU tahmini yaklaşık 1,5 saat) karar: eğitim Colab L4 GPU'da yapılır (aynı RNN yapılandırması orada yaklaşık 5 dk).
+4. **Baseline (Adım 0).** MLP 0,841 > CNN 0,819 > GRU 0,786 > LSTM 0,666. LSTM tutarsızdı (bir seed 0,484). Bu beklenen sonuçtan farklıydı: ham sinyal modelleri MLP'nin gerisinde.
+5. **Danışmanlık ve yöntem düzeltmesi (Adım 1).** Teşhis: RNN eğitim düzeni zayıf, validation küçük ve gürültülü, gravity/body ayrımı yok, augmentasyon yok. Önemli düzeltme: baseline'ın test confusion matrix'ine bakıldığı için, bundan sonra karar yalnızca eğitim kişilerinde 5-fold kişi bazlı CV ile verilir; test son adımda bir kez koşulur.
+6. **İlk CV ölçümü (Adım 2, A0).** Baseline düzen CV'de yeniden ölçüldü: MLP 0,824; CNN 0,807; GRU 0,776; LSTM 0,768. Test'teki LSTM çöküşü CV'de görülmedi; yani o sonuç kısmen seçim şansıydı. Karar: CV değerleri esas alınır.
+7. **Optimizasyon (A1).** 100 epoch, warmup, gradient clipping. MLP 0,824 → 0,845; CNN ve RNN'lerde lr 2e-3, lr 1e-3'ten iyi (CNN 0,822; LSTM 0,797). Karar: lr 2e-3, 100 epoch, warmup 3, clip 1 tüm modellere ortak taban.
+8. **RNN yapısı.** mean/max pooling tek başına fayda vermedi (LSTM 0,763); bidirectional ile birlikte LSTM 0,787, GRU 0,789. Karar: RNN'lerde bidirectional + mean/max pooling.
+9. **Gravity/body ayrımı (9 kanal).** CNN +0,018, LSTM +0,010, GRU ≈0 (-0,003). Karar: CNN ve LSTM için 9 kanal; GRU için ayrıca denenir.
+10. **Derin CNN (dilation, 4 blok).** 0,809 → 0,830 (+0,021). Karar: derin CNN kullanılır.
+11. **Feature mı, mimari mi?** Aynı MLP düzleştirilmiş ham girdiyle 0,803 (6 kanal) ve 0,808 (9 kanal); 561 feature'la 0,845. Sonuç: MLP'nin üstünlüğü büyük ölçüde hazır feature'lardan geliyor, MLP mimarisinden değil. Bu bulgu raporda ham sinyal modellerinin karşılaştırmasının merkezinde yer alır.
+12. **Altyapı olayları.** Colab runtime'ı boşta kaldığı için bir kez silindi ve CV çıktıları kayboldu; ızgara yeniden koşuldu ve a0 sonuçları birebir aynı çıktı (tekrarlanabilirlik doğrulandı). Karar: sonuçlar her kontrolde repoya indirilir; colab-gpu skill'i yazıldı.
+13. **Aşama 4 (sürüyor).** Yoğun window (adım 16) ve augmentasyon (küçük rotation, scaling), yukarıdaki en iyi birleşimlerin üstüne eklenir.
+
+Sonraki satırlar (Aşama 5, final koşu, ensemble) sonuçlar çıktıkça buraya eklenecek.
