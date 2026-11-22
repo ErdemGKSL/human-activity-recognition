@@ -39,10 +39,43 @@ JSON'daki `labels` alanından okunur; Türkçe adlar `Signal.kt` içindeki tablo
 Birim test (`GruModelTest`) Kotlin çıkarımını modelin `test_vectors` alanındaki PyTorch
 logit'leriyle karşılaştırır (mutlak hata < 1e-3). Yeni model bu testi geçmeden APK üretilmez.
 
+## Kalibrasyon
+
+Telefonun belde duruşu HAPT kayıtlarındakinden farklı olabilir, bu yüzden önce kalibrasyon
+yapılır. Telefon belde dik takılıyken "Kalibrasyon" düğmesine basılır ve üç adım sırayla
+izlenir: ayakta, otururken, sırtüstü yatarken. Her adımda hazırlık (ayakta 5 sn, oturma 6 sn, yatma 12 sn), bip, 8 sn kayıt ve
+yine bip vardır; kayıt sırasında kıpırdanmaz. Kayıtların ilk 1,5 sn'si atılır. İptal düğmesi,
+geri tuşu ya da uygulamanın arka plana geçmesi kalibrasyonu iptal eder. Kalibrasyon sırasında
+canlı çıkarım durur.
+
+Yöntem: her duruşun telefon çerçevesindeki ortalama ivmesi (g, ham eksenler) HAPT eğitim
+kişilerinin aynı duruştaki ortalama yerçekimi vektörüne en iyi eşleyen dönme R ile hizalanır
+(Wahba problemi, ağırlıklar ayakta 1, oturma 1, yatma 2; quaternion tabanlı Davenport/Horn
+çözümü, `Calibration.kt`). Sonra a_hapt = R a_app ivmeye ve gyro'ya aynı şekilde uygulanır.
+
+Sonuç ekranı, kayıtları R ile döndürüp GRU'yu 128'lik window'larla (adım 64) çalıştırır ve her
+duruş için doğru window sayısını, R'yi ve kaliteyi gösterir. Üç duruşta da oran en az %60 ve
+ayakta ortalama ivme 0,8-1,2 g ise kalite "İyi"dir; R `SharedPreferences`'a kaydedilir ve
+eksen eşlemede "Kalibre edilmiş" seçilir. Aksi halde "Düşük güven" ve olası neden yazılır;
+sonuç ancak "Yine de kullan" ile uygulanır. Kayıtlı kalibrasyon açılışta varsayılan seçilir;
+8 hazır seçenek yedek olarak kalır.
+
+Simülasyonda (`experiments/calib_sim2.py`: HAPT test kullanıcıları, rastgele ayrık ve sürekli
+telefon duruşları) 6 sınıflı window doğruluğu bu yöntemle 0,958-0,968, gerçek dönmeyi bilen
+oracle ile 0,972-0,974, kalibrasyonsuz 0,23 oldu. Birim test (`CalibrationTest`), HAPT test
+kullanıcısı 2'nin bilinen bir dönmeyle çevrilmiş gerçek window'larında (`calib_testdata.json`,
+`experiments/make_calib_testdata.py`) Python sonucuyla aynı R'yi bulduğunu denetler.
+
+Sınırlamalar: kalibrasyon gerçek bir telefonda denenmedi. HAPT'taki "yatma" sınıfı farklı
+yatış pozlarının ortalamasıdır; sırtüstü yatmanın bu ortalamaya yakın olduğu bir varsayımdır.
+Kalibrasyondaki doğru window sayısı yalnızca o kısa kayıtlar içindir.
+
 ## Sensör ve eksenler
 
 - Girdi: [acc_x, acc_y, acc_z (g), gyro_x, gyro_y, gyro_z (rad/s)], HAPT eksen çerçevesinde.
   Accelerometer m/s² verir ve 9,80665'e bölünür; gyroscope zaten rad/s'dir.
+- Eşleme genel bir 3x3 matristir (`AxisMapping`): "Kalibre edilmiş" seçeneği R'yi, hazır
+  seçenekler aşağıdaki işaretli eksen matrislerini tutar.
 - Telefon dik tutulunca yerçekimi +y'de okunur, HAPT'ta ayakta dururken +x'tedir: her seçenekte
   x_h = +y_a. (y_h, z_h) için 8 seçenek vardır, [1] = (−x_a, +z_a) varsayılandır.
 - [1], [3], [5], [8] gerçek dönmelerdir (det +1) ve gyro'ya aynı matris uygulanır. [2], [4],
@@ -56,8 +89,8 @@ logit'leriyle karşılaştırır (mutlak hata < 1e-3). Yeni model bu testi geçm
 - Uygulama yalnızca derlendi ve imzalandı. Bir telefonda ya da emülatörde çalıştırılmadı.
 - Model UCI HAPT verisiyle eğitildi (bele takılı Samsung Galaxy S II, 50 Hz). Farklı konum,
   cihaz ve sensörlerde doğruluk düşebilir; projede ölçülen test sonucu telefonda geçerli değildir.
-- Doğru eksen eşlemesi denemeyle bulunur: ayakta dururken STANDING, otururken SITTING
-  görülmelidir.
+- Kalibrasyon işe yaramazsa doğru eksen eşlemesi hazır seçeneklerle denenerek bulunur: ayakta
+  dururken STANDING, otururken SITTING görülmelidir.
 
 ## Uygulamadaki model
 

@@ -4,72 +4,88 @@ package com.example.hardemo
 const val STANDARD_GRAVITY = 9.80665f
 
 /**
- * Maps Android device axes (a) to the HAPT frame (h). Always x_h = +y_a, because a phone held
- * upright (portrait) reads gravity on +y while HAPT reads it on +x when standing. The (y_h, z_h)
- * pair is chosen by the user, since the real mounting is unknown.
- *
- * Each row of [m] says which device axis (0=x, 1=y, 2=z) and sign feeds that HAPT axis.
+ * Maps Android device axes (a) to the HAPT frame (h) with a 3x3 matrix M (row-major [matrix]).
  * Acceleration (a polar vector) maps as h = M a. Angular rate is an axial vector, so it maps as
- * h = det(M) M w: for the four proper rotations (det +1, the default among them) this is the same
- * matrix; for the four mirror options (det -1) the gyro sign flips so that it stays consistent
- * with the accelerometer under the same mirrored frame.
+ * h = det(M) M w: for proper rotations (det +1) this is the same matrix; for a mirror (det -1)
+ * the gyro sign flips so that it stays consistent with the accelerometer in the same frame.
+ *
+ * Two kinds exist. The eight presets ([ALL]) always use x_h = +y_a, because a phone held upright
+ * (portrait) reads gravity on +y while HAPT reads it on +x when standing; the (y_h, z_h) pair is
+ * picked by the user. Four of them are mirrors (det -1), the only case where the gyro flips.
+ * [calibrated] wraps the rotation R found by the calibration (always det +1).
  */
-class AxisMapping(val id: Int, private val yAxis: Int, private val ySign: Int, private val zAxis: Int, private val zSign: Int) {
+class AxisMapping private constructor(val id: Int, m: DoubleArray, private val presetLabel: String?) {
+    /** Row-major M as floats, used on the sensor thread every 20 ms. */
+    val matrix: FloatArray = FloatArray(9) { m[it].toFloat() }
     val det: Int
+    private val gyroMatrix: FloatArray
 
     init {
-        // rows: r1 = e_y, r2 = ySign * e_yAxis, r3 = zSign * e_zAxis
-        val r1 = intArrayOf(0, 1, 0)
-        val r2 = IntArray(3).also { it[yAxis] = ySign }
-        val r3 = IntArray(3).also { it[zAxis] = zSign }
-        val cx = r2[1] * r3[2] - r2[2] * r3[1]
-        val cy = r2[2] * r3[0] - r2[0] * r3[2]
-        val cz = r2[0] * r3[1] - r2[1] * r3[0]
-        det = r1[0] * cx + r1[1] * cy + r1[2] * cz
-        require(det == 1 || det == -1) { "axis mapping $id is not orthonormal" }
+        require(m.size == 9 && m.all { it.isFinite() }) { "axis mapping $id needs 9 finite entries" }
+        require(Mat3.orthonormalityError(m) < 1e-3) { "axis mapping $id is not orthonormal" }
+        det = if (Mat3.det(m) > 0) 1 else -1
+        gyroMatrix = FloatArray(9) { matrix[it] * det }
     }
+
+    val isCalibrated: Boolean get() = id == CALIBRATED_ID
 
     /** Writes the mapped acc (g) into out[offset..offset+2] from raw m/s^2 values in [v]. */
     fun mapAcc(v: FloatArray, out: FloatArray, offset: Int) {
-        map(v, out, offset, 1f / STANDARD_GRAVITY)
+        map(matrix, v, out, offset, 1f / STANDARD_GRAVITY)
     }
 
     /** Writes the mapped gyro (rad/s, no unit change) into out[offset..offset+2]. */
     fun mapGyro(v: FloatArray, out: FloatArray, offset: Int) {
-        map(v, out, offset, det.toFloat())
+        map(gyroMatrix, v, out, offset, 1f)
     }
 
-    private fun map(v: FloatArray, out: FloatArray, offset: Int, scale: Float) {
-        out[offset] = v[1] * scale
-        out[offset + 1] = ySign * v[yAxis] * scale
-        out[offset + 2] = zSign * v[zAxis] * scale
+    // The sum is formed before scaling, so presets (entries 0/±1) give exactly ±v[k] * scale.
+    private fun map(mm: FloatArray, v: FloatArray, out: FloatArray, offset: Int, scale: Float) {
+        val x = v[0]
+        val y = v[1]
+        val z = v[2]
+        for (r in 0 until 3) out[offset + r] = (mm[r * 3] * x + mm[r * 3 + 1] * y + mm[r * 3 + 2] * z) * scale
     }
 
     val label: String
-        get() {
-            fun term(sign: Int, axis: Int) = (if (sign > 0) "+" else "−") + "xyz"[axis]
-            val base = "[$id] x=+y, y=${term(ySign, yAxis)}, z=${term(zSign, zAxis)}"
-            return when {
-                id == 1 -> "$base (varsayılan)"
-                det < 0 -> "$base (ayna)"
-                else -> base
-            }
+        get() = when {
+            presetLabel == null -> MappingChoices.CALIBRATED_LABEL
+            id == 1 -> "$presetLabel (varsayılan)"
+            det < 0 -> "$presetLabel (ayna)"
+            else -> presetLabel
         }
 
     companion object {
+        const val CALIBRATED_ID = 0
         private const val X = 0
         private const val Z = 2
 
+        /** Preset: x_h = +y_a, y_h = ySign * a[yAxis], z_h = zSign * a[zAxis]. */
+        fun preset(id: Int, yAxis: Int, ySign: Int, zAxis: Int, zSign: Int): AxisMapping {
+            val m = DoubleArray(9)
+            m[1] = 1.0
+            m[3 + yAxis] = ySign.toDouble()
+            m[6 + zAxis] = zSign.toDouble()
+            fun term(sign: Int, axis: Int) = (if (sign > 0) "+" else "−") + "xyz"[axis]
+            return AxisMapping(id, m, "[$id] x=+y, y=${term(ySign, yAxis)}, z=${term(zSign, zAxis)}")
+        }
+
+        /** The calibration result R (a_hapt = R a_app); must be a proper rotation. */
+        fun calibrated(r: DoubleArray): AxisMapping {
+            require(Mat3.isProperRotation(r)) { "calibration matrix is not a proper rotation" }
+            return AxisMapping(CALIBRATED_ID, r, null)
+        }
+
         /** The eight (y_h, z_h) options, numbered as in the README; [1] is the default. */
         val ALL: List<AxisMapping> = listOf(
-            AxisMapping(1, X, -1, Z, +1),
-            AxisMapping(2, X, +1, Z, +1),
-            AxisMapping(3, X, +1, Z, -1),
-            AxisMapping(4, X, -1, Z, -1),
-            AxisMapping(5, Z, +1, X, +1),
-            AxisMapping(6, Z, -1, X, +1),
-            AxisMapping(7, Z, +1, X, -1),
-            AxisMapping(8, Z, -1, X, -1),
+            preset(1, X, -1, Z, +1),
+            preset(2, X, +1, Z, +1),
+            preset(3, X, +1, Z, -1),
+            preset(4, X, -1, Z, -1),
+            preset(5, Z, +1, X, +1),
+            preset(6, Z, -1, X, +1),
+            preset(7, Z, +1, X, -1),
+            preset(8, Z, -1, X, -1),
         )
     }
 }

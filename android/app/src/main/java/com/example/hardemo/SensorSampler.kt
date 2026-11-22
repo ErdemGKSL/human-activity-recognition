@@ -14,8 +14,12 @@ import android.os.SystemClock
  * 6-channel HAPT-frame sample into a [WindowBuffer].
  *
  * Threading: sensor callbacks, the tick and every piece of mutable state live on one
- * HandlerThread, so the buffer needs no locks. [start]/[stop]/[setMapping] only post to it.
- * Callbacks ([onWindow], [onStats]) run on that thread; the caller hands work off from there.
+ * HandlerThread, so the buffer needs no locks. [start]/[stop]/[setMapping]/[record] only post
+ * to it. Callbacks ([onWindow], [onStats], record's onDone) run on that thread; the caller hands
+ * work off from there.
+ *
+ * Calibration mode ([start] with live = false) runs the same 50 Hz grid but emits no windows;
+ * [record] then captures raw phone-frame samples (acc in g, gyro in rad/s, no axis mapping).
  */
 class SensorSampler(
     private val sm: SensorManager,
@@ -38,6 +42,10 @@ class SensorSampler(
     private var haveAcc = false
     private var haveGyro = false
     private var running = false
+    private var live = true
+    private var rec: FloatArray? = null
+    private var recCount = 0
+    private var recDone: ((FloatArray) -> Unit)? = null
     private var mapping = AxisMapping.ALL[0]
     private var generation = 0
 
@@ -74,10 +82,13 @@ class SensorSampler(
             val now = SystemClock.uptimeMillis()
             // Start the grid only once both sensors have reported, so no window starts with zeros.
             if (haveAcc && haveGyro) {
-                mapping.mapAcc(lastAcc, sample, 0)
-                mapping.mapGyro(lastGyro, sample, 3)
-                val w = buffer.push(sample)
-                if (w != null) onWindow(generation, w)
+                if (live) {
+                    mapping.mapAcc(lastAcc, sample, 0)
+                    mapping.mapGyro(lastGyro, sample, 3)
+                    val w = buffer.push(sample)
+                    if (w != null) onWindow(generation, w)
+                }
+                recordTick()
                 ticks++
             }
             if (now - statsStart >= 1000) {
@@ -98,10 +109,11 @@ class SensorSampler(
         }
     }
 
-    fun start(newGeneration: Int) = handler.post {
+    fun start(newGeneration: Int, liveWindows: Boolean = true) = handler.post {
         if (running) return@post
         generation = newGeneration
         resetState()
+        live = liveWindows
         running = true
         sm.registerListener(listener, acc, SAMPLING_US, 0, handler)
         sm.registerListener(listener, gyro, SAMPLING_US, 0, handler)
@@ -125,6 +137,40 @@ class SensorSampler(
         buffer.clear()
     }
 
+    /**
+     * Captures the next [samples] grid samples as raw [acc_x, acc_y, acc_z (g), gyro_x, gyro_y,
+     * gyro_z (rad/s)] in the phone frame, then calls [onDone] on the sensor thread. A new call
+     * replaces a pending one; [stop] and [cancelRecording] drop it without calling [onDone].
+     */
+    fun record(samples: Int, onDone: (FloatArray) -> Unit) = handler.post {
+        rec = FloatArray(samples * 6)
+        recCount = 0
+        recDone = onDone
+    }
+
+    fun cancelRecording() = handler.post { clearRecording() }
+
+    private fun recordTick() {
+        val r = rec ?: return
+        val o = recCount * 6
+        for (c in 0 until 3) {
+            r[o + c] = lastAcc[c] / STANDARD_GRAVITY
+            r[o + 3 + c] = lastGyro[c]
+        }
+        recCount++
+        if (recCount * 6 == r.size) {
+            val cb = recDone
+            clearRecording()
+            cb?.invoke(r)
+        }
+    }
+
+    private fun clearRecording() {
+        rec = null
+        recCount = 0
+        recDone = null
+    }
+
     fun quit() {
         stop()
         thread.quitSafely()
@@ -132,6 +178,7 @@ class SensorSampler(
 
     private fun resetState() {
         buffer.clear()
+        clearRecording()
         haveAcc = false
         haveGyro = false
         ticks = 0
