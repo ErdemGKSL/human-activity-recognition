@@ -11,8 +11,6 @@ Final Results raporunun "izlenen yol" bölümü bu dosyadan yazılır. Her adım
 - Gözlem: transition sınıfları en zayıf (F1 0,43 ile 0,77); SITTING/STANDING ham modellerde zayıf.
 - Karar: ham modelleri iyileştirmek için Fable'dan strateji istendi.
 
-## Sonraki adımlar
-
 ## Adım 1: Danışmanlık (Fable) ve yöntem düzeltmesi
 
 Fable koddan şu teşhisleri çıkardı (tahmindir, ölçüm değil):
