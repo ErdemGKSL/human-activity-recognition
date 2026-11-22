@@ -81,6 +81,7 @@ slide-directions/         @har/slide-directions — presenter guides
   src/directions/           one guide per deck id (data)
   src/DirectionsDocument.tsx, src/build.tsx   guide layout; slide thumbnails via @pptx/renderer
   output/                   generated PDFs, gitignored
+android/                  Kotlin live HAR demo app (GRU in pure Kotlin, model.json from experiments/har/export.py); see android/README.md
 ```
 
 Inside `slides/`:

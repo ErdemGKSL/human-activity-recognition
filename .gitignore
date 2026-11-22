@@ -23,3 +23,12 @@ output/
 experiments/.venv/
 experiments/data/
 __pycache__/
+
+# Android demo (android/)
+android/local.properties
+android/.gradle/
+android/build/
+android/app/build/
+android/keystore/
+android/dist/
+android/.kotlin/
