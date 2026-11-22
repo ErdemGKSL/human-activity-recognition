@@ -333,7 +333,10 @@ export function Figure({
   return (
     <div style={{ ...column, gap: 4, alignItems: "center", breakInside: "avoid" }}>
       <img src={src} style={{ width, height: Math.round(width / aspect) }} alt={caption} />
-      <Caption>{caption}</Caption>
+      {/* Stretched so a long caption wraps instead of overflowing the centred column. */}
+      <div style={{ display: "flex", alignSelf: "stretch", justifyContent: "center" }}>
+        <Caption>{caption}</Caption>
+      </div>
     </div>
   );
 }
