@@ -15,6 +15,21 @@ for it in get("cv")["content"]:
     if it["name"].endswith((".json",)):
         (out / it["name"]).write_text(get("cv/" + it["name"])["content"]); n += 1
 print(n, "json indirildi")
+# final koşu çıktıları (json + olasılık npz); ikili dosya base64 gelir
+import base64
+fin = repo / "experiments/results2/final"
+try:
+    items = get("final")["content"]
+except Exception:
+    items = []
+m = 0
+for it in items:
+    if it["name"].endswith(".json"):
+        fin.mkdir(parents=True, exist_ok=True); (fin / it["name"]).write_text(get("final/" + it["name"])["content"]); m += 1
+    elif it["name"].endswith(".npz"):
+        r = json.load(urllib.request.urlopen(urllib.request.Request(f"{base}/api/contents/content/exp/final/{it['name']}?content=1&format=base64", headers=H), timeout=120))
+        fin.mkdir(parents=True, exist_ok=True); (fin / it["name"]).write_bytes(base64.b64decode(r["content"])); m += 1
+print(m, "final dosyası indirildi")
 sh = lambda c: subprocess.run(c, shell=True, cwd=repo, capture_output=True, text=True)
 sh("bun run format")
 sh("git add -A && git commit -q -m 'experiments: Colab sonuç eşitleme\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_011osUpAGK1YXek1b27SP9Xb'")

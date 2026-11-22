@@ -85,3 +85,22 @@ Kod: `train2.py` final modunda test kişilerini kaydeder; CV'de `--save-oof` ile
 ### Dondurma planı (test koşusundan önce kesinleşecek)
 
 Birincil metrik: test macro F1. Bootstrap: kişi bazlı (9 test kişisi, B=2000, percentile %95 GA), model farkları için eşleştirilmiş. Tekil model ortalaması ± std (10 seed) ve 10 seed olasılık ortalaması ensemble. Seed'ler 2'şerli parçalarla koşulur. Yapılandırmalar kapanış kolları bitince buraya yazılacak.
+
+## Adım 4: Kapanış CV ve DONDURMA (22.11, final koşudan önce)
+
+Kapanış CV sonuçları (OOF macro F1, 3 seed, `results2/ablation.md`): d2_lstm 0,857 ± 0,005; d2_gru 0,845 ± 0,007; k2_mlpraw (MLP-raw + d2 düzeni: gravity, yoğun window, augmentasyon) 0,840 ± 0,004; MLP feature gürültüsü (k3, k4) 0,843-0,845 (yardım etmedi); k5 referans. d2 koşuları T4'te yeniden koşuldu; L4'teki ilk seed'lerle aynı düzeyde (LSTM 0,864 vs 0,862; GRU 0,850 vs 0,858).
+
+Bulgular (CV, tablo işaretiyle rapora girecek):
+- Augmentasyon tek başına CNN'e +0,017 verdi (c1 0,833 → k1 0,849); yoğun window eklemek +0,006 daha (d2 0,855), gürültü bandında.
+- Aynı MLP ham girdiyle augmentasyonsuz 0,803-0,808; augmentasyon ve yoğun window'la 0,840. Yani ham girdideki kazancın büyük kısmı mimariden değil eğitim düzeninden geliyor; 561 feature'lı MLP'nin tavanı 0,845. Ham MLP ile feature MLP arasındaki fark 0,005'e indi (CV'de gürültü bandında). "MLP'nin üstünlüğü hazır feature'lardan geliyor" iddiası yalnızca augmentasyonsuz karşılaştırma için geçerlidir; bu bölüm raporda böyle yazılacak.
+
+### Dondurulan yapılandırmalar (CV'de seçildi; bundan sonra değişmez)
+Ortak: son epoch modeli (erken durdurma yok), 21 eğitim kişisinin tamamıyla eğitim, standardizasyon eğitim istatistiğiyle, AdamW, batch 128, dropout 0,3, class-weighted loss (full), `train2.py --mode final`, `--out /content/exp/final`, 10 seed (0-9) 2'şerli parçalarla.
+- **MLP (561 feature):** a1a: `--epochs 100 --lr 1e-3 --warmup 3 --clip 1` (a1e sqrt ağırlıkla eşit olduğundan ortak ayara sahip a1a seçildi).
+- **1D CNN:** d2_cnn: `--variant deep --gravity --aug --tstep 16 --epochs 40 --lr 2e-3 --warmup 2 --clip 1` (e1s sqrt ağırlık 0,858 ile eşit; gürültü bandı, tutarlılık için class weight full).
+- **LSTM:** d2_lstm: `--pool meanmax --bidir --gravity --aug --tstep 16 --epochs 40 --lr 2e-3 --warmup 2 --clip 1`.
+- **GRU:** d2_gru: `--pool meanmax --bidir --aug --tstep 16 --epochs 40 --lr 2e-3 --warmup 2 --clip 1` (gravity yok: CV'de GRU'da yardım etmedi).
+- **Kontrol:** MLP-raw: `--model mlpraw --gravity --aug --tstep 16 --epochs 40 --lr 2e-3 --warmup 2 --clip 1`.
+
+### Analiz planı (önceden ilan edilmiş)
+Birincil metrik: test macro F1. Tekil model: 10 seed ortalaması ± std. Ensemble: 10 seed olasılığının ortalaması. %95 GA: kişi bazlı bootstrap (9 test kişisi yerine koymalı, B=2000, percentile). Model farkı: aynı kişi çekilişlerinde eşleştirilmiş Δ macro F1 (model - MLP). İddia eşiği: "ham model MLP'yi geçti" yalnızca Δ GA'sı sıfırı dışlar VE CV'de aynı yön olursa; aksi halde "karşılaştırılabilir düzeyde". Araç: `analyze_final.py`. Test bir kez koşulur; sonrasında denenen her şey "keşif amaçlı" etiketiyle ayrı yazılır. CV ve test değerleri raporda yan yana verilir, ama iki protokol (16 kişi + en iyi validation epoch'u ile baseline testi; 21 kişi + sabit epoch ile final) ayrı tablolarda durur.
