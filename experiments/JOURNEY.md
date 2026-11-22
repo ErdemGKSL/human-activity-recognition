@@ -104,3 +104,30 @@ Ortak: son epoch modeli (erken durdurma yok), 21 eğitim kişisinin tamamıyla e
 
 ### Analiz planı (önceden ilan edilmiş)
 Birincil metrik: test macro F1. Tekil model: 10 seed ortalaması ± std. Ensemble: 10 seed olasılığının ortalaması. %95 GA: kişi bazlı bootstrap (9 test kişisi yerine koymalı, B=2000, percentile). Model farkı: aynı kişi çekilişlerinde eşleştirilmiş Δ macro F1 (model - MLP). İddia eşiği: "ham model MLP'yi geçti" yalnızca Δ GA'sı sıfırı dışlar VE CV'de aynı yön olursa; aksi halde "karşılaştırılabilir düzeyde". Araç: `analyze_final.py`. Test bir kez koşulur; sonrasında denenen her şey "keşif amaçlı" etiketiyle ayrı yazılır. CV ve test değerleri raporda yan yana verilir, ama iki protokol (16 kişi + en iyi validation epoch'u ile baseline testi; 21 kişi + sabit epoch ile final) ayrı tablolarda durur.
+
+## Adım 5: Final test sonuçları (dondurulmuş düzen, test kümesine ilk ve tek koşu)
+
+Kaynak: `results2/final/summary.md` (tablolar), `summary.json`, `confusion_*.png`, `delta_vs_mlp.png`; üretici `analyze_final.py`. 21 eğitim kişisi, son epoch, 10 seed (0-9), 9 test kişisi. Test örnek sayıları: MLP 3.162; ham modeller 3.124 (farklı küme). Seed'ler birden çok Colab runtime'ında ve parçalar halinde koşuldu (runtime'lar defalarca düştü; düşen parçalar aynı bayraklar ve aynı seed'lerle yeniden koşuldu, seed başına `manual_seed` kullanıldığı için tasarım gereği aynı sonucu verir, ancak T4/L4 farkı küçük sayısal sapma yaratabilir).
+
+| Model | Macro F1 (10 seed, ort. ± std) | Ensemble macro F1 | Ensemble %95 GA (kişi bootstrap) | Accuracy (seed ort.) |
+|---|---|---|---|---|
+| MLP (561 feature) | 0,860 ± 0,004 | 0,864 | [0,823; 0,899] | 0,940 |
+| MLP-raw (kontrol) | 0,862 ± 0,006 | 0,862 | [0,793; 0,907] | 0,914 |
+| 1D CNN | 0,894 ± 0,011 | 0,921 | [0,888; 0,947] | 0,966 |
+| LSTM | 0,898 ± 0,010 | 0,928 | [0,888; 0,955] | 0,964 |
+| GRU | 0,888 ± 0,008 | 0,921 | [0,874; 0,951] | 0,958 |
+
+Eşleştirilmiş Δ macro F1 (model - MLP, ensemble, kişi bazlı bootstrap, B=2000): MLP-raw -0,005 [-0,055; +0,043]; 1D CNN +0,056 [+0,026; +0,093]; LSTM +0,063 [+0,029; +0,097]; GRU +0,055 [+0,024; +0,086].
+
+### İddia eşiğinin uygulanması (önceden ilan edilen kural: Δ GA'sı sıfırı dışlar VE CV aynı yönde)
+- **1D CNN ve LSTM:** testte GA sıfırı dışlıyor; CV'de de aynı yön (CNN +0,010, LSTM +0,012). Eşik karşılandı: "ham sinyal modelleri bu veri setinde, bu düzenle MLP'den daha yüksek test macro F1 verdi" yazılabilir. Ek notlar: CV farkları tek başına gürültü bandındaydı (0,01 civarı), test farkı (≈0,06) CV'den büyük; 9 test kişisiyle GA geniş ve biraz iyimser.
+- **GRU:** testte GA sıfırı dışlıyor (+0,055) ama CV'de fark yok (0,845 ve 0,845). Eşik karşılanmadı: iddia "testte MLP'den yüksek, CV'de ayırt edilemez" biçiminde ihtiyatla yazılır, güçlü bir üstünlük iddiası yapılmaz.
+- **MLP-raw (augmentasyon + yoğun window):** MLP ile ayırt edilemez (Δ -0,005, GA sıfırı kapsıyor), ama accuracy'si belirgin düşük (0,914 ve 0,940) ve SITTING/STANDING'de zayıf (F1 0,80 ve 0,84). Yani macro F1 eşitliği transition sınıflarındaki iyi sonuçlardan (MLP-raw transition 0,801; MLP 0,776) geliyor, temel aktivitelerde değil.
+
+### Diğer gözlemler (yorum, kanıt düzeyleri belirtilerek)
+- **Sınıf bazlı:** ham modeller transition sınıflarında MLP'den yüksek (transition ortalama F1: MLP 0,776; CNN 0,863; LSTM 0,874; GRU 0,858) ve temel aktivitelerde de (aktivite ortalaması: MLP 0,952; CNN 0,979; LSTM 0,982; GRU 0,984). En zayıf sınıflar yine SIT_TO_LIE (0,69-0,79) ve STAND_TO_LIE (0,72-0,79). Transition sınıfları test kümesinde çok az örneğe dayanır (toplam yaklaşık 160 window), bu yüzden sınıf bazlı farklar kesin yorumlanmaz.
+- **Ensemble:** 10 seed'in olasılık ortalaması ham modellerde tekil seed ortalamasından +0,03 yüksek (CNN 0,894 → 0,921), MLP'de +0,004. Raporda tekil model ve ensemble ayrı satırlarda verilir.
+- **CV ve test farkı:** Test değerleri CV'den yüksek (MLP +0,015; CNN, LSTM, GRU yaklaşık +0,04). Olası açıklamalar: final modeller 21 kişiyle (CV'de 16 kişi) eğitildi; ham modeller ek kişiden daha çok yararlanıyor olabilir; test kişileri CV kişilerinden kolay olabilir. Hangisinin etkili olduğu bu deneylerle ayrılamıyor, ayrı ayrı ölçülmedi.
+- **Önceki baseline testi ile karşılaştırma yapılmaz:** iki protokol farklı (baseline: 16 kişi + validation'a göre en iyi epoch, ayarsız; final: 21 kişi + sabit epoch, ayarlı). Baseline testi "ilk sonuçlar" tablosunda, final "son düzen" tablosunda durur.
+
+Bu noktadan sonra yapılan her deney "keşif amaçlı" etiketiyle ayrı yazılır; dondurulmuş düzen ve bu sonuçlar değişmez.
