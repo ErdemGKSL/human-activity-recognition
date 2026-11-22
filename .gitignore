@@ -20,3 +20,6 @@ output/
 
 # Agent worktrees (Claude Code isolation)
 .claude/worktrees/
+experiments/.venv/
+experiments/data/
+__pycache__/
