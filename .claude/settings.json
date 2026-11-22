@@ -6,7 +6,17 @@
       "Bash(bun test:*)",
       "Bash(bun install)",
       "Bash(uv sync)",
-      "Bash(git submodule update:*)"
+      "Bash(git submodule update:*)",
+      "mcp__colab-claude__get_subscription",
+      "mcp__colab-claude__list_runtime_specs",
+      "mcp__colab-claude__list_runtimes",
+      "mcp__colab-claude__create_runtime",
+      "mcp__colab-claude__get_runtime",
+      "mcp__colab-claude__execute_code",
+      "mcp__colab-claude__create_session",
+      "mcp__colab-claude__list_sessions",
+      "mcp__colab-claude__delete_session",
+      "mcp__colab-claude__delete_runtime"
     ],
     "deny": ["Edit(slides/vendor/**)", "Write(slides/vendor/**)"]
   },
