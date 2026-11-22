@@ -68,3 +68,20 @@ Her satır: ne yaptık, ne oldu, hangi karar çıktı. Rapor bölümü bu sıray
 14. **Altyapı olayı 2.** Colab runtime'ı yaklaşık 1 saat 50 dakika sonra, düzenli poll'a rağmen yeniden silindi (ilki yaklaşık 40 dakika sonra, poll'suz boşta). Çıkarım: düzenli poll tek başına yeterli değil, runtime ömrü sınırlı olabilir (doğrulanmadı). Karar: işler kısa parçalara bölünür, çıktılar her kontrolde indirilir; d2_lstm, d2_gru ve Aşama 5 koşuları yeni runtime'da yeniden başlatıldı.
 
 Sonraki satırlar (Aşama 5, final koşu, ensemble) sonuçlar çıktıkça buraya eklenecek.
+
+## Ara değerlendirme 2 (Fable, 22.11): yön değişmiyor, keşif kapanıyor
+
+Fable (tüm CV tablosu ve kod okunarak) şunu bildirdi (özet; değerlendirme, ölçüm değil):
+
+- **Gürültünün çok üstünde:** girdi temsili etkisi (aynı MLP ham girdiyle 0,803-0,808, 561 feature ile 0,845); baseline'ın eksik ayarlı olması; yoğun window + augmentasyonun CNN'e katkısı (0,823 → 0,855, özellikle SITTING/STANDING). CNN temel aktivitelerde MLP'den iyi, transition'da eşit.
+- **Gürültüde:** CNN 0,855 ile MLP 0,845 farkı (yaklaşık 1,5 sigma, kişi örneklemesi hariç); tek seed'lik BiLSTM/BiGRU değerleri; gravity ve bidir/meanmax gibi ara tercihler.
+- **Yapısal zayıflıklar:** seed std'si kişi belirsizliğini içermiyor (21 CV, 9 test kişisi; 471 transition window'u); MLP ve ham modellerin değerlendirme kümeleri farklı; adım 64 + augmentasyon hücresi eksikti (bu yüzden "augmentasyon ana kazanç" iddiası kapanış kolu k1_cnn'e bağlı).
+- **Karar:** Keşif 23.11 akşamı kapanır; yapılandırmalar ve analiz planı dondurulur (aşağıdaki plan, test koşusundan ÖNCE commit edilir); test bir kez koşulur; sonrası "keşif amaçlı" diye ayrı yazılır. "Ham modeller MLP'yi geçti" iddiası yalnızca testte eşleştirilmiş kişi bazlı bootstrap'in %95 GA'sı sıfırı dışlarsa ve CV ile aynı yöndeyse yazılır; aksi halde "karşılaştırılabilir düzeyde".
+
+Kapanış kolları (CV): k1_cnn (adım 64 + augmentasyon), k2_mlpraw (MLP-raw + d2 düzeni), k3/k4 (MLP + feature gürültüsü 0,1 ve 0,3), k5 (referans). Ayrıca e1s_cnn (class weight sqrt, d2 düzeni): 0,858 ± 0,003 (d2_cnn 0,855 ± 0,010); fark gürültüde, varyans düşük.
+
+Kod: `train2.py` final modunda test kişilerini kaydeder; CV'de `--save-oof` ile OOF tahminlerini kaydeder; `--noise` MLP için feature-uzayı gürültüsüdür.
+
+### Dondurma planı (test koşusundan önce kesinleşecek)
+
+Birincil metrik: test macro F1. Bootstrap: kişi bazlı (9 test kişisi, B=2000, percentile %95 GA), model farkları için eşleştirilmiş. Tekil model ortalaması ± std (10 seed) ve 10 seed olasılık ortalaması ensemble. Seed'ler 2'şerli parçalarla koşulur. Yapılandırmalar kapanış kolları bitince buraya yazılacak.

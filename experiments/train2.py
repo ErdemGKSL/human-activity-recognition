@@ -37,6 +37,8 @@ p.add_argument("--pool", choices=["last", "meanmax"], default="last")
 p.add_argument("--bidir", action="store_true")
 p.add_argument("--variant", default="base")
 p.add_argument("--min-frac", type=float, default=0.9)
+p.add_argument("--noise", type=float, default=0.0, help="MLP için standardize feature uzayında Gauss gürültüsü (std birimi)")
+p.add_argument("--save-oof", action="store_true", help="CV modunda OOF tahminlerini ve kişi etiketlerini kaydet")
 a = p.parse_args()
 
 dev = "cuda" if torch.cuda.is_available() else "cpu"
@@ -46,7 +48,7 @@ test_users = np.unique(sf_te)
 train_users = np.unique(sf_tr)
 c_in = 9 if a.gravity else 6
 if a.model == "mlp":
-    D = dict(Xtr=Xf_tr, ytr=yf_tr, str_=sf_tr, Xev=Xf_tr, yev=yf_tr, sev=sf_tr, Xte=Xf_te, yte=yf_te)
+    D = dict(Xtr=Xf_tr, ytr=yf_tr, str_=sf_tr, Xev=Xf_tr, yev=yf_tr, sev=sf_tr, Xte=Xf_te, yte=yf_te, ste=sf_te)
 else:
     Xg, yg, sg = data.build_windows(raw, a.min_frac, 64, a.gravity)
     if a.tstep != 64:
@@ -55,7 +57,7 @@ else:
         Xd, yd, sd = Xg, yg, sg
     ng, nd = ~np.isin(sg, test_users), ~np.isin(sd, test_users)
     D = dict(Xtr=Xd[nd], ytr=yd[nd], str_=sd[nd], Xev=Xg[ng], yev=yg[ng], sev=sg[ng],
-             Xte=Xg[~ng], yte=yg[~ng])
+             Xte=Xg[~ng], yte=yg[~ng], ste=sg[~ng])
 T = lambda x, dt=torch.float32: torch.tensor(x, dtype=dt, device=dev)  # noqa: E731
 
 
@@ -101,6 +103,8 @@ def fit_predict(Xtr, ytr, Xs, seed):
             xb = Xt[b]
             if a.aug and xb.ndim == 3:
                 xb = augment(xb)
+            if a.noise and xb.ndim == 2:
+                xb = xb + a.noise * s_ * torch.randn_like(xb)
             opt.zero_grad(); lossf(model((xb - m_) / s_), yt[b]).backward()
             if a.clip: nn.utils.clip_grad_norm_(model.parameters(), a.clip)
             opt.step(); step += 1
@@ -124,6 +128,7 @@ out = Path(a.out); out.mkdir(exist_ok=True)
 res = dict(name=a.name, args=vars(a), seeds=[], n_ev=len(D["yev"]))
 t0 = time.time()
 folds = [train_users[i::5] for i in range(5)]  # deterministik, kişi bazlı 5 fold
+oofs = []
 if a.mode == "cv":
     for seed in a.seeds:
         oof = np.zeros(len(D["yev"]), int)
@@ -135,7 +140,11 @@ if a.mode == "cv":
                 (pe,) = fit_predict(D["Xtr"][tr], D["ytr"][tr], [D["Xev"][ev]], seed)
             oof[ev] = pe.argmax(1)
         r = scores(D["yev"], oof); r["seed"] = seed; res["seeds"].append(r)
+        if a.save_oof:
+            oofs.append(oof.copy())
         print(f"{a.name} cv seed={seed} oofF1={r['macro_f1']:.4f} acc={r['accuracy']:.4f} {time.time()-t0:.0f}s", flush=True)
+    if a.save_oof:
+        np.savez_compressed(out / f"{a.name}_oof.npz", oof=np.array(oofs), y=D["yev"], subj=D["sev"])
 else:
     probs = []
     for seed in a.seeds:
@@ -145,7 +154,7 @@ else:
         print(f"{a.name} final seed={seed} testF1={r['macro_f1']:.4f} acc={r['accuracy']:.4f}", flush=True)
     ens = scores(D["yte"], np.mean(probs, 0).argmax(1)); res["ensemble"] = ens
     print(f"{a.name} ensemble testF1={ens['macro_f1']:.4f}", flush=True)
-    np.savez_compressed(out / f"{a.name}_probs.npz", probs=np.array(probs), y=D["yte"], subj=sf_te if a.model == "mlp" else D["sev"][:0])
+    np.savez_compressed(out / f"{a.name}_probs.npz", probs=np.array(probs), y=D["yte"], subj=D["ste"])
 f = np.array([r["macro_f1"] for r in res["seeds"]])
 res["mean_f1"], res["std_f1"], res["seconds"] = float(f.mean()), float(f.std()), time.time() - t0
 (out / f"{a.name}.json").write_text(json.dumps(res, indent=1))
