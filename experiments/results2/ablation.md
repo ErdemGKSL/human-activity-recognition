@@ -12,6 +12,12 @@
 | a1b_gru | gru | ep100 lr0.002 wu3 clip1 pool=last bi=0 grav=0 step=64 aug=0 cw=full var=base | 0.779 ± 0.015 | 0.909 | 0.649 |
 | a1b_lstm | lstm | ep100 lr0.002 wu3 clip1 pool=last bi=0 grav=0 step=64 aug=0 cw=full var=base | 0.797 ± 0.004 | 0.911 | 0.683 |
 | a1b_mlp | mlp | ep100 lr0.002 wu3 clip1 pool=last bi=0 grav=0 step=64 aug=0 cw=full var=base | 0.844 ± 0.003 | 0.932 | 0.756 |
+| c1_cnn | cnn | ep100 lr0.002 wu3 clip1 pool=last bi=0 grav=1 step=64 aug=0 cw=full var=deep | 0.833 ± 0.015 | 0.941 | 0.724 |
+| c1_gru | gru | ep100 lr0.002 wu3 clip1 pool=meanmax bi=1 grav=0 step=64 aug=0 cw=full var=base | 0.786 ± 0.005 | 0.914 | 0.657 |
+| d1_cnn | cnn | ep40 lr0.002 wu2 clip1 pool=last bi=0 grav=1 step=16 aug=0 cw=full var=deep | 0.823 ± 0.009 | 0.936 | 0.711 |
+| d1_gru | gru | ep40 lr0.002 wu2 clip1 pool=meanmax bi=1 grav=0 step=16 aug=0 cw=full var=base | 0.811 ± 0.014 | 0.915 | 0.707 |
+| d1_lstm | lstm | ep40 lr0.002 wu2 clip1 pool=meanmax bi=1 grav=1 step=16 aug=0 cw=full var=base | 0.817 ± 0.007 | 0.916 | 0.717 |
+| d2_cnn | cnn | ep40 lr0.002 wu2 clip1 pool=last bi=0 grav=1 step=16 aug=1 cw=full var=deep | 0.855 ± 0.010 | 0.960 | 0.750 |
 | g_cnn | cnn | ep100 lr0.001 wu3 clip1 pool=last bi=0 grav=1 step=64 aug=0 cw=full var=base | 0.827 ± 0.013 | 0.936 | 0.717 |
 | g_gru | gru | ep100 lr0.001 wu3 clip1 pool=last bi=0 grav=1 step=64 aug=0 cw=full var=base | 0.764 ± 0.009 | 0.917 | 0.610 |
 | g_lstm | lstm | ep100 lr0.001 wu3 clip1 pool=last bi=0 grav=1 step=64 aug=0 cw=full var=base | 0.781 ± 0.019 | 0.911 | 0.652 |
