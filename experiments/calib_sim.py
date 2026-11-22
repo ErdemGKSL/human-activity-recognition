@@ -68,9 +68,16 @@ def calibrate(model, mean, std, calib, acts):
         sc.append(s / n)
     return np.array(sc)
 
+def report(res):
+    for name, r in res.items():
+        r = np.array(r, dtype=float)
+        bad = (r[:, 1] < r[:, 2] - 0.05).mean()
+        print(f"  {name:12s} n={len(r)} tam eşleşme {r[:,0].mean():.3f} | seçilen M ile doğruluk {r[:,1].mean():.3f} | oracle {r[:,2].mean():.3f} | kalibrasyonsuz {r[:,3].mean():.3f} | marj medyan {np.median(r[:,4]):.2f} | oracle'dan >0,05 kötü {bad:.3f}", flush=True)
+
+
 def main():
     model, mean, std = load_model('export/gru_demo/model.json')
-    users = [2, 4, 9, 10, 12, 13, 18, 20, 24]
+    users = [int(u) for u in sys.argv[1:]] or [2, 4, 9, 10]
     data = load_users(users)
     rng = np.random.default_rng(0)
     res = {'static': [], 'static+walk': []}
@@ -93,6 +100,8 @@ def main():
                     return c / n
                 res[name].append((exact, acc(M), acc(P.T), acc(np.eye(3)), srt[0] - srt[1]))
         print('kullanıcı', u, 'tamam', flush=True)
+        report(res)
+    return
     for name, r in res.items():
         r = np.array(r, dtype=float)
         print(f"{name:12s} tam eşleşme {r[:,0].mean():.3f} | seçilen M ile doğruluk {r[:,1].mean():.3f} | oracle {r[:,2].mean():.3f} | kalibrasyonsuz (I) {r[:,3].mean():.3f} | skor marjı medyan {np.median(r[:,4]):.2f}")
