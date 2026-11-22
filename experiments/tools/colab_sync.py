@@ -4,24 +4,27 @@ base, tok = os.environ["CB"], os.environ["CT"]
 H = {"X-Colab-Runtime-Proxy-Token": tok}
 def get(path):
     return json.load(urllib.request.urlopen(urllib.request.Request(f"{base}/api/contents/content/exp{"/" + path if path else ""}?content=1", headers=H), timeout=60))
+def _safe(path):
+    """Klasör yoksa (ör. yeni runtime'da cv hiç açılmadıysa) boş liste döndür."""
+    try:
+        return get(path)["content"]
+    except Exception:
+        return []
 repo = pathlib.Path(__file__).resolve().parents[2]
-for it in get("").get("content", []):
+for it in _safe(""):
     if it["name"].endswith(".log"):
         lines = [l for l in get(it["name"])["content"].splitlines() if l.startswith("==") or "ALLDONE" in l or "Error" in l or "cv seed" in l or "final seed" in l]
         print(it["name"], "|", " || ".join(l[:60] for l in lines[-2:]))
 out = repo / "experiments/results2/cv"; out.mkdir(parents=True, exist_ok=True)
 n = 0
-for it in get("cv")["content"]:
+for it in _safe("cv"):
     if it["name"].endswith((".json",)):
         (out / it["name"]).write_text(get("cv/" + it["name"])["content"]); n += 1
 print(n, "json indirildi")
 # final koşu çıktıları (json + olasılık npz); ikili dosya base64 gelir
 import base64
 fin = repo / "experiments/results2/final"
-try:
-    items = get("final")["content"]
-except Exception:
-    items = []
+items = _safe("final")
 m = 0
 for it in items:
     if it["name"].endswith(".json"):
