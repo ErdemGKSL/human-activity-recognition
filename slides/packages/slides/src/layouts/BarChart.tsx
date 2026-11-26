@@ -5,8 +5,16 @@ import type { LayoutProps } from "../types";
 export function BarChart({ slide, ...ctx }: LayoutProps<"bar-chart">) {
   const { theme } = ctx;
   const max = Math.max(...slide.data.map((d) => d.value), 1);
-  const format = (v: number) =>
-    slide.unit === "%" ? `${v}%` : slide.unit ? `${v}${slide.unit.replace(/^\$/, "")}` : `${v}`;
+  // The deck's locale picks the decimal mark (tr-TR: 0,928). No grouping, so
+  // en-US values print exactly as before.
+  const number = new Intl.NumberFormat(ctx.deck.lang, {
+    useGrouping: false,
+    maximumFractionDigits: 3,
+  });
+  const format = (v: number) => {
+    const n = number.format(v);
+    return slide.unit === "%" ? `${n}%` : slide.unit ? `${n}${slide.unit.replace(/^\$/, "")}` : n;
+  };
   const prefix = slide.unit?.startsWith("$") ? "$" : "";
 
   return (
