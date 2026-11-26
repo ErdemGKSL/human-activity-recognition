@@ -134,7 +134,7 @@ export const finalResults: ReportDefinition = {
   id: ID,
   pdf: {
     title: `${project.title}: ${deliverable(ID, "report").title}`,
-    footerLabel: "Final Results",
+    footerLabel: "Final Sonuçları",
     authors: [...project.authors],
     images,
   },
@@ -144,53 +144,51 @@ export const finalResults: ReportDefinition = {
 
       <Section number="1" title="Giriş">
         <Paragraph>
-          Bu çalışmada, bele takılan bir akıllı telefonun accelerometer ve gyroscope sinyallerinden
-          12 sınıflı insan aktivitesi tanıma (HAR) problemi ele alındı. Sınıfların altısı temel
-          aktivite (yürüme, merdiven çıkma ve inme, oturma, ayakta durma, uzanma), altısı bu
-          duruşlar arasındaki postural transition'lardır. Veri, UCI #341 veri setinden alındı [1],
-          [2].
+          Çalışmamızda, bele takılan akıllı telefonun accelerometer ve gyroscope sinyallerinden 12
+          sınıflı insan aktivitesi tanıma problemi ele alınıyor. Sınıfların altısı temel aktivite
+          (yürüme, merdiven çıkma ve inme, oturma, ayakta durma, uzanma), altısı bu duruşlar
+          arasındaki geçişlerdir. Veri, UCI #341 veri setinden alındı.
         </Paragraph>
         <Paragraph>
-          Hedef, aynı kişi bazlı eğitim/test ayrımında dört yapay sinir ağını karşılaştırmaktı: veri
-          setinin hazır 561 feature'ını kullanan bir MLP ile ham sinyal window'larını kullanan 1D
-          CNN, LSTM ve GRU. Hazır feature'ların etkisini mimarinin etkisinden ayırmak için aynı MLP,
-          düzleştirilmiş ham girdiyle (MLP-raw) kontrol modeli olarak da eğitildi.
+          Hedef, aynı kişi bazlı eğitim ayrımında dört farklı yapay sinir ağını karşılaştırmaktı:
+          veri setinin hazır 561 feature'ını kullanan MLP ile ham sinyal window'larını kullanan 1D
+          CNN, LSTM ve GRU. Feature'ların hazır geldiğinde etkisini mimarinin etkisinden ayırmak
+          için tekrardan aynı MLP, düzleştirilmiş ham girdiyle kontrol modeli olarak da eğitildi.
         </Paragraph>
-        <Paragraph>Raporun katkıları şunlardır:</Paragraph>
+        <Paragraph>Raporun sundukları şunlardır:</Paragraph>
         <BulletList
           items={[
-            "Kişi bazlı cross-validation (CV) ile seçilen ve test koşusundan önce dondurulan düzende, 1D CNN ve LSTM test macro F1'de MLP'den yüksek sonuç verdi (ensemble 0,921 ve 0,928, MLP 0,864; Tablo 7). Eşleştirilmiş kişi bazlı bootstrap farkının %95 güven aralığı (GA) sıfırı dışladı (Tablo 8).",
+            "Kişi bazlı cross-validation ile seçilen ve test koşusundan önce dondurulan düzende, 1D CNN ve LSTM test macro F1'de MLP'den yüksek sonuç verdi (ensemble 0,921 ve 0,928, MLP 0,864; Tablo 7). Kişi bazında bootstrap farkının %95 güven aralığı sıfırı dışladı (Tablo 8).",
             "Aynı MLP'nin ham girdiyle eğitildiği kontrol deneyi, augmentasyonsuz düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğine işaret etti (CV'de 0,803-0,808 ve 0,845). Augmentasyon ve yoğun window'la bu fark 0,005'e indi (Tablo 6).",
-            "İlk baseline'dan final koşuya kadar her adım, sonucu ve verilen karar kayıt altına alındı (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için bakıldığı da bu kayıttadır (Bölüm 5.5).",
+            "İlk baselinedan finale kadar her adım, sonucu ve verilen her karar kayıt altına alındı (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için bakıldığı da buradadır (Bölüm 5.5).",
           ]}
         />
       </Section>
 
-      <Section number="2" title="Veri Ön İşleme Süreci">
+      <Section number="2" title="Veri Ön İşleme">
         <SubSection number="2.1" title="Veri seti">
           <Paragraph>
             Veri seti, yaşları 19 ile 48 arasında olan 30 gönüllüden toplandı. Gönüllüler belde bir
-            Samsung Galaxy S II taşıdı; 3 eksenli doğrusal ivme ve 3 eksenli açısal hız 50 Hz'de
-            kaydedildi ve etiketler video kaydından elle verildi [1], [2]. İvme birimi g, açısal hız
-            birimi rad/s'dir. Veri seti, kişilerin %70'i eğitim ve %30'u test olacak biçimde resmi
-            olarak ayrılmıştır (21 ve 9 kişi; Tablo 1). Bu sürüm, UCI HAR veri setinin [3] ham
-            sinyalleri ve postural transition etiketleri eklenmiş genişletilmiş hâlidir.
+            Samsung telefon taşıdı, 3 eksenli ivme ve 3 eksenli açısal hız 50 Hz'de kaydedildi ve
+            etiketler video kaydından elle verildi [1], [2]. Veri seti, kişilerin %70'i eğitim ve
+            %30'u test olacak biçimde resmi olarak ayrılmıştır (21 ve 9 kişi; Tablo 1). Bu sürüm,
+            UCI HAR veri setinin [3] ham sinyalleri ve geçiş etiketleri eklenmiş geniş hâlidir.
           </Paragraph>
         </SubSection>
         <SubSection number="2.2" title="İki girdi temsili ve window kuralı">
           <Paragraph>
-            Resmi dosyalarda her örnek, 2,56 sn'lik (128 ölçüm) ve %50 overlap'li bir window'dan
-            hesaplanmış 561 feature'lık bir vektördür; MLP bu vektörlerle eğitildi. Ancak resmi
-            dosyalar hangi satırın hangi ham window'a karşılık geldiğini vermez. Bu yüzden 1D CNN,
-            LSTM ve GRU için ham window'lar, ham sinyal ve etiket segmentlerinden
-            (RawData/labels.txt) aynı boy ve adımla (128 ölçüm, adım 64) yeniden üretildi.
+            Resmi dosyalarda her örnek, 2,56 sn'lik 128 ölçüm, ve %50 overlap'li bir window'dan
+            hesaplanmış 561 feature'lık bir vektördür, MLP de bu vektörlerle eğitildi. Ancak resmi
+            dosyalar hangi satırın hangi ham windowa denk geldiğini veremez. Bu yüzden 1D CNN, LSTM
+            ve GRU için ham window'lar, ham sinyal ve etiket segmentlerinden aynı boy ve adımla (128
+            ölçüm, adım 64) yeniden üretildi.
           </Paragraph>
           <Paragraph>
             Uygulanan kural şudur: bir window, 128 ölçümünün en az %90'ı aynı etiketli segmente
-            düşüyorsa alınır ve o etiketi taşır; aksi halde atılır. Bu kural 10.776 window üretti.
-            Resmi dosyalardaki 10.929 örneğe göre fark %1,4'tür; fark en çok transition sınıflarında
-            görülür (471 ve 518 window; Tablo 1). Sonuç olarak MLP ile ham sinyal modellerinin test
-            kümeleri aynı kişilerden gelir ama birebir aynı değildir: 3.162 ve 3.124 örnek.
+            düşüyorsa alınır ve etiketi taşır, aksi halde atılır. Bu kural 10.776 window üretti.
+            Resmi dosyalardaki 10.929 örneğe göre fark %1,4, fark en çok transition sınıflarında
+            görüldü (471 ve 518 window, Tablo 1). Sonuç olarak MLP ile ham sinyal modellerinin test
+            kümeleri aynı kişilerden gelir ama birebir aynı değillerdir: 3.162/3.124 örnek.
           </Paragraph>
           <Table
             columns={["Küme", "Resmi 561 feature (MLP)", "Üretilen ham window (ham modeller)"]}
