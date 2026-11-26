@@ -127,23 +127,23 @@ export const finalResults: ReportDefinition = {
 
       <Section number="1" title="Giriş">
         <Paragraph>
-          Bu çalışmamızda beldeki bir akıllı telefonun accelerometer ve gyroscope sinyallerinden 12
-          sınıflı insan aktivitesi tanımayı ele aldık. Sınıfların altısı temel durumlar; yürüme,
+          Bu çalışmamda beldeki bir akıllı telefonun accelerometer ve gyroscope sinyallerinden 12
+          sınıflı insan aktivitesi tanımayı ele aldım. Sınıfların altısı temel durumlar; yürüme,
           merdiven çıkma, merdiven inme, oturma, ayakta durma ve uzanma. Diğer altısıysa bu duruşlar
           arasındaki geçişler.
         </Paragraph>
         <Paragraph>
-          Hedefimiz ise dört yapay sinir ağını aynı kişi bazlı ayrımda karşılaştırmaktır. MLP veri
+          Hedefim ise dört yapay sinir ağını aynı kişi bazlı ayrımda karşılaştırmaktır. MLP veri
           setinin hazır 561 featureını kullanıyor, GRU, 1D CNN ve LSTM ise ham sinyal window'larını.
           Hazırlanmış feature'ların etkisini mimarinin etkisinden ayırmak amacıyla aynı MLP'yi
-          düzleştirilmiş ham girdiyle bir kez daha, kontrol olarak eğittik.
+          düzleştirilmiş ham girdiyle bir kez daha, kontrol olarak eğittim.
         </Paragraph>
-        <Paragraph>Raporda ulaştığımız sonuçlarsa kısaca şöyle:</Paragraph>
+        <Paragraph>Raporda ulaştığım sonuçlarsa kısaca şöyle:</Paragraph>
         <BulletList
           items={[
             "Kişi bazlı cross validation ile seçilip test koşusundan hemen önce dondurulan düzende LSTM ve 1D CNN, test macro F1'de MLP'den yüksek sonuç verdi. Ensemble değerleri 0,921 ve 0,928, MLP 0,864 (Tablo 7). Kişi bazlı bootstrap farkının %95 güven aralığı sıfırı dışladı (Tablo 8).",
-            "Aynı MLP'yi ham girdiyle eğittiğimiz kontrol deneyi, augmentasyonsuz düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğini gösterdi. CV'de ham girdiyle 0,803-0,808, feature'larla 0,845 aldı. Augmentasyon ve yoğun window eklenince bu fark 0,005'e indi (Tablo 6).",
-            "İlk baseline'dan başlayarak finale kadar her adımı, sonucunu ve verdiğimiz kararı kaydettim (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için baktığımız da orada yazıyor (Bölüm 5.5).",
+            "Aynı MLP'yi ham girdiyle eğittiğim kontrol deneyi, augmentasyonsuz düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğini gösterdi. CV'de ham girdiyle 0,803-0,808, feature'larla 0,845 aldı. Augmentasyon ve yoğun window eklenince bu fark 0,005'e indi (Tablo 6).",
+            "İlk baseline'dan başlayarak finale kadar her adımı, sonucunu ve verdiğim kararı kaydettim (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için baktığım da orada yazıyor (Bölüm 5.5).",
           ]}
         />
       </Section>
@@ -162,7 +162,7 @@ export const finalResults: ReportDefinition = {
           <Paragraph>
             Resmi dosyalarda her örnek 561 featurelık birer vektördür. Bu vektör 2,56 saniyelik,
             yani 128 ölçümlük ve %50 overlap'li bir window üzerinden hesaplanıyor. MLP'yi bu
-            vektörlerle eğitmiştik ama resmi dosyalarda hangi satırın hangi ham window'a denk
+            vektörlerle eğitmiştim ama resmi dosyalarda hangi satırın hangi ham window'a denk
             geldiği yoktur. Bu yüzden 1D CNN, GRU ve LSTM için window'ları ham sinyallerden ve
             etiket segmentlerinden aynı boy ve adımla yeniden ürettim, 128 ölçüm ve adım 64.
           </Paragraph>
@@ -189,7 +189,7 @@ export const finalResults: ReportDefinition = {
         <SubSection number="2.3" title="Kişi bazlı ayrım">
           <Paragraph>
             Test kişileri hiçbir eğitim veya model seçimi adımında kullanılmadı. Baseline'daki 21
-            eğitim kişisinden her beşinci kişiyi validation set'e ayırdım, kalan 16 kişiyle eğittik.
+            eğitim kişisinden her beşinci kişiyi validation set'e ayırdım, kalan 16 kişiyle eğittim.
             Sonraki bütün kararları 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile verdim (Bölüm
             5.5). Finalde modeller 21 eğitim kişisinin tamamıyla eğitildi.
           </Paragraph>
@@ -197,14 +197,14 @@ export const finalResults: ReportDefinition = {
         <SubSection number="2.4" title="Gravity/body ayrımı">
           <Paragraph>
             Ham ivme sinyali gravity ile vücut hareketini birlikte taşıyor. Resmi feature hattındaki
-            gibi gravity bileşenini 0,3 Hz kesimli bir Butterworth low-pass filter ile ayırdık. Bu
+            gibi gravity bileşenini 0,3 Hz kesimli bir Butterworth low-pass filter ile ayırdım. Bu
             seçenek açıkken girdi 9 kanal oluyor, body acc, gravity ve gyro için üçer kanal.
             Kapalıyken ham ivme ve gyro ile 6 kanal kullanılıyor.
           </Paragraph>
         </SubSection>
         <SubSection number="2.5" title="Augmentasyon ve yoğun window">
           <Paragraph>
-            Augmentasyonu sadece ham sinyal modellerinde ve sadece eğitim batch'lerinde uyguladık.
+            Augmentasyonu sadece ham sinyal modellerinde ve sadece eğitim batch'lerinde uyguladım.
             Her window rastgele bir eksen etrafında en fazla ±12° döndürüldü, genliği de 0,9 ile 1,1
             arasında rastgele bir katsayıyla ölçeklendi. Yoğun window seçeneğinde eğitim window'ları
             adım 16 ile üretildi, bu %87,5 overlap demek. Değerlendirme window'ları hep adım 64, bu
@@ -214,11 +214,11 @@ export const finalResults: ReportDefinition = {
         </SubSection>
         <SubSection number="2.6" title="Normalizasyon ve class-weighted loss">
           <Paragraph>
-            Ortalama ve standart sapmayı sadece eğitim kişilerinden hesapladık, ham modellerde kanal
+            Ortalama ve standart sapmayı sadece eğitim kişilerinden hesapladım, ham modellerde kanal
             başına, MLP'de feature başına. CV'de bunlar her fold'un eğitim kısmından yeniden
             hesaplandı. Resmi 561 feature zaten [-1, 1] aralığına normalize edilmiş geliyor ama bu
-            normalizasyonun test kişilerini içerip içermediğini doğrulayamadık. Sınıf dengesizliği
-            için class-weighted loss kullandık, az örnekli sınıflar daha büyük ağırlık aldı.
+            normalizasyonun test kişilerini içerip içermediğini doğrulayamadım. Sınıf dengesizliği
+            için class-weighted loss kullandım, az örnekli sınıflar daha büyük ağırlık aldı.
           </Paragraph>
         </SubSection>
       </Section>
@@ -232,7 +232,7 @@ export const finalResults: ReportDefinition = {
         </Paragraph>
         <Paragraph>
           Bu dağılımın iki sonucu var. Accuracy büyük sınıflara göre şekilleniyor ve transition
-          sınıflarındaki hataları gizliyor, bu yüzden birincil metrik olarak macro F1'i seçtik.
+          sınıflarındaki hataları gizliyor, bu yüzden birincil metrik olarak macro F1'i seçtim.
           Ayrıca transition sınıflarının test F1 değerleri 10 ile 49 örneğe dayandığı için sınıf
           bazlı farkları kesin yorumlamak mümkün değil (Bölüm 7).
         </Paragraph>
@@ -273,7 +273,7 @@ export const finalResults: ReportDefinition = {
           <Paragraph>
             Baseline sürümü hidden size 64 olan iki katmanlı bir LSTM ve son zaman adımının
             çıktısını sınıflandırıyor, 52.492 parametre. Final sürümü bidirectional ve bütün zaman
-            adımlarının ortalamasını ve maksimumunu birleştiriyor, buna mean/max pooling diyoruz.
+            adımlarının ortalamasını ve maksimumunu birleştiriyor, buna mean/max pooling diyorum.
             Forget gate bias'ı 1 ile başlatılıyor, girdi 9 kanal, 140.812 parametre.
           </Paragraph>
         </SubSection>
@@ -342,7 +342,7 @@ export const finalResults: ReportDefinition = {
 
       <Section number="5" title="Deneyler ve İzlenen Yol" newPage>
         <Paragraph>
-          Burada her adımda ne yaptık, ne çıktı ve ne karar verdim. Sayıların hepsi Bölüm 6'daki
+          Burada her adımda ne yaptım, ne çıktı ve ne karar verdim. Sayıların hepsi Bölüm 6'daki
           tablolarda.
         </Paragraph>
 
@@ -358,21 +358,21 @@ export const finalResults: ReportDefinition = {
           <Step
             done="Resmi dosyalarda, satırlarla ham window'lar eşlenmediği için ham sinyal modellerinin window'larını yeniden ürettim. Window'un en az %90'ının tek etiketli segmente düşmesi durumunu denedim."
             result="10.776 window çıktı, resmi sayıya göre fark %1,4. Transition sınıflarında 471 window var, resmide 518 (Tablo 1)."
-            decision="%90 kuralını kullanıyoruz. MLP ile ham modellerin test kümeleri farklı, 3.162 ve 3.124 örnek."
+            decision="%90 kuralını kullanıyorum. MLP ile ham modellerin test kümeleri farklı, 3.162 ve 3.124 örnek."
           />
         </SubSection>
 
         <SubSection number="5.3" title="Çalışma ortamı">
           <Step
             done="Eğitimler Google Colab'da GPU ile ve PyTorch ile yapıldı."
-            result="Aynı yapılandırmayla iki kez koştuğumuzda, A1a ve K5 ile, fark 0,002 oldu (Tablo 6)."
+            result="Aynı yapılandırmayla iki kez koştuğumda, A1a ve K5 ile, fark 0,002 oldu (Tablo 6)."
             decision="Tüm koşular bu ortamda yapılıyor."
           />
         </SubSection>
 
         <SubSection number="5.4" title="İlk baseline">
           <Step
-            done="Dört modeli ortak ve ayarsız bir düzenle eğittim. 16 kişiyle 40 epoch eğitim yaptık, 5 kişilik validation sete göre en iyi epoch'u seçtik ve 5 adet seed koştum (Tablo 3). Sonra modelleri test kümesinde ölçtüm."
+            done="Dört modeli ortak ve ayarsız bir düzenle eğittim. 16 kişiyle 40 epoch eğitim yaptım, 5 kişilik validation sete göre en iyi epoch'u seçtim ve 5 adet seed koştum (Tablo 3). Sonra modelleri test kümesinde ölçtüm."
             result="Macro F1 sonuçları MLP 0,841, 1D CNN 0,819, GRU 0,786 ve LSTM 0,666 (Tablo 4). LSTM kararsızdı, standart sapması 0,094. En zayıf sınıflar transition sınıflarıydı, SITTING ve STANDING'de de malesef ham modeller MLP'nin gerisindeydi (Tablo 5). Ham sinyal modellerinin MLP'nin gerisinde kalması beklentimi aştı."
             decision="Ham modelleri iyileştirmek için derinlemesine düşündüm."
           />
@@ -381,8 +381,8 @@ export const finalResults: ReportDefinition = {
         <SubSection number="5.5" title="Yöntem düzeltmesi">
           <Step
             done="Kodda bazı noktalara odaklandım. Bunlar ölçüm değil, hep tahmindi. RNN'ler az eğitilmişti, gradient clipping ve warmup yoktu ve son zaman adımı kullanılıyodu. Model seçiminden sonra 21 kişiyle yeniden eğitim yapılmıyodu. Küçük validation set epoch seçimini gürültülü yapıyordu. Birazda yapay zekaya danıştıktan sonra, Gravity/body ayrımı ve augmentasyon yoktu, class weight de çok agresifti."
-            result="Yöntemde bir sorun da fark ettim. Baseline teşhisini test kümesinin confusion matrix'ine ve sınıf bazlı F1 değerlerine bakarak yapmıştım. Bundan sonra da test kümesine bakarak karar verseydik test sonucu olduğundan iyi görünebilirdi, bu doğru bir durum değil."
-            decision="Bundan sonra her kararı sadece 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile verdik, ölçüt out-of-fold macro F1. Test en sonda dondurulmuş düzenle bir kez koşuldu. MLP'ye de aynı arama bütçesini verdim. Baseline kodunu değiştirmedim, yeni deneyleride ayrı yaptık."
+            result="Yöntemde bir sorun da fark ettim. Baseline teşhisini test kümesinin confusion matrix'ine ve sınıf bazlı F1 değerlerine bakarak yapmıştım. Bundan sonra da test kümesine bakarak karar verseydim test sonucu olduğundan iyi görünebilirdi, bu doğru bir durum değil."
+            decision="Bundan sonra her kararı sadece 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile verdim, ölçüt out-of-fold macro F1. Test en sonda dondurulmuş düzenle bir kez koşuldu. MLP'ye de aynı arama bütçesini verdim. Baseline kodunu değiştirmedim, yeni deneyleride ayrı yaptım."
           />
         </SubSection>
 
@@ -390,13 +390,13 @@ export const finalResults: ReportDefinition = {
           <Step
             done="Baseline'ın düzenini CV'de yeniden ölçtüm. İki fark var, model seçimi son epoch'la yapıldı ve LSTM'de forget gate bias'ı 1 ile başlatıldı."
             result="MLP 0,824, 1D CNN 0,807, GRU 0,776, LSTM 0,768 (Tablo 6). Testte gördüğüm LSTM çöküşü, 0,666, CV'de görülmedi."
-            decision="Testteki LSTM sonucunun bir kısmı epoch seçimindeki şansa bağlı görünüyordu, bu yüzden bundan sonra CV değerlerini esas alıyoruz."
+            decision="Testteki LSTM sonucunun bir kısmı epoch seçimindeki şansa bağlı görünüyordu, bu yüzden bundan sonra CV değerlerini esas alıyorum."
           />
         </SubSection>
 
         <SubSection number="5.7" title="Optimizasyon (A1)">
           <Step
-            done="Epoch sayısınıysa 100'e çıkardık, warmup ve gradient clipping ekledim. Öğrenme hızı olarak 1e-3 (A1a) ve 2e-3 (A1b) denedim. MLP'de ayrıca 5e-4, 200 epoch ve sqrt class weight de denendi."
+            done="Epoch sayısınıysa 100'e çıkardım, warmup ve gradient clipping ekledim. Öğrenme hızı olarak 1e-3 (A1a) ve 2e-3 (A1b) denedim. MLP'de ayrıca 5e-4, 200 epoch ve sqrt class weight de denendi."
             result="MLP 0,824'ten 0,845'e çıktı, diğer MLP denemelerinde 0,838 ile 0,845 arasında kaldı. Ham modellerdeyse lr 2e-3, 1e-3'ten iyiydi, CNN 0,822, LSTM 0,797, GRU 0,779 aldı (Tablo 6). Yani baseline düzeni sadece ham modeller için değil, MLP için de eksik ayarlıydı."
             decision="Ham modeller için lr 2e-3, warmup ve clipping'e ortak taban oldu. MLP için A1a seçildi, 100 epoch ve lr 1e-3."
           />
@@ -412,41 +412,41 @@ export const finalResults: ReportDefinition = {
 
         <SubSection number="5.9" title="Gravity/body ayrımı (9 kanal)">
           <Step
-            done="A1a düzeni üzerinde ivmeyi gravity ve body bileşenlerine ayırdıktan sonra 9 kanallı input denedik."
+            done="A1a düzeni üzerinde ivmeyi gravity ve body bileşenlerine ayırdıktan sonra 9 kanallı input denedim."
             result="CNN 0,809'dan 0,827'ye çıktı, yani +0,018. LSTM +0,010, GRU -0,003 değişti (Tablo 6)."
-            decision="CNN ve LSTM'de 9 kanal kullanıyoruz. GRU'da fayda görmediğimiz için onu ayrı değerlendiriyoruz."
+            decision="CNN ve LSTM'de 9 kanal kullanıyorum. GRU'da fayda görmediğim için onu ayrı değerlendiriyorum."
           />
         </SubSection>
 
         <SubSection number="5.10" title="Derin CNN">
           <Step
-            done="Dört bloklu, dilation'lı ve mean/max pooling'li bir CNN denedik (Tablo 2)."
+            done="Dört bloklu, dilation'lı ve mean/max pooling'li bir CNN denedim (Tablo 2)."
             result="0,809'dan 0,830'a çıktı, yani +0,021 (Tablo 6)."
-            decision="Derin CNN'i kullanıyoruz. Gravity ile birleştirince ortak taban C1 0,833 oldu."
+            decision="Derin CNN'i kullanıyorum. Gravity ile birleştirince ortak taban C1 0,833 oldu."
           />
         </SubSection>
 
         <SubSection number="5.11" title="Feature mı, mimari mi? (MLP-raw)">
           <Step
-            done="MLP'nin avantajı hazır feature'lardan mı geliyor yoksa mimariden mi, bunu ayırmak için aynı MLP'yi düzleştirilmiş ham window'larla eğittik."
+            done="MLP'nin avantajı hazır feature'lardan mı geliyor yoksa mimariden mi, bunu ayırmak için aynı MLP'yi düzleştirilmiş ham window'larla eğittim."
             result="MLP-raw 6 kanalla 0,803, 9 kanalla 0,808 aldı. Aynı MLP 561 feature ile 0,845 almıştı (Tablo 6)."
-            decision="Bu düzende MLP'nin üstünlüğü büyük ölçüde mimariden değil, hazır feature'lardan geliyor. Bu kontrol deneyini finale kadar taşıdık (Bölüm 5.13)."
+            decision="Bu düzende MLP'nin üstünlüğü büyük ölçüde mimariden değil, hazır feature'lardan geliyor. Bu kontrol deneyini finale kadar taşıdım (Bölüm 5.13)."
           />
         </SubSection>
 
         <SubSection number="5.12" title="Augmentasyon ve yoğun window: 2 × 2 tasarım">
           <Step
-            done="C1 tabanı üzerinde iki etkeni ayrı ayrı ve birlikte denedik. K1'de sadece augmentasyon var, adım 64. D1'de sadece yoğun window var, adım 16. D2'de ikisi birlikte. D1 ve D2'de epoch sayısı 40, çünkü adım 16'da bir epoch adım 64'e göre yaklaşık dört kat window içeriyor."
+            done="C1 tabanı üzerinde iki etkeni ayrı ayrı ve birlikte denedim. K1'de sadece augmentasyon var, adım 64. D1'de sadece yoğun window var, adım 16. D2'de ikisi birlikte. D1 ve D2'de epoch sayısı 40, çünkü adım 16'da bir epoch adım 64'e göre yaklaşık dört kat window içeriyor."
             result="CNN'de C1 0,833, sadece augmentasyonla 0,849, yani +0,016. Sadece yoğun window ile 0,823, ikisi birlikte 0,855. LSTM ve GRU'da D1 0,817 ve 0,811, D2 0,857 ve 0,845 (Tablo 6)."
-            decision="CNN'de asıl kazanç augmentasyondan geldi. Yoğun window tek başına karışık etki verdi, augmentasyonla birlikte CNN'e kattığı 0,006'lık fark gürültü bandında. LSTM ve GRU'da adım 64 ile augmentasyon denenmediği için bu iki etkeni orada ayıramıyoruz. Final düzen D2 oldu."
+            decision="CNN'de asıl kazanç augmentasyondan geldi. Yoğun window tek başına karışık etki verdi, augmentasyonla birlikte CNN'e kattığı 0,006'lık fark gürültü bandında. LSTM ve GRU'da adım 64 ile augmentasyon denenmediği için bu iki etkeni orada ayıramıyorum. Final düzen D2 oldu."
           />
         </SubSection>
 
         <SubSection number="5.13" title="Class weight ve MLP'ye eşit arama bütçesi">
           <Step
-            done="CNN'de D2 üzerinde daha yumuşak bir sınıf ağırlığı, sqrt, denedik (E1s). MLP'ye eşit bütçe vermek için feature'lara Gauss gürültüsü ekledik ve A1a'yı bir kez daha koştuk (K5). MLP-raw'ı da D2 düzeniyle eğittik (K2)."
+            done="CNN'de D2 üzerinde daha yumuşak bir sınıf ağırlığı, sqrt, denedim (E1s). MLP'ye eşit bütçe vermek için feature'lara Gauss gürültüsü ekledim ve A1a'yı bir kez daha koştum (K5). MLP-raw'ı da D2 düzeniyle eğittim (K2)."
             result="E1s 0,858 ± 0,003, D2 0,855 ± 0,010 aldı. Gürültü MLP'ye yardım etmedi, 0,838 ve 0,843 aldı, K5 de 0,843. MLP-raw D2 düzeniyle 0,840'a çıktı ve 561 feature'lı MLP'ye 0,005 yaklaştı (Tablo 6)."
-            decision="CNN'de tutarlılık için tam class weight'i koruduk, fark zaten gürültü bandında. MLP için A1a donduruldu. Feature bulgusunu sadece augmentasyonsuz karşılaştırma için geçerli sayıyoruz."
+            decision="CNN'de tutarlılık için tam class weight'i korudum, fark zaten gürültü bandında. MLP için A1a donduruldu. Feature bulgusunu sadece augmentasyonsuz karşılaştırma için geçerli sayıyorum."
           />
         </SubSection>
 
@@ -454,15 +454,15 @@ export const finalResults: ReportDefinition = {
           <Step
             done="Fable bütün CV tablosunu ve kodu okuyup ikinci bir değerlendirme yaptı. Girdi temsilinin etkisi, baseline'ın eksik ayarlı olması ve augmentasyonun CNN'e katkısı gürültünün çok üstündeydi. CNN ile MLP arasındaki CV farkı ise, 0,855 ve 0,845, gürültü bandındaydı."
             result="Seed standart sapması kişi belirsizliğini içermiyordu. CV 21, test ise 9 kişiye dayanıyordu."
-            decision="Keşfi kapattık. Final yapılandırmalarını (Tablo 3) ve analiz planını test koşusundan önce yazıp kayda geçirdik. Birincil metrik test macro F1. 10 seed'in ortalamasını ve std'sini, bir de 10 seed'in olasılıklarının ortalamasıyla ensemble sonucunu raporlayacaktık. Belirsizlik için 9 test kişisi üzerinde kişi bazlı bootstrap ile %95 güven aralığı, yani GA, hesaplanacaktı. MLP'ye göre fark da kişi bazında eşleştirilerek ölçülecekti. İddia eşiği şu: bir ham model için 'MLP'yi geçti' demek için bu farkın GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı. Yoksa 'karşılaştırılabilir düzeyde' diyoruz."
+            decision="Keşfi kapattım. Final yapılandırmalarını (Tablo 3) ve analiz planını test koşusundan önce yazıp kayda geçirdim. Birincil metrik test macro F1. 10 seed'in ortalamasını ve std'sini, bir de 10 seed'in olasılıklarının ortalamasıyla ensemble sonucunu raporlayacaktım. Belirsizlik için 9 test kişisi üzerinde kişi bazlı bootstrap ile %95 güven aralığı, yani GA, hesaplanacaktı. MLP'ye göre fark da kişi bazında eşleştirilerek ölçülecekti. İddia eşiği şu: bir ham model için 'MLP'yi geçti' demek için bu farkın GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı. Yoksa 'karşılaştırılabilir düzeyde' diyorum."
           />
         </SubSection>
 
         <SubSection number="5.15" title="Final test koşusu">
           <Step
-            done="Dondurulmuş beş yapılandırmayı 21 eğitim kişisiyle 10 seed için eğittik ve test kümesinde bir kez ölçtük."
+            done="Dondurulmuş beş yapılandırmayı 21 eğitim kişisiyle 10 seed için eğittim ve test kümesinde bir kez ölçtüm."
             result="Ensemble macro F1 sonuçları LSTM 0,928, 1D CNN 0,921, GRU 0,921, MLP 0,864 ve MLP-raw 0,862 (Tablo 7). MLP'ye göre farklar Tablo 8'de, sınıf bazlı sonuçlar Tablo 9'da."
-            decision="Bu sonuçlar ve dondurulmuş düzen artık değişmiyor. Bundan sonra yapılacak her deneyi ayrıca 'keşif amaçlı' diye raporlayacağız."
+            decision="Bu sonuçlar ve dondurulmuş düzen artık değişmiyor. Bundan sonra yapılacak her deneyi ayrıca 'keşif amaçlı' diye raporlayacağım."
           />
         </SubSection>
       </Section>
@@ -472,7 +472,7 @@ export const finalResults: ReportDefinition = {
           <Paragraph>
             Tablo 4 ve Tablo 5 ilk baseline düzeninin test sonuçları. Bu düzen sonraki tablolarla
             aynı protokolü izlemiyor, 16 kişiyle ve ayarsız eğitildi, epoch validation'a göre
-            seçildi. Bu yüzden final sonuçlarla aynı tabloya koymadık.
+            seçildi. Bu yüzden final sonuçlarla aynı tabloya koymadım.
           </Paragraph>
           <Table
             columns={["Model", "Parametre", "Accuracy", "Precision", "Recall", "Macro F1"]}
@@ -547,7 +547,7 @@ export const finalResults: ReportDefinition = {
               Tablo 6, Bölüm 5'teki kararların dayandığı CV sonuçlarını veriyor. Her hücre 21 eğitim
               kişisi üzerinde 5-fold kişi bazlı CV ile hesaplanan out-of-fold macro F1'in 3 seed
               ortalaması ± std'si. Seed std'si 0,002 ile 0,020 arasında, bu yüzden 0,01'in altındaki
-              farkları gürültü kabul ettik.
+              farkları gürültü kabul ettim.
             </Paragraph>
           </SubSection>
           <Table
@@ -629,7 +629,7 @@ export const finalResults: ReportDefinition = {
           <Paragraph>
             Tablo 7 final koşunun sonuçları. Tekil model değeri 10 seed'in ortalaması ± std.
             Ensemble değeri 10 seed'in olasılıkları ortalanarak hesaplanıyor. Güven aralığını sadece
-            ensemble için hesapladık, kişi örneklemesinden gelen belirsizliği içeriyor. Seed std'si
+            ensemble için hesapladım, kişi örneklemesinden gelen belirsizliği içeriyor. Seed std'si
             bu belirsizliği içermiyor. CV sütunu karşılaştırmayı kolaylaştırmak için var ama iki
             protokol farklı. CV'de modeller fold başına 16 ya da 17 kişiyle, finalde 21 kişiyle
             eğitiliyor.
@@ -769,26 +769,26 @@ export const finalResults: ReportDefinition = {
       <Section number="7" title="Modellerin Karşılaştırılması" newPage>
         <SubSection number="7.1" title="Ham sinyal modelleri ve MLP">
           <Paragraph>
-            Önceden koyduğumuz iddia eşiğinin iki koşulu var. Test kümesinde kişi bazlı farkın %95
+            Önceden koyduğum iddia eşiğinin iki koşulu var. Test kümesinde kişi bazlı farkın %95
             GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı (Bölüm 5.14). 1D CNN ve LSTM iki
             koşulu da sağladı. Test farkları +0,056 [+0,026; +0,093] ve +0,063 [+0,029; +0,097], CV
             farkları +0,010 ve +0,012 (Tablo 8). Bu yüzden bu veri setinde ve bu eğitim düzeninde 1D
-            CNN ve LSTM'nin test macro F1'de MLP'den yüksek sonuç verdiğini yazabiliyoruz. CV
+            CNN ve LSTM'nin test macro F1'de MLP'den yüksek sonuç verdiğini yazabiliyorum. CV
             farkları ise 0,01 civarında ve tek başına gürültü bandında. Yaklaşık 0,06'lık test farkı
             CV farkından büyük, 9 kişilik test kümesi yüzünden de GA geniş.
           </Paragraph>
           <Paragraph>
             GRU testte MLP'den yüksek, +0,055 [+0,024; +0,086], ama CV'de iki model ayırt
             edilemiyor, ikisi de 0,845 (Tablo 8). Eşik karşılanmadığı için GRU hakkında
-            söyleyebileceğimiz şu: testte MLP'den yüksek, CV'de ayırt edilemez. GRU'nun MLP'den
-            üstün olduğunu iddia etmiyoruz.
+            söyleyebileceğim şu: testte MLP'den yüksek, CV'de ayırt edilemez. GRU'nun MLP'den üstün
+            olduğunu iddia etmiyorum.
           </Paragraph>
           <Paragraph>
             Ham modellerde ensemble tekil seed ortalamasının üstüne çıktı. CNN 0,894'ten 0,921'e,
             LSTM 0,898'den 0,928'e, GRU 0,888'den 0,921'e yükseldi. MLP'de artış küçük kaldı,
             0,860'tan 0,864'e (Tablo 7). Tekil seed ortalamalarında da üç ham model MLP'nin üstünde,
             0,888-0,898 ve 0,860. Ama seed std'si kişi belirsizliğini içermediği için tekil değerler
-            arasındaki farka GA hesaplamadık.
+            arasındaki farka GA hesaplamadım.
           </Paragraph>
         </SubSection>
         <SubSection number="7.2" title="Feature mı, mimari mi?">
@@ -808,7 +808,7 @@ export const finalResults: ReportDefinition = {
             transition sınıflarındaki daha yüksek ortalamasından geliyor, 0,801 ve 0,776. Aynı ham
             girdiyi kullanan 1D CNN, LSTM ve GRU'nun testte MLP-raw'dan yüksek olması (Tablo 7) ham
             girdide mimarinin de etkisi olduğuyla uyumlu. Ama bu fark için eşleştirilmiş test
-            yapmadık.
+            yapmadım.
           </Paragraph>
         </SubSection>
         <SubSection number="7.3" title="Sınıflar: temel aktiviteler ve transition'lar">
@@ -858,7 +858,7 @@ export const finalResults: ReportDefinition = {
           Değerlendirme çevrimdışı ve sadece ham sinyal modelleri olan 1D CNN, LSTM ve GRU ile
           yapılacak. MLP plana dahil değil, çünkü resmi 561 feature hattını yeniden kurmak
           gerekiyor. Telefon, takılma biçimi ve kişi farklı olacağı için performansın test
-          kümesindekinden düşük olması beklenebilir. Ne kadar düşeceğini ölçmeden bilemeyiz.
+          kümesindekinden düşük olması beklenebilir. Ne kadar düşeceğini ölçmeden bilemem.
         </Paragraph>
       </Section>
 
@@ -876,9 +876,9 @@ export const finalResults: ReportDefinition = {
         <SubSection number="9.2" title="Yazılamaz iddialar">
           <BulletList
             items={[
-              "Ham sinyal modellerinin genel olarak feature tabanlı modellerden üstün olduğunu söyleyemeyiz. Sonuç tek veri setine, tek bir MLP'ye ve sınırlı bir aramaya dayanıyor.",
-              "GRU'nun MLP'den üstün olduğunu söyleyemeyiz, eşik karşılanmadı. LSTM, CNN ve GRU arasında bir sıralama da yapamayız, GA'lar örtüşüyor (Tablo 7).",
-              "Gerçek telefon verisinde ya da canlı kullanımda performans hakkında bir şey söyleyemeyiz, bu test yapılmadı (Bölüm 8).",
+              "Ham sinyal modellerinin genel olarak feature tabanlı modellerden üstün olduğunu söyleyemem. Sonuç tek veri setine, tek bir MLP'ye ve sınırlı bir aramaya dayanıyor.",
+              "GRU'nun MLP'den üstün olduğunu söyleyemem, eşik karşılanmadı. LSTM, CNN ve GRU arasında bir sıralama da yapamam, GA'lar örtüşüyor (Tablo 7).",
+              "Gerçek telefon verisinde ya da canlı kullanımda performans hakkında bir şey söyleyemem, bu test yapılmadı (Bölüm 8).",
             ]}
           />
         </SubSection>
@@ -887,10 +887,10 @@ export const finalResults: ReportDefinition = {
             items={[
               "Test kümesi 9 kişi. Kişi bazlı bootstrap GA'ları geniş, az sayıda kişiden yeniden örneklendiği için biraz iyimser de olabilir (Tablo 7).",
               "MLP ile ham modellerin test kümeleri birebir aynı değil, 3.162 ve 3.124 örnek (Tablo 1). Bootstrap aynı kişileri çekiyor ama aynı window'ları değil.",
-              "Test değerleri CV'den yüksek, MLP'de +0,015, ham modellerde yaklaşık +0,04 (Tablo 7). Bunun sebebi finalde 21 kişiyle eğitim olabilir, ham modellerin ek kişiden daha çok yararlanması olabilir, test kişilerinin daha kolay olması da olabilir. Bu deneylerle bunları ayıramadık.",
+              "Test değerleri CV'den yüksek, MLP'de +0,015, ham modellerde yaklaşık +0,04 (Tablo 7). Bunun sebebi finalde 21 kişiyle eğitim olabilir, ham modellerin ek kişiden daha çok yararlanması olabilir, test kişilerinin daha kolay olması da olabilir. Bu deneylerle bunları ayıramadım.",
               "Hiperparametre araması sınırlıydı. Her seçenek 3 seed'le ve tek tek denendi, tam ızgara aranmadı (Tablo 6).",
-              "İlk baseline'ın sorunlarını test sonuçlarına bakarak teşhis ettik (Bölüm 5.5). Sonraki kararları sadece CV ile verdik ama araştırmanın yönü bu ilk bakıştan etkilenmiş olabilir.",
-              "Resmi 561 feature'ın [-1, 1] normalizasyonunun test kişilerini içerip içermediğini doğrulayamadık (Bölüm 2.6).",
+              "İlk baseline'ın sorunlarını test sonuçlarına bakarak teşhis ettim (Bölüm 5.5). Sonraki kararları sadece CV ile verdim ama araştırmanın yönü bu ilk bakıştan etkilenmiş olabilir.",
+              "Resmi 561 feature'ın [-1, 1] normalizasyonunun test kişilerini içerip içermediğini doğrulayamadım (Bölüm 2.6).",
             ]}
           />
         </SubSection>
