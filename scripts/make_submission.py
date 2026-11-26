@@ -66,6 +66,8 @@ def main():
     files = subprocess.run(["git", "ls-files", "experiments", "android"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.split()
     with zipfile.ZipFile(OUT / "4_Model_Kodlari.zip", "w", zipfile.ZIP_DEFLATED) as zf:
         for f in files:
+            if f.endswith("experiments/HANDOFF.md"):
+                continue  # oturumlar arası iç not, teslime girmez
             if (ROOT / f).is_file():
                 zf.write(ROOT / f, f"model_kodlari/{f}")
         zf.write(ROOT / "experiments/README.md", "model_kodlari/README.md")
