@@ -35,7 +35,7 @@ export const finalResults = defineDeck({
         "İlk sonuçlar ve final test sonuçları",
         "Modellerin karşılaştırılması",
         "Canlı demo",
-        "Sonuçlar, sınırlılıklar, gelecek çalışma",
+        "Sonuçlar ve sınırlılıklar",
       ],
     },
     {
@@ -77,10 +77,10 @@ export const finalResults = defineDeck({
       layout: "metrics",
       title: "Sınıf Dengesizliği",
       metrics: [
-        { label: "Eğitim, en büyük: STANDING", value: "1.423" },
-        { label: "Eğitim, en küçük: SIT_TO_STAND", value: "23" },
-        { label: "Oran", value: "~62×", tone: "negative", delta: "birincil metrik: macro F1" },
-        { label: "Test, transition sınıfı", value: "10-49", delta: "örnek / sınıf" },
+        { label: "En büyük sınıf (eğitim)", value: "1.423", delta: "STANDING" },
+        { label: "En küçük sınıf (eğitim)", value: "23", delta: "SIT_TO_STAND" },
+        { label: "Oran", value: "~62×", delta: "birincil metrik: macro F1" },
+        { label: "Transition (test)", value: "10-49", delta: "örnek / sınıf" },
       ],
     },
     {
@@ -120,8 +120,8 @@ export const finalResults = defineDeck({
         ["Bidirectional + mean/max", "LSTM", "0,771", "0,787"],
         ["Derin CNN", "1D CNN", "0,809", "0,830"],
         ["Augmentasyon (K1)", "1D CNN", "0,833", "0,849"],
-        ["Augmentasyon + yoğun window", "MLP-raw", "0,808", "0,840"],
-        ["Baseline düzeni (A0) ve final (D2)", "LSTM", "0,768", "0,857"],
+        ["Aug. + yoğun window (D2)", "MLP-raw", "0,808", "0,840"],
+        ["Tüm adımlar: A0 ve D2", "LSTM", "0,768", "0,857"],
       ],
     },
     {
@@ -181,20 +181,10 @@ export const finalResults = defineDeck({
       layout: "metrics",
       title: "Feature mı, Mimari mi? (MLP-raw)",
       metrics: [
-        { label: "MLP-raw CV, augmentasyonsuz", value: "0,808", delta: "9 kanal" },
-        {
-          label: "MLP-raw CV, augmentasyonlu",
-          value: "0,840",
-          tone: "positive",
-          delta: "yoğun window ile",
-        },
-        { label: "MLP CV, 561 feature", value: "0,845", delta: "fark 0,005" },
-        {
-          label: "Test accuracy (10 seed), MLP-raw",
-          value: "0,914",
-          tone: "negative",
-          delta: "MLP: 0,940",
-        },
+        { label: "MLP-raw, aug. yok", value: "0,808", delta: "CV macro F1" },
+        { label: "MLP-raw, aug. var", value: "0,840", tone: "positive", delta: "CV macro F1" },
+        { label: "MLP, 561 feature", value: "0,845", delta: "CV macro F1" },
+        { label: "MLP-raw, test", value: "0,914", tone: "negative", delta: "accuracy; MLP 0,940" },
       ],
     },
     {
@@ -234,7 +224,7 @@ export const finalResults = defineDeck({
       points: [
         "1D CNN ve LSTM test macro F1'de MLP'den yüksek (0,921 ve 0,928; MLP 0,864)",
         "GRU: testte yüksek, CV'de ayırt edilemez",
-        "Augmentasyonsuz düzende MLP'nin avantajı hazır feature'lardan",
+        "Augmentasyonsuz düzende MLP'nin avantajı büyük ölçüde hazır feature'lardan",
         "1D CNN'de en büyük CV kazancı augmentasyondan (+0,016)",
       ],
     },
@@ -248,17 +238,6 @@ export const finalResults = defineDeck({
         "Test, CV'den yüksek; sebebi ayrılamadı",
         "İlk baseline'da test sonuçlarına bakıldı",
         "Gerçek telefon testi yapılmadı",
-      ],
-    },
-    {
-      id: "future",
-      layout: "bullets",
-      title: "Gelecek Çalışma",
-      points: [
-        "Gerçek telefon verisiyle çevrimdışı test",
-        "Leave-one-subject-out değerlendirmesi",
-        "CV-test farkı için 16 ve 21 kişiyle eğitim",
-        "Transition sınıfları için daha çok veri",
       ],
     },
     {
