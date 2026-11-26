@@ -127,23 +127,23 @@ export const finalResults: ReportDefinition = {
 
       <Section number="1" title="Giriş">
         <Paragraph>
-          Bu çalışmamda beldeki bir akıllı telefonun accelerometer ve gyroscope sinyallerinden 12
-          sınıflı insan aktivitesi tanımayı ele aldım. Sınıfların altısı temel durumlar; yürüme,
-          merdiven çıkma, merdiven inme, oturma, ayakta durma ve uzanma. Diğer altısıysa bu duruşlar
-          arasındaki geçişler.
+          Bu çalışmamda bele takılan bir akıllı telefonun accelerometer ve gyroscope sinyallerinden
+          12 sınıflı insan aktivitesi tanımayı ele aldım. Sınıfların altısı temel olan durumlar;
+          oturma, merdiven çıkma, yürüme, merdiven inme, ayakta durma ve uzanma. Diğer altısı ise bu
+          duruşların arasındaki geçişler.
         </Paragraph>
         <Paragraph>
-          Hedefim ise dört yapay sinir ağını aynı kişi bazlı ayrımda karşılaştırmaktır. MLP veri
-          setinin hazır 561 featureını kullanıyor, GRU, 1D CNN ve LSTM ise ham sinyal window'larını.
-          Hazırlanmış feature'ların etkisini mimarinin etkisinden ayırmak amacıyla aynı MLP'yi
+          Hedefim ise dört yapay sinir ağını aynı kişiler bazında karşılaştırmaktır. MLP veri seti
+          hazırlanmış 561 feature'ını kullanıyor, GRU, 1D CNN ve LSTM ise ham sinyal window'larını.
+          Hazırlanmış feature'ların etkisini mimarinin etkisinden ayırmak içinde, aynı MLP'yi
           düzleştirilmiş ham girdiyle bir kez daha, kontrol olarak eğittim.
         </Paragraph>
         <Paragraph>Raporda ulaştığım sonuçlarsa kısaca şöyle:</Paragraph>
         <BulletList
           items={[
-            "Kişi bazlı cross validation ile seçilip test koşusundan hemen önce dondurulan düzende LSTM ve 1D CNN, test macro F1'de MLP'den yüksek sonuç verdi. Ensemble değerleri 0,921 ve 0,928, MLP 0,864 (Tablo 7). Kişi bazlı bootstrap farkının %95 güven aralığı sıfırı dışladı (Tablo 8).",
-            "Aynı MLP'yi ham girdiyle eğittiğim kontrol deneyi, augmentasyonsuz düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğini gösterdi. CV'de ham girdiyle 0,803-0,808, feature'larla 0,845 aldı. Augmentasyon ve yoğun window eklenince bu fark 0,005'e indi (Tablo 6).",
-            "İlk baseline'dan başlayarak finale kadar her adımı, sonucunu ve verdiğim kararı kaydettim (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için baktığım da orada yazıyor (Bölüm 5.5).",
+            "Cross validation ile seçip testten hemen önce dondurulan düzende 1D CNN ve LSTM, test macro F1'de MLP'den bile yüksek sonuç verdi. Ensemble; 0,921 ve 0,928, MLP 0,864 (Tablo 7). Bireysel bootstrap farkının %95 güven aralığı sıfırı dışladı (Tablo 8).",
+            "Kontrol deneyim olan, aynı MLP'yi ham girdiyle eğittiğim, ham düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğini gösterdi. CV'de ham girdiyle 0,803-0,808, feature'larla 0,845 aldı. Augmentasyon ve yoğun window eklenince bu fark 0,005'e indi (Tablo 6).",
+            "İlk baseline'dan başlayarak sonuna kadar her adımı, sonucunu ve verdiğim kararı kaydettim (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için baktığım da orada yazmaktadır (Bölüm 5.5).",
           ]}
         />
       </Section>
@@ -160,7 +160,7 @@ export const finalResults: ReportDefinition = {
         </SubSection>
         <SubSection number="2.2" title="İki girdi temsili ve window kuralı">
           <Paragraph>
-            Resmi dosyalarda her örnek 561 featurelık birer vektördür. Bu vektör 2,56 saniyelik,
+            Resmi dosyalarda her örnek 561 featurelık birer vektörlerdir. Bu vektör 2,56 saniyelik,
             yani 128 ölçümlük ve %50 overlap'li bir window üzerinden hesaplanıyor. MLP'yi bu
             vektörlerle eğitmiştim ama resmi dosyalarda hangi satırın hangi ham window'a denk
             geldiği yoktur. Bu yüzden 1D CNN, GRU ve LSTM için window'ları ham sinyallerden ve

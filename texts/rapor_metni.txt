@@ -1,6 +1,6 @@
 # Final Results raporu metni
 # kaynak: report/src/documents/final-results.tsx
-# sha256: 3c84a9c9f113fdfdc01d959d6a004cef23d068825a101854fc3cdaead2516541
+# sha256: 9c901969d6d5594551cb5e1ab8d68d4efd12a8c1b5cb7feb9e0cf0fa16202af8
 # yuva sayısı: 646
 #
 # Kullanım notu:
@@ -32,22 +32,22 @@ Final Sonuçları
 Giriş
 
 @@ R0007 | 1 Giriş > Paragraf
-Bu çalışmamda beldeki bir akıllı telefonun accelerometer ve gyroscope sinyallerinden 12 sınıflı insan aktivitesi tanımayı ele aldım. Sınıfların altısı temel durumlar; yürüme, merdiven çıkma, merdiven inme, oturma, ayakta durma ve uzanma. Diğer altısıysa bu duruşlar arasındaki geçişler.
+Bu çalışmamda bele takılan bir akıllı telefonun accelerometer ve gyroscope sinyallerinden 12 sınıflı insan aktivitesi tanımayı ele aldım. Sınıfların altısı temel olan durumlar; oturma, merdiven çıkma, yürüme, merdiven inme, ayakta durma ve uzanma. Diğer altısı ise bu duruşların arasındaki geçişler.
 
 @@ R0008 | 1 Giriş > Paragraf
-Hedefim ise dört yapay sinir ağını aynı kişi bazlı ayrımda karşılaştırmaktır. MLP veri setinin hazır 561 featureını kullanıyor, GRU, 1D CNN ve LSTM ise ham sinyal window'larını. Hazırlanmış feature'ların etkisini mimarinin etkisinden ayırmak amacıyla aynı MLP'yi düzleştirilmiş ham girdiyle bir kez daha, kontrol olarak eğittim.
+Hedefim ise dört yapay sinir ağını aynı kişiler bazında karşılaştırmaktır. MLP veri seti hazırlanmış 561 feature'ını kullanıyor, GRU, 1D CNN ve LSTM ise ham sinyal window'larını. Hazırlanmış feature'ların etkisini mimarinin etkisinden ayırmak içinde, aynı MLP'yi düzleştirilmiş ham girdiyle bir kez daha, kontrol olarak eğittim.
 
 @@ R0009 | 1 Giriş > Paragraf
 Raporda ulaştığım sonuçlarsa kısaca şöyle:
 
 @@ R0010 | 1 Giriş > BulletList > madde 1
-Kişi bazlı cross validation ile seçilip test koşusundan hemen önce dondurulan düzende LSTM ve 1D CNN, test macro F1'de MLP'den yüksek sonuç verdi. Ensemble değerleri 0,921 ve 0,928, MLP 0,864 (Tablo 7). Kişi bazlı bootstrap farkının %95 güven aralığı sıfırı dışladı (Tablo 8).
+Cross validation ile seçip testten hemen önce dondurulan düzende 1D CNN ve LSTM, test macro F1'de MLP'den bile yüksek sonuç verdi. Ensemble; 0,921 ve 0,928, MLP 0,864 (Tablo 7). Bireysel bootstrap farkının %95 güven aralığı sıfırı dışladı (Tablo 8).
 
 @@ R0011 | 1 Giriş > BulletList > madde 2
-Aynı MLP'yi ham girdiyle eğittiğim kontrol deneyi, augmentasyonsuz düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğini gösterdi. CV'de ham girdiyle 0,803-0,808, feature'larla 0,845 aldı. Augmentasyon ve yoğun window eklenince bu fark 0,005'e indi (Tablo 6).
+Kontrol deneyim olan, aynı MLP'yi ham girdiyle eğittiğim, ham düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğini gösterdi. CV'de ham girdiyle 0,803-0,808, feature'larla 0,845 aldı. Augmentasyon ve yoğun window eklenince bu fark 0,005'e indi (Tablo 6).
 
 @@ R0012 | 1 Giriş > BulletList > madde 3
-İlk baseline'dan başlayarak finale kadar her adımı, sonucunu ve verdiğim kararı kaydettim (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için baktığım da orada yazıyor (Bölüm 5.5).
+İlk baseline'dan başlayarak sonuna kadar her adımı, sonucunu ve verdiğim kararı kaydettim (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için baktığım da orada yazmaktadır (Bölüm 5.5).
 
 @@ R0013 | Bölüm 2 > numara
 2
@@ -71,7 +71,7 @@ Veri seti yaşları 19 ile 48 arasında olan 30 gönüllüden toplandı. Gönül
 İki girdi temsili ve window kuralı
 
 @@ R0020 | 2.2 İki girdi temsili ve window kuralı > Paragraf
-Resmi dosyalarda her örnek 561 featurelık birer vektördür. Bu vektör 2,56 saniyelik, yani 128 ölçümlük ve %50 overlap'li bir window üzerinden hesaplanıyor. MLP'yi bu vektörlerle eğitmiştim ama resmi dosyalarda hangi satırın hangi ham window'a denk geldiği yoktur. Bu yüzden 1D CNN, GRU ve LSTM için window'ları ham sinyallerden ve etiket segmentlerinden aynı boy ve adımla yeniden ürettim, 128 ölçüm ve adım 64.
+Resmi dosyalarda her örnek 561 featurelık birer vektörlerdir. Bu vektör 2,56 saniyelik, yani 128 ölçümlük ve %50 overlap'li bir window üzerinden hesaplanıyor. MLP'yi bu vektörlerle eğitmiştim ama resmi dosyalarda hangi satırın hangi ham window'a denk geldiği yoktur. Bu yüzden 1D CNN, GRU ve LSTM için window'ları ham sinyallerden ve etiket segmentlerinden aynı boy ve adımla yeniden ürettim, 128 ölçüm ve adım 64.
 
 @@ R0021 | 2.2 İki girdi temsili ve window kuralı > Paragraf
 Kural basit: window'un 128 ölçümünün en az %90'ı aynı etiketli segmente düşüyorsa window alınıyor ve o etiketi taşıyor, düşmüyorsa atılıyor. Bu kuralla totalde 10.776 window çıktı. Resmi dosyalardaki 10.929 örneğe göre fark %1,4'tür ve en çok transition sınıflarında görülüyor, 471, 518 window (Tablo 1). Yani MLP ile ham sinyal modellerinin test kümeleri aynı kişilerden geliyor ama birebir aynı değil, 3.162'e 3.124 örnek.
