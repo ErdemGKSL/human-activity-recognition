@@ -948,19 +948,6 @@ export const finalResults: ReportDefinition = {
         </SubSection>
       </Section>
 
-      <Section number="10" title="Gelecek Çalışmalar">
-        <BulletList
-          items={[
-            "Bölüm 8'deki gerçek telefon testinin yapılması ve modellerin farklı cihaz ve takılma biçimine karşı ölçülmesi.",
-            "CV ile test arasındaki farkın kaynağını ayırmak için ham modellerin 16 ve 21 kişiyle eğitilip aynı kişiler üzerinde karşılaştırılması.",
-            "Daha çok kişi üzerinden belirsizlik tahmini için leave-one-subject-out değerlendirmesi.",
-            "MLP ile ham modelleri aynı window'larda karşılaştırmak için 561 feature'a benzer feature'ların üretilmiş window'lardan hesaplanması.",
-            "Transition sınıfları için daha fazla veri veya transition'lara özgü augmentasyon denenmesi; GA'ları daraltmak için bu sınıflarda daha çok test örneği gerekir.",
-            "Hiperparametrelerin tüm modellere eşit bütçeyle, ortak bir arama yöntemiyle ayarlanması.",
-          ]}
-        />
-      </Section>
-
       <Section title="Kaynakça" newPage>
         <References
           items={[
