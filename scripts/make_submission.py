@@ -7,7 +7,7 @@
   submission/1_Sunum.pdf                  slides/output/final-results.pdf
   submission/2_Proje_Raporu.pdf           report/output/final-results.pdf
   submission/3_Veri_Seti/UCI_HAPT_veri_seti.zip + VERI_SETI_README.txt
-  submission/4_Model_Kodlari.zip          experiments/ ve android/ kaynakları (git'te izlenen dosyalar)
+  submission/4_Model_Kodlari.zip          yalnızca kaynak kod: experiments/ ve android/ (açıklama dosyaları ve sonuçlar hariç)
 Önce `cd slides && bun run generate final-results --pdf` ve `cd report && bun run build final-results` çalıştırılmalı.
 """
 import argparse, hashlib, shutil, subprocess, sys, zipfile
@@ -35,6 +35,19 @@ Atıf:
 - Jorge-L. Reyes-Ortiz, Luca Oneto, Albert Sama, Xavier Parra, Davide Anguita. Transition-Aware Human Activity
   Recognition Using Smartphones. Neurocomputing. Springer 2015.
 """
+
+CODE_EXT = {".py", ".kt", ".kts", ".gradle", ".xml", ".sh", ".toml", ".lock", ".properties", ".bat", ".jar"}
+# Android derlemesi için gereken veri dosyaları (model ve birim test verisi); başka hiçbir sonuç/veri dosyası girmez.
+BUILD_DATA = ("android/app/src/main/assets/model.json", "android/app/src/test/resources/calib_testdata.json")
+
+def keep_in_code_zip(f):
+    """Yalnızca kaynak kod ve derleme dosyaları: açıklama (md/txt), günlük, sonuç ve şekil dosyaları girmez."""
+    if f.startswith(("experiments/results", "experiments/export", "experiments/tools")):
+        return False
+    if f in BUILD_DATA:
+        return True
+    name = f.rsplit("/", 1)[-1]
+    return Path(f).suffix in CODE_EXT or name in ("gradlew",)
 
 def sha256(p):
     h = hashlib.sha256()
@@ -66,11 +79,8 @@ def main():
     files = subprocess.run(["git", "ls-files", "experiments", "android"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.split()
     with zipfile.ZipFile(OUT / "4_Model_Kodlari.zip", "w", zipfile.ZIP_DEFLATED) as zf:
         for f in files:
-            if f.endswith("experiments/HANDOFF.md"):
-                continue  # oturumlar arası iç not, teslime girmez
-            if (ROOT / f).is_file():
+            if keep_in_code_zip(f) and (ROOT / f).is_file():
                 zf.write(ROOT / f, f"model_kodlari/{f}")
-        zf.write(ROOT / "experiments/README.md", "model_kodlari/README.md")
     for p in sorted(OUT.rglob("*")):
         if p.is_file():
             print(f"{p.relative_to(OUT)}  {p.stat().st_size / 1e6:.1f} MB")
