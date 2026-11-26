@@ -1,6 +1,6 @@
 # Final Results raporu metni
 # kaynak: report/src/documents/final-results.tsx
-# sha256: f34331199f89c9b81e04386c61d4df45b4150b04aae9abb342ace6669597fc26
+# sha256: 3c84a9c9f113fdfdc01d959d6a004cef23d068825a101854fc3cdaead2516541
 # yuva sayısı: 646
 #
 # Kullanım notu:
@@ -149,7 +149,7 @@ Hiçbir eğitim veya model seçimi adımında test kişileri kullanılmadı. Bas
 Gravity/body ayrımı
 
 @@ R0046 | 2.4 Gravity/body ayrımı > Paragraf
-Ham ivme gravity ile vücut hareketini birlikte taşıyor. Gravity'yi 0,3 Hz kesimli Butterworth low-pass filter ile ayırdım. Açıkken girdi 9 kanal oluyor (body acc, gravity, gyro), kapalıyken 6 kanal.
+Ham ivme yerçekimiyle vücut hareketini birlikte taşımaktadır. Yer çekimini 0,3 Hz kesimli Butterworth low-pass filtersiyle ayırdım. Açıkken input 9 kanal oluyor (body acc, gravity, gyro), kapalıyken 6 kanal.
 
 @@ R0047 | Bölüm 2.5 > numara
 2.5

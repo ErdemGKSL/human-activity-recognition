@@ -196,9 +196,9 @@ export const finalResults: ReportDefinition = {
         </SubSection>
         <SubSection number="2.4" title="Gravity/body ayrımı">
           <Paragraph>
-            Ham ivme gravity ile vücut hareketini birlikte taşıyor. Gravity'yi 0,3 Hz kesimli
-            Butterworth low-pass filter ile ayırdım. Açıkken girdi 9 kanal oluyor (body acc,
-            gravity, gyro), kapalıyken 6 kanal.
+            Ham ivme yerçekimiyle vücut hareketini birlikte taşımaktadır. Yer çekimini 0,3 Hz
+            kesimli Butterworth low-pass filtersiyle ayırdım. Açıkken input 9 kanal oluyor (body
+            acc, gravity, gyro), kapalıyken 6 kanal.
           </Paragraph>
         </SubSection>
         <SubSection number="2.5" title="Augmentasyon ve yoğun window">
