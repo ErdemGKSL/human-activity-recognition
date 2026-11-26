@@ -203,7 +203,7 @@ export const finalResults = defineDirections({
         "Kapakta tarih yok; sunum tarihi kesinleşmediği için bilerek boş bırakıldı.",
       ],
       funFacts: [
-        "Veri setinin kayıtları 2010'ların başında bele takılı bir Samsung Galaxy S II ile toplandı. Bizim demo telefonumuz başka bir cihaz; bu fark, veri setindeki test sonucunun telefona doğrudan taşınamamasının bir sebebi.",
+        "Veri setinin kayıtları bele takılı bir Samsung Galaxy S II ile toplandı. Bizim demo telefonumuz başka bir cihaz; bu fark, veri setindeki test sonucunun telefona doğrudan taşınamamasının bir sebebi.",
       ],
       transition: "Bugün neleri konuşacağımıza bakalım.",
     },
