@@ -1,0 +1,836 @@
+# Final Results sunumu metni
+# kaynak: slides/packages/decks/src/decks/final-results.ts
+# sha256: c52ae9063c6351f73cfbef679346e88a5127797ecf2be79c00d97ddb4309b6ca
+# yuva sayısı: 274
+#
+# Kullanım notu:
+# - Yalnızca '@@' ile başlayan satırların altındaki metni değiştirin.
+# - '@@' satırlarını silmeyin, yenisini eklemeyin, sıralarını değiştirmeyin.
+# - Boş bırakılan yuva hata verir. Metnin içinde '@@' yazmayın, satır başında hiç.
+# - Bir yuvanın metni birkaç satıra yayılabilir; uygulamada satırlar tek boşlukla birleşir.
+# - Araç yeni metin eklemez, yalnızca var olan metni değiştirir.
+# - Sayı yuvaları (grafik değerleri) nokta ile yazılır: 0.841
+# - Uygulamak için: bun run texts:apply (önce önizleme: bun run texts:apply --dry-run).
+# - '@@' ile başlayan ilk satırdan önceki satırlar (bu not) uygulamada yok sayılır.
+
+@@ S0001 | Sunum > title
+Nöral Ağlarla İnsan Aktivitesi Tanıma · Final Results
+
+@@ S0002 | Slayt 1 (cover) > title
+Akıllı Telefon Sensörleri Kullanılarak Nöral Ağlarla İnsan Aktivitesi Tanıma
+
+@@ S0003 | Slayt 1 (cover) > subtitle
+Final Results · BİL 512 Yapay Sinir Ağları
+
+@@ S0004 | Slayt 1 (cover) > presenter
+Erdem Göksel · 261402103
+
+@@ S0005 | Slayt 1 (cover) > instructor
+Öğretim Üyesi: Cem CANTEKİN
+
+@@ S0006 | Slayt 2 (agenda) > title
+Gündem
+
+@@ S0007 | Slayt 2 (agenda) > madde 1
+Problem, veri seti ve modeller
+
+@@ S0008 | Slayt 2 (agenda) > madde 2
+Yöntem: CV, dondurma, bootstrap
+
+@@ S0009 | Slayt 2 (agenda) > madde 3
+İzlenen yol
+
+@@ S0010 | Slayt 2 (agenda) > madde 4
+İlk sonuçlar ve final test sonuçları
+
+@@ S0011 | Slayt 2 (agenda) > madde 5
+Modellerin karşılaştırılması
+
+@@ S0012 | Slayt 2 (agenda) > madde 6
+Canlı demo
+
+@@ S0013 | Slayt 2 (agenda) > madde 7
+Sonuçlar ve sınırlılıklar
+
+@@ S0014 | Slayt 3 (overview) > title
+Proje Özeti
+
+@@ S0015 | Slayt 3 (overview) > lead
+Bele takılı telefonun sensörlerinden 12 sınıflı aktivite tanıma.
+
+@@ S0016 | Slayt 3 (overview) > madde 1
+MLP: veri setinin hazır 561 feature'ı
+
+@@ S0017 | Slayt 3 (overview) > madde 2
+1D CNN, LSTM, GRU: ham sinyal window'ları
+
+@@ S0018 | Slayt 3 (overview) > madde 3
+MLP-raw: aynı MLP, ham girdiyle (kontrol modeli)
+
+@@ S0019 | Slayt 3 (overview) > madde 4
+Birincil metrik: test macro F1
+
+@@ S0020 | Slayt 3 (overview) > kutu 1 > label
+Sınıf
+
+@@ S0021 | Slayt 3 (overview) > kutu 1 > value
+12
+
+@@ S0022 | Slayt 3 (overview) > kutu 1 > delta
+6 aktivite + 6 transition
+
+@@ S0023 | Slayt 3 (overview) > kutu 2 > label
+Gönüllü
+
+@@ S0024 | Slayt 3 (overview) > kutu 2 > value
+30
+
+@@ S0025 | Slayt 3 (overview) > kutu 2 > delta
+21 eğitim · 9 test
+
+@@ S0026 | Slayt 3 (overview) > kutu 3 > label
+Model
+
+@@ S0027 | Slayt 3 (overview) > kutu 3 > value
+4 + 1
+
+@@ S0028 | Slayt 3 (overview) > kutu 3 > delta
++ MLP-raw kontrolü
+
+@@ S0029 | Slayt 4 (data) > title
+Veri Seti ve Ön İşleme
+
+@@ S0030 | Slayt 4 (data) > lead
+UCI #341 (HAPT): accelerometer + gyroscope, 50 Hz
+
+@@ S0031 | Slayt 4 (data) > madde 1
+Window: 128 ölçüm (2,56 sn), adım 64
+
+@@ S0032 | Slayt 4 (data) > madde 2
+Kişi bazlı ayrım: test kişileri eğitimde yok
+
+@@ S0033 | Slayt 4 (data) > madde 3
+Gravity/body ayrımı: 0,3 Hz low-pass filter, 9 kanal
+
+@@ S0034 | Slayt 4 (data) > madde 4
+Augmentasyon: ±12° rotation, 0,9-1,1 scaling
+
+@@ S0035 | Slayt 4 (data) > highlightsLabel
+Örnek sayısı
+
+@@ S0036 | Slayt 4 (data) > kutu 1 > label
+Resmi 561 feature (MLP)
+
+@@ S0037 | Slayt 4 (data) > kutu 1 > value
+10.929
+
+@@ S0038 | Slayt 4 (data) > kutu 1 > delta
+test: 3.162
+
+@@ S0039 | Slayt 4 (data) > kutu 2 > label
+Üretilen ham window
+
+@@ S0040 | Slayt 4 (data) > kutu 2 > value
+10.776
+
+@@ S0041 | Slayt 4 (data) > kutu 2 > delta
+test: 3.124
+
+@@ S0042 | Slayt 5 (class-balance) > title
+Sınıf Dengesizliği
+
+@@ S0043 | Slayt 5 (class-balance) > kutu 1 > label
+En büyük sınıf (eğitim)
+
+@@ S0044 | Slayt 5 (class-balance) > kutu 1 > value
+1.423
+
+@@ S0045 | Slayt 5 (class-balance) > kutu 1 > delta
+STANDING
+
+@@ S0046 | Slayt 5 (class-balance) > kutu 2 > label
+En küçük sınıf (eğitim)
+
+@@ S0047 | Slayt 5 (class-balance) > kutu 2 > value
+23
+
+@@ S0048 | Slayt 5 (class-balance) > kutu 2 > delta
+SIT_TO_STAND
+
+@@ S0049 | Slayt 5 (class-balance) > kutu 3 > label
+Oran
+
+@@ S0050 | Slayt 5 (class-balance) > kutu 3 > value
+~62×
+
+@@ S0051 | Slayt 5 (class-balance) > kutu 3 > delta
+birincil metrik: macro F1
+
+@@ S0052 | Slayt 5 (class-balance) > kutu 4 > label
+Transition (test)
+
+@@ S0053 | Slayt 5 (class-balance) > kutu 4 > value
+10-49
+
+@@ S0054 | Slayt 5 (class-balance) > kutu 4 > delta
+örnek / sınıf
+
+@@ S0055 | Slayt 6 (models) > title
+Final Mimariler
+
+@@ S0056 | Slayt 6 (models) > sütun 1
+Model
+
+@@ S0057 | Slayt 6 (models) > sütun 2
+Girdi
+
+@@ S0058 | Slayt 6 (models) > sütun 3
+Yapı
+
+@@ S0059 | Slayt 6 (models) > sütun 4
+Parametre
+
+@@ S0060 | Slayt 6 (models) > satır 1, hücre 1
+MLP
+
+@@ S0061 | Slayt 6 (models) > satır 1, hücre 2
+561 feature
+
+@@ S0062 | Slayt 6 (models) > satır 1, hücre 3
+256-128
+
+@@ S0063 | Slayt 6 (models) > satır 1, hücre 4
+178.316
+
+@@ S0064 | Slayt 6 (models) > satır 2, hücre 1
+MLP-raw
+
+@@ S0065 | Slayt 6 (models) > satır 2, hücre 2
+128 × 9 ham
+
+@@ S0066 | Slayt 6 (models) > satır 2, hücre 3
+256-128
+
+@@ S0067 | Slayt 6 (models) > satır 2, hücre 4
+329.612
+
+@@ S0068 | Slayt 6 (models) > satır 3, hücre 1
+1D CNN
+
+@@ S0069 | Slayt 6 (models) > satır 3, hücre 2
+9 kanal
+
+@@ S0070 | Slayt 6 (models) > satır 3, hücre 3
+4 blok, dilation 2
+
+@@ S0071 | Slayt 6 (models) > satır 3, hücre 4
+138.700
+
+@@ S0072 | Slayt 6 (models) > satır 4, hücre 1
+LSTM
+
+@@ S0073 | Slayt 6 (models) > satır 4, hücre 2
+9 kanal
+
+@@ S0074 | Slayt 6 (models) > satır 4, hücre 3
+BiLSTM, mean/max
+
+@@ S0075 | Slayt 6 (models) > satır 4, hücre 4
+140.812
+
+@@ S0076 | Slayt 6 (models) > satır 5, hücre 1
+GRU
+
+@@ S0077 | Slayt 6 (models) > satır 5, hücre 2
+6 kanal
+
+@@ S0078 | Slayt 6 (models) > satır 5, hücre 3
+BiGRU, mean/max
+
+@@ S0079 | Slayt 6 (models) > satır 5, hücre 4
+105.228
+
+@@ S0080 | Slayt 7 (method) > title
+Yöntem Düzeltmesi
+
+@@ S0081 | Slayt 7 (method) > lead
+İlk baseline'ın test sonuçlarına bakıldı; sonraki kararlar yalnızca CV ile.
+
+@@ S0082 | Slayt 7 (method) > adım 1 > label
+Baseline
+
+@@ S0083 | Slayt 7 (method) > adım 1 > madde 1
+Test'e bakıldı
+
+@@ S0084 | Slayt 7 (method) > adım 2 > label
+5-fold CV
+
+@@ S0085 | Slayt 7 (method) > adım 2 > madde 1
+21 eğitim kişisi
+
+@@ S0086 | Slayt 7 (method) > adım 2 > madde 2
+3 seed
+
+@@ S0087 | Slayt 7 (method) > adım 3 > label
+Dondurma
+
+@@ S0088 | Slayt 7 (method) > adım 3 > madde 1
+Düzen + plan
+
+@@ S0089 | Slayt 7 (method) > adım 3 > madde 2
+commit
+
+@@ S0090 | Slayt 7 (method) > adım 4 > label
+Final test
+
+@@ S0091 | Slayt 7 (method) > adım 4 > madde 1
+10 seed
+
+@@ S0092 | Slayt 7 (method) > adım 4 > madde 2
+tek koşu
+
+@@ S0093 | Slayt 7 (method) > adım 5 > label
+Bootstrap
+
+@@ S0094 | Slayt 7 (method) > adım 5 > madde 1
+9 kişi
+
+@@ S0095 | Slayt 7 (method) > adım 5 > madde 2
+B = 2.000
+
+@@ S0096 | Slayt 7 (method) > madde 1
+İddia eşiği: eşleştirilmiş farkın %95 GA'sı sıfırı dışlamalı ve CV aynı yönde.
+
+@@ S0097 | Slayt 8 (journey) > title
+İzlenen Yol (CV macro F1)
+
+@@ S0098 | Slayt 8 (journey) > sütun 1
+Adım
+
+@@ S0099 | Slayt 8 (journey) > sütun 2
+Model
+
+@@ S0100 | Slayt 8 (journey) > sütun 3
+Önce
+
+@@ S0101 | Slayt 8 (journey) > sütun 4
+Sonra
+
+@@ S0102 | Slayt 8 (journey) > satır 1, hücre 1
+Optimizasyon (A1)
+
+@@ S0103 | Slayt 8 (journey) > satır 1, hücre 2
+MLP
+
+@@ S0104 | Slayt 8 (journey) > satır 1, hücre 3
+0,824
+
+@@ S0105 | Slayt 8 (journey) > satır 1, hücre 4
+0,845
+
+@@ S0106 | Slayt 8 (journey) > satır 2, hücre 1
+Bidirectional + mean/max
+
+@@ S0107 | Slayt 8 (journey) > satır 2, hücre 2
+LSTM
+
+@@ S0108 | Slayt 8 (journey) > satır 2, hücre 3
+0,771
+
+@@ S0109 | Slayt 8 (journey) > satır 2, hücre 4
+0,787
+
+@@ S0110 | Slayt 8 (journey) > satır 3, hücre 1
+Derin CNN
+
+@@ S0111 | Slayt 8 (journey) > satır 3, hücre 2
+1D CNN
+
+@@ S0112 | Slayt 8 (journey) > satır 3, hücre 3
+0,809
+
+@@ S0113 | Slayt 8 (journey) > satır 3, hücre 4
+0,830
+
+@@ S0114 | Slayt 8 (journey) > satır 4, hücre 1
+Augmentasyon (K1)
+
+@@ S0115 | Slayt 8 (journey) > satır 4, hücre 2
+1D CNN
+
+@@ S0116 | Slayt 8 (journey) > satır 4, hücre 3
+0,833
+
+@@ S0117 | Slayt 8 (journey) > satır 4, hücre 4
+0,849
+
+@@ S0118 | Slayt 8 (journey) > satır 5, hücre 1
+Aug. + yoğun window (D2)
+
+@@ S0119 | Slayt 8 (journey) > satır 5, hücre 2
+MLP-raw
+
+@@ S0120 | Slayt 8 (journey) > satır 5, hücre 3
+0,808
+
+@@ S0121 | Slayt 8 (journey) > satır 5, hücre 4
+0,840
+
+@@ S0122 | Slayt 8 (journey) > satır 6, hücre 1
+Tüm adımlar: A0 ve D2
+
+@@ S0123 | Slayt 8 (journey) > satır 6, hücre 2
+LSTM
+
+@@ S0124 | Slayt 8 (journey) > satır 6, hücre 3
+0,768
+
+@@ S0125 | Slayt 8 (journey) > satır 6, hücre 4
+0,857
+
+@@ S0126 | Slayt 9 (baseline) > title
+İlk Sonuçlar: Baseline (test macro F1)
+
+@@ S0127 | Slayt 9 (baseline) > caption
+İlk sonuçlar · 16 kişiyle eğitim, ayarsız düzen, 5 seed ortalaması · LSTM std 0,094 · final tabloyla karşılaştırılmaz
+
+@@ S0128 | Slayt 9 (baseline) > çubuk 1 > label
+MLP
+
+@@ S0129 | Slayt 9 (baseline) > çubuk 1 > value
+0.841
+
+@@ S0130 | Slayt 9 (baseline) > çubuk 2 > label
+1D CNN
+
+@@ S0131 | Slayt 9 (baseline) > çubuk 2 > value
+0.819
+
+@@ S0132 | Slayt 9 (baseline) > çubuk 3 > label
+GRU
+
+@@ S0133 | Slayt 9 (baseline) > çubuk 3 > value
+0.786
+
+@@ S0134 | Slayt 9 (baseline) > çubuk 4 > label
+LSTM
+
+@@ S0135 | Slayt 9 (baseline) > çubuk 4 > value
+0.666
+
+@@ S0136 | Slayt 10 (final-chart) > title
+Final Test: Ensemble Macro F1
+
+@@ S0137 | Slayt 10 (final-chart) > caption
+Dondurulmuş düzen · 10 seed'in olasılık ortalaması · 9 test kişisi · mavi: MLP baseline
+
+@@ S0138 | Slayt 10 (final-chart) > çubuk 1 > label
+MLP
+
+@@ S0139 | Slayt 10 (final-chart) > çubuk 1 > value
+0.864
+
+@@ S0140 | Slayt 10 (final-chart) > çubuk 2 > label
+MLP-raw
+
+@@ S0141 | Slayt 10 (final-chart) > çubuk 2 > value
+0.862
+
+@@ S0142 | Slayt 10 (final-chart) > çubuk 3 > label
+1D CNN
+
+@@ S0143 | Slayt 10 (final-chart) > çubuk 3 > value
+0.921
+
+@@ S0144 | Slayt 10 (final-chart) > çubuk 4 > label
+LSTM
+
+@@ S0145 | Slayt 10 (final-chart) > çubuk 4 > value
+0.928
+
+@@ S0146 | Slayt 10 (final-chart) > çubuk 5 > label
+GRU
+
+@@ S0147 | Slayt 10 (final-chart) > çubuk 5 > value
+0.921
+
+@@ S0148 | Slayt 11 (final-table) > title
+Final Test Sonuçları
+
+@@ S0149 | Slayt 11 (final-table) > sütun 1
+Model
+
+@@ S0150 | Slayt 11 (final-table) > sütun 2
+Macro F1 (10 seed)
+
+@@ S0151 | Slayt 11 (final-table) > sütun 3
+Ensemble
+
+@@ S0152 | Slayt 11 (final-table) > sütun 4
+%95 GA
+
+@@ S0153 | Slayt 11 (final-table) > sütun 5
+Ens. accuracy
+
+@@ S0154 | Slayt 11 (final-table) > satır 1, hücre 1
+MLP
+
+@@ S0155 | Slayt 11 (final-table) > satır 1, hücre 2
+0,860 ± 0,004
+
+@@ S0156 | Slayt 11 (final-table) > satır 1, hücre 3
+0,864
+
+@@ S0157 | Slayt 11 (final-table) > satır 1, hücre 4
+[0,823; 0,899]
+
+@@ S0158 | Slayt 11 (final-table) > satır 1, hücre 5
+0,941
+
+@@ S0159 | Slayt 11 (final-table) > satır 2, hücre 1
+MLP-raw
+
+@@ S0160 | Slayt 11 (final-table) > satır 2, hücre 2
+0,862 ± 0,006
+
+@@ S0161 | Slayt 11 (final-table) > satır 2, hücre 3
+0,862
+
+@@ S0162 | Slayt 11 (final-table) > satır 2, hücre 4
+[0,793; 0,907]
+
+@@ S0163 | Slayt 11 (final-table) > satır 2, hücre 5
+0,914
+
+@@ S0164 | Slayt 11 (final-table) > satır 3, hücre 1
+1D CNN
+
+@@ S0165 | Slayt 11 (final-table) > satır 3, hücre 2
+0,894 ± 0,011
+
+@@ S0166 | Slayt 11 (final-table) > satır 3, hücre 3
+0,921
+
+@@ S0167 | Slayt 11 (final-table) > satır 3, hücre 4
+[0,888; 0,947]
+
+@@ S0168 | Slayt 11 (final-table) > satır 3, hücre 5
+0,972
+
+@@ S0169 | Slayt 11 (final-table) > satır 4, hücre 1
+LSTM
+
+@@ S0170 | Slayt 11 (final-table) > satır 4, hücre 2
+0,898 ± 0,010
+
+@@ S0171 | Slayt 11 (final-table) > satır 4, hücre 3
+0,928
+
+@@ S0172 | Slayt 11 (final-table) > satır 4, hücre 4
+[0,888; 0,955]
+
+@@ S0173 | Slayt 11 (final-table) > satır 4, hücre 5
+0,975
+
+@@ S0174 | Slayt 11 (final-table) > satır 5, hücre 1
+GRU
+
+@@ S0175 | Slayt 11 (final-table) > satır 5, hücre 2
+0,888 ± 0,008
+
+@@ S0176 | Slayt 11 (final-table) > satır 5, hücre 3
+0,921
+
+@@ S0177 | Slayt 11 (final-table) > satır 5, hücre 4
+[0,874; 0,951]
+
+@@ S0178 | Slayt 11 (final-table) > satır 5, hücre 5
+0,976
+
+@@ S0179 | Slayt 12 (comparison) > title
+MLP'ye Göre Fark (ensemble macro F1)
+
+@@ S0180 | Slayt 12 (comparison) > sütun 1
+Model
+
+@@ S0181 | Slayt 12 (comparison) > sütun 2
+Test farkı
+
+@@ S0182 | Slayt 12 (comparison) > sütun 3
+%95 GA
+
+@@ S0183 | Slayt 12 (comparison) > sütun 4
+CV farkı
+
+@@ S0184 | Slayt 12 (comparison) > sütun 5
+Sonuç
+
+@@ S0185 | Slayt 12 (comparison) > satır 1, hücre 1
+1D CNN
+
+@@ S0186 | Slayt 12 (comparison) > satır 1, hücre 2
++0,056
+
+@@ S0187 | Slayt 12 (comparison) > satır 1, hücre 3
+[+0,026; +0,093]
+
+@@ S0188 | Slayt 12 (comparison) > satır 1, hücre 4
++0,010
+
+@@ S0189 | Slayt 12 (comparison) > satır 1, hücre 5
+MLP'den yüksek
+
+@@ S0190 | Slayt 12 (comparison) > satır 2, hücre 1
+LSTM
+
+@@ S0191 | Slayt 12 (comparison) > satır 2, hücre 2
++0,063
+
+@@ S0192 | Slayt 12 (comparison) > satır 2, hücre 3
+[+0,029; +0,097]
+
+@@ S0193 | Slayt 12 (comparison) > satır 2, hücre 4
++0,012
+
+@@ S0194 | Slayt 12 (comparison) > satır 2, hücre 5
+MLP'den yüksek
+
+@@ S0195 | Slayt 12 (comparison) > satır 3, hücre 1
+GRU
+
+@@ S0196 | Slayt 12 (comparison) > satır 3, hücre 2
++0,055
+
+@@ S0197 | Slayt 12 (comparison) > satır 3, hücre 3
+[+0,024; +0,086]
+
+@@ S0198 | Slayt 12 (comparison) > satır 3, hücre 4
+0,000
+
+@@ S0199 | Slayt 12 (comparison) > satır 3, hücre 5
+Eşik sağlanmadı
+
+@@ S0200 | Slayt 12 (comparison) > satır 4, hücre 1
+MLP-raw
+
+@@ S0201 | Slayt 12 (comparison) > satır 4, hücre 2
+-0,005
+
+@@ S0202 | Slayt 12 (comparison) > satır 4, hücre 3
+[-0,055; +0,043]
+
+@@ S0203 | Slayt 12 (comparison) > satır 4, hücre 4
+-0,005
+
+@@ S0204 | Slayt 12 (comparison) > satır 4, hücre 5
+Ayırt edilemez
+
+@@ S0205 | Slayt 13 (feature-vs-arch) > title
+Feature mı, Mimari mi? (MLP-raw)
+
+@@ S0206 | Slayt 13 (feature-vs-arch) > kutu 1 > label
+MLP-raw, aug. yok
+
+@@ S0207 | Slayt 13 (feature-vs-arch) > kutu 1 > value
+0,808
+
+@@ S0208 | Slayt 13 (feature-vs-arch) > kutu 1 > delta
+CV macro F1
+
+@@ S0209 | Slayt 13 (feature-vs-arch) > kutu 2 > label
+MLP-raw, aug. var
+
+@@ S0210 | Slayt 13 (feature-vs-arch) > kutu 2 > value
+0,840
+
+@@ S0211 | Slayt 13 (feature-vs-arch) > kutu 2 > delta
+CV macro F1
+
+@@ S0212 | Slayt 13 (feature-vs-arch) > kutu 3 > label
+MLP, 561 feature
+
+@@ S0213 | Slayt 13 (feature-vs-arch) > kutu 3 > value
+0,845
+
+@@ S0214 | Slayt 13 (feature-vs-arch) > kutu 3 > delta
+CV macro F1
+
+@@ S0215 | Slayt 13 (feature-vs-arch) > kutu 4 > label
+MLP-raw, test
+
+@@ S0216 | Slayt 13 (feature-vs-arch) > kutu 4 > value
+0,914
+
+@@ S0217 | Slayt 13 (feature-vs-arch) > kutu 4 > delta
+accuracy; MLP 0,940
+
+@@ S0218 | Slayt 14 (per-class) > title
+Sınıf Bazlı Test F1 (ensemble)
+
+@@ S0219 | Slayt 14 (per-class) > sütun 1
+Sınıf
+
+@@ S0220 | Slayt 14 (per-class) > sütun 2
+MLP
+
+@@ S0221 | Slayt 14 (per-class) > sütun 3
+MLP-raw
+
+@@ S0222 | Slayt 14 (per-class) > sütun 4
+1D CNN
+
+@@ S0223 | Slayt 14 (per-class) > sütun 5
+LSTM
+
+@@ S0224 | Slayt 14 (per-class) > sütun 6
+GRU
+
+@@ S0225 | Slayt 14 (per-class) > satır 1, hücre 1
+Aktivite ort.
+
+@@ S0226 | Slayt 14 (per-class) > satır 1, hücre 2
+0,952
+
+@@ S0227 | Slayt 14 (per-class) > satır 1, hücre 3
+0,924
+
+@@ S0228 | Slayt 14 (per-class) > satır 1, hücre 4
+0,979
+
+@@ S0229 | Slayt 14 (per-class) > satır 1, hücre 5
+0,982
+
+@@ S0230 | Slayt 14 (per-class) > satır 1, hücre 6
+0,984
+
+@@ S0231 | Slayt 14 (per-class) > satır 2, hücre 1
+Transition ort.
+
+@@ S0232 | Slayt 14 (per-class) > satır 2, hücre 2
+0,776
+
+@@ S0233 | Slayt 14 (per-class) > satır 2, hücre 3
+0,801
+
+@@ S0234 | Slayt 14 (per-class) > satır 2, hücre 4
+0,863
+
+@@ S0235 | Slayt 14 (per-class) > satır 2, hücre 5
+0,874
+
+@@ S0236 | Slayt 14 (per-class) > satır 2, hücre 6
+0,858
+
+@@ S0237 | Slayt 14 (per-class) > satır 3, hücre 1
+SITTING
+
+@@ S0238 | Slayt 14 (per-class) > satır 3, hücre 2
+0,920
+
+@@ S0239 | Slayt 14 (per-class) > satır 3, hücre 3
+0,799
+
+@@ S0240 | Slayt 14 (per-class) > satır 3, hücre 4
+0,957
+
+@@ S0241 | Slayt 14 (per-class) > satır 3, hücre 5
+0,961
+
+@@ S0242 | Slayt 14 (per-class) > satır 3, hücre 6
+0,968
+
+@@ S0243 | Slayt 14 (per-class) > satır 4, hücre 1
+SIT_TO_LIE
+
+@@ S0244 | Slayt 14 (per-class) > satır 4, hücre 2
+0,688
+
+@@ S0245 | Slayt 14 (per-class) > satır 4, hücre 3
+0,725
+
+@@ S0246 | Slayt 14 (per-class) > satır 4, hücre 4
+0,794
+
+@@ S0247 | Slayt 14 (per-class) > satır 4, hücre 5
+0,750
+
+@@ S0248 | Slayt 14 (per-class) > satır 4, hücre 6
+0,767
+
+@@ S0249 | Slayt 15 (demo) > title
+Canlı Demo: Android
+
+@@ S0250 | Slayt 15 (demo) > lead
+Telefonda doğruluk ölçülmedi; demo nitel bir gösterimdir.
+
+@@ S0251 | Slayt 15 (demo) > madde 1
+Kotlin, bağımlılıksız GRU çıkarımı
+
+@@ S0252 | Slayt 15 (demo) > madde 2
+Her 1,28 sn'de 2,56 sn'lik window, 12 sınıf
+
+@@ S0253 | Slayt 15 (demo) > madde 3
+Kalibrasyon: ayakta, oturma, yatma
+
+@@ S0254 | Slayt 15 (demo) > madde 4
+Telefon belde, dik takılı
+
+@@ S0255 | Slayt 15 (demo) > highlightsLabel
+Akış
+
+@@ S0256 | Slayt 15 (demo) > kutu 1 > label
+1
+
+@@ S0257 | Slayt 15 (demo) > kutu 1 > value
+Kalibre et
+
+@@ S0258 | Slayt 15 (demo) > kutu 2 > label
+2
+
+@@ S0259 | Slayt 15 (demo) > kutu 2 > value
+Yürü, otur, kalk
+
+@@ S0260 | Slayt 15 (demo) > kutu 3 > label
+3
+
+@@ S0261 | Slayt 15 (demo) > kutu 3 > value
+Tahmini izle
+
+@@ S0262 | Slayt 16 (conclusion) > title
+Sonuçlar
+
+@@ S0263 | Slayt 16 (conclusion) > madde 1
+1D CNN ve LSTM test macro F1'de MLP'den yüksek (0,921 ve 0,928; MLP 0,864)
+
+@@ S0264 | Slayt 16 (conclusion) > madde 2
+GRU: testte yüksek, CV'de ayırt edilemez
+
+@@ S0265 | Slayt 16 (conclusion) > madde 3
+Augmentasyonsuz düzende MLP'nin avantajı büyük ölçüde hazır feature'lardan
+
+@@ S0266 | Slayt 16 (conclusion) > madde 4
+1D CNN'de en büyük CV kazancı augmentasyondan (+0,016)
+
+@@ S0267 | Slayt 17 (limitations) > title
+Sınırlılıklar
+
+@@ S0268 | Slayt 17 (limitations) > madde 1
+9 test kişisi: güven aralıkları geniş
+
+@@ S0269 | Slayt 17 (limitations) > madde 2
+Test kümeleri birebir aynı değil (3.162 ve 3.124)
+
+@@ S0270 | Slayt 17 (limitations) > madde 3
+Test, CV'den yüksek; sebebi ayrılamadı
+
+@@ S0271 | Slayt 17 (limitations) > madde 4
+İlk baseline'da test sonuçlarına bakıldı
+
+@@ S0272 | Slayt 17 (limitations) > madde 5
+Gerçek telefon testi yapılmadı
+
+@@ S0273 | Slayt 18 (closing) > title
+Teşekkürler
+
+@@ S0274 | Slayt 18 (closing) > subtitle
+Sorularınız

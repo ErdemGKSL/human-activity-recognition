@@ -119,6 +119,9 @@ From the repo root:
 | All of the above | `bun run build` |
 | Everything that must pass | `bun run check` (lint, docs links, typecheck, tests) |
 | Auto-fix formatting | `bun run format` |
+| Dump the visible text of the final-results report and deck to `texts/*.txt` | `bun run texts:export` |
+| Write edited `texts/*.txt` back into the sources (Biome-formats changed files) | `bun run texts:apply [--dry-run] [--force]` |
+| Check that `texts/*.txt` still match the sources | `bun run texts:check` |
 
 From `slides/` (what the `slides/` skills assume):
 

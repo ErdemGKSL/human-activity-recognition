@@ -26,6 +26,9 @@
     "format": "biome check --write .",
     "test": "bun test",
     "check": "bun run lint && bun run lint:docs && bun run typecheck && bun run test",
+    "texts:export": "bun scripts/texts/texts.ts export",
+    "texts:apply": "bun scripts/texts/texts.ts apply",
+    "texts:check": "bun scripts/texts/texts.ts check",
     "clean": "rm -rf slides/output report/output slide-directions/output"
   },
   "devDependencies": {
