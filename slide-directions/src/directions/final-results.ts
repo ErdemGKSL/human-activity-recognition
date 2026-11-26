@@ -19,7 +19,7 @@ export const finalResults = defineDirections({
   overview: [
     "Dinleyici: yüksek lisans sınıfı ve hoca. Mimarilerin ne olduğunu değil, karşılaştırmanın nasıl adil ve dürüst yapıldığını anlatın.",
     "Hikâye üç parça: (1) ilk baseline beklenmedik çıktı, (2) yöntem düzeltildi ve her karar CV ile verildi, (3) dondurulmuş düzenle test bir kez koşuldu ve iddialar önceden ilan edilen eşiğe göre yazıldı.",
-    "Sayılar rapordaki tablolarla birebir aynıdır (Tablo 5, 7, 8, 9, 10). Bir sayıyı söylerken hangi protokolden geldiğini de söyleyin: ilk baseline testi mi, CV mi, final test mi.",
+    "Sayılar rapordaki tablolarla birebir aynıdır (Tablo 4, 6, 7, 8, 9). Bir sayıyı söylerken hangi protokolden geldiğini de söyleyin: ilk baseline testi mi, CV mi, final test mi.",
     "İddia eşiği: “MLP'den yüksek” yalnızca 1D CNN ve LSTM için söylenir. GRU için “testte yüksek, CV'de ayırt edilemez”. “Ham modeller genel olarak MLP'den üstün” ya da “LSTM en iyisi” denmez.",
     "Telefon: uygulama hazır, ama telefonda doğruluk ölçülmedi. Demo sırasında görülen tahminler sonuç değildir; öyle anlatın.",
     "Süre planı: giriş ve veri ~6 dk (slayt 1–6), yöntem ve izlenen yol ~6 dk (7–9), sonuçlar ~8 dk (10–14), demo ~3 dk (15), kapanış ~2,5 dk (16–18). Demo çalışmazsa 15. slaytı 1 dakikada anlatıp geçin; toplam ~22 dk olur.",
@@ -39,7 +39,7 @@ export const finalResults = defineDirections({
     {
       term: "Baseline",
       meaning:
-        "Diğer modellerin karşılaştırıldığı referans. Bu projede 561 feature'lı MLP. “İlk baseline” ise ayarsız ilk eğitim düzeninin adıdır (Tablo 5).",
+        "Diğer modellerin karşılaştırıldığı referans. Bu projede 561 feature'lı MLP. “İlk baseline” ise ayarsız ilk eğitim düzeninin adıdır (Tablo 4).",
     },
     {
       term: "Bidirectional",
@@ -146,12 +146,12 @@ export const finalResults = defineDirections({
     {
       question: "Neden validation set yerine CV kullandınız?",
       answer:
-        "İlk baseline'da validation set 5 kişiydi ve en iyi epoch'u bu 5 kişiye göre seçiyorduk. Bu seçim gürültülüydü: aynı baseline düzeni CV'de ölçüldüğünde LSTM 0,768 aldı, testteki 0,666 görülmedi (Tablo 7). 5-fold kişi bazlı CV, 21 kişinin hepsini değerlendirmede kullanır ve tek bir küçük gruba bağlı kalmaz. Ayrıca CV, test kümesine dokunmadan karar vermemizi sağladı.",
+        "İlk baseline'da validation set 5 kişiydi ve en iyi epoch'u bu 5 kişiye göre seçiyorduk. Bu seçim gürültülüydü: aynı baseline düzeni CV'de ölçüldüğünde LSTM 0,768 aldı, testteki 0,666 görülmedi (Tablo 6). 5-fold kişi bazlı CV, 21 kişinin hepsini değerlendirmede kullanır ve tek bir küçük gruba bağlı kalmaz. Ayrıca CV, test kümesine dokunmadan karar vermemizi sağladı.",
     },
     {
       question: "GRU neden gravity/body ayrımı olmadan, 6 kanalla eğitildi?",
       answer:
-        "CV'de GRU'ya fayda vermediği için. A1a düzeninde gravity eklemek 1D CNN'de +0,018, LSTM'de +0,010 getirdi, GRU'da -0,003 oldu (Tablo 7). Karar kuralımız “CV'de faydası olan eklenir” olduğu için GRU 6 kanalla dondu. Bunun neden böyle olduğunu ayrıca incelemedik.",
+        "CV'de GRU'ya fayda vermediği için. A1a düzeninde gravity eklemek 1D CNN'de +0,018, LSTM'de +0,010 getirdi, GRU'da -0,003 oldu (Tablo 6). Karar kuralımız “CV'de faydası olan eklenir” olduğu için GRU 6 kanalla dondu. Bunun neden böyle olduğunu ayrıca incelemedik.",
     },
     {
       question:
@@ -339,9 +339,7 @@ export const finalResults = defineDirections({
         "Turuncu kartı gösterip durun. Hatayı kendiniz söylemeniz, hocanın sormasından iyidir.",
         "İddia eşiğini yavaş okuyun; karşılaştırma slaytında bu cümleye geri döneceksiniz.",
       ],
-      funFacts: [
-        "Tek bir RNN yapılandırmasının CV'si CPU'da yaklaşık 1,5 saat, Colab L4 GPU'da yaklaşık 5 dakika olarak tahmin edildi; eğitim bu yüzden Colab'a taşındı.",
-      ],
+      funFacts: [],
       transition: "Bu kuralla CV'de neler denediğimize bakalım.",
     },
     journey: {
@@ -354,7 +352,7 @@ export const finalResults = defineDirections({
         "MLP-raw satırı bir sonraki bölümün habercisi: aynı MLP ham girdiyle 0,808'den augmentasyon ve yoğun window'la 0,840'a çıktı. Son satır yolun tamamı: LSTM baseline düzeninde 0,768'di, final düzende 0,857.",
       ],
       data: [
-        { label: "0,824 ile 0,845", meaning: "MLP, A0'dan A1a'ya (Tablo 7)." },
+        { label: "0,824 ile 0,845", meaning: "MLP, A0'dan A1a'ya (Tablo 6)." },
         {
           label: "0,771 ile 0,787",
           meaning: "LSTM, A1a'dan A1a + bidirectional + mean/max'a (+0,016).",
@@ -374,9 +372,7 @@ export const finalResults = defineDirections({
         "Bütün satırları okumayın; MLP satırı, augmentasyon satırı ve son satır yeter.",
         "CNN'de augmentasyona yoğun window eklemek 0,849'dan 0,855'e götürdü; bu +0,006 gürültü bandında. Soru gelirse böyle söyleyin.",
       ],
-      funFacts: [
-        "Colab runtime'ı iki kez beklenmedik biçimde silindi ve o ana kadarki CV çıktıları kayboldu. Izgara yeniden koşulduğunda A0 sonuçları öncekiyle aynı çıktı; istemeden bir tekrarlanabilirlik testi yapmış olduk.",
-      ],
+      funFacts: [],
       transition: "Bu düzeltmelerden önce, ilk baseline testte ne vermişti?",
     },
     baseline: {
@@ -391,7 +387,7 @@ export const finalResults = defineDirections({
         {
           label: "0,841 / 0,819 / 0,786 / 0,666",
           meaning:
-            "Test macro F1, 5 seed ortalaması (Tablo 5). Mavi çubuk o düzende en yüksek olan MLP.",
+            "Test macro F1, 5 seed ortalaması (Tablo 4). Mavi çubuk o düzende en yüksek olan MLP.",
         },
         {
           label: "LSTM std 0,094",
@@ -412,7 +408,7 @@ export const finalResults = defineDirections({
       data: [
         {
           label: "0,864 / 0,862 / 0,921 / 0,928 / 0,921",
-          meaning: "Ensemble test macro F1 (Tablo 8).",
+          meaning: "Ensemble test macro F1 (Tablo 7).",
         },
         {
           label: "Mavi çubuk",
@@ -444,7 +440,7 @@ export const finalResults = defineDirections({
         },
         {
           label: "Ens. accuracy",
-          meaning: "Ensemble accuracy: 0,941 / 0,914 / 0,972 / 0,975 / 0,976 (Tablo 8).",
+          meaning: "Ensemble accuracy: 0,941 / 0,914 / 0,972 / 0,975 / 0,976 (Tablo 7).",
         },
         { label: "Test örnek sayısı", meaning: "MLP 3.162, diğerleri 3.124." },
       ],
@@ -463,12 +459,12 @@ export const finalResults = defineDirections({
       data: [
         {
           label: "Test farkı",
-          meaning: "Ensemble macro F1, model - MLP; eşleştirilmiş kişi bazlı bootstrap (Tablo 9).",
+          meaning: "Ensemble macro F1, model - MLP; eşleştirilmiş kişi bazlı bootstrap (Tablo 8).",
         },
         {
           label: "CV farkı",
           meaning:
-            "Tablo 7'deki dondurulmuş satırların farkı (ör. CNN 0,855 - MLP 0,845 = +0,010).",
+            "Tablo 6'deki dondurulmuş satırların farkı (ör. CNN 0,855 - MLP 0,845 = +0,010).",
         },
         { label: "“Eşik sağlanmadı”", meaning: "GRU: GA sıfırı dışlıyor ama CV farkı 0,000." },
       ],
@@ -496,7 +492,7 @@ export const finalResults = defineDirections({
         { label: "0,845", meaning: "MLP, 561 feature, A1a (final düzeni), CV." },
         {
           label: "0,914 ve 0,940",
-          meaning: "Test accuracy, 10 seed ortalaması: MLP-raw ve MLP (Tablo 8).",
+          meaning: "Test accuracy, 10 seed ortalaması: MLP-raw ve MLP (Tablo 7).",
         },
       ],
       tips: [
@@ -514,7 +510,7 @@ export const finalResults = defineDirections({
         "Transition sınıfları testte az örneğe dayanıyor, ham modellerde toplam 157 window. Sınıf bazlı farkları kesin yorumlamıyoruz.",
       ],
       data: [
-        { label: "Aktivite ort.", meaning: "İlk 6 sınıfın ortalama F1'i (Tablo 10)." },
+        { label: "Aktivite ort.", meaning: "İlk 6 sınıfın ortalama F1'i (Tablo 9)." },
         {
           label: "Transition ort.",
           meaning: "Son 6 sınıfın ortalama F1'i: 0,776 / 0,801 / 0,863 / 0,874 / 0,858.",

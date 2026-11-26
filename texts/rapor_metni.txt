@@ -1,7 +1,7 @@
 # Final Results raporu metni
 # kaynak: report/src/documents/final-results.tsx
-# sha256: 2c908be919f651aab47e6251e280d57055608e05db2eebbf7ee9869b53accdc9
-# yuva sayısı: 675
+# sha256: 00613a92a7107e90607c1fd3f8e67a848dee37fd2565b2e11c54d50689e90a43
+# yuva sayısı: 650
 #
 # Kullanım notu:
 # - Yalnızca '@@' ile başlayan satırların altındaki metni değiştirin.
@@ -41,10 +41,10 @@ Hedef, aynı kişi bazlı eğitim/test ayrımında dört yapay sinir ağını ka
 Raporun katkıları şunlardır:
 
 @@ R0010 | 1 Giriş > BulletList > madde 1
-Kişi bazlı cross-validation (CV) ile seçilen ve test koşusundan önce dondurulan düzende, 1D CNN ve LSTM test macro F1'de MLP'den yüksek sonuç verdi (ensemble 0,921 ve 0,928, MLP 0,864; Tablo 8). Eşleştirilmiş kişi bazlı bootstrap farkının %95 güven aralığı (GA) sıfırı dışladı (Tablo 9).
+Kişi bazlı cross-validation (CV) ile seçilen ve test koşusundan önce dondurulan düzende, 1D CNN ve LSTM test macro F1'de MLP'den yüksek sonuç verdi (ensemble 0,921 ve 0,928, MLP 0,864; Tablo 7). Eşleştirilmiş kişi bazlı bootstrap farkının %95 güven aralığı (GA) sıfırı dışladı (Tablo 8).
 
 @@ R0011 | 1 Giriş > BulletList > madde 2
-Aynı MLP'nin ham girdiyle eğitildiği kontrol deneyi, augmentasyonsuz düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğine işaret etti (CV'de 0,803-0,808 ve 0,845). Augmentasyon ve yoğun window'la bu fark 0,005'e indi (Tablo 7).
+Aynı MLP'nin ham girdiyle eğitildiği kontrol deneyi, augmentasyonsuz düzende MLP'nin üstünlüğünün büyük ölçüde hazır feature'lardan geldiğine işaret etti (CV'de 0,803-0,808 ve 0,845). Augmentasyon ve yoğun window'la bu fark 0,005'e indi (Tablo 6).
 
 @@ R0012 | 1 Giriş > BulletList > madde 3
 İlk baseline'dan final koşuya kadar her adım, sonucu ve verilen karar kayıt altına alındı (Bölüm 5). İlk baseline'ın test sonuçlarına teşhis için bakıldığı da bu kayıttadır (Bölüm 5.5).
@@ -227,7 +227,7 @@ Baseline sürümü hidden size 64 olan iki katmanlı bir LSTM'dir ve son zaman a
 GRU
 
 @@ R0072 | 4.4 GRU > Paragraf
-Baseline sürümü LSTM ile aynı yapıdadır: iki katman, hidden size 64, son zaman adımı (39.564 parametre). Final sürümü bidirectional'dır ve mean/max pooling kullanır. GRU'da gravity/body ayrımı CV'de fayda vermediği için (Tablo 7) girdi 6 kanaldır (105.228 parametre).
+Baseline sürümü LSTM ile aynı yapıdadır: iki katman, hidden size 64, son zaman adımı (39.564 parametre). Final sürümü bidirectional'dır ve mean/max pooling kullanır. GRU'da gravity/body ayrımı CV'de fayda vermediği için (Tablo 6) girdi 6 kanaldır (105.228 parametre).
 
 @@ R0073 | 4 Model Mimarileri > Tablo 2 > sütun 1
 Model
@@ -470,1570 +470,1495 @@ Resmi dosyalarda satır ile ham window eşlemesi olmadığı için ham sinyal mo
 5.3
 
 @@ R0153 | Bölüm 5.3 > başlık
-Donanım: CPU mu, Colab GPU mu?
+Çalışma ortamı
 
-@@ R0154 | 5.3 Donanım: CPU mu, Colab GPU mu? > Yapılan
-Eğitim önce CPU'da denendi ve tek koşu süreleri ölçüldü.
+@@ R0154 | 5.3 Çalışma ortamı > Yapılan
+Eğitimler Google Colab'da T4 ve L4 GPU'larla, PyTorch ile yapıldı.
 
-@@ R0155 | 5.3 Donanım: CPU mu, Colab GPU mu? > Sonuç
-Tek koşu MLP için 5 sn, CNN için 36 sn, LSTM için 150 sn sürdü; baseline CPU'da yapılabilirdi. CV planı büyüyünce tek bir RNN yapılandırmasının CV'si CPU'da yaklaşık 1,5 saat, Colab L4 GPU'da yaklaşık 5 dk olarak tahmin edildi (Tablo 4).
+@@ R0155 | 5.3 Çalışma ortamı > Sonuç
+Aynı yapılandırmanın tekrarında (A1a ve K5) fark 0,002 oldu (Tablo 5).
 
-@@ R0156 | 5.3 Donanım: CPU mu, Colab GPU mu? > Karar
-Eğitimler Google Colab GPU'larında yapılır.
+@@ R0156 | 5.3 Çalışma ortamı > Karar
+Tüm koşular bu ortamda yürütülür.
 
-@@ R0157 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > sütun 1
-Ölçüm
-
-@@ R0158 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > sütun 2
-Değer
-
-@@ R0159 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > sütun 3
-Tür
-
-@@ R0160 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 1, hücre 1
-Tek koşu, CPU: MLP / CNN / LSTM
-
-@@ R0161 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 1, hücre 2
-5 / 36 / 150 sn
-
-@@ R0162 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 1, hücre 3
-ölçüm
-
-@@ R0163 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 2, hücre 1
-Tek RNN yapılandırmasının CV'si, CPU
-
-@@ R0164 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 2, hücre 2
-yaklaşık 1,5 saat
-
-@@ R0165 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 2, hücre 3
-tahmin
-
-@@ R0166 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 3, hücre 1
-Aynı CV, Colab L4
-
-@@ R0167 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 3, hücre 2
-yaklaşık 5 dk
-
-@@ R0168 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 3, hücre 3
-tahmin
-
-@@ R0169 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 4, hücre 1
-1. runtime kaybı (poll yokken, boşta)
-
-@@ R0170 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 4, hücre 2
-yaklaşık 40 dk sonra
-
-@@ R0171 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 4, hücre 3
-gözlem
-
-@@ R0172 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 5, hücre 1
-2. runtime kaybı (düzenli poll varken)
-
-@@ R0173 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 5, hücre 2
-yaklaşık 1 sa 50 dk sonra
-
-@@ R0174 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > satır 5, hücre 3
-gözlem
-
-@@ R0175 | 5.3 Donanım: CPU mu, Colab GPU mu? > Tablo 4 > altyazı
-Tablo 4: Hesaplama süreleri ve altyapı gözlemleri (deney günlüğü, experiments/JOURNEY.md).
-
-@@ R0176 | Bölüm 5.4 > numara
+@@ R0157 | Bölüm 5.4 > numara
 5.4
 
-@@ R0177 | Bölüm 5.4 > başlık
+@@ R0158 | Bölüm 5.4 > başlık
 İlk baseline
 
-@@ R0178 | 5.4 İlk baseline > Yapılan
+@@ R0159 | 5.4 İlk baseline > Yapılan
 Dört model, ortak ve ayarsız bir düzenle eğitildi: 16 kişiyle eğitim, 5 kişilik validation set'e göre en iyi epoch, 40 epoch, 5 seed (Tablo 3). Test kümesinde ölçüldü.
 
-@@ R0179 | 5.4 İlk baseline > Sonuç
-Macro F1: MLP 0,841; 1D CNN 0,819; GRU 0,786; LSTM 0,666 (Tablo 5). LSTM kararsızdı: standart sapma 0,094. En zayıf sınıflar transition sınıflarıydı; SITTING ve STANDING ham modellerde MLP'den zayıftı (Tablo 6). Ham sinyal modellerinin MLP'nin gerisinde kalması beklenen sonuç değildi.
+@@ R0160 | 5.4 İlk baseline > Sonuç
+Macro F1: MLP 0,841; 1D CNN 0,819; GRU 0,786; LSTM 0,666 (Tablo 4). LSTM kararsızdı: standart sapma 0,094. En zayıf sınıflar transition sınıflarıydı; SITTING ve STANDING ham modellerde MLP'den zayıftı (Tablo 5). Ham sinyal modellerinin MLP'nin gerisinde kalması beklenen sonuç değildi.
 
-@@ R0180 | 5.4 İlk baseline > Karar
+@@ R0161 | 5.4 İlk baseline > Karar
 Ham modelleri iyileştirmek için dışarıdan bir değerlendirme (Fable danışmanlığı) istendi.
 
-@@ R0181 | Bölüm 5.5 > numara
+@@ R0162 | Bölüm 5.5 > numara
 5.5
 
-@@ R0182 | Bölüm 5.5 > başlık
+@@ R0163 | Bölüm 5.5 > başlık
 Danışmanlık ve yöntem düzeltmesi
 
-@@ R0183 | 5.5 Danışmanlık ve yöntem düzeltmesi > Yapılan
+@@ R0164 | 5.5 Danışmanlık ve yöntem düzeltmesi > Yapılan
 Fable, kodu okuyarak teşhisler çıkardı. Bunlar ölçüm değil, tahmindir: RNN'ler az eğitilmişti (40 epoch, yaklaşık 1.800 güncelleme; Tablo 3), gradient clipping ve warmup yoktu ve son zaman adımı kullanılıyordu; seçim sonrası 21 kişiyle yeniden eğitim yapılmıyordu; küçük validation set epoch seçimini gürültülü yapıyordu; gravity/body ayrımı ve augmentasyon yoktu; class weight agresifti.
 
-@@ R0184 | 5.5 Danışmanlık ve yöntem düzeltmesi > Sonuç
+@@ R0165 | 5.5 Danışmanlık ve yöntem düzeltmesi > Sonuç
 Yöntemle ilgili bir sorun da görüldü: baseline teşhisi, test kümesinin confusion matrix'ine ve sınıf bazlı F1 değerlerine bakılarak yapılmıştı. Bundan sonra test kümesine dayanarak karar vermek, test sonucunu iyimser yapabilirdi.
 
-@@ R0185 | 5.5 Danışmanlık ve yöntem düzeltmesi > Karar
+@@ R0166 | 5.5 Danışmanlık ve yöntem düzeltmesi > Karar
 Bundan sonraki her karar yalnızca 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile verilir (ölçüt: havuzlanmış out-of-fold macro F1, 3 seed). Test, dondurulmuş düzenle son adımda bir kez koşulur. Aynı arama bütçesi MLP'ye de verilir. Baseline kodu değiştirilmedi; yeni deneyler ayrı bir betikle (train2.py) yapıldı.
 
-@@ R0186 | Bölüm 5.6 > numara
+@@ R0167 | Bölüm 5.6 > numara
 5.6
 
-@@ R0187 | Bölüm 5.6 > başlık
+@@ R0168 | Bölüm 5.6 > başlık
 Baseline düzeninin CV ile yeniden ölçülmesi (A0)
 
-@@ R0188 | 5.6 Baseline düzeninin CV ile yeniden ölçülmesi (A0) > Yapılan
+@@ R0169 | 5.6 Baseline düzeninin CV ile yeniden ölçülmesi (A0) > Yapılan
 Baseline düzeni CV'de yeniden ölçüldü. Farklar: model seçimi son epoch'la yapıldı ve LSTM'de forget gate bias'ı 1 ile başlatıldı.
 
-@@ R0189 | 5.6 Baseline düzeninin CV ile yeniden ölçülmesi (A0) > Sonuç
-MLP 0,824; 1D CNN 0,807; GRU 0,776; LSTM 0,768 (Tablo 7). Testteki LSTM çöküşü (0,666) CV'de görülmedi.
+@@ R0170 | 5.6 Baseline düzeninin CV ile yeniden ölçülmesi (A0) > Sonuç
+MLP 0,824; 1D CNN 0,807; GRU 0,776; LSTM 0,768 (Tablo 6). Testteki LSTM çöküşü (0,666) CV'de görülmedi.
 
-@@ R0190 | 5.6 Baseline düzeninin CV ile yeniden ölçülmesi (A0) > Karar
+@@ R0171 | 5.6 Baseline düzeninin CV ile yeniden ölçülmesi (A0) > Karar
 Testteki LSTM sonucunun bir kısmı epoch seçiminin şansına bağlı görünüyordu. Bundan sonra CV değerleri esas alınır.
 
-@@ R0191 | Bölüm 5.7 > numara
+@@ R0172 | Bölüm 5.7 > numara
 5.7
 
-@@ R0192 | Bölüm 5.7 > başlık
+@@ R0173 | Bölüm 5.7 > başlık
 Optimizasyon (A1)
 
-@@ R0193 | 5.7 Optimizasyon (A1) > Yapılan
+@@ R0174 | 5.7 Optimizasyon (A1) > Yapılan
 Epoch sayısı 100'e çıkarıldı; warmup (3 epoch) ve gradient clipping (1) eklendi. Öğrenme hızı 1e-3 (A1a) ve 2e-3 (A1b) denendi; MLP'de ayrıca 5e-4, 200 epoch ve sqrt class weight denendi.
 
-@@ R0194 | 5.7 Optimizasyon (A1) > Sonuç
-MLP 0,824'ten 0,845'e çıktı; diğer MLP denemeleri 0,838 ile 0,845 arasında kaldı. Ham modellerde lr 2e-3, 1e-3'ten iyiydi: CNN 0,822, LSTM 0,797, GRU 0,779 (Tablo 7). Baseline düzeni yalnızca ham modeller için değil, MLP için de eksik ayarlıydı.
+@@ R0175 | 5.7 Optimizasyon (A1) > Sonuç
+MLP 0,824'ten 0,845'e çıktı; diğer MLP denemeleri 0,838 ile 0,845 arasında kaldı. Ham modellerde lr 2e-3, 1e-3'ten iyiydi: CNN 0,822, LSTM 0,797, GRU 0,779 (Tablo 6). Baseline düzeni yalnızca ham modeller için değil, MLP için de eksik ayarlıydı.
 
-@@ R0195 | 5.7 Optimizasyon (A1) > Karar
+@@ R0176 | 5.7 Optimizasyon (A1) > Karar
 Ham modeller için lr 2e-3, warmup ve clipping ortak taban olur. MLP için A1a (100 epoch, lr 1e-3) seçilir.
 
-@@ R0196 | Bölüm 5.8 > numara
+@@ R0177 | Bölüm 5.8 > numara
 5.8
 
-@@ R0197 | Bölüm 5.8 > başlık
+@@ R0178 | Bölüm 5.8 > başlık
 RNN yapısı: pooling ve bidirectional
 
-@@ R0198 | 5.8 RNN yapısı: pooling ve bidirectional > Yapılan
+@@ R0179 | 5.8 RNN yapısı: pooling ve bidirectional > Yapılan
 A1a düzeni üzerinde, son zaman adımı yerine mean/max pooling ve buna ek olarak bidirectional katmanlar denendi.
 
-@@ R0199 | 5.8 RNN yapısı: pooling ve bidirectional > Sonuç
-Tek başına mean/max pooling fayda vermedi (LSTM 0,763, GRU 0,767). Bidirectional ile birlikte LSTM 0,787, GRU 0,789 oldu; A1a'ya göre artış 0,016 ve 0,022 (Tablo 7).
+@@ R0180 | 5.8 RNN yapısı: pooling ve bidirectional > Sonuç
+Tek başına mean/max pooling fayda vermedi (LSTM 0,763, GRU 0,767). Bidirectional ile birlikte LSTM 0,787, GRU 0,789 oldu; A1a'ya göre artış 0,016 ve 0,022 (Tablo 6).
 
-@@ R0200 | 5.8 RNN yapısı: pooling ve bidirectional > Karar
+@@ R0181 | 5.8 RNN yapısı: pooling ve bidirectional > Karar
 RNN'lerde bidirectional ve mean/max pooling kullanılır.
 
-@@ R0201 | Bölüm 5.9 > numara
+@@ R0182 | Bölüm 5.9 > numara
 5.9
 
-@@ R0202 | Bölüm 5.9 > başlık
+@@ R0183 | Bölüm 5.9 > başlık
 Gravity/body ayrımı (9 kanal)
 
-@@ R0203 | 5.9 Gravity/body ayrımı (9 kanal) > Yapılan
+@@ R0184 | 5.9 Gravity/body ayrımı (9 kanal) > Yapılan
 A1a düzeni üzerinde ivme gravity ve body bileşenlerine ayrılarak 9 kanallı girdi denendi.
 
-@@ R0204 | 5.9 Gravity/body ayrımı (9 kanal) > Sonuç
-Değişim: CNN +0,018 (0,809'dan 0,827'ye), LSTM +0,010, GRU -0,003 (Tablo 7).
+@@ R0185 | 5.9 Gravity/body ayrımı (9 kanal) > Sonuç
+Değişim: CNN +0,018 (0,809'dan 0,827'ye), LSTM +0,010, GRU -0,003 (Tablo 6).
 
-@@ R0205 | 5.9 Gravity/body ayrımı (9 kanal) > Karar
+@@ R0186 | 5.9 Gravity/body ayrımı (9 kanal) > Karar
 CNN ve LSTM için 9 kanal kullanılır; GRU'da fayda görülmediği için ayrı değerlendirilir.
 
-@@ R0206 | Bölüm 5.10 > numara
+@@ R0187 | Bölüm 5.10 > numara
 5.10
 
-@@ R0207 | Bölüm 5.10 > başlık
+@@ R0188 | Bölüm 5.10 > başlık
 Derin CNN
 
-@@ R0208 | 5.10 Derin CNN > Yapılan
+@@ R0189 | 5.10 Derin CNN > Yapılan
 Dört bloklu, dilation'lı ve mean/max pooling'li CNN denendi (Tablo 2).
 
-@@ R0209 | 5.10 Derin CNN > Sonuç
-0,809'dan 0,830'a (+0,021; Tablo 7).
+@@ R0190 | 5.10 Derin CNN > Sonuç
+0,809'dan 0,830'a (+0,021; Tablo 6).
 
-@@ R0210 | 5.10 Derin CNN > Karar
+@@ R0191 | 5.10 Derin CNN > Karar
 Derin CNN kullanılır. Gravity ile birleşik taban (C1): 0,833.
 
-@@ R0211 | Bölüm 5.11 > numara
+@@ R0192 | Bölüm 5.11 > numara
 5.11
 
-@@ R0212 | Bölüm 5.11 > başlık
+@@ R0193 | Bölüm 5.11 > başlık
 Feature mı, mimari mi? (MLP-raw)
 
-@@ R0213 | 5.11 Feature mı, mimari mi? (MLP-raw) > Yapılan
+@@ R0194 | 5.11 Feature mı, mimari mi? (MLP-raw) > Yapılan
 MLP'nin avantajının hazır feature'lardan mı yoksa mimariden mi geldiğini ayırmak için aynı MLP düzleştirilmiş ham window'larla eğitildi.
 
-@@ R0214 | 5.11 Feature mı, mimari mi? (MLP-raw) > Sonuç
-MLP-raw 0,803 (6 kanal) ve 0,808 (9 kanal); aynı MLP 561 feature ile 0,845 (Tablo 7).
+@@ R0195 | 5.11 Feature mı, mimari mi? (MLP-raw) > Sonuç
+MLP-raw 0,803 (6 kanal) ve 0,808 (9 kanal); aynı MLP 561 feature ile 0,845 (Tablo 6).
 
-@@ R0215 | 5.11 Feature mı, mimari mi? (MLP-raw) > Karar
+@@ R0196 | 5.11 Feature mı, mimari mi? (MLP-raw) > Karar
 Bu düzende MLP'nin üstünlüğü büyük ölçüde hazır feature'lardan geliyor, mimariden değil. Bulgu kontrol deneyiyle final koşuya kadar taşınır (Bölüm 5.13).
 
-@@ R0216 | Bölüm 5.12 > numara
+@@ R0197 | Bölüm 5.12 > numara
 5.12
 
-@@ R0217 | Bölüm 5.12 > başlık
+@@ R0198 | Bölüm 5.12 > başlık
 Augmentasyon ve yoğun window: 2 × 2 tasarım
 
-@@ R0218 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Yapılan
+@@ R0199 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Yapılan
 Birleşik taban C1 (CNN: derin + gravity; GRU: bidirectional + mean/max) üzerinde iki etken ayrı ayrı ve birlikte denendi: augmentasyon (K1, adım 64), yoğun window (D1, adım 16, 40 epoch) ve ikisi birlikte (D2). D1 ve D2'de epoch sayısı 40'tır; adım 16'da bir epoch, adım 64'e göre yaklaşık dört kat window içerir.
 
-@@ R0219 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Sonuç
-CNN: C1 0,833; yalnızca augmentasyon 0,849 (+0,016); yalnızca yoğun window 0,823; ikisi birlikte 0,855. LSTM ve GRU'da D1 0,817 ve 0,811; D2 0,857 ve 0,845 (Tablo 7).
+@@ R0200 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Sonuç
+CNN: C1 0,833; yalnızca augmentasyon 0,849 (+0,016); yalnızca yoğun window 0,823; ikisi birlikte 0,855. LSTM ve GRU'da D1 0,817 ve 0,811; D2 0,857 ve 0,845 (Tablo 6).
 
-@@ R0220 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Karar
+@@ R0201 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Karar
 CNN'de ana kazanç augmentasyondan geldi. Yoğun window tek başına karışık etki verdi; augmentasyonla birlikte CNN'de 0,006 ek fark gürültü bandındadır. LSTM ve GRU'da adım 64 ile augmentasyon kolu koşulmadığı için bu iki etken orada ayrılamaz. Final düzen D2 olur.
 
-@@ R0221 | Bölüm 5.13 > numara
+@@ R0202 | Bölüm 5.13 > numara
 5.13
 
-@@ R0222 | Bölüm 5.13 > başlık
+@@ R0203 | Bölüm 5.13 > başlık
 Class weight ve MLP'ye eşit arama bütçesi
 
-@@ R0223 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Yapılan
+@@ R0204 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Yapılan
 CNN'de D2 üzerinde daha yumuşak sınıf ağırlığı (sqrt) denendi (E1s). MLP'ye eşit bütçe için feature uzayında Gauss gürültüsü (0,1 ve 0,3 std) ve A1a'nın tekrarı (K5) koşuldu. MLP-raw da D2 düzeniyle (gravity, yoğun window, augmentasyon) eğitildi (K2).
 
-@@ R0224 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Sonuç
-E1s 0,858 ± 0,003, D2 0,855 ± 0,010. MLP gürültüsü yardım etmedi (0,838 ve 0,843); K5 0,843. MLP-raw D2 düzeniyle 0,840'a çıktı ve 561 feature'lı MLP'ye (0,845) 0,005 yaklaştı (Tablo 7).
+@@ R0205 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Sonuç
+E1s 0,858 ± 0,003, D2 0,855 ± 0,010. MLP gürültüsü yardım etmedi (0,838 ve 0,843); K5 0,843. MLP-raw D2 düzeniyle 0,840'a çıktı ve 561 feature'lı MLP'ye (0,845) 0,005 yaklaştı (Tablo 6).
 
-@@ R0225 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Karar
+@@ R0206 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Karar
 CNN'de tutarlılık için tam class weight korunur (fark gürültü bandında). MLP için A1a dondurulur. Feature bulgusu yalnızca augmentasyonsuz karşılaştırma için geçerli sayılır.
 
-@@ R0226 | Bölüm 5.14 > numara
+@@ R0207 | Bölüm 5.14 > numara
 5.14
 
-@@ R0227 | Bölüm 5.14 > başlık
-Altyapı olayları
-
-@@ R0228 | 5.14 Altyapı olayları > Yapılan
-Deneyler Colab'da arka plan işleri olarak koşuldu; çıktılar runtime üzerinde tutuluyordu.
-
-@@ R0229 | 5.14 Altyapı olayları > Sonuç
-Colab runtime'ı iki kez beklenmedik biçimde silindi ve o ana kadarki CV çıktıları kayboldu (Tablo 4). Izgara yeniden koşulduğunda A0 sonuçları öncekiyle aynı çıktı. Bazı koşular L4 yerine T4 GPU'da yapıldı; aynı yapılandırmanın tekrarında (A1a ve K5) fark 0,002 oldu (Tablo 7).
-
-@@ R0230 | 5.14 Altyapı olayları > Karar
-İşler kısa parçalara bölünür ve çıktılar her kontrolde indirilir.
-
-@@ R0231 | Bölüm 5.15 > numara
-5.15
-
-@@ R0232 | Bölüm 5.15 > başlık
+@@ R0208 | Bölüm 5.14 > başlık
 Ara değerlendirme ve dondurma
 
-@@ R0233 | 5.15 Ara değerlendirme ve dondurma > Yapılan
+@@ R0209 | 5.14 Ara değerlendirme ve dondurma > Yapılan
 Fable, tüm CV tablosunu ve kodu okuyarak ikinci bir değerlendirme yaptı. Bu değerlendirmeye göre girdi temsilinin etkisi, baseline'ın eksik ayarlı olması ve augmentasyonun CNN'e katkısı gürültünün çok üstündeydi; CNN (0,855) ile MLP (0,845) arasındaki CV farkı ise gürültü bandındaydı.
 
-@@ R0234 | 5.15 Ara değerlendirme ve dondurma > Sonuç
+@@ R0210 | 5.14 Ara değerlendirme ve dondurma > Sonuç
 Seed standart sapması kişi belirsizliğini içermiyordu: CV 21, test 9 kişiye dayanıyordu.
 
-@@ R0235 | 5.15 Ara değerlendirme ve dondurma > Karar
+@@ R0211 | 5.14 Ara değerlendirme ve dondurma > Karar
 Keşif kapatıldı. Final yapılandırmaları (Tablo 3) ve analiz planı test koşusundan önce yazılıp commit edildi. Plan: birincil metrik test macro F1; 10 seed ortalaması ± std; 10 seed olasılık ortalaması (ensemble); 9 test kişisi üzerinde yerine koymalı kişi bazlı bootstrap (B = 2.000, percentile %95 GA); MLP'ye göre eşleştirilmiş fark. İddia eşiği: bir ham model için 'MLP'yi geçti' ifadesi yalnızca eşleştirilmiş farkın GA'sı sıfırı dışlarsa ve CV'de fark aynı yöndeyse yazılır; aksi halde 'karşılaştırılabilir düzeyde' denir.
 
-@@ R0236 | Bölüm 5.16 > numara
-5.16
+@@ R0212 | Bölüm 5.15 > numara
+5.15
 
-@@ R0237 | Bölüm 5.16 > başlık
+@@ R0213 | Bölüm 5.15 > başlık
 Final test koşusu
 
-@@ R0238 | 5.16 Final test koşusu > Yapılan
-Dondurulmuş beş yapılandırma 21 eğitim kişisiyle, 10 seed (0-9) için eğitildi ve test kümesinde bir kez ölçüldü. Seed'ler ikişerli parçalar hâlinde, birden çok Colab runtime'ında koşuldu; düşen parçalar aynı ayarlar ve aynı seed'lerle yeniden koşuldu.
+@@ R0214 | 5.15 Final test koşusu > Yapılan
+Dondurulmuş beş yapılandırma 21 eğitim kişisiyle, 10 seed (0-9) için eğitildi ve test kümesinde bir kez ölçüldü. Seed'ler ikişerli parçalar hâlinde koşuldu.
 
-@@ R0239 | 5.16 Final test koşusu > Sonuç
-Ensemble macro F1: LSTM 0,928; 1D CNN 0,921; GRU 0,921; MLP 0,864; MLP-raw 0,862 (Tablo 8). Eşleştirilmiş farklar Tablo 9'da, sınıf bazlı sonuçlar Tablo 10'dadır.
+@@ R0215 | 5.15 Final test koşusu > Sonuç
+Ensemble macro F1: LSTM 0,928; 1D CNN 0,921; GRU 0,921; MLP 0,864; MLP-raw 0,862 (Tablo 7). Eşleştirilmiş farklar Tablo 8'da, sınıf bazlı sonuçlar Tablo 9'dadır.
 
-@@ R0240 | 5.16 Final test koşusu > Karar
+@@ R0216 | 5.15 Final test koşusu > Karar
 Bu sonuçlar ve dondurulmuş düzen değişmez. Bu noktadan sonra yapılacak her deney ayrıca 'keşif amaçlı' olarak raporlanacaktır.
 
-@@ R0241 | Bölüm 6 > numara
+@@ R0217 | Bölüm 6 > numara
 6
 
-@@ R0242 | Bölüm 6 > başlık
+@@ R0218 | Bölüm 6 > başlık
 Eğitim ve Test Sonuçları
 
-@@ R0243 | Bölüm 6.1 > numara
+@@ R0219 | Bölüm 6.1 > numara
 6.1
 
-@@ R0244 | Bölüm 6.1 > başlık
+@@ R0220 | Bölüm 6.1 > başlık
 İlk sonuçlar: baseline düzeni, test kümesi
 
-@@ R0245 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Paragraf
-Tablo 5 ve Tablo 6, ilk baseline düzeninin test sonuçlarıdır. Bu düzen sonraki tablolarla aynı protokolü izlemez (16 kişi, validation'a göre en iyi epoch, ayarsız eğitim); bu yüzden final sonuçlarla aynı tabloda verilmemiştir.
+@@ R0221 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Paragraf
+Tablo 4 ve Tablo 5, ilk baseline düzeninin test sonuçlarıdır. Bu düzen sonraki tablolarla aynı protokolü izlemez (16 kişi, validation'a göre en iyi epoch, ayarsız eğitim); bu yüzden final sonuçlarla aynı tabloda verilmemiştir.
 
-@@ R0246 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > sütun 1
+@@ R0222 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > sütun 1
 Model
 
-@@ R0247 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > sütun 2
+@@ R0223 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > sütun 2
 Parametre
 
-@@ R0248 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > sütun 3
+@@ R0224 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > sütun 3
 Accuracy
 
-@@ R0249 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > sütun 4
+@@ R0225 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > sütun 4
 Precision
 
-@@ R0250 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > sütun 5
+@@ R0226 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > sütun 5
 Recall
 
-@@ R0251 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > sütun 6
+@@ R0227 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > sütun 6
 Macro F1
 
-@@ R0252 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 1, hücre 1
+@@ R0228 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 1, hücre 1
 MLP
 
-@@ R0253 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 1, hücre 2
+@@ R0229 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 1, hücre 2
 178.316
 
-@@ R0254 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 1, hücre 3
+@@ R0230 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 1, hücre 3
 0,930 ± 0,004
 
-@@ R0255 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 1, hücre 4
+@@ R0231 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 1, hücre 4
 0,843 ± 0,005
 
-@@ R0256 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 1, hücre 5
+@@ R0232 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 1, hücre 5
 0,847 ± 0,011
 
-@@ R0257 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 1, hücre 6
+@@ R0233 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 1, hücre 6
 0,841 ± 0,006
 
-@@ R0258 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 2, hücre 1
+@@ R0234 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 2, hücre 1
 1D CNN
 
-@@ R0259 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 2, hücre 2
+@@ R0235 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 2, hücre 2
 54.380
 
-@@ R0260 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 2, hücre 3
+@@ R0236 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 2, hücre 3
 0,914 ± 0,007
 
-@@ R0261 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 2, hücre 4
+@@ R0237 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 2, hücre 4
 0,809 ± 0,013
 
-@@ R0262 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 2, hücre 5
+@@ R0238 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 2, hücre 5
 0,845 ± 0,015
 
-@@ R0263 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 2, hücre 6
+@@ R0239 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 2, hücre 6
 0,819 ± 0,014
 
-@@ R0264 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 3, hücre 1
+@@ R0240 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 3, hücre 1
 LSTM
 
-@@ R0265 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 3, hücre 2
+@@ R0241 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 3, hücre 2
 52.492
 
-@@ R0266 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 3, hücre 3
+@@ R0242 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 3, hücre 3
 0,804 ± 0,066
 
-@@ R0267 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 3, hücre 4
+@@ R0243 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 3, hücre 4
 0,654 ± 0,083
 
-@@ R0268 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 3, hücre 5
+@@ R0244 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 3, hücre 5
 0,707 ± 0,087
 
-@@ R0269 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 3, hücre 6
+@@ R0245 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 3, hücre 6
 0,666 ± 0,094
 
-@@ R0270 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 4, hücre 1
+@@ R0246 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 4, hücre 1
 GRU
 
-@@ R0271 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 4, hücre 2
+@@ R0247 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 4, hücre 2
 39.564
 
-@@ R0272 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 4, hücre 3
+@@ R0248 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 4, hücre 3
 0,876 ± 0,012
 
-@@ R0273 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 4, hücre 4
+@@ R0249 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 4, hücre 4
 0,768 ± 0,024
 
-@@ R0274 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 4, hücre 5
+@@ R0250 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 4, hücre 5
 0,820 ± 0,016
 
-@@ R0275 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > satır 4, hücre 6
+@@ R0251 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > satır 4, hücre 6
 0,786 ± 0,016
 
-@@ R0276 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 5 > altyazı
-Tablo 5: İlk sonuçlar (baseline düzeni, test kümesi; 5 seed ortalaması ± std; precision, recall ve F1 macro ortalamadır). Kaynak: experiments/results/summary.md
+@@ R0252 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > altyazı
+Tablo 4: İlk sonuçlar (baseline düzeni, test kümesi; 5 seed ortalaması ± std; precision, recall ve F1 macro ortalamadır). Kaynak: experiments/results/summary.md
 
-@@ R0277 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 1
+@@ R0253 | 6 Eğitim ve Test Sonuçları > Tablo 5 > sütun 1
 Sınıf
 
-@@ R0278 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 2
+@@ R0254 | 6 Eğitim ve Test Sonuçları > Tablo 5 > sütun 2
 MLP
 
-@@ R0279 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 3
+@@ R0255 | 6 Eğitim ve Test Sonuçları > Tablo 5 > sütun 3
 1D CNN
 
-@@ R0280 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 4
+@@ R0256 | 6 Eğitim ve Test Sonuçları > Tablo 5 > sütun 4
 LSTM
 
-@@ R0281 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 5
+@@ R0257 | 6 Eğitim ve Test Sonuçları > Tablo 5 > sütun 5
 GRU
 
-@@ R0282 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 1
+@@ R0258 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 1, hücre 1
 WALKING
 
-@@ R0283 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 2
+@@ R0259 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 1, hücre 2
 0,963
 
-@@ R0284 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 3
+@@ R0260 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 1, hücre 3
 0,977
 
-@@ R0285 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 4
+@@ R0261 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 1, hücre 4
 0,766
 
-@@ R0286 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 5
+@@ R0262 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 1, hücre 5
 0,918
 
-@@ R0287 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 1
+@@ R0263 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 2, hücre 1
 WALKING_UPSTAIRS
 
-@@ R0288 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 2
+@@ R0264 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 2, hücre 2
 0,939
 
-@@ R0289 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 3
+@@ R0265 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 2, hücre 3
 0,955
 
-@@ R0290 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 4
+@@ R0266 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 2, hücre 4
 0,819
 
-@@ R0291 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 5
+@@ R0267 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 2, hücre 5
 0,930
 
-@@ R0292 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 1
+@@ R0268 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 3, hücre 1
 WALKING_DOWNSTAIRS
 
-@@ R0293 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 2
+@@ R0269 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 3, hücre 2
 0,931
 
-@@ R0294 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 3
+@@ R0270 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 3, hücre 3
 0,983
 
-@@ R0295 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 4
+@@ R0271 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 3, hücre 4
 0,837
 
-@@ R0296 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 5
+@@ R0272 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 3, hücre 5
 0,930
 
-@@ R0297 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 1
+@@ R0273 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 4, hücre 1
 SITTING
 
-@@ R0298 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 2
+@@ R0274 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 4, hücre 2
 0,911
 
-@@ R0299 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 3
+@@ R0275 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 4, hücre 3
 0,825
 
-@@ R0300 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 4
+@@ R0276 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 4, hücre 4
 0,766
 
-@@ R0301 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 5
+@@ R0277 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 4, hücre 5
 0,781
 
-@@ R0302 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 1
+@@ R0278 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 5, hücre 1
 STANDING
 
-@@ R0303 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 2
+@@ R0279 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 5, hücre 2
 0,918
 
-@@ R0304 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 3
+@@ R0280 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 5, hücre 3
 0,858
 
-@@ R0305 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 4
+@@ R0281 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 5, hücre 4
 0,786
 
-@@ R0306 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 5
+@@ R0282 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 5, hücre 5
 0,796
 
-@@ R0307 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 1
+@@ R0283 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 6, hücre 1
 LAYING
 
-@@ R0308 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 2
+@@ R0284 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 6, hücre 2
 0,989
 
-@@ R0309 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 3
+@@ R0285 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 6, hücre 3
 0,989
 
-@@ R0310 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 4
+@@ R0286 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 6, hücre 4
 0,952
 
-@@ R0311 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 5
+@@ R0287 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 6, hücre 5
 0,989
 
-@@ R0312 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 1
+@@ R0288 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 7, hücre 1
 STAND_TO_SIT
 
-@@ R0313 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 2
+@@ R0289 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 7, hücre 2
 0,767
 
-@@ R0314 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 3
+@@ R0290 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 7, hücre 3
 0,787
 
-@@ R0315 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 4
+@@ R0291 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 7, hücre 4
 0,620
 
-@@ R0316 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 5
+@@ R0292 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 7, hücre 5
 0,703
 
-@@ R0317 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 1
+@@ R0293 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 8, hücre 1
 SIT_TO_STAND
 
-@@ R0318 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 2
+@@ R0294 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 8, hücre 2
 0,922
 
-@@ R0319 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 3
+@@ R0295 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 8, hücre 3
 0,882
 
-@@ R0320 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 4
+@@ R0296 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 8, hücre 4
 0,567
 
-@@ R0321 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 5
+@@ R0297 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 8, hücre 5
 0,787
 
-@@ R0322 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 1
+@@ R0298 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 9, hücre 1
 SIT_TO_LIE
 
-@@ R0323 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 2
+@@ R0299 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 9, hücre 2
 0,641
 
-@@ R0324 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 3
+@@ R0300 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 9, hücre 3
 0,659
 
-@@ R0325 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 4
+@@ R0301 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 9, hücre 4
 0,485
 
-@@ R0326 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 5
+@@ R0302 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 9, hücre 5
 0,705
 
-@@ R0327 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 1
+@@ R0303 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 10, hücre 1
 LIE_TO_SIT
 
-@@ R0328 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 2
+@@ R0304 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 10, hücre 2
 0,733
 
-@@ R0329 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 3
+@@ R0305 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 10, hücre 3
 0,627
 
-@@ R0330 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 4
+@@ R0306 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 10, hücre 4
 0,509
 
-@@ R0331 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 5
+@@ R0307 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 10, hücre 5
 0,720
 
-@@ R0332 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 1
+@@ R0308 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 11, hücre 1
 STAND_TO_LIE
 
-@@ R0333 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 2
+@@ R0309 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 11, hücre 2
 0,673
 
-@@ R0334 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 3
+@@ R0310 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 11, hücre 3
 0,541
 
-@@ R0335 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 4
+@@ R0311 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 11, hücre 4
 0,454
 
-@@ R0336 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 5
+@@ R0312 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 11, hücre 5
 0,571
 
-@@ R0337 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 1
+@@ R0313 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 12, hücre 1
 LIE_TO_STAND
 
-@@ R0338 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 2
+@@ R0314 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 12, hücre 2
 0,707
 
-@@ R0339 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 3
+@@ R0315 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 12, hücre 3
 0,742
 
-@@ R0340 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 4
+@@ R0316 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 12, hücre 4
 0,425
 
-@@ R0341 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 5
+@@ R0317 | 6 Eğitim ve Test Sonuçları > Tablo 5 > satır 12, hücre 5
 0,602
 
-@@ R0342 | 6 Eğitim ve Test Sonuçları > Tablo 6 > altyazı
-Tablo 6: İlk sonuçlar, sınıf bazlı test F1 (baseline düzeni, 5 seed ortalaması). Kaynak: experiments/results/summary.md
+@@ R0318 | 6 Eğitim ve Test Sonuçları > Tablo 5 > altyazı
+Tablo 5: İlk sonuçlar, sınıf bazlı test F1 (baseline düzeni, 5 seed ortalaması). Kaynak: experiments/results/summary.md
 
-@@ R0343 | Bölüm 6.2 > numara
+@@ R0319 | Bölüm 6.2 > numara
 6.2
 
-@@ R0344 | Bölüm 6.2 > başlık
+@@ R0320 | Bölüm 6.2 > başlık
 CV ablation
 
-@@ R0345 | 6.2 CV ablation > Paragraf
-Tablo 7, Bölüm 5'teki kararların dayandığı CV sonuçlarıdır. Her hücre, 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile hesaplanan havuzlanmış out-of-fold macro F1'in 3 seed ortalaması ± std'sidir. MLP 7.767 feature satırında, ham modeller 7.652 window'da değerlendirildi. Seed std'si 0,002 ile 0,020 arasındadır; 0,01'in altındaki farklar gürültü olarak yorumlandı.
+@@ R0321 | 6.2 CV ablation > Paragraf
+Tablo 6, Bölüm 5'teki kararların dayandığı CV sonuçlarıdır. Her hücre, 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile hesaplanan havuzlanmış out-of-fold macro F1'in 3 seed ortalaması ± std'sidir. MLP 7.767 feature satırında, ham modeller 7.652 window'da değerlendirildi. Seed std'si 0,002 ile 0,020 arasındadır; 0,01'in altındaki farklar gürültü olarak yorumlandı.
 
-@@ R0346 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 1
+@@ R0322 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 1
 Basamak (koşu)
 
-@@ R0347 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 2
+@@ R0323 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 2
 MLP
 
-@@ R0348 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 3
+@@ R0324 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 3
 MLP-raw
 
-@@ R0349 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 4
+@@ R0325 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 4
 1D CNN
 
-@@ R0350 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 5
+@@ R0326 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 5
 LSTM
 
-@@ R0351 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 6
+@@ R0327 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 6
 GRU
 
-@@ R0352 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 1
+@@ R0328 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 1
 A0: baseline düzeni (40 ep, lr 2e-3)
 
-@@ R0353 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 2
+@@ R0329 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 2
 0,824 ± 0,004
 
-@@ R0354 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 3
+@@ R0330 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 3
 -
 
-@@ R0355 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 4
+@@ R0331 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 4
 0,807 ± 0,006
 
-@@ R0356 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 5
+@@ R0332 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 5
 0,768 ± 0,006
 
-@@ R0357 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 6
+@@ R0333 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 1, hücre 6
 0,776 ± 0,017
 
-@@ R0358 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 1
+@@ R0334 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 1
 A1a: 100 ep, lr 1e-3, warmup, clip
 
-@@ R0359 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 2
+@@ R0335 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 2
 0,845 ± 0,004
 
-@@ R0360 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 3
+@@ R0336 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 3
 0,803 ± 0,004
 
-@@ R0361 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 4
+@@ R0337 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 4
 0,809 ± 0,003
 
-@@ R0362 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 5
+@@ R0338 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 5
 0,771 ± 0,009
 
-@@ R0363 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 6
+@@ R0339 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 2, hücre 6
 0,767 ± 0,020
 
-@@ R0364 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 1
+@@ R0340 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 1
 A1b: A1a, lr 2e-3
 
-@@ R0365 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 2
+@@ R0341 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 2
 0,844 ± 0,003
 
-@@ R0366 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 3
+@@ R0342 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 3
 -
 
-@@ R0367 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 4
+@@ R0343 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 4
 0,822 ± 0,007
 
-@@ R0368 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 5
+@@ R0344 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 5
 0,797 ± 0,004
 
-@@ R0369 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 6
+@@ R0345 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 3, hücre 6
 0,779 ± 0,015
 
-@@ R0370 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 1
+@@ R0346 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 1
 A1c: A1a, lr 5e-4
 
-@@ R0371 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 2
+@@ R0347 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 2
 0,838 ± 0,002
 
-@@ R0372 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 3
+@@ R0348 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 3
 -
 
-@@ R0373 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 4
+@@ R0349 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 4
 -
 
-@@ R0374 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 5
+@@ R0350 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 5
 -
 
-@@ R0375 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 6
+@@ R0351 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 4, hücre 6
 -
 
-@@ R0376 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 1
+@@ R0352 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 1
 A1d: A1a, 200 ep
 
-@@ R0377 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 2
+@@ R0353 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 2
 0,844 ± 0,005
 
-@@ R0378 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 3
+@@ R0354 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 3
 -
 
-@@ R0379 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 4
+@@ R0355 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 4
 -
 
-@@ R0380 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 5
+@@ R0356 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 5
 -
 
-@@ R0381 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 6
+@@ R0357 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 5, hücre 6
 -
 
-@@ R0382 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 6, hücre 1
+@@ R0358 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 1
 A1e: A1a, sqrt class weight
 
-@@ R0383 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 6, hücre 2
+@@ R0359 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 2
 0,845 ± 0,004
 
-@@ R0384 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 6, hücre 3
+@@ R0360 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 3
 -
 
-@@ R0385 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 6, hücre 4
+@@ R0361 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 4
 -
 
-@@ R0386 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 6, hücre 5
+@@ R0362 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 5
 -
 
-@@ R0387 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 6, hücre 6
+@@ R0363 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 6, hücre 6
 -
 
-@@ R0388 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 7, hücre 1
+@@ R0364 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 1
 A1a + mean/max pooling
 
-@@ R0389 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 7, hücre 2
+@@ R0365 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 2
 -
 
-@@ R0390 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 7, hücre 3
+@@ R0366 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 3
 -
 
-@@ R0391 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 7, hücre 4
+@@ R0367 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 4
 -
 
-@@ R0392 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 7, hücre 5
+@@ R0368 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 5
 0,763 ± 0,004
 
-@@ R0393 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 7, hücre 6
+@@ R0369 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 7, hücre 6
 0,767 ± 0,011
 
-@@ R0394 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 8, hücre 1
+@@ R0370 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 1
 A1a + bidirectional + mean/max
 
-@@ R0395 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 8, hücre 2
+@@ R0371 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 2
 -
 
-@@ R0396 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 8, hücre 3
+@@ R0372 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 3
 -
 
-@@ R0397 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 8, hücre 4
+@@ R0373 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 4
 -
 
-@@ R0398 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 8, hücre 5
+@@ R0374 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 5
 0,787 ± 0,015
 
-@@ R0399 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 8, hücre 6
+@@ R0375 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 8, hücre 6
 0,789 ± 0,020
 
-@@ R0400 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 9, hücre 1
+@@ R0376 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 1
 A1a + gravity (9 kanal)
 
-@@ R0401 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 9, hücre 2
+@@ R0377 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 2
 -
 
-@@ R0402 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 9, hücre 3
+@@ R0378 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 3
 0,808 ± 0,003
 
-@@ R0403 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 9, hücre 4
+@@ R0379 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 4
 0,827 ± 0,013
 
-@@ R0404 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 9, hücre 5
+@@ R0380 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 5
 0,781 ± 0,019
 
-@@ R0405 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 9, hücre 6
+@@ R0381 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 9, hücre 6
 0,764 ± 0,009
 
-@@ R0406 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 10, hücre 1
+@@ R0382 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 1
 A1a + derin CNN
 
-@@ R0407 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 10, hücre 2
+@@ R0383 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 2
 -
 
-@@ R0408 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 10, hücre 3
+@@ R0384 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 3
 -
 
-@@ R0409 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 10, hücre 4
+@@ R0385 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 4
 0,830 ± 0,017
 
-@@ R0410 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 10, hücre 5
+@@ R0386 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 5
 -
 
-@@ R0411 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 10, hücre 6
+@@ R0387 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 10, hücre 6
 -
 
-@@ R0412 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 11, hücre 1
+@@ R0388 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 1
 C1: lr 2e-3, 100 ep, model başına en iyi yapı
 
-@@ R0413 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 11, hücre 2
+@@ R0389 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 2
 -
 
-@@ R0414 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 11, hücre 3
+@@ R0390 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 3
 -
 
-@@ R0415 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 11, hücre 4
+@@ R0391 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 4
 0,833 ± 0,015
 
-@@ R0416 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 11, hücre 5
+@@ R0392 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 5
 -
 
-@@ R0417 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 11, hücre 6
+@@ R0393 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 11, hücre 6
 0,786 ± 0,005
 
-@@ R0418 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 12, hücre 1
+@@ R0394 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 1
 K1: C1 + augmentasyon (adım 64)
 
-@@ R0419 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 12, hücre 2
+@@ R0395 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 2
 -
 
-@@ R0420 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 12, hücre 3
+@@ R0396 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 3
 -
 
-@@ R0421 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 12, hücre 4
+@@ R0397 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 4
 0,849 ± 0,002
 
-@@ R0422 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 12, hücre 5
+@@ R0398 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 5
 -
 
-@@ R0423 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 12, hücre 6
+@@ R0399 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 12, hücre 6
 -
 
-@@ R0424 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 13, hücre 1
+@@ R0400 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 13, hücre 1
 D1: C1 yapısı, yoğun window (adım 16, 40 ep)
 
-@@ R0425 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 13, hücre 2
+@@ R0401 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 13, hücre 2
 -
 
-@@ R0426 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 13, hücre 3
+@@ R0402 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 13, hücre 3
 -
 
-@@ R0427 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 13, hücre 4
+@@ R0403 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 13, hücre 4
 0,823 ± 0,009
 
-@@ R0428 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 13, hücre 5
+@@ R0404 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 13, hücre 5
 0,817 ± 0,007
 
-@@ R0429 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 13, hücre 6
+@@ R0405 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 13, hücre 6
 0,811 ± 0,014
 
-@@ R0430 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 14, hücre 1
+@@ R0406 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 14, hücre 1
 D2: D1 + augmentasyon
 
-@@ R0431 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 14, hücre 2
+@@ R0407 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 14, hücre 2
 -
 
-@@ R0432 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 14, hücre 3
+@@ R0408 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 14, hücre 3
 0,840 ± 0,004
 
-@@ R0433 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 14, hücre 4
+@@ R0409 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 14, hücre 4
 0,855 ± 0,010
 
-@@ R0434 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 14, hücre 5
+@@ R0410 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 14, hücre 5
 0,857 ± 0,005
 
-@@ R0435 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 14, hücre 6
+@@ R0411 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 14, hücre 6
 0,845 ± 0,007
 
-@@ R0436 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 15, hücre 1
+@@ R0412 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 15, hücre 1
 E1s: D2, sqrt class weight
 
-@@ R0437 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 15, hücre 2
+@@ R0413 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 15, hücre 2
 -
 
-@@ R0438 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 15, hücre 3
+@@ R0414 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 15, hücre 3
 -
 
-@@ R0439 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 15, hücre 4
+@@ R0415 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 15, hücre 4
 0,858 ± 0,003
 
-@@ R0440 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 15, hücre 5
+@@ R0416 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 15, hücre 5
 -
 
-@@ R0441 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 15, hücre 6
+@@ R0417 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 15, hücre 6
 -
 
-@@ R0442 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 16, hücre 1
+@@ R0418 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 16, hücre 1
 K3 / K4: A1a + feature gürültüsü 0,1 / 0,3
 
-@@ R0443 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 16, hücre 2
+@@ R0419 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 16, hücre 2
 0,838 / 0,843
 
-@@ R0444 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 16, hücre 3
+@@ R0420 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 16, hücre 3
 -
 
-@@ R0445 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 16, hücre 4
+@@ R0421 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 16, hücre 4
 -
 
-@@ R0446 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 16, hücre 5
+@@ R0422 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 16, hücre 5
 -
 
-@@ R0447 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 16, hücre 6
+@@ R0423 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 16, hücre 6
 -
 
-@@ R0448 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 17, hücre 1
+@@ R0424 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 17, hücre 1
 K5: A1a tekrarı
 
-@@ R0449 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 17, hücre 2
+@@ R0425 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 17, hücre 2
 0,843 ± 0,002
 
-@@ R0450 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 17, hücre 3
+@@ R0426 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 17, hücre 3
 -
 
-@@ R0451 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 17, hücre 4
+@@ R0427 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 17, hücre 4
 -
 
-@@ R0452 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 17, hücre 5
+@@ R0428 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 17, hücre 5
 -
 
-@@ R0453 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 17, hücre 6
+@@ R0429 | 6 Eğitim ve Test Sonuçları > Tablo 6 > satır 17, hücre 6
 -
 
-@@ R0454 | 6 Eğitim ve Test Sonuçları > Tablo 7 > altyazı
-Tablo 7: CV ablation (OOF macro F1, 3 seed). Final için dondurulan satırlar: MLP A1a, diğerleri D2. LSTM'de D1 ve D2 gravity içerir, GRU'da içermez. MLP-raw A1a satırı 6 kanal, diğer satırları 9 kanaldır. Kaynak: experiments/results2/ablation.md
+@@ R0430 | 6 Eğitim ve Test Sonuçları > Tablo 6 > altyazı
+Tablo 6: CV ablation (OOF macro F1, 3 seed). Final için dondurulan satırlar: MLP A1a, diğerleri D2. LSTM'de D1 ve D2 gravity içerir, GRU'da içermez. MLP-raw A1a satırı 6 kanal, diğer satırları 9 kanaldır. Kaynak: experiments/results2/ablation.md
 
-@@ R0455 | Bölüm 6.3 > numara
+@@ R0431 | Bölüm 6.3 > numara
 6.3
 
-@@ R0456 | Bölüm 6.3 > başlık
+@@ R0432 | Bölüm 6.3 > başlık
 Final test sonuçları (dondurulmuş düzen)
 
-@@ R0457 | 6.3 Final test sonuçları (dondurulmuş düzen) > Paragraf
-Tablo 8 final koşunun sonuçlarıdır. Tekil model değeri 10 seed'in ortalaması ± std'sidir; ensemble değeri 10 seed'in olasılık ortalamasından hesaplanır. Güven aralığı yalnızca ensemble için hesaplandı ve kişi örneklemesinden gelen belirsizliği içerir; seed std'si bu belirsizliği içermez. CV sütunu karşılaştırma kolaylığı için verildi, ancak iki protokol farklıdır: CV'de modeller fold başına 16 ya da 17 kişiyle eğitilir, finalde 21 kişiyle.
+@@ R0433 | 6.3 Final test sonuçları (dondurulmuş düzen) > Paragraf
+Tablo 7 final koşunun sonuçlarıdır. Tekil model değeri 10 seed'in ortalaması ± std'sidir; ensemble değeri 10 seed'in olasılık ortalamasından hesaplanır. Güven aralığı yalnızca ensemble için hesaplandı ve kişi örneklemesinden gelen belirsizliği içerir; seed std'si bu belirsizliği içermez. CV sütunu karşılaştırma kolaylığı için verildi, ancak iki protokol farklıdır: CV'de modeller fold başına 16 ya da 17 kişiyle eğitilir, finalde 21 kişiyle.
 
-@@ R0458 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 1
+@@ R0434 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 1
 Model (test n)
 
-@@ R0459 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 2
+@@ R0435 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 2
 Macro F1, 10 seed
 
-@@ R0460 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 3
+@@ R0436 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 3
 Ensemble macro F1
 
-@@ R0461 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 4
+@@ R0437 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 4
 Ensemble %95 GA
 
-@@ R0462 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 5
+@@ R0438 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 5
 Accuracy, 10 seed
 
-@@ R0463 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 6
+@@ R0439 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 6
 Ensemble accuracy
 
-@@ R0464 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 7
+@@ R0440 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 7
 CV macro F1
 
-@@ R0465 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 1
+@@ R0441 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 1
 MLP (3.162)
 
-@@ R0466 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 2
+@@ R0442 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 2
 0,860 ± 0,004
 
-@@ R0467 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 3
+@@ R0443 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 3
 0,864
 
-@@ R0468 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 4
+@@ R0444 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 4
 [0,823; 0,899]
 
-@@ R0469 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 5
+@@ R0445 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 5
 0,940
 
-@@ R0470 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 6
+@@ R0446 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 6
 0,941
 
-@@ R0471 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 7
+@@ R0447 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 1, hücre 7
 0,845 ± 0,004
 
-@@ R0472 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 1
+@@ R0448 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 1
 MLP-raw (3.124)
 
-@@ R0473 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 2
+@@ R0449 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 2
 0,862 ± 0,006
 
-@@ R0474 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 3
+@@ R0450 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 3
 0,862
 
-@@ R0475 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 4
+@@ R0451 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 4
 [0,793; 0,907]
 
-@@ R0476 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 5
+@@ R0452 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 5
 0,914
 
-@@ R0477 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 6
+@@ R0453 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 6
 0,914
 
-@@ R0478 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 7
+@@ R0454 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 2, hücre 7
 0,840 ± 0,004
 
-@@ R0479 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 1
+@@ R0455 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 1
 1D CNN (3.124)
 
-@@ R0480 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 2
+@@ R0456 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 2
 0,894 ± 0,011
 
-@@ R0481 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 3
+@@ R0457 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 3
 0,921
 
-@@ R0482 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 4
+@@ R0458 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 4
 [0,888; 0,947]
 
-@@ R0483 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 5
+@@ R0459 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 5
 0,966
 
-@@ R0484 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 6
+@@ R0460 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 6
 0,972
 
-@@ R0485 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 7
+@@ R0461 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 3, hücre 7
 0,855 ± 0,010
 
-@@ R0486 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 1
+@@ R0462 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 1
 LSTM (3.124)
 
-@@ R0487 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 2
+@@ R0463 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 2
 0,898 ± 0,010
 
-@@ R0488 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 3
+@@ R0464 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 3
 0,928
 
-@@ R0489 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 4
+@@ R0465 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 4
 [0,888; 0,955]
 
-@@ R0490 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 5
+@@ R0466 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 5
 0,964
 
-@@ R0491 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 6
+@@ R0467 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 6
 0,975
 
-@@ R0492 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 7
+@@ R0468 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 4, hücre 7
 0,857 ± 0,005
 
-@@ R0493 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 5, hücre 1
+@@ R0469 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 1
 GRU (3.124)
 
-@@ R0494 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 5, hücre 2
+@@ R0470 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 2
 0,888 ± 0,008
 
-@@ R0495 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 5, hücre 3
+@@ R0471 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 3
 0,921
 
-@@ R0496 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 5, hücre 4
+@@ R0472 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 4
 [0,874; 0,951]
 
-@@ R0497 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 5, hücre 5
+@@ R0473 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 5
 0,958
 
-@@ R0498 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 5, hücre 6
+@@ R0474 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 6
 0,976
 
-@@ R0499 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 5, hücre 7
+@@ R0475 | 6 Eğitim ve Test Sonuçları > Tablo 7 > satır 5, hücre 7
 0,845 ± 0,007
 
-@@ R0500 | 6 Eğitim ve Test Sonuçları > Tablo 8 > altyazı
-Tablo 8: Final test sonuçları. GA: 9 test kişisi üzerinde kişi bazlı bootstrap (B = 2.000, percentile). CV: Tablo 7'deki dondurulmuş satır. Kaynak: experiments/results2/final/summary.md
+@@ R0476 | 6 Eğitim ve Test Sonuçları > Tablo 7 > altyazı
+Tablo 7: Final test sonuçları. GA: 9 test kişisi üzerinde kişi bazlı bootstrap (B = 2.000, percentile). CV: Tablo 6'deki dondurulmuş satır. Kaynak: experiments/results2/final/summary.md
 
-@@ R0501 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 1
+@@ R0477 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 1
 Model
 
-@@ R0502 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 2
+@@ R0478 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 2
 Test farkı (ensemble macro F1)
 
-@@ R0503 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 3
+@@ R0479 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 3
 %95 GA
 
-@@ R0504 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 4
+@@ R0480 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 4
 GA sıfırı dışlıyor mu
 
-@@ R0505 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 5
+@@ R0481 | 6 Eğitim ve Test Sonuçları > Tablo 8 > sütun 5
 CV farkı (model - MLP)
 
-@@ R0506 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 1
+@@ R0482 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 1
 MLP-raw
 
-@@ R0507 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 2
+@@ R0483 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 2
 -0,005
 
-@@ R0508 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 3
+@@ R0484 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 3
 [-0,055; +0,043]
 
-@@ R0509 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 4
+@@ R0485 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 4
 hayır
 
-@@ R0510 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 5
+@@ R0486 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 1, hücre 5
 -0,005
 
-@@ R0511 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 1
+@@ R0487 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 1
 1D CNN
 
-@@ R0512 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 2
+@@ R0488 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 2
 +0,056
 
-@@ R0513 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 3
+@@ R0489 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 3
 [+0,026; +0,093]
 
-@@ R0514 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 4
+@@ R0490 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 4
 evet
 
-@@ R0515 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 5
+@@ R0491 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 2, hücre 5
 +0,010
 
-@@ R0516 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 1
+@@ R0492 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 1
 LSTM
 
-@@ R0517 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 2
+@@ R0493 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 2
 +0,063
 
-@@ R0518 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 3
+@@ R0494 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 3
 [+0,029; +0,097]
 
-@@ R0519 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 4
+@@ R0495 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 4
 evet
 
-@@ R0520 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 5
+@@ R0496 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 3, hücre 5
 +0,012
 
-@@ R0521 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 1
+@@ R0497 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 1
 GRU
 
-@@ R0522 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 2
+@@ R0498 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 2
 +0,055
 
-@@ R0523 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 3
+@@ R0499 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 3
 [+0,024; +0,086]
 
-@@ R0524 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 4
+@@ R0500 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 4
 evet
 
-@@ R0525 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 5
+@@ R0501 | 6 Eğitim ve Test Sonuçları > Tablo 8 > satır 4, hücre 5
 0,000
 
-@@ R0526 | 6 Eğitim ve Test Sonuçları > Tablo 9 > altyazı
-Tablo 9: MLP'ye göre eşleştirilmiş test farkı (aynı kişi çekilişlerinde model - MLP, B = 2.000) ve CV farkı (Tablo 7 ve 8'deki CV değerlerinden). Kaynak: experiments/results2/final/summary.md
+@@ R0502 | 6 Eğitim ve Test Sonuçları > Tablo 8 > altyazı
+Tablo 8: MLP'ye göre eşleştirilmiş test farkı (aynı kişi çekilişlerinde model - MLP, B = 2.000) ve CV farkı (Tablo 6 ve 8'deki CV değerlerinden). Kaynak: experiments/results2/final/summary.md
 
-@@ R0527 | 6 Eğitim ve Test Sonuçları > Şekil 2 > altyazı
+@@ R0503 | 6 Eğitim ve Test Sonuçları > Şekil 2 > altyazı
 Şekil 2: MLP'ye göre eşleştirilmiş macro F1 farkı ve %95 GA (ensemble, kişi bazlı bootstrap). Kaynak: experiments/results2/final/delta_vs_mlp.png
 
-@@ R0528 | Bölüm 6.4 > numara
+@@ R0504 | Bölüm 6.4 > numara
 6.4
 
-@@ R0529 | Bölüm 6.4 > başlık
+@@ R0505 | Bölüm 6.4 > başlık
 Sınıf bazlı sonuçlar ve confusion matrix'ler
 
-@@ R0530 | 6.4 Sınıf bazlı sonuçlar ve confusion matrix'ler > Paragraf
-Tablo 10, ensemble modellerin sınıf bazlı test F1 değerlerini verir. Şekil 3-7 aynı modellerin satır normalize confusion matrix'leridir.
+@@ R0506 | 6.4 Sınıf bazlı sonuçlar ve confusion matrix'ler > Paragraf
+Tablo 9, ensemble modellerin sınıf bazlı test F1 değerlerini verir. Şekil 3-7 aynı modellerin satır normalize confusion matrix'leridir.
 
-@@ R0531 | 6 Eğitim ve Test Sonuçları > Tablo 10 > sütun 1
+@@ R0507 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 1
 Sınıf
 
-@@ R0532 | 6 Eğitim ve Test Sonuçları > Tablo 10 > sütun 2
+@@ R0508 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 2
 MLP
 
-@@ R0533 | 6 Eğitim ve Test Sonuçları > Tablo 10 > sütun 3
+@@ R0509 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 3
 MLP-raw
 
-@@ R0534 | 6 Eğitim ve Test Sonuçları > Tablo 10 > sütun 4
+@@ R0510 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 4
 1D CNN
 
-@@ R0535 | 6 Eğitim ve Test Sonuçları > Tablo 10 > sütun 5
+@@ R0511 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 5
 LSTM
 
-@@ R0536 | 6 Eğitim ve Test Sonuçları > Tablo 10 > sütun 6
+@@ R0512 | 6 Eğitim ve Test Sonuçları > Tablo 9 > sütun 6
 GRU
 
-@@ R0537 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 1, hücre 1
+@@ R0513 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 1
 WALKING
 
-@@ R0538 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 1, hücre 2
+@@ R0514 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 2
 0,962
 
-@@ R0539 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 1, hücre 3
+@@ R0515 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 3
 0,967
 
-@@ R0540 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 1, hücre 4
+@@ R0516 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 4
 0,977
 
-@@ R0541 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 1, hücre 5
+@@ R0517 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 5
 0,981
 
-@@ R0542 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 1, hücre 6
+@@ R0518 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 1, hücre 6
 0,988
 
-@@ R0543 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 2, hücre 1
+@@ R0519 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 1
 WALKING_UPSTAIRS
 
-@@ R0544 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 2, hücre 2
+@@ R0520 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 2
 0,945
 
-@@ R0545 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 2, hücre 3
+@@ R0521 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 3
 0,984
 
-@@ R0546 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 2, hücre 4
+@@ R0522 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 4
 1,000
 
-@@ R0547 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 2, hücre 5
+@@ R0523 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 5
 0,982
 
-@@ R0548 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 2, hücre 6
+@@ R0524 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 2, hücre 6
 0,984
 
-@@ R0549 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 3, hücre 1
+@@ R0525 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 1
 WALKING_DOWNSTAIRS
 
-@@ R0550 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 3, hücre 2
+@@ R0526 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 2
 0,958
 
-@@ R0551 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 3, hücre 3
+@@ R0527 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 3
 0,963
 
-@@ R0552 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 3, hücre 4
+@@ R0528 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 4
 0,974
 
-@@ R0553 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 3, hücre 5
+@@ R0529 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 5
 0,999
 
-@@ R0554 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 3, hücre 6
+@@ R0530 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 3, hücre 6
 0,990
 
-@@ R0555 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 4, hücre 1
+@@ R0531 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 1
 SITTING
 
-@@ R0556 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 4, hücre 2
+@@ R0532 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 2
 0,920
 
-@@ R0557 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 4, hücre 3
+@@ R0533 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 3
 0,799
 
-@@ R0558 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 4, hücre 4
+@@ R0534 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 4
 0,957
 
-@@ R0559 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 4, hücre 5
+@@ R0535 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 5
 0,961
 
-@@ R0560 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 4, hücre 6
+@@ R0536 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 4, hücre 6
 0,968
 
-@@ R0561 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 5, hücre 1
+@@ R0537 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 5, hücre 1
 STANDING
 
-@@ R0562 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 5, hücre 2
+@@ R0538 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 5, hücre 2
 0,931
 
-@@ R0563 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 5, hücre 3
+@@ R0539 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 5, hücre 3
 0,835
 
-@@ R0564 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 5, hücre 4
+@@ R0540 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 5, hücre 4
 0,968
 
-@@ R0565 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 5, hücre 5
+@@ R0541 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 5, hücre 5
 0,971
 
-@@ R0566 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 5, hücre 6
+@@ R0542 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 5, hücre 6
 0,974
 
-@@ R0567 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 6, hücre 1
+@@ R0543 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 6, hücre 1
 LAYING
 
-@@ R0568 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 6, hücre 2
+@@ R0544 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 6, hücre 2
 0,993
 
-@@ R0569 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 6, hücre 3
+@@ R0545 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 6, hücre 3
 0,995
 
-@@ R0570 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 6, hücre 4
+@@ R0546 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 6, hücre 4
 0,997
 
-@@ R0571 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 6, hücre 5
+@@ R0547 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 6, hücre 5
 1,000
 
-@@ R0572 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 6, hücre 6
+@@ R0548 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 6, hücre 6
 0,998
 
-@@ R0573 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 7, hücre 1
+@@ R0549 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 7, hücre 1
 STAND_TO_SIT
 
-@@ R0574 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 7, hücre 2
+@@ R0550 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 7, hücre 2
 0,800
 
-@@ R0575 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 7, hücre 3
+@@ R0551 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 7, hücre 3
 0,826
 
-@@ R0576 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 7, hücre 4
+@@ R0552 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 7, hücre 4
 0,909
 
-@@ R0577 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 7, hücre 5
+@@ R0553 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 7, hücre 5
 0,875
 
-@@ R0578 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 7, hücre 6
+@@ R0554 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 7, hücre 6
 0,870
 
-@@ R0579 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 8, hücre 1
+@@ R0555 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 8, hücre 1
 SIT_TO_STAND
 
-@@ R0580 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 8, hücre 2
+@@ R0556 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 8, hücre 2
 0,909
 
-@@ R0581 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 8, hücre 3
+@@ R0557 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 8, hücre 3
 0,947
 
-@@ R0582 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 8, hücre 4
+@@ R0558 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 8, hücre 4
 1,000
 
-@@ R0583 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 8, hücre 5
+@@ R0559 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 8, hücre 5
 1,000
 
-@@ R0584 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 8, hücre 6
+@@ R0560 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 8, hücre 6
 1,000
 
-@@ R0585 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 9, hücre 1
+@@ R0561 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 9, hücre 1
 SIT_TO_LIE
 
-@@ R0586 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 9, hücre 2
+@@ R0562 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 9, hücre 2
 0,688
 
-@@ R0587 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 9, hücre 3
+@@ R0563 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 9, hücre 3
 0,725
 
-@@ R0588 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 9, hücre 4
+@@ R0564 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 9, hücre 4
 0,794
 
-@@ R0589 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 9, hücre 5
+@@ R0565 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 9, hücre 5
 0,750
 
-@@ R0590 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 9, hücre 6
+@@ R0566 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 9, hücre 6
 0,767
 
-@@ R0591 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 10, hücre 1
+@@ R0567 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 10, hücre 1
 LIE_TO_SIT
 
-@@ R0592 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 10, hücre 2
+@@ R0568 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 10, hücre 2
 0,808
 
-@@ R0593 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 10, hücre 3
+@@ R0569 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 10, hücre 3
 0,800
 
-@@ R0594 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 10, hücre 4
+@@ R0570 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 10, hücre 4
 0,826
 
-@@ R0595 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 10, hücre 5
+@@ R0571 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 10, hücre 5
 0,950
 
-@@ R0596 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 10, hücre 6
+@@ R0572 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 10, hücre 6
 0,878
 
-@@ R0597 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 11, hücre 1
+@@ R0573 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 11, hücre 1
 STAND_TO_LIE
 
-@@ R0598 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 11, hücre 2
+@@ R0574 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 11, hücre 2
 0,720
 
-@@ R0599 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 11, hücre 3
+@@ R0575 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 11, hücre 3
 0,698
 
-@@ R0600 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 11, hücre 4
+@@ R0576 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 11, hücre 4
 0,787
 
-@@ R0601 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 11, hücre 5
+@@ R0577 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 11, hücre 5
 0,742
 
-@@ R0602 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 11, hücre 6
+@@ R0578 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 11, hücre 6
 0,787
 
-@@ R0603 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 12, hücre 1
+@@ R0579 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 12, hücre 1
 LIE_TO_STAND
 
-@@ R0604 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 12, hücre 2
+@@ R0580 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 12, hücre 2
 0,735
 
-@@ R0605 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 12, hücre 3
+@@ R0581 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 12, hücre 3
 0,808
 
-@@ R0606 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 12, hücre 4
+@@ R0582 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 12, hücre 4
 0,863
 
-@@ R0607 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 12, hücre 5
+@@ R0583 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 12, hücre 5
 0,926
 
-@@ R0608 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 12, hücre 6
+@@ R0584 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 12, hücre 6
 0,846
 
-@@ R0609 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 13, hücre 1
+@@ R0585 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 13, hücre 1
 Temel aktivite ortalaması
 
-@@ R0610 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 13, hücre 2
+@@ R0586 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 13, hücre 2
 0,952
 
-@@ R0611 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 13, hücre 3
+@@ R0587 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 13, hücre 3
 0,924
 
-@@ R0612 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 13, hücre 4
+@@ R0588 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 13, hücre 4
 0,979
 
-@@ R0613 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 13, hücre 5
+@@ R0589 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 13, hücre 5
 0,982
 
-@@ R0614 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 13, hücre 6
+@@ R0590 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 13, hücre 6
 0,984
 
-@@ R0615 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 14, hücre 1
+@@ R0591 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 14, hücre 1
 Transition ortalaması
 
-@@ R0616 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 14, hücre 2
+@@ R0592 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 14, hücre 2
 0,776
 
-@@ R0617 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 14, hücre 3
+@@ R0593 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 14, hücre 3
 0,801
 
-@@ R0618 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 14, hücre 4
+@@ R0594 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 14, hücre 4
 0,863
 
-@@ R0619 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 14, hücre 5
+@@ R0595 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 14, hücre 5
 0,874
 
-@@ R0620 | 6 Eğitim ve Test Sonuçları > Tablo 10 > satır 14, hücre 6
+@@ R0596 | 6 Eğitim ve Test Sonuçları > Tablo 9 > satır 14, hücre 6
 0,858
 
-@@ R0621 | 6 Eğitim ve Test Sonuçları > Tablo 10 > altyazı
-Tablo 10: Final düzen, sınıf bazlı test F1 (ensemble). Kaynak: experiments/results2/final/summary.md
+@@ R0597 | 6 Eğitim ve Test Sonuçları > Tablo 9 > altyazı
+Tablo 9: Final düzen, sınıf bazlı test F1 (ensemble). Kaynak: experiments/results2/final/summary.md
 
-@@ R0622 | 6 Eğitim ve Test Sonuçları > sol şekil altyazısı
+@@ R0598 | 6 Eğitim ve Test Sonuçları > sol şekil altyazısı
 Şekil 3: MLP
 
-@@ R0623 | 6 Eğitim ve Test Sonuçları > sağ şekil altyazısı
+@@ R0599 | 6 Eğitim ve Test Sonuçları > sağ şekil altyazısı
 Şekil 4: MLP-raw
 
-@@ R0624 | 6 Eğitim ve Test Sonuçları > sol şekil altyazısı
+@@ R0600 | 6 Eğitim ve Test Sonuçları > sol şekil altyazısı
 Şekil 5: 1D CNN
 
-@@ R0625 | 6 Eğitim ve Test Sonuçları > sağ şekil altyazısı
+@@ R0601 | 6 Eğitim ve Test Sonuçları > sağ şekil altyazısı
 Şekil 6: LSTM
 
-@@ R0626 | 6 Eğitim ve Test Sonuçları > sol şekil altyazısı
+@@ R0602 | 6 Eğitim ve Test Sonuçları > sol şekil altyazısı
 Şekil 7: GRU. Şekil 3-7: final düzen, test kümesi, ensemble, satır normalize. Kaynak: experiments/results2/final/confusion_*.png
 
-@@ R0627 | Bölüm 7 > numara
+@@ R0603 | Bölüm 7 > numara
 7
 
-@@ R0628 | Bölüm 7 > başlık
+@@ R0604 | Bölüm 7 > başlık
 Modellerin Karşılaştırılması
 
-@@ R0629 | Bölüm 7.1 > numara
+@@ R0605 | Bölüm 7.1 > numara
 7.1
 
-@@ R0630 | Bölüm 7.1 > başlık
+@@ R0606 | Bölüm 7.1 > başlık
 Ham sinyal modelleri ve MLP
 
-@@ R0631 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
-Önceden ilan edilen iddia eşiği iki koşul ister: test kümesinde eşleştirilmiş farkın %95 GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı (Bölüm 5.15). 1D CNN ve LSTM için iki koşul da sağlandı: test farkı +0,056 [+0,026; +0,093] ve +0,063 [+0,029; +0,097], CV farkı +0,010 ve +0,012 (Tablo 9). Bu nedenle şu ifade yazılabilir: bu veri setinde ve bu eğitim düzeninde 1D CNN ve LSTM, test macro F1'de MLP'den yüksek sonuç verdi. CV farklarının kendisi 0,01 civarındadır ve tek başına gürültü bandındadır; test farkı (yaklaşık 0,06) CV farkından büyüktür ve 9 kişilik test kümesi nedeniyle GA geniştir.
+@@ R0607 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
+Önceden ilan edilen iddia eşiği iki koşul ister: test kümesinde eşleştirilmiş farkın %95 GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı (Bölüm 5.14). 1D CNN ve LSTM için iki koşul da sağlandı: test farkı +0,056 [+0,026; +0,093] ve +0,063 [+0,029; +0,097], CV farkı +0,010 ve +0,012 (Tablo 8). Bu nedenle şu ifade yazılabilir: bu veri setinde ve bu eğitim düzeninde 1D CNN ve LSTM, test macro F1'de MLP'den yüksek sonuç verdi. CV farklarının kendisi 0,01 civarındadır ve tek başına gürültü bandındadır; test farkı (yaklaşık 0,06) CV farkından büyüktür ve 9 kişilik test kümesi nedeniyle GA geniştir.
 
-@@ R0632 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
-GRU testte MLP'den yüksektir (+0,055 [+0,024; +0,086]), ancak CV'de iki model ayırt edilemez (0,845 ve 0,845; Tablo 9). Eşik karşılanmadığı için GRU için yazılabilecek ifade şudur: testte MLP'den yüksek, CV'de ayırt edilemez. GRU'nun MLP'den üstün olduğu iddia edilmez.
+@@ R0608 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
+GRU testte MLP'den yüksektir (+0,055 [+0,024; +0,086]), ancak CV'de iki model ayırt edilemez (0,845 ve 0,845; Tablo 8). Eşik karşılanmadığı için GRU için yazılabilecek ifade şudur: testte MLP'den yüksek, CV'de ayırt edilemez. GRU'nun MLP'den üstün olduğu iddia edilmez.
 
-@@ R0633 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
-Ensemble, ham modellerde tekil seed ortalamasının üzerine çıktı (CNN 0,894'ten 0,921'e, LSTM 0,898'den 0,928'e, GRU 0,888'den 0,921'e), MLP'de ise küçük kaldı (0,860'tan 0,864'e; Tablo 8). Tekil seed ortalamalarında da üç ham model MLP'nin üzerindedir (0,888-0,898 ve 0,860), ancak seed std'si kişi belirsizliğini içermediği için tekil değerlerin farkı için GA hesaplanmadı.
+@@ R0609 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
+Ensemble, ham modellerde tekil seed ortalamasının üzerine çıktı (CNN 0,894'ten 0,921'e, LSTM 0,898'den 0,928'e, GRU 0,888'den 0,921'e), MLP'de ise küçük kaldı (0,860'tan 0,864'e; Tablo 7). Tekil seed ortalamalarında da üç ham model MLP'nin üzerindedir (0,888-0,898 ve 0,860), ancak seed std'si kişi belirsizliğini içermediği için tekil değerlerin farkı için GA hesaplanmadı.
 
-@@ R0634 | Bölüm 7.2 > numara
+@@ R0610 | Bölüm 7.2 > numara
 7.2
 
-@@ R0635 | Bölüm 7.2 > başlık
+@@ R0611 | Bölüm 7.2 > başlık
 Feature mı, mimari mi?
 
-@@ R0636 | 7.2 Feature mı, mimari mi? > Paragraf
-MLP-raw kontrolünün sonucu eğitim düzenine bağlıdır. Augmentasyon olmadan aynı MLP ham girdiyle 0,803 (6 kanal) ve 0,808 (9 kanal), 561 feature ile 0,845 aldı (Tablo 7); bu düzende MLP'nin üstünlüğü büyük ölçüde hazır feature'lardan geliyordu. Gravity, yoğun window ve augmentasyonla MLP-raw 0,840'a çıktı ve fark 0,005'e indi. Testte de MLP-raw ile MLP ayırt edilemez: fark -0,005 [-0,055; +0,043] (Tablo 9). Dolayısıyla "MLP'nin üstünlüğü hazır feature'lardan geliyor" ifadesi yalnızca augmentasyonsuz karşılaştırma için geçerlidir.
+@@ R0612 | 7.2 Feature mı, mimari mi? > Paragraf
+MLP-raw kontrolünün sonucu eğitim düzenine bağlıdır. Augmentasyon olmadan aynı MLP ham girdiyle 0,803 (6 kanal) ve 0,808 (9 kanal), 561 feature ile 0,845 aldı (Tablo 6); bu düzende MLP'nin üstünlüğü büyük ölçüde hazır feature'lardan geliyordu. Gravity, yoğun window ve augmentasyonla MLP-raw 0,840'a çıktı ve fark 0,005'e indi. Testte de MLP-raw ile MLP ayırt edilemez: fark -0,005 [-0,055; +0,043] (Tablo 8). Dolayısıyla "MLP'nin üstünlüğü hazır feature'lardan geliyor" ifadesi yalnızca augmentasyonsuz karşılaştırma için geçerlidir.
 
-@@ R0637 | 7.2 Feature mı, mimari mi? > Paragraf
-Macro F1'deki bu eşitlik, iki modelin aynı hataları yaptığı anlamına gelmez. MLP-raw'ın accuracy'si daha düşüktür (0,914 ve 0,940; Tablo 8) ve SITTING ile STANDING'de zayıftır (F1 0,799 ve 0,835; MLP'de 0,920 ve 0,931; Tablo 10). Eşitlik, MLP-raw'ın transition sınıflarındaki daha yüksek ortalamasından gelir (0,801 ve 0,776). Aynı ham girdiyi kullanan 1D CNN, LSTM ve GRU'nun testte MLP-raw'dan yüksek olması (Tablo 8), ham girdide mimarinin de etkisi olduğuyla uyumludur; ancak bu fark için eşleştirilmiş test yapılmadı.
+@@ R0613 | 7.2 Feature mı, mimari mi? > Paragraf
+Macro F1'deki bu eşitlik, iki modelin aynı hataları yaptığı anlamına gelmez. MLP-raw'ın accuracy'si daha düşüktür (0,914 ve 0,940; Tablo 7) ve SITTING ile STANDING'de zayıftır (F1 0,799 ve 0,835; MLP'de 0,920 ve 0,931; Tablo 9). Eşitlik, MLP-raw'ın transition sınıflarındaki daha yüksek ortalamasından gelir (0,801 ve 0,776). Aynı ham girdiyi kullanan 1D CNN, LSTM ve GRU'nun testte MLP-raw'dan yüksek olması (Tablo 7), ham girdide mimarinin de etkisi olduğuyla uyumludur; ancak bu fark için eşleştirilmiş test yapılmadı.
 
-@@ R0638 | Bölüm 7.3 > numara
+@@ R0614 | Bölüm 7.3 > numara
 7.3
 
-@@ R0639 | Bölüm 7.3 > başlık
+@@ R0615 | Bölüm 7.3 > başlık
 Sınıflar: temel aktiviteler ve transition'lar
 
-@@ R0640 | 7.3 Sınıflar: temel aktiviteler ve transition'lar > Paragraf
-Ham sinyal modelleri hem temel aktivitelerde (ortalama F1 0,979-0,984, MLP 0,952) hem transition sınıflarında (0,858-0,874, MLP 0,776) MLP'den yüksektir (Tablo 10). En zayıf sınıflar yine SIT_TO_LIE (0,688-0,794) ve STAND_TO_LIE'dır (0,698-0,787). Confusion matrix'lerde bu iki sınıfın birbirine karıştığı görülür: MLP'de SIT_TO_LIE örneklerinin 0,28'i STAND_TO_LIE olarak, LSTM'de STAND_TO_LIE örneklerinin 0,22'si SIT_TO_LIE olarak tahmin edildi (Şekil 3 ve 6). İki hareket de uzanarak biter; bu benzerlik karışmayla uyumludur. MLP'de SITTING örneklerinin 0,11'i STANDING'e kaydı; LSTM'de bu oran 0,06'dır.
+@@ R0616 | 7.3 Sınıflar: temel aktiviteler ve transition'lar > Paragraf
+Ham sinyal modelleri hem temel aktivitelerde (ortalama F1 0,979-0,984, MLP 0,952) hem transition sınıflarında (0,858-0,874, MLP 0,776) MLP'den yüksektir (Tablo 9). En zayıf sınıflar yine SIT_TO_LIE (0,688-0,794) ve STAND_TO_LIE'dır (0,698-0,787). Confusion matrix'lerde bu iki sınıfın birbirine karıştığı görülür: MLP'de SIT_TO_LIE örneklerinin 0,28'i STAND_TO_LIE olarak, LSTM'de STAND_TO_LIE örneklerinin 0,22'si SIT_TO_LIE olarak tahmin edildi (Şekil 3 ve 6). İki hareket de uzanarak biter; bu benzerlik karışmayla uyumludur. MLP'de SITTING örneklerinin 0,11'i STANDING'e kaydı; LSTM'de bu oran 0,06'dır.
 
-@@ R0641 | 7.3 Sınıflar: temel aktiviteler ve transition'lar > Paragraf
-Transition sınıfları test kümesinde az örneğe dayanır (ham modellerde toplam 157 window; Tablo 1), bu yüzden sınıf bazlı farklar kesin yorumlanmamalıdır. Örneğin LIE_TO_SIT'te LSTM 0,950, CNN 0,826 aldı (Tablo 10); bu sınıfın resmi test kümesinde 25 örneği vardır (Şekil 1).
+@@ R0617 | 7.3 Sınıflar: temel aktiviteler ve transition'lar > Paragraf
+Transition sınıfları test kümesinde az örneğe dayanır (ham modellerde toplam 157 window; Tablo 1), bu yüzden sınıf bazlı farklar kesin yorumlanmamalıdır. Örneğin LIE_TO_SIT'te LSTM 0,950, CNN 0,826 aldı (Tablo 9); bu sınıfın resmi test kümesinde 25 örneği vardır (Şekil 1).
 
-@@ R0642 | Bölüm 7.4 > numara
+@@ R0618 | Bölüm 7.4 > numara
 7.4
 
-@@ R0643 | Bölüm 7.4 > başlık
+@@ R0619 | Bölüm 7.4 > başlık
 İlk sonuçlarla ilişki
 
-@@ R0644 | 7.4 İlk sonuçlarla ilişki > Paragraf
-İlk baseline'da sıralama MLP, 1D CNN, GRU, LSTM idi (Tablo 5); final düzende ham sinyal modelleri MLP'nin üzerindedir (Tablo 8). İki tablo doğrudan karşılaştırılmaz, çünkü protokoller farklıdır: baseline 16 kişiyle ve validation'a göre seçilen epoch'la, final 21 kişiyle ve sabit epoch'la eğitildi; ayarlar da farklıdır. Aynı CV protokolünde LSTM 0,768'den (A0) 0,857'ye (D2) çıktı (Tablo 7); sıralamadaki değişim, eğitim düzenindeki değişikliklerle uyumludur.
+@@ R0620 | 7.4 İlk sonuçlarla ilişki > Paragraf
+İlk baseline'da sıralama MLP, 1D CNN, GRU, LSTM idi (Tablo 4); final düzende ham sinyal modelleri MLP'nin üzerindedir (Tablo 7). İki tablo doğrudan karşılaştırılmaz, çünkü protokoller farklıdır: baseline 16 kişiyle ve validation'a göre seçilen epoch'la, final 21 kişiyle ve sabit epoch'la eğitildi; ayarlar da farklıdır. Aynı CV protokolünde LSTM 0,768'den (A0) 0,857'ye (D2) çıktı (Tablo 6); sıralamadaki değişim, eğitim düzenindeki değişikliklerle uyumludur.
 
-@@ R0645 | Bölüm 8 > numara
+@@ R0621 | Bölüm 8 > numara
 8
 
-@@ R0646 | Bölüm 8 > başlık
+@@ R0622 | Bölüm 8 > başlık
 Gerçek Telefon Sensör Verileriyle Ek Testler
 
-@@ R0647 | 8 Gerçek Telefon Sensör Verileriyle Ek Testler > Paragraf
+@@ R0623 | 8 Gerçek Telefon Sensör Verileriyle Ek Testler > Paragraf
 Bu test yapılmadı; bu bölüm planlanan çalışmayı ve bir sınırlılığı anlatır. Raporda gerçek telefon verisiyle elde edilmiş bir sonuç yoktur. Canlı demo da yapılmadı.
 
-@@ R0648 | 8 Gerçek Telefon Sensör Verileriyle Ek Testler > Paragraf
+@@ R0624 | 8 Gerçek Telefon Sensör Verileriyle Ek Testler > Paragraf
 Plan şöyledir. Hazır bir sensör kayıt uygulamasıyla telefon bele takılıyken accelerometer ve gyroscope 50 Hz'de kaydedilecek ve CSV olarak dışa aktarılacaktır. Etiketler, önceden belirlenmiş bir aktivite sırası ve zamanlamasıyla verilecektir. Kayıt eğitim verisine uydurulacaktır: ivme m/s² cinsinden geliyorsa 9,80665'e bölünerek g'ye çevrilecek, gyro rad/s'de tutulacak ve telefonun eksenleri veri setindeki eksen yönleriyle eşleştirilecektir. Ardından aynı window kuralı, gravity/body ayrımı ve eğitim kümesi istatistikleriyle standardizasyon uygulanacaktır.
 
-@@ R0649 | 8 Gerçek Telefon Sensör Verileriyle Ek Testler > Paragraf
+@@ R0625 | 8 Gerçek Telefon Sensör Verileriyle Ek Testler > Paragraf
 Değerlendirme çevrimdışı ve yalnızca ham sinyal modelleriyle (1D CNN, LSTM, GRU) yapılacaktır. MLP, resmi 561 feature hattının yeniden kurulmasını gerektirdiği için bu plana dahil değildir. Farklı telefon, takılma biçimi ve kişi nedeniyle performansın test kümesindekinden düşük olması beklenebilir; bunun ne kadar olacağı ölçülmedikçe bilinemez.
 
-@@ R0650 | Bölüm 9 > numara
+@@ R0626 | Bölüm 9 > numara
 9
 
-@@ R0651 | Bölüm 9 > başlık
+@@ R0627 | Bölüm 9 > başlık
 Sonuçlar ve Değerlendirme
 
-@@ R0652 | Bölüm 9.1 > numara
+@@ R0628 | Bölüm 9.1 > numara
 9.1
 
-@@ R0653 | Bölüm 9.1 > başlık
+@@ R0629 | Bölüm 9.1 > başlık
 Yazılabilir iddialar
 
-@@ R0654 | 9.1 Yazılabilir iddialar > BulletList > madde 1
-UCI #341 veri setinde, kişi bazlı CV ile seçilip dondurulan düzende 1D CNN ve LSTM test macro F1'de 561 feature'lı MLP'den yüksek sonuç verdi (ensemble 0,921 ve 0,928, MLP 0,864; eşleştirilmiş farkın GA'sı sıfırı dışlıyor, CV aynı yönde; Tablo 8 ve 9).
+@@ R0630 | 9.1 Yazılabilir iddialar > BulletList > madde 1
+UCI #341 veri setinde, kişi bazlı CV ile seçilip dondurulan düzende 1D CNN ve LSTM test macro F1'de 561 feature'lı MLP'den yüksek sonuç verdi (ensemble 0,921 ve 0,928, MLP 0,864; eşleştirilmiş farkın GA'sı sıfırı dışlıyor, CV aynı yönde; Tablo 7 ve 9).
 
-@@ R0655 | 9.1 Yazılabilir iddialar > BulletList > madde 2
-GRU testte MLP'den yüksek, CV'de ayırt edilemez (Tablo 9).
+@@ R0631 | 9.1 Yazılabilir iddialar > BulletList > madde 2
+GRU testte MLP'den yüksek, CV'de ayırt edilemez (Tablo 8).
 
-@@ R0656 | 9.1 Yazılabilir iddialar > BulletList > madde 3
-Augmentasyonsuz düzende MLP'nin avantajı büyük ölçüde hazır feature'lardan geliyordu; augmentasyon ve yoğun window ile ham girdili aynı MLP bu farkı CV'de 0,005'e, testte ayırt edilemez düzeye indirdi (Tablo 7 ve 9).
+@@ R0632 | 9.1 Yazılabilir iddialar > BulletList > madde 3
+Augmentasyonsuz düzende MLP'nin avantajı büyük ölçüde hazır feature'lardan geliyordu; augmentasyon ve yoğun window ile ham girdili aynı MLP bu farkı CV'de 0,005'e, testte ayırt edilemez düzeye indirdi (Tablo 6 ve 9).
 
-@@ R0657 | 9.1 Yazılabilir iddialar > BulletList > madde 4
-1D CNN'de en büyük CV kazancı augmentasyondan geldi (+0,016; Tablo 7). İlk baseline tüm modeller için eksik ayarlıydı (MLP 0,824'ten 0,845'e; Tablo 7).
+@@ R0633 | 9.1 Yazılabilir iddialar > BulletList > madde 4
+1D CNN'de en büyük CV kazancı augmentasyondan geldi (+0,016; Tablo 6). İlk baseline tüm modeller için eksik ayarlıydı (MLP 0,824'ten 0,845'e; Tablo 6).
 
-@@ R0658 | Bölüm 9.2 > numara
+@@ R0634 | Bölüm 9.2 > numara
 9.2
 
-@@ R0659 | Bölüm 9.2 > başlık
+@@ R0635 | Bölüm 9.2 > başlık
 Yazılamaz iddialar
 
-@@ R0660 | 9.2 Yazılamaz iddialar > BulletList > madde 1
+@@ R0636 | 9.2 Yazılamaz iddialar > BulletList > madde 1
 Ham sinyal modellerinin genel olarak feature tabanlı modellerden üstün olduğu: sonuç tek veri setine, tek bir MLP'ye ve sınırlı bir aramaya dayanır.
 
-@@ R0661 | 9.2 Yazılamaz iddialar > BulletList > madde 2
-GRU'nun MLP'den üstün olduğu (eşik karşılanmadı) ve LSTM, CNN ve GRU arasında bir sıralama (GA'lar örtüşüyor; Tablo 8).
+@@ R0637 | 9.2 Yazılamaz iddialar > BulletList > madde 2
+GRU'nun MLP'den üstün olduğu (eşik karşılanmadı) ve LSTM, CNN ve GRU arasında bir sıralama (GA'lar örtüşüyor; Tablo 7).
 
-@@ R0662 | 9.2 Yazılamaz iddialar > BulletList > madde 3
+@@ R0638 | 9.2 Yazılamaz iddialar > BulletList > madde 3
 Gerçek telefon verisinde veya canlı kullanımda herhangi bir performans (test yapılmadı; Bölüm 8).
 
-@@ R0663 | Bölüm 9.3 > numara
+@@ R0639 | Bölüm 9.3 > numara
 9.3
 
-@@ R0664 | Bölüm 9.3 > başlık
+@@ R0640 | Bölüm 9.3 > başlık
 Sınırlılıklar
 
-@@ R0665 | 9.3 Sınırlılıklar > BulletList > madde 1
-Test kümesi 9 kişidir. Kişi bazlı bootstrap GA'ları geniştir ve az sayıda kişiden yeniden örneklendiği için biraz iyimser olabilir (Tablo 8).
+@@ R0641 | 9.3 Sınırlılıklar > BulletList > madde 1
+Test kümesi 9 kişidir. Kişi bazlı bootstrap GA'ları geniştir ve az sayıda kişiden yeniden örneklendiği için biraz iyimser olabilir (Tablo 7).
 
-@@ R0666 | 9.3 Sınırlılıklar > BulletList > madde 2
+@@ R0642 | 9.3 Sınırlılıklar > BulletList > madde 2
 MLP ile ham modellerin test kümeleri birebir aynı değildir (3.162 ve 3.124 örnek; Tablo 1). Eşleştirilmiş bootstrap aynı kişileri çeker ama aynı window'ları değil.
 
-@@ R0667 | 9.3 Sınırlılıklar > BulletList > madde 3
-Test değerleri CV'den yüksektir (MLP +0,015; ham modellerde yaklaşık +0,04; Tablo 8). Olası sebepler (finalde 21 kişiyle eğitim, ham modellerin ek kişiden daha çok yararlanması, test kişilerinin daha kolay olması) bu deneylerle ayrılamadı.
+@@ R0643 | 9.3 Sınırlılıklar > BulletList > madde 3
+Test değerleri CV'den yüksektir (MLP +0,015; ham modellerde yaklaşık +0,04; Tablo 7). Olası sebepler (finalde 21 kişiyle eğitim, ham modellerin ek kişiden daha çok yararlanması, test kişilerinin daha kolay olması) bu deneylerle ayrılamadı.
 
-@@ R0668 | 9.3 Sınırlılıklar > BulletList > madde 4
-Hiperparametre araması sınırlıydı: her seçenek 3 seed'le ve tek tek denendi, tam ızgara aranmadı (Tablo 7).
+@@ R0644 | 9.3 Sınırlılıklar > BulletList > madde 4
+Hiperparametre araması sınırlıydı: her seçenek 3 seed'le ve tek tek denendi, tam ızgara aranmadı (Tablo 6).
 
-@@ R0669 | 9.3 Sınırlılıklar > BulletList > madde 5
-Koşular birden çok Colab runtime'ında, L4 ve T4 GPU'larda yapıldı. Seed'ler sabit olsa da donanım farkı küçük sayısal sapmalar yaratabilir; aynı yapılandırmanın tekrarında fark 0,002'ydi (A1a ve K5; Tablo 7).
-
-@@ R0670 | 9.3 Sınırlılıklar > BulletList > madde 6
+@@ R0645 | 9.3 Sınırlılıklar > BulletList > madde 5
 İlk baseline'ın sorunları test sonuçlarına bakılarak teşhis edildi (Bölüm 5.5). Sonraki kararlar yalnızca CV ile verildi, ancak araştırma yönü bu ilk bakıştan etkilenmiş olabilir.
 
-@@ R0671 | 9.3 Sınırlılıklar > BulletList > madde 7
+@@ R0646 | 9.3 Sınırlılıklar > BulletList > madde 6
 Resmi 561 feature'ın [-1, 1] normalizasyonunun test kişilerini içerip içermediği doğrulanamadı (Bölüm 2.6).
 
-@@ R0672 | Numarasız bölüm > başlık
+@@ R0647 | Numarasız bölüm > başlık
 Kaynakça
 
-@@ R0673 | Kaynakça > kaynak 1
+@@ R0648 | Kaynakça > kaynak 1
 [1] J.-L. Reyes-Ortiz, L. Oneto, A. Samà, X. Parra, and D. Anguita, "Transition-aware human activity recognition using smartphones," Neurocomputing, 2015.
 
-@@ R0674 | Kaynakça > kaynak 2
+@@ R0649 | Kaynakça > kaynak 2
 [2] J. L. Reyes-Ortiz, D. Anguita, L. Oneto, and X. Parra, "Smartphone-based recognition of human activities and postural transitions data set," version 2.1, UCI Machine Learning Repository, Jul. 2015. [Online]. Available: https://archive.ics.uci.edu/dataset/341/smartphone+based+recognition+of+human+activities+and+postural+transitions
 
-@@ R0675 | Kaynakça > kaynak 3
+@@ R0650 | Kaynakça > kaynak 3
 [3] D. Anguita, A. Ghio, L. Oneto, X. Parra, and J. L. Reyes-Ortiz, "A public domain dataset for human activity recognition using smartphones," in Proc. 21st European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning (ESANN), Bruges, Belgium, Apr. 2013.

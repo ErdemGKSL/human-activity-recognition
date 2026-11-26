@@ -5,7 +5,7 @@ import { defineDeck } from "@pptx/core";
  * kesinleşmediği için kapakta tarih yok). Slaytlar yalnızca sayıları taşır;
  * anlatım, iddia eşikleri ve olası sorular
  * `slide-directions/src/directions/final-results.ts` içindedir.
- * Her sayı `report/src/documents/final-results.tsx` (Tablo 1–10) ile aynıdır.
+ * Her sayı `report/src/documents/final-results.tsx` (Tablo 1–9) ile aynıdır.
  * Telefonda doğruluk ölçülmedi (rapor Bölüm 8): demo slaytı ölçülmüş sonuç
  * iddia etmez.
  */

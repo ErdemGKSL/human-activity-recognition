@@ -1,6 +1,6 @@
 # Final Results sunumu metni
 # kaynak: slides/packages/decks/src/decks/final-results.ts
-# sha256: c52ae9063c6351f73cfbef679346e88a5127797ecf2be79c00d97ddb4309b6ca
+# sha256: 196e31f26f818ecc98428bac76b25ae7ff6f85f9615a24c11e39d68f8b566dc9
 # yuva sayısı: 274
 #
 # Kullanım notu:
