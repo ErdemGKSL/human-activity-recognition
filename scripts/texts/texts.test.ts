@@ -175,11 +175,22 @@ describe("single slot change", () => {
     const picks: Array<[(typeof SOURCES)[0], Slot, string]> = [
       [REPORT, find(report, (s) => s.context.includes("BulletList")), SPECIAL],
       [REPORT, find(report, (s) => s.jsxAttr && s.context.endsWith("altyazı")), SPECIAL],
-      [REPORT, find(report, (s) => s.quote === "'"), "Tek tırnaklı kaynak: 'a' \\ b"],
       [REPORT, find(report, (s) => s.context.endsWith("> Yapılan")), 'Yapılan "iş" & {x}'],
       [DECK, find(deck, (s) => s.context.endsWith("> title")), SPECIAL],
       [DECK, find(deck, (s) => s.kind === "number"), "0.5"],
     ];
+    // Biome only keeps single quotes around text that holds double quotes, so such a slot
+    // exists only while some source has one (the report's old reference list did).
+    for (const [source, slots] of [
+      [REPORT, report],
+      [DECK, deck],
+    ] as const) {
+      const single = slots.find((s) => s.quote === "'" && !picks.some(([, p]) => p.id === s.id));
+      if (single) {
+        picks.push([source, single, "Tek tırnaklı kaynak: 'a' \\ b"]);
+        break;
+      }
+    }
     for (const s of SOURCES) {
       let content = txt(s);
       for (const [source, slot, text] of picks)
