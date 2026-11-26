@@ -188,9 +188,9 @@ export const finalResults: ReportDefinition = {
         </SubSection>
         <SubSection number="2.3" title="Kişi bazlı ayrım">
           <Paragraph>
-            Test kişileri hiçbir eğitim veya model seçimi adımında kullanılmadı. Baseline'da 21
-            eğitim kişisinden her beşincisini validation'a ayırdım, kalan 16 kişiyle eğittim.
-            Sonraki kararları 21 kişi üzerinde 5-fold kişi bazlı CV ile verdim (Bölüm 5.5). Finalde
+            Hiçbir eğitim veya model seçimi adımında test kişileri kullanılmadı. Baselineda 21
+            eğitim kişisinden beşte birini validasyon'a ayırdım, kalan 16 kişiylede eğittim. Ondan
+            sonraki kararları 21 kişi üzerinde 5-fold kişi bazlı CV'yle verdim (Bölüm 5.5). En sonda
             21 kişinin hepsiyle eğittim.
           </Paragraph>
         </SubSection>

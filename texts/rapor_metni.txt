@@ -1,6 +1,6 @@
 # Final Results raporu metni
 # kaynak: report/src/documents/final-results.tsx
-# sha256: 3cf2dcd9dcd5bf1bd41ef17356dfffb0596db25885515355c217e6929c6f6eae
+# sha256: f34331199f89c9b81e04386c61d4df45b4150b04aae9abb342ace6669597fc26
 # yuva sayısı: 646
 #
 # Kullanım notu:
@@ -140,7 +140,7 @@ Tablo 1: Örnek sayıları. Ham window'lar %90 tek etiket kuralı ve adım 64 il
 Kişi bazlı ayrım
 
 @@ R0043 | 2.3 Kişi bazlı ayrım > Paragraf
-Test kişileri hiçbir eğitim veya model seçimi adımında kullanılmadı. Baseline'da 21 eğitim kişisinden her beşincisini validation'a ayırdım, kalan 16 kişiyle eğittim. Sonraki kararları 21 kişi üzerinde 5-fold kişi bazlı CV ile verdim (Bölüm 5.5). Finalde 21 kişinin hepsiyle eğittim.
+Hiçbir eğitim veya model seçimi adımında test kişileri kullanılmadı. Baselineda 21 eğitim kişisinden beşte birini validasyon'a ayırdım, kalan 16 kişiylede eğittim. Ondan sonraki kararları 21 kişi üzerinde 5-fold kişi bazlı CV'yle verdim (Bölüm 5.5). En sonda 21 kişinin hepsiyle eğittim.
 
 @@ R0044 | Bölüm 2.4 > numara
 2.4
