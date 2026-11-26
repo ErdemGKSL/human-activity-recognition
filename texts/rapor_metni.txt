@@ -1,6 +1,6 @@
 # Final Results raporu metni
 # kaynak: report/src/documents/final-results.tsx
-# sha256: 294748729f278b34a8d07a79355707269dc04a27df87f85b5dd3d525205ca3b2
+# sha256: 3cf2dcd9dcd5bf1bd41ef17356dfffb0596db25885515355c217e6929c6f6eae
 # yuva sayısı: 646
 #
 # Kullanım notu:
@@ -140,7 +140,7 @@ Tablo 1: Örnek sayıları. Ham window'lar %90 tek etiket kuralı ve adım 64 il
 Kişi bazlı ayrım
 
 @@ R0043 | 2.3 Kişi bazlı ayrım > Paragraf
-Test kişileri hiçbir eğitim veya model seçimi adımında kullanılmadı. Baseline'daki 21 eğitim kişisinden her beşinci kişiyi validation set'e ayırdım, kalan 16 kişiyle eğittim. Sonraki bütün kararları 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile verdim (Bölüm 5.5). Finalde modeller 21 eğitim kişisinin tamamıyla eğitildi.
+Test kişileri hiçbir eğitim veya model seçimi adımında kullanılmadı. Baseline'da 21 eğitim kişisinden her beşincisini validation'a ayırdım, kalan 16 kişiyle eğittim. Sonraki kararları 21 kişi üzerinde 5-fold kişi bazlı CV ile verdim (Bölüm 5.5). Finalde 21 kişinin hepsiyle eğittim.
 
 @@ R0044 | Bölüm 2.4 > numara
 2.4
@@ -149,7 +149,7 @@ Test kişileri hiçbir eğitim veya model seçimi adımında kullanılmadı. Bas
 Gravity/body ayrımı
 
 @@ R0046 | 2.4 Gravity/body ayrımı > Paragraf
-Ham ivme sinyali gravity ile vücut hareketini birlikte taşıyor. Resmi feature hattındaki gibi gravity bileşenini 0,3 Hz kesimli bir Butterworth low-pass filter ile ayırdım. Bu seçenek açıkken girdi 9 kanal oluyor, body acc, gravity ve gyro için üçer kanal. Kapalıyken ham ivme ve gyro ile 6 kanal kullanılıyor.
+Ham ivme gravity ile vücut hareketini birlikte taşıyor. Gravity'yi 0,3 Hz kesimli Butterworth low-pass filter ile ayırdım. Açıkken girdi 9 kanal oluyor (body acc, gravity, gyro), kapalıyken 6 kanal.
 
 @@ R0047 | Bölüm 2.5 > numara
 2.5
@@ -158,7 +158,7 @@ Ham ivme sinyali gravity ile vücut hareketini birlikte taşıyor. Resmi feature
 Augmentasyon ve yoğun window
 
 @@ R0049 | 2.5 Augmentasyon ve yoğun window > Paragraf
-Augmentasyonu sadece ham sinyal modellerinde ve sadece eğitim batch'lerinde uyguladım. Her window rastgele bir eksen etrafında en fazla ±12° döndürüldü, genliği de 0,9 ile 1,1 arasında rastgele bir katsayıyla ölçeklendi. Yoğun window seçeneğinde eğitim window'ları adım 16 ile üretildi, bu %87,5 overlap demek. Değerlendirme window'ları hep adım 64, bu yüzden CV ve test sayıları seçenekten bağımsız olarak aynı window'lar üzerinde hesaplandı.
+Augmentasyon sadece ham sinyal modellerinde ve eğitim batch'lerinde var. Window'u rastgele bir eksende en fazla ±12° döndürdüm, genliği de 0,9 ile 1,1 arasında ölçekledim. Yoğun window'da adım 16 kullandım, bu %87,5 overlap demek. Değerlendirmede adım hep 64, yani CV ve test sayıları seçeneklerden etkilenmedi.
 
 @@ R0050 | Bölüm 2.6 > numara
 2.6
@@ -167,7 +167,7 @@ Augmentasyonu sadece ham sinyal modellerinde ve sadece eğitim batch'lerinde uyg
 Normalizasyon ve class-weighted loss
 
 @@ R0052 | 2.6 Normalizasyon ve class-weighted loss > Paragraf
-Ortalama ve standart sapmayı sadece eğitim kişilerinden hesapladım, ham modellerde kanal başına, MLP'de feature başına. CV'de bunlar her fold'un eğitim kısmından yeniden hesaplandı. Resmi 561 feature zaten [-1, 1] aralığına normalize edilmiş geliyor ama bu normalizasyonun test kişilerini içerip içermediğini doğrulayamadım. Sınıf dengesizliği için class-weighted loss kullandım, az örnekli sınıflar daha büyük ağırlık aldı.
+Ortalama ve standart sapmayı sadece eğitim kişilerinden hesapladım, CV'de de her fold'un eğitim kısmından. Resmi 561 feature zaten [-1, 1] aralığında geliyor ve bunun test kişilerini içerip içermediğini bilmiyorum. Sınıf dengesizliği için class-weighted loss kullandım, az örnekli sınıf daha büyük ağırlık alıyor.
 
 @@ R0053 | Bölüm 3 > numara
 3
@@ -176,10 +176,10 @@ Ortalama ve standart sapmayı sadece eğitim kişilerinden hesapladım, ham mode
 Veri Analizi
 
 @@ R0055 | 3 Veri Analizi > Paragraf
-Şekil 1 resmi eğitim ve test kümelerinde sınıf başına örnek sayısını gösteriyor. Eğitim kümesinde temel aktivitelerin her birinde 987 ile 1.423 örnek var, transition sınıflarında ise 23 ile 90. En büyük sınıf olan STANDING, en küçük sınıf SIT_TO_STAND'in yaklaşık 62 katı. Test kümesinde transition sınıfları 10 ile 49 örnekle temsil ediliyor.
+Şekil 1'de sınıf başına örnek sayıları var. Eğitimde temel aktiviteler 987 ile 1.423 örnek, transition sınıfları ise 23 ile 90 örnek. En büyük sınıf STANDING, en küçük sınıf SIT_TO_STAND'in yaklaşık 62 katı. Testte transition sınıfları 10 ile 49 örnekten oluşuyor.
 
 @@ R0056 | 3 Veri Analizi > Paragraf
-Bu dağılımın iki sonucu var. Accuracy büyük sınıflara göre şekilleniyor ve transition sınıflarındaki hataları gizliyor, bu yüzden birincil metrik olarak macro F1'i seçtim. Ayrıca transition sınıflarının test F1 değerleri 10 ile 49 örneğe dayandığı için sınıf bazlı farkları kesin yorumlamak mümkün değil (Bölüm 7).
+Bu yüzden accuracy yanıltıcı, büyük sınıflar transition hatalarını gizliyor. Birincil metrik macro F1 oldu. Transition sınıflarının test F1'i 10 ile 49 örneğe dayandığı için sınıf bazlı farkları kesin yorumlamak mümkün değil (Bölüm 7).
 
 @@ R0057 | 3 Veri Analizi > Şekil 1 > altyazı
 Şekil 1: Resmi eğitim ve test kümelerinde sınıf başına örnek sayısı. Kesikli çizgi temel aktiviteleri transition sınıflarından ayırır.
@@ -191,7 +191,7 @@ Bu dağılımın iki sonucu var. Accuracy büyük sınıflara göre şekilleniyo
 Model Mimarileri
 
 @@ R0060 | 4 Model Mimarileri > Paragraf
-Her modelin iki sürümü var, ilk baseline'da kullanılan ve CV ile seçilip finalde kullanılan dondurulmuş sürüm. Tablo 2 katmanları ve parametre sayılarını, Tablo 3 eğitim düzenlerini veriyor. Bütün modellerde dropout 0,3 ve çıkışta 12 sınıflı bir linear katman var.
+Her modelin iki sürümü var, ilk baseline ve CV ile seçilip dondurulan final. Katmanlar ve parametre sayıları Tablo 2'de, eğitim düzenleri Tablo 3'te. Hepsinde dropout 0,3 ve çıkışta 12 sınıflı bir linear katman var.
 
 @@ R0061 | Bölüm 4.1 > numara
 4.1
@@ -200,7 +200,7 @@ Her modelin iki sürümü var, ilk baseline'da kullanılan ve CV ile seçilip fi
 MLP
 
 @@ R0063 | 4.1 MLP > Paragraf
-561 feature, 256 ve 128 nöronlu iki gizli katmandan geçiyor. Baseline ve final sürümü aynı mimari, 178.316 parametre, değişen sadece eğitim düzeni. Kontrol modeli MLP-raw aynı mimariyi 1.152 boyutlu düzleştirilmiş ham window ile kullanıyor, 329.612 parametre.
+MLP 561 feature'ı 256 ve 128 nöronlu iki gizli katmandan geçiriyor, 178.316 parametre. Baseline ve final aynı mimari, sadece eğitim düzeni farklı. MLP-raw aynı mimariyi 1.152 boyutlu düzleştirilmiş ham window ile kullanıyor, 329.612 parametre.
 
 @@ R0064 | Bölüm 4.2 > numara
 4.2
@@ -209,7 +209,7 @@ MLP
 1D CNN
 
 @@ R0066 | 4.2 1D CNN > Paragraf
-Her convolutional blok Conv1d, batch normalization, ReLU ve max pooling'den oluşuyor. Baseline sürümünde 32, 64 ve 128 kanallı üç blok ve global average pooling var, 54.380 parametre. Final sürümü olan derin CNN 32, 64, 128 ve 128 kanallı dört blok kullanıyor, son üç blokta dilation 2. Zaman ekseninde ortalama ve maksimum birleştirilerek 256 boyutlu bir representation elde ediliyor. Final sürümü 9 kanal girdiyle 138.700 parametre.
+Her convolutional blok Conv1d, batch normalization, ReLU ve max pooling. Baseline'da 32, 64, 128 kanallı üç blok ve global average pooling var, 54.380 parametre. Final derin CNN'de 32, 64, 128, 128 kanallı dört blok var, son üçünde dilation 2. Zaman ekseninde ortalama ve maksimum birleştirilip 256 boyutlu representation çıkıyor. Final 9 kanal girdiyle 138.700 parametre.
 
 @@ R0067 | Bölüm 4.3 > numara
 4.3
@@ -218,7 +218,7 @@ Her convolutional blok Conv1d, batch normalization, ReLU ve max pooling'den olu�
 LSTM
 
 @@ R0069 | 4.3 LSTM > Paragraf
-Baseline sürümü hidden size 64 olan iki katmanlı bir LSTM ve son zaman adımının çıktısını sınıflandırıyor, 52.492 parametre. Final sürümü bidirectional ve bütün zaman adımlarının ortalamasını ve maksimumunu birleştiriyor, buna mean/max pooling diyorum. Forget gate bias'ı 1 ile başlatılıyor, girdi 9 kanal, 140.812 parametre.
+Baseline LSTM iki katmanlı, hidden size 64, son zaman adımını sınıflandırıyor, 52.492 parametre. Final bidirectional ve tüm zaman adımlarının ortalaması ile maksimumunu birleştiriyor, buna mean/max pooling diyorum. Forget gate bias'ı 1 ile başlıyor, girdi 9 kanal, 140.812 parametre.
 
 @@ R0070 | Bölüm 4.4 > numara
 4.4
@@ -227,7 +227,7 @@ Baseline sürümü hidden size 64 olan iki katmanlı bir LSTM ve son zaman adım
 GRU
 
 @@ R0072 | 4.4 GRU > Paragraf
-Baseline sürümü LSTM ile aynı yapıda, iki katman, hidden size 64 ve son zaman adımı, 39.564 parametre. Final sürümü bidirectional ve mean/max pooling kullanıyor. GRU'da gravity/body ayrımı CV'de fayda vermediği için girdi 6 kanal kaldı (Tablo 6), 105.228 parametre.
+Baseline GRU, LSTM ile aynı yapıda, iki katman, hidden size 64, 39.564 parametre. Final bidirectional ve mean/max pooling. Gravity/body ayrımı GRU'da CV'de işe yaramadığı için girdi 6 kanal kaldı (Tablo 6), 105.228 parametre.
 
 @@ R0073 | 4 Model Mimarileri > Tablo 2 > sütun 1
 Model
@@ -491,7 +491,7 @@ Tüm koşular bu ortamda yapılıyor.
 Dört modeli ortak ve ayarsız bir düzenle eğittim. 16 kişiyle 40 epoch eğitim yaptım, 5 kişilik validation sete göre en iyi epoch'u seçtim ve 5 adet seed koştum (Tablo 3). Sonra modelleri test kümesinde ölçtüm.
 
 @@ R0160 | 5.4 İlk baseline > Sonuç
-Macro F1 sonuçları MLP 0,841, 1D CNN 0,819, GRU 0,786 ve LSTM 0,666 (Tablo 4). LSTM kararsızdı, standart sapması 0,094. En zayıf sınıflar transition sınıflarıydı, SITTING ve STANDING'de de malesef ham modeller MLP'nin gerisindeydi (Tablo 5). Ham sinyal modellerinin MLP'nin gerisinde kalması beklentimi aştı.
+Macro F1 MLP 0,841, 1D CNN 0,819, GRU 0,786, LSTM 0,666 (Tablo 4). LSTM kararsızdı, std 0,094. En zayıf sınıflar transition sınıflarıydı, SITTING ve STANDING'de de ham modeller MLP'nin gerisindeydi (Tablo 5). Ham modellerin MLP'nin gerisinde kalmasını beklemiyordum.
 
 @@ R0161 | 5.4 İlk baseline > Karar
 Ham modelleri iyileştirmek için derinlemesine düşündüm.
@@ -506,10 +506,10 @@ Yöntem düzeltmesi
 Kodda bazı noktalara odaklandım. Bunlar ölçüm değil, hep tahmindi. RNN'ler az eğitilmişti, gradient clipping ve warmup yoktu ve son zaman adımı kullanılıyodu. Model seçiminden sonra 21 kişiyle yeniden eğitim yapılmıyodu. Küçük validation set epoch seçimini gürültülü yapıyordu. Birazda yapay zekaya danıştıktan sonra, Gravity/body ayrımı ve augmentasyon yoktu, class weight de çok agresifti.
 
 @@ R0165 | 5.5 Yöntem düzeltmesi > Sonuç
-Yöntemde bir sorun da fark ettim. Baseline teşhisini test kümesinin confusion matrix'ine ve sınıf bazlı F1 değerlerine bakarak yapmıştım. Bundan sonra da test kümesine bakarak karar verseydim test sonucu olduğundan iyi görünebilirdi, bu doğru bir durum değil.
+Bir de yöntemde sorun fark ettim. Baseline teşhisini test kümesinin confusion matrix'ine ve sınıf F1'lerine bakarak koymuştum. Böyle devam etseydim test sonucu olduğundan iyi görünebilirdi, bu doğru değil.
 
 @@ R0166 | 5.5 Yöntem düzeltmesi > Karar
-Bundan sonra her kararı sadece 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile verdim, ölçüt out-of-fold macro F1. Test en sonda dondurulmuş düzenle bir kez koşuldu. MLP'ye de aynı arama bütçesini verdim. Baseline kodunu değiştirmedim, yeni deneyleride ayrı yaptım.
+Bundan sonra her kararı sadece 21 eğitim kişisinde 5-fold kişi bazlı CV ile verdim, ölçüt out-of-fold macro F1. Test en sonda, dondurulmuş düzenle bir kez koşuldu. MLP'ye de aynı arama bütçesini verdim. Baseline kodunu değiştirmedim, yeni deneyleri ayrı yaptım.
 
 @@ R0167 | Bölüm 5.6 > numara
 5.6
@@ -536,7 +536,7 @@ Optimizasyon (A1)
 Epoch sayısınıysa 100'e çıkardım, warmup ve gradient clipping ekledim. Öğrenme hızı olarak 1e-3 (A1a) ve 2e-3 (A1b) denedim. MLP'de ayrıca 5e-4, 200 epoch ve sqrt class weight de denendi.
 
 @@ R0175 | 5.7 Optimizasyon (A1) > Sonuç
-MLP 0,824'ten 0,845'e çıktı, diğer MLP denemelerinde 0,838 ile 0,845 arasında kaldı. Ham modellerdeyse lr 2e-3, 1e-3'ten iyiydi, CNN 0,822, LSTM 0,797, GRU 0,779 aldı (Tablo 6). Yani baseline düzeni sadece ham modeller için değil, MLP için de eksik ayarlıydı.
+MLP 0,824'ten 0,845'e çıktı, diğer MLP denemeleri 0,838 ile 0,845 arasında. Ham modellerde lr 2e-3, 1e-3'ten iyiydi: CNN 0,822, LSTM 0,797, GRU 0,779 (Tablo 6). Yani baseline sadece ham modeller için değil MLP için de eksik ayarlıydı.
 
 @@ R0176 | 5.7 Optimizasyon (A1) > Karar
 Ham modeller için lr 2e-3, warmup ve clipping'e ortak taban oldu. MLP için A1a seçildi, 100 epoch ve lr 1e-3.
@@ -551,7 +551,7 @@ RNN yapısı, pooling ve bidirectional
 A1a düzeni üzerindeki son zaman adımı yerine mean/max pooling denedim, sonra buna çift yönlü (bi directional) katmanlar ekledim.
 
 @@ R0180 | 5.8 RNN yapısı, pooling ve bidirectional > Sonuç
-Tek başına mean/max pooling fayda vermedi, LSTM 0,763, GRU 0,767. Bidirectional ile birlikte LSTM 0,787, GRU 0,789 oldu. Bu A1a'ya göre 0,016 ve 0,022 artış (Tablo 6).
+Tek başına mean/max pooling işe yaramadı, LSTM 0,763, GRU 0,767. Bidirectional ile LSTM 0,787, GRU 0,789 oldu, A1a'ya göre 0,016 ve 0,022 artış (Tablo 6).
 
 @@ R0181 | 5.8 RNN yapısı, pooling ve bidirectional > Karar
 RNN'lerde bidirectional ve mean/max pooling kullanılıyor.
@@ -608,13 +608,13 @@ Bu düzende MLP'nin üstünlüğü büyük ölçüde mimariden değil, hazır fe
 Augmentasyon ve yoğun window: 2 × 2 tasarım
 
 @@ R0199 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Yapılan
-C1 tabanı üzerinde iki etkeni ayrı ayrı ve birlikte denedim. K1'de sadece augmentasyon var, adım 64. D1'de sadece yoğun window var, adım 16. D2'de ikisi birlikte. D1 ve D2'de epoch sayısı 40, çünkü adım 16'da bir epoch adım 64'e göre yaklaşık dört kat window içeriyor.
+C1 üzerinde iki etkeni ayrı ayrı ve birlikte denedim. K1'de sadece augmentasyon, adım 64. D1'de sadece yoğun window, adım 16. D2'de ikisi birlikte. D1 ve D2'de epoch 40, çünkü adım 16'da bir epoch, adım 64'e göre yaklaşık dört kat window içeriyor.
 
 @@ R0200 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Sonuç
-CNN'de C1 0,833, sadece augmentasyonla 0,849, yani +0,016. Sadece yoğun window ile 0,823, ikisi birlikte 0,855. LSTM ve GRU'da D1 0,817 ve 0,811, D2 0,857 ve 0,845 (Tablo 6).
+CNN'de C1 0,833, sadece augmentasyonla 0,849 (+0,016), sadece yoğun window ile 0,823, ikisi birlikte 0,855. LSTM ve GRU'da D1 0,817 ve 0,811, D2 0,857 ve 0,845 (Tablo 6).
 
 @@ R0201 | 5.12 Augmentasyon ve yoğun window: 2 × 2 tasarım > Karar
-CNN'de asıl kazanç augmentasyondan geldi. Yoğun window tek başına karışık etki verdi, augmentasyonla birlikte CNN'e kattığı 0,006'lık fark gürültü bandında. LSTM ve GRU'da adım 64 ile augmentasyon denenmediği için bu iki etkeni orada ayıramıyorum. Final düzen D2 oldu.
+CNN'de asıl kazanç augmentasyondan geldi. Yoğun window tek başına karışık etki verdi, augmentasyonla birlikte kattığı 0,006 gürültü bandında. LSTM ve GRU'da adım 64 ile augmentasyon denenmediği için bu iki etkeni ayıramıyorum. Final düzen D2.
 
 @@ R0202 | Bölüm 5.13 > numara
 5.13
@@ -623,10 +623,10 @@ CNN'de asıl kazanç augmentasyondan geldi. Yoğun window tek başına karışı
 Class weight ve MLP'ye eşit arama bütçesi
 
 @@ R0204 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Yapılan
-CNN'de D2 üzerinde daha yumuşak bir sınıf ağırlığı, sqrt, denedim (E1s). MLP'ye eşit bütçe vermek için feature'lara Gauss gürültüsü ekledim ve A1a'yı bir kez daha koştum (K5). MLP-raw'ı da D2 düzeniyle eğittim (K2).
+CNN'de D2 üzerinde daha yumuşak sınıf ağırlığı (sqrt) denedim (E1s). MLP'ye eşit bütçe için feature'lara Gauss gürültüsü ekledim ve A1a'yı tekrar koştum (K5). MLP-raw'ı da D2 düzeniyle eğittim (K2).
 
 @@ R0205 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Sonuç
-E1s 0,858 ± 0,003, D2 0,855 ± 0,010 aldı. Gürültü MLP'ye yardım etmedi, 0,838 ve 0,843 aldı, K5 de 0,843. MLP-raw D2 düzeniyle 0,840'a çıktı ve 561 feature'lı MLP'ye 0,005 yaklaştı (Tablo 6).
+E1s 0,858 ± 0,003, D2 0,855 ± 0,010. Gürültü MLP'ye yardım etmedi (0,838 ve 0,843), K5 0,843. MLP-raw D2 düzeniyle 0,840 oldu, 561 feature'lı MLP'ye 0,005 yaklaştı (Tablo 6).
 
 @@ R0206 | 5.13 Class weight ve MLP'ye eşit arama bütçesi > Karar
 CNN'de tutarlılık için tam class weight'i korudum, fark zaten gürültü bandında. MLP için A1a donduruldu. Feature bulgusunu sadece augmentasyonsuz karşılaştırma için geçerli sayıyorum.
@@ -638,13 +638,13 @@ CNN'de tutarlılık için tam class weight'i korudum, fark zaten gürültü band
 Ara değerlendirme ve dondurma
 
 @@ R0209 | 5.14 Ara değerlendirme ve dondurma > Yapılan
-Fable bütün CV tablosunu ve kodu okuyup ikinci bir değerlendirme yaptı. Girdi temsilinin etkisi, baseline'ın eksik ayarlı olması ve augmentasyonun CNN'e katkısı gürültünün çok üstündeydi. CNN ile MLP arasındaki CV farkı ise, 0,855 ve 0,845, gürültü bandındaydı.
+Fable tüm CV tablosunu ve kodu okuyup ikinci bir değerlendirme yaptı. Girdi temsilinin etkisi, baseline'ın eksik ayarlı olması ve augmentasyonun CNN'e katkısı gürültünün çok üstündeydi. CNN ile MLP arasındaki CV farkı (0,855 ve 0,845) ise gürültü bandındaydı.
 
 @@ R0210 | 5.14 Ara değerlendirme ve dondurma > Sonuç
 Seed standart sapması kişi belirsizliğini içermiyordu. CV 21, test ise 9 kişiye dayanıyordu.
 
 @@ R0211 | 5.14 Ara değerlendirme ve dondurma > Karar
-Keşfi kapattım. Final yapılandırmalarını (Tablo 3) ve analiz planını test koşusundan önce yazıp kayda geçirdim. Birincil metrik test macro F1. 10 seed'in ortalamasını ve std'sini, bir de 10 seed'in olasılıklarının ortalamasıyla ensemble sonucunu raporlayacaktım. Belirsizlik için 9 test kişisi üzerinde kişi bazlı bootstrap ile %95 güven aralığı, yani GA, hesaplanacaktı. MLP'ye göre fark da kişi bazında eşleştirilerek ölçülecekti. İddia eşiği şu: bir ham model için 'MLP'yi geçti' demek için bu farkın GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı. Yoksa 'karşılaştırılabilir düzeyde' diyorum.
+Keşfi kapattım. Final yapılandırmalarını (Tablo 3) ve analiz planını test koşusundan önce yazıp kaydettim. Birincil metrik test macro F1. 10 seed'in ortalaması ± std ve 10 seed'in olasılık ortalamasıyla ensemble raporlanacaktı. Belirsizlik için 9 test kişisi üzerinde kişi bazlı bootstrap ile %95 güven aralığı (GA) hesaplanacak, MLP'ye göre fark aynı örneklemeyle ölçülecekti. İddia eşiği şu: bir ham model için 'MLP'yi geçti' diyebilmem için farkın GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı. Yoksa 'karşılaştırılabilir düzeyde' diyorum.
 
 @@ R0212 | Bölüm 5.15 > numara
 5.15
@@ -674,7 +674,7 @@ Eğitim ve Test Sonuçları
 İlk sonuçlar: baseline düzeni, test kümesi
 
 @@ R0221 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Paragraf
-Tablo 4 ve Tablo 5 ilk baseline düzeninin test sonuçları. Bu düzen sonraki tablolarla aynı protokolü izlemiyor, 16 kişiyle ve ayarsız eğitildi, epoch validation'a göre seçildi. Bu yüzden final sonuçlarla aynı tabloya koymadım.
+Tablo 4 ve Tablo 5 ilk baseline düzeninin test sonuçları. Bu düzen sonraki tablolarla aynı protokolde değil, 16 kişiyle ve ayarsız eğitildi, epoch validation'a göre seçildi. Bu yüzden final sonuçlarla aynı tabloya koymadım.
 
 @@ R0222 | 6.1 İlk sonuçlar: baseline düzeni, test kümesi > Tablo 4 > sütun 1
 Model
@@ -974,7 +974,7 @@ Tablo 5: İlk sonuçlar, sınıf bazlı test F1. Baseline düzeni, 5 seed ortala
 CV ablation
 
 @@ R0321 | 6.2 CV ablation > Paragraf
-Tablo 6, Bölüm 5'teki kararların dayandığı CV sonuçlarını veriyor. Her hücre 21 eğitim kişisi üzerinde 5-fold kişi bazlı CV ile hesaplanan out-of-fold macro F1'in 3 seed ortalaması ± std'si. Seed std'si 0,002 ile 0,020 arasında, bu yüzden 0,01'in altındaki farkları gürültü kabul ettim.
+Tablo 6, Bölüm 5'teki kararların dayandığı CV sonuçları. Her hücre 21 eğitim kişisinde 5-fold kişi bazlı CV ile hesaplanan out-of-fold macro F1'in 3 seed ortalaması ± std'si. Seed std'si 0,002 ile 0,020 arasında, bu yüzden 0,01'in altındaki farkları gürültü saydım.
 
 @@ R0322 | 6 Eğitim ve Test Sonuçları > Tablo 6 > sütun 1
 Basamak (koşu)
@@ -1310,7 +1310,7 @@ Tablo 6: CV ablation, OOF macro F1, 3 seed. Final için dondurulan satırlar MLP
 Final test sonuçları (dondurulmuş düzen)
 
 @@ R0433 | 6.3 Final test sonuçları (dondurulmuş düzen) > Paragraf
-Tablo 7 final koşunun sonuçları. Tekil model değeri 10 seed'in ortalaması ± std. Ensemble değeri 10 seed'in olasılıkları ortalanarak hesaplanıyor. Güven aralığını sadece ensemble için hesapladım, kişi örneklemesinden gelen belirsizliği içeriyor. Seed std'si bu belirsizliği içermiyor. CV sütunu karşılaştırmayı kolaylaştırmak için var ama iki protokol farklı. CV'de modeller fold başına 16 ya da 17 kişiyle, finalde 21 kişiyle eğitiliyor.
+Tablo 7 final koşunun sonuçları. Tekil model 10 seed'in ortalaması ± std, ensemble 10 seed'in olasılık ortalaması. GA'yı sadece ensemble için hesapladım, kişi örneklemesinden gelen belirsizliği içeriyor, seed std'si içermiyor. CV sütunu karşılaştırma için var ama protokoller farklı: CV'de fold başına 16 ya da 17 kişi, finalde 21 kişi var.
 
 @@ R0434 | 6 Eğitim ve Test Sonuçları > Tablo 7 > sütun 1
 Model (test n)
@@ -1832,13 +1832,13 @@ Modellerin Karşılaştırılması
 Ham sinyal modelleri ve MLP
 
 @@ R0607 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
-Önceden koyduğum iddia eşiğinin iki koşulu var. Test kümesinde kişi bazlı farkın %95 GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı (Bölüm 5.14). 1D CNN ve LSTM iki koşulu da sağladı. Test farkları +0,056 [+0,026; +0,093] ve +0,063 [+0,029; +0,097], CV farkları +0,010 ve +0,012 (Tablo 8). Bu yüzden bu veri setinde ve bu eğitim düzeninde 1D CNN ve LSTM'nin test macro F1'de MLP'den yüksek sonuç verdiğini yazabiliyorum. CV farkları ise 0,01 civarında ve tek başına gürültü bandında. Yaklaşık 0,06'lık test farkı CV farkından büyük, 9 kişilik test kümesi yüzünden de GA geniş.
+Önceden koyduğum iddia eşiğinin iki koşulu var. Test kümesinde kişi bazlı farkın %95 GA'sı sıfırı dışlamalı ve CV'de fark aynı yönde olmalı (Bölüm 5.14). 1D CNN ve LSTM ikisini de sağladı. Test farkları +0,056 [+0,026; +0,093] ve +0,063 [+0,029; +0,097], CV farkları +0,010 ve +0,012 (Tablo 8). Bu yüzden bu veri setinde ve bu eğitim düzeninde 1D CNN ve LSTM'nin test macro F1'de MLP'den yüksek olduğunu yazabiliyorum. CV farkları 0,01 civarında ve tek başına gürültü bandında. Test farkı (yaklaşık 0,06) CV farkından büyük ve 9 kişilik test yüzünden GA geniş.
 
 @@ R0608 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
 GRU testte MLP'den yüksek, +0,055 [+0,024; +0,086], ama CV'de iki model ayırt edilemiyor, ikisi de 0,845 (Tablo 8). Eşik karşılanmadığı için GRU hakkında söyleyebileceğim şu: testte MLP'den yüksek, CV'de ayırt edilemez. GRU'nun MLP'den üstün olduğunu iddia etmiyorum.
 
 @@ R0609 | 7.1 Ham sinyal modelleri ve MLP > Paragraf
-Ham modellerde ensemble tekil seed ortalamasının üstüne çıktı. CNN 0,894'ten 0,921'e, LSTM 0,898'den 0,928'e, GRU 0,888'den 0,921'e yükseldi. MLP'de artış küçük kaldı, 0,860'tan 0,864'e (Tablo 7). Tekil seed ortalamalarında da üç ham model MLP'nin üstünde, 0,888-0,898 ve 0,860. Ama seed std'si kişi belirsizliğini içermediği için tekil değerler arasındaki farka GA hesaplamadım.
+Ham modellerde ensemble tekil seed ortalamasının üstüne çıktı: CNN 0,894'ten 0,921'e, LSTM 0,898'den 0,928'e, GRU 0,888'den 0,921'e. MLP'de artış küçük, 0,860'tan 0,864'e (Tablo 7). Tekil ortalamalarda da üç ham model MLP'nin üstünde (0,888-0,898 ve 0,860) ama seed std'si kişi belirsizliğini içermediği için bu fark için GA hesaplamadım.
 
 @@ R0610 | Bölüm 7.2 > numara
 7.2
