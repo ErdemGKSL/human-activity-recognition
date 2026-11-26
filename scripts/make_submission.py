@@ -6,7 +6,7 @@
 Çıktı:
   submission/1_Sunum.pdf                  slides/output/final-results.pdf
   submission/2_Proje_Raporu.pdf           report/output/final-results.pdf
-  submission/3_Veri_Seti/UCI_HAPT_veri_seti.zip + VERI_SETI_README.txt
+  submission/3_Veri_Seti/UCI_HAPT_veri_seti.zip  (UCI'nin özgün arşivi, başka dosya yok)
   submission/4_Model_Kodlari.zip          yalnızca kaynak kod: experiments/ ve android/ (açıklama dosyaları ve sonuçlar hariç)
 Önce `cd slides && bun run generate final-results --pdf` ve `cd report && bun run build final-results` çalıştırılmalı.
 """
@@ -17,24 +17,6 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "submission"
 UCI = "https://archive.ics.uci.edu/dataset/341/smartphone+based+recognition+of+human+activities+and+postural+transitions"
 UCI_ZIP = UCI.replace("/dataset/341/", "/static/public/341/") + ".zip"
-
-DATASET_README = f"""Veri seti: Smartphone-Based Recognition of Human Activities and Postural Transitions (HAPT), sürüm 2.1
-Kaynak: UCI Machine Learning Repository, #341  ({UCI})
-Dosya: UCI_HAPT_veri_seti.zip (UCI'den indirilen özgün arşiv, değiştirilmemiştir)
-
-İçerik: 30 gönüllünün bele takılı akıllı telefon (Samsung Galaxy S II) accelerometer ve gyroscope kayıtları (50 Hz),
-12 etiket (6 aktivite ve 6 postural transition), 561 feature'lı hazır window kümeleri ve ham sinyaller (RawData/).
-Resmi kişi bazlı ayrım: 21 kişi eğitim, 9 kişi test. Projede kullanılan ham window'lar bu arşivdeki RawData'dan
-experiments/har/data.py ile üretilmiştir.
-
-Kullanım koşulları (arşivdeki README.txt'den): yayınlarda veri setinin kullanımı aşağıdaki yayına atıfla belirtilmelidir.
-Veri seti "olduğu gibi" dağıtılır ve ticari kullanımı yasaktır. Bu paket yalnızca ders teslimi (akademik, ticari olmayan)
-amacıyla hazırlanmıştır.
-
-Atıf:
-- Jorge-L. Reyes-Ortiz, Luca Oneto, Albert Sama, Xavier Parra, Davide Anguita. Transition-Aware Human Activity
-  Recognition Using Smartphones. Neurocomputing. Springer 2015.
-"""
 
 CODE_EXT = {".py", ".kt", ".kts", ".gradle", ".xml", ".sh", ".toml", ".lock", ".properties", ".bat", ".jar"}
 # Android derlemesi için gereken veri dosyaları (model ve birim test verisi); başka hiçbir sonuç/veri dosyası girmez.
@@ -75,7 +57,6 @@ def main():
         with urllib.request.urlopen(UCI_ZIP) as r, open(z, "wb") as f:
             shutil.copyfileobj(r, f)
     assert zipfile.ZipFile(z).testzip() is None, "veri seti arşivi bozuk"
-    (OUT / "3_Veri_Seti" / "VERI_SETI_README.txt").write_text(DATASET_README + f"\nSHA-256 (zip): {sha256(z)}\n", encoding="utf-8")
     files = subprocess.run(["git", "ls-files", "experiments", "android"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.split()
     with zipfile.ZipFile(OUT / "4_Model_Kodlari.zip", "w", zipfile.ZIP_DEFLATED) as zf:
         for f in files:
