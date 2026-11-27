@@ -1,6 +1,6 @@
 # Final Results sunumu metni
 # kaynak: slides/packages/decks/src/decks/final-results.ts
-# sha256: c22671ada3779495129f6c2d64093309f4ce7d8e47d2eb31133ec5605dbd3914
+# sha256: 4c10791b3b087ba761bf5310ec6f6f930869fe634d1d62d379fbba2e1934217e
 # yuva sayısı: 273
 #
 # Kullanım notu:
@@ -20,7 +20,7 @@ Nöral Ağlarla İnsan Aktivitesi Tanıma · Final Results
 Akıllı Telefon Sensörleriyle Nöral Ağları Kullanarak İnsan Aktivitesi Tanıma
 
 @@ S0003 | Slayt 1 (cover) > subtitle
-Final Results · BİL 512 Yapay Sinir Ağları
+Final Sonuçlarımız · BİL 512 Yapay Sinir Ağları
 
 @@ S0004 | Slayt 1 (cover) > presenter
 Erdem Göksel · 261402103
@@ -59,7 +59,7 @@ Proje Özeti
 Bele takılı telefonun sensörlerinden 12 sınıflı aktivite tanıma.
 
 @@ S0016 | Slayt 3 (overview) > madde 1
-MLP: veri setinin hazır 561 feature'ı
+MLP: veri setinden hazır 561 feature
 
 @@ S0017 | Slayt 3 (overview) > madde 2
 1D CNN, GRU, LSTM: ham sinyal window'ları
@@ -77,7 +77,7 @@ Sınıf
 12
 
 @@ S0022 | Slayt 3 (overview) > kutu 1 > delta
-6 aktivite + 6 transition
+6 aktivite ve 6 transition
 
 @@ S0023 | Slayt 3 (overview) > kutu 2 > label
 Gönüllü
@@ -107,7 +107,7 @@ UCI #341 (HAPT): accelerometer + gyroscope, 50 Hz
 Window: 128 ölçüm (2,56 sn), adım 64
 
 @@ S0032 | Slayt 4 (data) > madde 2
-Gravity/body ayrımı: 0,3 Hz low-pass filter, 9 kanal
+Gravity ve body ayrımı: 0,3 Hz; low-pass filter; 9 kanal
 
 @@ S0033 | Slayt 4 (data) > madde 3
 Augmentasyon: ±12° rotation, 0,9-1,1 scaling
@@ -116,7 +116,7 @@ Augmentasyon: ±12° rotation, 0,9-1,1 scaling
 Örnek adedimiz
 
 @@ S0035 | Slayt 4 (data) > kutu 1 > label
-Resmi 561 feature (MLP)
+MLP'de kullanılacak 561 feature
 
 @@ S0036 | Slayt 4 (data) > kutu 1 > value
 10.929
