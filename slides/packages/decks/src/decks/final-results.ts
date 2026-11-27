@@ -18,7 +18,7 @@ export const finalResults = defineDeck({
     {
       id: "cover",
       layout: "cover",
-      title: "Akıllı Telefon Sensörleri Kullanılarak Nöral Ağlarla İnsan Aktivitesi Tanıma",
+      title: "Akıllı Telefon Sensörleriyle Nöral Ağları Kullanarak İnsan Aktivitesi Tanıma",
       subtitle: "Final Results · BİL 512 Yapay Sinir Ağları",
       presenter: "Erdem Göksel · 261402103",
       instructor: "Öğretim Üyesi: Cem CANTEKİN",
@@ -29,12 +29,12 @@ export const finalResults = defineDeck({
       layout: "agenda",
       title: "Gündem",
       items: [
-        "Problem, veri seti ve modeller",
+        "Problemimiz, veri setimiz ve modeller",
         "Yöntem: CV, dondurma, bootstrap",
         "İzlenen yol",
         "İlk sonuçlar ve final test sonuçları",
-        "Modellerin karşılaştırılması",
-        "Canlı demo",
+        "Modellerin kıyas edilmesi",
+        "Canlı demo (apk)",
         "Sonuçlar ve sınırlılıklar",
       ],
     },
@@ -45,9 +45,9 @@ export const finalResults = defineDeck({
       lead: "Bele takılı telefonun sensörlerinden 12 sınıflı aktivite tanıma.",
       points: [
         "MLP: veri setinin hazır 561 feature'ı",
-        "1D CNN, LSTM, GRU: ham sinyal window'ları",
-        "MLP-raw: aynı MLP, ham girdiyle (kontrol modeli)",
-        "Birincil metrik: test macro F1",
+        "1D CNN, GRU, LSTM: ham sinyal window'ları",
+        "MLP-raw: aynı MLP, ham girdiyle (kontrol amaçlı)",
+        "Ana metriğimiz: test macro F1",
       ],
       highlights: [
         { label: "Sınıf", value: "12", delta: "6 aktivite + 6 transition" },
@@ -62,11 +62,10 @@ export const finalResults = defineDeck({
       lead: "UCI #341 (HAPT): accelerometer + gyroscope, 50 Hz",
       points: [
         "Window: 128 ölçüm (2,56 sn), adım 64",
-        "Kişi bazlı ayrım: test kişileri eğitimde yok",
         "Gravity/body ayrımı: 0,3 Hz low-pass filter, 9 kanal",
         "Augmentasyon: ±12° rotation, 0,9-1,1 scaling",
       ],
-      highlightsLabel: "Örnek sayısı",
+      highlightsLabel: "Örnek adedimiz",
       highlights: [
         { label: "Resmi 561 feature (MLP)", value: "10.929", delta: "test: 3.162" },
         { label: "Üretilen ham window", value: "10.776", delta: "test: 3.124" },
@@ -100,7 +99,7 @@ export const finalResults = defineDeck({
       id: "method",
       layout: "flow",
       title: "Yöntem Düzeltmesi",
-      lead: "İlk baseline'ın test sonuçlarına bakıldı; sonraki kararlar yalnızca CV ile.",
+      lead: "İlk başta baseline'ın test sonuçlarına bakıldı; sonraki kararlar yalnızca CV'yle yapılacaktır.",
       steps: [
         { label: "Baseline", items: ["Test'e bakıldı"], tone: "accent" },
         { label: "5-fold CV", items: ["21 eğitim kişisi", "3 seed"] },
@@ -108,7 +107,9 @@ export const finalResults = defineDeck({
         { label: "Final test", items: ["10 seed", "tek koşu"] },
         { label: "Bootstrap", items: ["9 kişi", "B = 2.000"] },
       ],
-      points: ["İddia eşiği: eşleştirilmiş farkın %95 GA'sı sıfırı dışlamalı ve CV aynı yönde."],
+      points: [
+        "İddia eşiğimiz: eşleştirilmiş farkın %95 GA'sı sıfırı dışlamalı ve CV aynı yönde olmalı.",
+      ],
     },
     {
       id: "journey",
@@ -129,7 +130,7 @@ export const finalResults = defineDeck({
       layout: "bar-chart",
       title: "İlk Sonuçlar: Baseline (test macro F1)",
       caption:
-        "İlk sonuçlar · 16 kişiyle eğitim, ayarsız düzen, 5 seed ortalaması · LSTM std 0,094 · final tabloyla karşılaştırılmaz",
+        "İlk sonuçlar · 16 kişiyle eğitim, ayarsız düzen, 5 seed ortalaması · LSTM std 0,094",
       data: [
         { label: "MLP", value: 0.841 },
         { label: "1D CNN", value: 0.819 },
@@ -179,7 +180,7 @@ export const finalResults = defineDeck({
     {
       id: "feature-vs-arch",
       layout: "metrics",
-      title: "Feature mı, Mimari mi? (MLP-raw)",
+      title: "Feature mı, yoksa Mimari mi? (MLP-raw)",
       metrics: [
         { label: "MLP-raw, aug. yok", value: "0,808", delta: "CV macro F1" },
         { label: "MLP-raw, aug. var", value: "0,840", tone: "positive", delta: "CV macro F1" },
@@ -203,12 +204,12 @@ export const finalResults = defineDeck({
       id: "demo",
       layout: "bullets",
       title: "Canlı Demo: Android",
-      lead: "Telefonda doğruluk ölçülmedi; demo nitel bir gösterimdir.",
+      lead: "Telefonda deneyebilirsiniz.",
       points: [
         "Kotlin, bağımlılıksız GRU çıkarımı",
         "Her 1,28 sn'de 2,56 sn'lik window, 12 sınıf",
         "Kalibrasyon: ayakta, oturma, yatma",
-        "Telefon belde, dik takılı",
+        "Telefon belinizde dik bir pozisyonda durmalıdır",
       ],
       highlightsLabel: "Akış",
       highlights: [
@@ -222,8 +223,8 @@ export const finalResults = defineDeck({
       layout: "bullets",
       title: "Sonuçlar",
       points: [
-        "1D CNN ve LSTM test macro F1'de MLP'den yüksek (0,921 ve 0,928; MLP 0,864)",
-        "GRU: testte yüksek, CV'de ayırt edilemez",
+        "1D CNN ve LSTM test macro F1'de MLP'den daha yüksek (0,921 ve 0,928; MLP 0,864)",
+        "GRU: testte daha yüksek, CV'de ayırt edilemeyecek düzeyde küçük fark",
         "Augmentasyonsuz düzende MLP'nin avantajı büyük ölçüde hazır feature'lardan",
         "1D CNN'de en büyük CV kazancı augmentasyondan (+0,016)",
       ],
