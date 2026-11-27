@@ -3,7 +3,7 @@
  * Fill the TODO fields once; every document picks them up.
  */
 export const project = {
-  title: "Akıllı Telefon Sensörleri Kullanılarak Nöral Ağlarla İnsan Aktivitesi Tanıma",
+  title: "Akıllı Telefon Sensörleri Sayesinde Nöral Ağları Kullanarak İnsan Aktivitesi Tanıma",
   subtitle: "Human Activity Recognition (HAR) · accelerometer ve gyroscope verileriyle",
   course: "BİL 512 01 Yapay Sinir Ağları",
   dataset: {
@@ -59,13 +59,13 @@ export const deliverables: Deliverable[] = [
   {
     id: "final-results",
     kind: "report",
-    title: "Final Results Raporu",
+    title: "Final Sonuçları Raporu",
     due: "29.11.2026 23:55",
   },
   {
     id: "final-results",
     kind: "presentation",
-    title: "3. Sunum – Final Results",
+    title: "3. Sunum – Final Sonuçları",
     due: "30.11.2026 veya 07.12.2026",
     duration: "20–30 dakika",
   },
