@@ -108,7 +108,7 @@ export const finalResults = defineDeck({
         { label: "Bootstrap", items: ["9 kişi", "B = 2.000"] },
       ],
       points: [
-        "İddia eşiğimiz: eşleştirilmiş farkın %95 GA'sı sıfırı dışlamalı ve CV aynı yönde olmalı.",
+        "İddia'daki eşik: eşleştirilmiş fark, %95 GA'sı sıfırı dışlamalı ve CV'de aynı yönde olmalı.",
       ],
     },
     {

@@ -1,6 +1,6 @@
 # Final Results sunumu metni
 # kaynak: slides/packages/decks/src/decks/final-results.ts
-# sha256: ee6175978c9a6e2413d7d79fc49143189f8d6610cccbea44e1444abe0d9eea76
+# sha256: 7df55563fea86eb05ff4fbed4ff8a882e0a8d5ee30c590680f91cb6a874c1f48
 # yuva sayısı: 273
 #
 # Kullanım notu:
@@ -296,7 +296,7 @@ Bootstrap
 B = 2.000
 
 @@ S0095 | Slayt 7 (method) > madde 1
-İddia eşiğimiz: eşleştirilmiş farkın %95 GA'sı sıfırı dışlamalı ve CV aynı yönde olmalı.
+İddia'daki eşik: eşleştirilmiş fark, %95 GA'sı sıfırı dışlamalı ve CV'de aynı yönde olmalı.
 
 @@ S0096 | Slayt 8 (journey) > title
 İzlenen Yol (CV macro F1)
