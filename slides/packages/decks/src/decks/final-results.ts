@@ -11,14 +11,14 @@ import { defineDeck } from "@pptx/core";
  */
 export const finalResults = defineDeck({
   id: "final-results",
-  title: "Nöral Ağlarla İnsan Aktivitesi Tanıma · Final Results",
+  title: "Nöral Ağlarla İnsan Aktivitesi Tanıma · Final Sonuçları",
   lang: "tr-TR",
   transition: { effect: "fade", duration: 0.5 },
   slides: [
     {
       id: "cover",
       layout: "cover",
-      title: "Akıllı Telefon Sensörleriyle Nöral Ağları Kullanarak İnsan Aktivitesi Tanıma",
+      title: "Akıllı Telefon Sensörleri Sayesinde Nöral Ağları Kullanarak İnsan Aktivitesi Tanıma",
       subtitle: "Final Sonuçlarımız · BİL 512 Yapay Sinir Ağları",
       presenter: "Erdem Göksel · 261402103",
       instructor: "Öğretim Üyesi: Cem CANTEKİN",
@@ -46,7 +46,7 @@ export const finalResults = defineDeck({
       points: [
         "MLP: veri setinden hazır 561 feature",
         "1D CNN, GRU, LSTM: ham sinyal window'ları",
-        "MLP-raw: aynı MLP, ham girdiyle (kontrol amaçlı)",
+        "MLP-raw: aynı MLP, ham girdiyle (kontrol amacıyla)",
         "Ana metriğimiz: test macro F1",
       ],
       highlights: [

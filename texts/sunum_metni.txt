@@ -1,6 +1,6 @@
 # Final Results sunumu metni
 # kaynak: slides/packages/decks/src/decks/final-results.ts
-# sha256: 4c10791b3b087ba761bf5310ec6f6f930869fe634d1d62d379fbba2e1934217e
+# sha256: ee6175978c9a6e2413d7d79fc49143189f8d6610cccbea44e1444abe0d9eea76
 # yuva sayısı: 273
 #
 # Kullanım notu:
@@ -14,10 +14,10 @@
 # - '@@' ile başlayan ilk satırdan önceki satırlar (bu not) uygulamada yok sayılır.
 
 @@ S0001 | Sunum > title
-Nöral Ağlarla İnsan Aktivitesi Tanıma · Final Results
+Nöral Ağlarla İnsan Aktivitesi Tanıma · Final Sonuçları
 
 @@ S0002 | Slayt 1 (cover) > title
-Akıllı Telefon Sensörleriyle Nöral Ağları Kullanarak İnsan Aktivitesi Tanıma
+Akıllı Telefon Sensörleri Sayesinde Nöral Ağları Kullanarak İnsan Aktivitesi Tanıma
 
 @@ S0003 | Slayt 1 (cover) > subtitle
 Final Sonuçlarımız · BİL 512 Yapay Sinir Ağları
@@ -65,7 +65,7 @@ MLP: veri setinden hazır 561 feature
 1D CNN, GRU, LSTM: ham sinyal window'ları
 
 @@ S0018 | Slayt 3 (overview) > madde 3
-MLP-raw: aynı MLP, ham girdiyle (kontrol amaçlı)
+MLP-raw: aynı MLP, ham girdiyle (kontrol amacıyla)
 
 @@ S0019 | Slayt 3 (overview) > madde 4
 Ana metriğimiz: test macro F1
